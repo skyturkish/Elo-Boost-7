@@ -6,7 +6,7 @@ class BaseDataBase {
         return this.model.insert(objects)
     }
     load() {
-        return this.model.find() // hepsini getiriyor
+        return this.model.find()
     }
     async insert(object) {
         return await this.model.create(object)
@@ -20,7 +20,7 @@ class BaseDataBase {
     }
 
     async find(id) {
-        return this.model.findById(id) // yanında bookings'leri de getir
+        return this.model.findById(id)
     }
 
     async query(obj) {
