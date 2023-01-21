@@ -4,8 +4,14 @@ const autopopulate = require('mongoose-autopopulate')
 
 const OrderSchema = new mongoose.Schema(
     {
-        currentRank: Rank,
-        destinationRank: Rank,
+        currentRank: {
+            type: Rank,
+            required: true
+        },
+        destinationRank: {
+            type: Rank,
+            required: true
+        },
         customer: {
             type: mongoose.ObjectId,
             ref: 'Customer',
@@ -23,6 +29,28 @@ const OrderSchema = new mongoose.Schema(
             // change name of free
             enum: ['free', 'taken', 'released', 'canceled', 'completed'],
             default: 'free'
+        },
+        server: {
+            type: String,
+            enum: [
+                'Brazil',
+                'Europe Nordic & East',
+                'Europe West',
+                'Latin America North',
+                'Latin America South',
+                'North America',
+                'Oceania',
+                'Russia',
+                'Turkey',
+                'Japan',
+                'Republic of Korea',
+                'The Philippines',
+                'Singapore, Malaysia, & Indonesia',
+                'Taiwan, Hong Kong, and Macao',
+                'Thailand',
+                'Vietnam'
+            ],
+            required: true
         }
     },
     {
