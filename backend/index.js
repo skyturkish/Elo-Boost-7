@@ -2,7 +2,7 @@ const express = require('express')
 const indexRouter = require('./src/routes/index')
 const boosterRouter = require('./src/routes/booster')
 const customerRouter = require('./src/routes/customer')
-const orderRouter = require('./src/routes/order')
+const orderRouter = require('./src/routes/order/order')
 
 // body-parser helps to understand this file send with post is JSON
 const bodyParser = require('body-parser')
