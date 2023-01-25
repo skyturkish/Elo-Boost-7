@@ -13,14 +13,7 @@ const CustomerSchema = new mongoose.Schema(
         balance: {
             type: Number,
             min: 0
-        },
-        orders: [
-            {
-                type: mongoose.ObjectId,
-                ref: 'Order',
-                autopopulate: true
-            }
-        ]
+        }
     },
     { timestamps: true }
 )
