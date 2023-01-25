@@ -9,20 +9,34 @@ const BoosterSchema = new mongoose.Schema(
             minlength: 2,
             maxlength: 64
         },
-
         balance: {
             type: Number,
-            min: 0,
             default: 0
         },
-        orders: [
-            {
-                type: mongoose.ObjectId,
-                ref: 'Order',
-                autopopulate: true,
-                default: []
-            }
-        ]
+        mainGame: {
+            type: String,
+            required: true
+        }
+
+        // oynadığı sunucular  ---> eğer değilse göremeyecek
+
+        // booster classfield rank/ grade => rookie, veteran, legend
+
+        // koçluk yapabilir mi yapamız mı
+
+        // koçluk yapabileceği limit
+
+        // boost yapabileceği limit
+
+        // account
+        // rank
+        // name
+        // lp
+        // division
+
+        // personal informations
+
+        // review
     },
     { timestamps: true }
 )
