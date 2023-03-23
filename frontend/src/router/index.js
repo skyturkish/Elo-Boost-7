@@ -1,21 +1,75 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
-
+// repeat code, fix this ??
 const routes = [
     {
-        path: '/',
+        path: '',
+        name: 'Mainn',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/MainPage.vue')
+    },
+    {
+        path: '/boosting',
+        name: 'Boosting',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/Boosting.vue')
+    },
+    {
+        path: '/orders',
+        name: 'Orders',
         component: () => import('@/layouts/default/Default.vue'),
         children: [
             {
                 path: '',
-                name: 'Home',
+                name: 'orders',
                 // route level code-splitting
                 // this generates a separate chunk (about.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
-                component: () =>
-                    import(/* webpackChunkName: "home" */ '@/views/Home.vue')
+                component: () => import('@/views/Orders.vue')
             }
         ]
+    },
+    {
+        path: '/customers',
+        name: 'Customers',
+        component: () => import('@/layouts/default/Default.vue'),
+        children: [
+            {
+                path: '',
+                name: 'customers',
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+                component: () => import('@/views/Customers.vue')
+            }
+        ]
+    },
+    {
+        path: '/boosters',
+        name: 'Boosters',
+        component: () => import('@/layouts/default/Default.vue'),
+        children: [
+            {
+                path: '',
+                name: 'boosters',
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+                component: () => import('@/views/Boosters.vue')
+            }
+        ]
+    },
+    {
+        path: '/boosters/:id',
+        component: () => import('@/views/Booster.vue')
+    },
+    {
+        path: '/customers/:id',
+        component: () => import('@/views/Customer.vue')
     }
 ]
 
