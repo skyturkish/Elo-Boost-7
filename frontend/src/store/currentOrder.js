@@ -5,42 +5,24 @@ import axios from 'axios'
 
 export const useCurrentOrder = defineStore('CurrentOrder', {
     state: () => ({
-        division: 'Silver',
+        division: 'silver',
         mileStone: 'I',
-        currentLP: '0-20 LP',
-        gainLP: '21-15 LP or more',
+        currentLP: '20-0 LP',
+        gainLP: '20-15',
         server: 'Turkey',
         queueType: 'Solo/Duo'
     }),
     actions: {
-        changeDivision(Division) {
-            this.division = Division
-        },
-        changeMileStone(mileStone) {
-            this.mileStone = mileStone
-        },
-        changeCurrentLP(currentLP) {
-            this.currentLP = currentLP
-        },
-        changeGainLP(gainLP) {
-            this.gainLP = gainLP
-        },
-        changeServer(server) {
-            this.server = server
-        },
-        changeQueueType(queueType) {
-            this.queueType = queueType
-        },
-        createOrder({ boostType, options, desiredRank }) {
+        createOrder({ boostType, options, desiredRank, customer }) {
             axios
                 .post(
                     `http://localhost:3000/order/leagueOfLegends/${boostType}`,
                     {
-                        customer: '63dd6bb5b510d2493d806ce4',
+                        customer: customer,
                         server: this.server,
                         currentRank: {
                             division: this.division,
-                            divisionMilestone: this.mileStone,
+                            mileStone: this.mileStone,
                             currentLP: this.currentLP
                         },
                         desiredRank: desiredRank,
