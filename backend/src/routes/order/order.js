@@ -30,6 +30,33 @@ router.get('/:orderId', async (req, res) => {
     res.send(order)
 })
 
+router.get('/booster/:boosterId', async (req, res) => {
+    const { boosterId } = req.params
+    const orders = await orderService.findBy('booster', boosterId)
+
+    if (!orders) return res.status(404).send("Cannot find booster's orders")
+
+    res.send(orders)
+})
+
+router.get('/customer/:customerId', async (req, res) => {
+    const { customerId } = req.params
+    const orders = await orderService.findBy('customer', customerId)
+
+    if (!orders) return res.status(404).send("Cannot find customer's orders")
+
+    res.send(orders)
+})
+
+router.get('/booster/:boosterId', async (req, res) => {
+    const { boosterId } = req.params
+    const orders = await orderService.findBy('booster', boosterId)
+
+    if (!orders) return res.status(404).send("Cannot find booster's orders")
+
+    res.send(orders)
+})
+
 router.delete('/:orderId', async (req, res) => {
     const { orderId } = req.params
 
