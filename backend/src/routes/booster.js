@@ -8,10 +8,13 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res, next) => {
-    const { name } = req.body
+    const { name, mainGame } = req.body
 
     try {
-        const booster = await boosterService.insert({ name: name })
+        const booster = await boosterService.insert({
+            name: name,
+            mainGame: mainGame
+        })
 
         res.send(booster)
     } catch (e) {
