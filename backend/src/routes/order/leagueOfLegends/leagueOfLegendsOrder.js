@@ -11,6 +11,7 @@ const router = require('express').Router()
 
 router.get('/', async (req, res) => {
     const orders = await orderService.findBy('gameType', 'League Of Legends')
+
     res.send(orders)
 })
 
@@ -26,6 +27,12 @@ router.get('/search', async (req, res) => {
 
     const orders = await orderService.findBy('orderType', orderType)
     res.send(orders)
+})
+
+router.patch('/', async (req, res) => {
+    const { orderId, object } = req.body
+    const order = await orderService.update(orderId, object)
+    res.send(order)
 })
 
 module.exports = router
