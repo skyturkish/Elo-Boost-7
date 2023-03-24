@@ -16,7 +16,7 @@ export const useCurrentOrder = defineStore('CurrentOrder', {
         createOrder({ boostType, options, desiredRank, customer }) {
             axios
                 .post(
-                    `http://localhost:3000/order/leagueOfLegends/${boostType}`,
+                    `https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/order/leagueOfLegends/${boostType}`,
                     {
                         customer: customer,
                         server: this.server,

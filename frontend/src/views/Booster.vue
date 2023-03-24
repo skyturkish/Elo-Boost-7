@@ -11,7 +11,7 @@ const boosterId = route.params.id
 const boosterOrders = ref([])
 
 async function getBoosterOrders() {
-    const orders =  await axios.get(`http://localhost:3000/order/booster/${boosterId}`)
+    const orders =  await axios.get(`https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/order/booster/${boosterId}`)
     boosterOrders.value = orders.data
     return true
 }

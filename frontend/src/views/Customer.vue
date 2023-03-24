@@ -11,7 +11,7 @@ const customerId = route.params.id
 const customerOrders = ref(null)
 
 async function getCustomerOrders() {
-    const orders =  await axios.get(`http://localhost:3000/order/customer/${customerId}`)
+    const orders =  await axios.get(`https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/order/customer/${customerId}`)
     customerOrders.value = orders.data
     return true
 }

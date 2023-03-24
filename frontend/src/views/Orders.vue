@@ -8,7 +8,7 @@ import DivisionOrderCard from '@/components/order/DivisionOrderCard'
 const orders = ref({})
 
 async function getAllOrders() {
-    const allOrders =  await axios.get('http://localhost:3000/order',{withCredentials: true})
+    const allOrders =  await axios.get('https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/order',{withCredentials: true})
     orders.value = allOrders
     console.log(allOrders)
     return true

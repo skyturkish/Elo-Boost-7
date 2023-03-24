@@ -11,7 +11,7 @@ const props = defineProps({
 const { orderId } = toRefs(props);
 
 async function takeOrder(){
-  await axios.patch('http://localhost:3000/order/leagueOfLegends', {
+  await axios.patch('https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/order/leagueOfLegends', {
     orderId: orderId.value,
     object: {
       state: 'taken',

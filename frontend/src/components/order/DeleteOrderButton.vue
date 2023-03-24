@@ -11,7 +11,7 @@ const props = defineProps({
 const { orderId } = toRefs(props);
 
 async function deleteOrder() {
-  const message = await axios.delete(`http://localhost:3000/order/${orderId.value}`)
+  const message = await axios.delete(`https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/order/${orderId.value}`)
   return message
 }
 
