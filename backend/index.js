@@ -16,7 +16,7 @@ const app = express()
 app.use(bodyParser.json())
 
 const corsOptions = {
-    origin: 'https://game-elo-boost-luvjvoipkq-uc.a.run.app/',
+    origin: 'https://game-elo-boost-luvjvoipkq-uc.a.run.app',
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200
 }
