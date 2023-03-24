@@ -3,9 +3,9 @@ import { ref,onMounted } from 'vue'
 
 import { useCurrentOrder } from '@/store/currentOrder'
 
-import SelectCurrentLP from '@/components/boosting-new/SelectCurrentLP'
-import SelectLPGain from '@/components/boosting-new/SelectLPGain'
-import SelectServer from '@/components/boosting-new/SelectServer'
+import SelectCurrentLP from '@/components/boosting/SelectCurrentLP'
+import SelectLPGain from '@/components/boosting/SelectLPGain'
+import SelectServer from '@/components/boosting/SelectServer'
 
 import divisions from '@/constants/leagueOfLegendsDivisions'
 import divisionMileStones from '@/constants/leagueOfLegendsDivisionMileStones'
