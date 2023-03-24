@@ -28,7 +28,7 @@ export default defineConfig({
         extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
     },
     server: {
-        port: 8080
+        port: 5000
     },
     base: './'
 })
