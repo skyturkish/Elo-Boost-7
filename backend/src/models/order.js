@@ -28,6 +28,11 @@ const OrderSchema = new mongoose.Schema(
         gameType: {
             type: String,
             required: true
+        },
+        reviewed: {
+            type: Boolean,
+            default: false,
+            required: true
         }
     },
     {
