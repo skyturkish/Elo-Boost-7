@@ -8,9 +8,9 @@ import DivisionOrderCard from '@/components/order/DivisionOrderCard'
 const orders = ref({})
 
 async function getAllOrders() {
-    const allOrders =  await axios.get('https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/order',{withCredentials: true})
+    const allOrders =  await axios.get('/order',{withCredentials: true})
     orders.value = allOrders
-    console.log(allOrders)
+    console.log('bastın buna')
     return true
 }
 
@@ -24,7 +24,9 @@ onMounted( async () =>  {
 <template lang="pug">
 .orders
   .order(v-for='order in orders.data' :key='order')
-    DivisionOrderCard(:order='order')
+    DivisionOrderCard(:order='order'
+    @click='getAllOrders()'
+    )
 </template>
 
 <style scoped>

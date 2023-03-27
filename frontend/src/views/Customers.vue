@@ -6,7 +6,7 @@ import axios from 'axios'
 const customers = ref({})
 
 async function getAllCustomers()  {
-    const AllCustomers =  await axios.get('https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/customer',{withCredentials: true})
+    const AllCustomers =  await axios.get('/customer',{withCredentials: true})
     customers.value = AllCustomers
 
 }

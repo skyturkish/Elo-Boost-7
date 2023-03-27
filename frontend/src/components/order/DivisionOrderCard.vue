@@ -1,6 +1,5 @@
 <script setup>
 import { toRefs } from 'vue'
-import axios from 'axios'
 
 import TakeOrderButton from '@/components/order/TakeOrderButton'
 import DeleteOrderButton from '@/components/order/DeleteOrderButton'

@@ -6,7 +6,7 @@ import axios from 'axios'
 const boosters = ref({})
 
 async function getAllBoosters()  {
-    const AllBoosters =  await axios.get('https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/booster')
+    const AllBoosters =  await axios.get('/booster')
     boosters.value = AllBoosters
 
 }

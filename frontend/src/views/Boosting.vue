@@ -12,9 +12,6 @@ import divisions from '@/constants/leagueOfLegendsDivisions'
 
 import divisionMileStones from '@/constants/leagueOfLegendsDivisionMileStones'
 
-
-import axios from 'axios'
-
 import { ref,onMounted } from 'vue'
 
 import { useCurrentOrder } from '@/store/currentOrder'

@@ -15,23 +15,20 @@ export const useCurrentOrder = defineStore('CurrentOrder', {
     actions: {
         createOrder({ boostType, options, desiredRank, customer }) {
             axios
-                .post(
-                    `https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app/order/leagueOfLegends/${boostType}`,
-                    {
-                        customer: customer,
-                        server: this.server,
-                        currentRank: {
-                            division: this.division,
-                            mileStone: this.mileStone,
-                            currentLP: this.currentLP
-                        },
-                        desiredRank: desiredRank,
-                        gainingLP: this.gainLP,
-                        options: {
-                            ...options
-                        }
+                .post(`/order/leagueOfLegends/${boostType}`, {
+                    customer: customer,
+                    server: this.server,
+                    currentRank: {
+                        division: this.division,
+                        mileStone: this.mileStone,
+                        currentLP: this.currentLP
+                    },
+                    desiredRank: desiredRank,
+                    gainingLP: this.gainLP,
+                    options: {
+                        ...options
                     }
-                )
+                })
                 .then((e) => console.log(e))
         }
     }
