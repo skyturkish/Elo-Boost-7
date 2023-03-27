@@ -29,10 +29,4 @@ router.get('/search', async (req, res) => {
     res.send(orders)
 })
 
-router.patch('/', async (req, res) => {
-    const { orderId, object } = req.body
-    const order = await orderService.update(orderId, object)
-    res.send(order)
-})
-
 module.exports = router
