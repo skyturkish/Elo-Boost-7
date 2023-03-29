@@ -2,6 +2,7 @@ const leagueOfLegendsRouter = require('./leagueOfLegends/leagueOfLegendsOrder')
 const valorantRouter = require('./valorant/valorantOrder')
 const teamfightTacticsRouter = require('./teamfightTactics/teamfightTacticsOrder')
 const wildRiftRouter = require('./wildRift/wildRiftOrder')
+const socketServer = require('../../socket-connection')
 
 const { orderService } = require('../../services')
 
@@ -12,6 +13,15 @@ router.get('/', async (req, res) => {
     res.send(orders)
 })
 
+router.get('/tick', async (req, res) => {
+    const orders = await orderService.load()
+
+    // console.log(orders.filter((order) => order.state == 'active'))
+    socketServer().emit('orders updated', orders)
+
+    return true
+})
+
 router.use('/leagueOfLegends', leagueOfLegendsRouter)
 
 router.use('/valorant', valorantRouter)
@@ -19,6 +29,23 @@ router.use('/valorant', valorantRouter)
 router.use('/teamfightTactics', teamfightTacticsRouter)
 
 router.use('/wildRift', wildRiftRouter)
+
+router.post('/', async (req, res, next) => {
+    console.log('order created')
+    console.log(req.body)
+    try {
+        const leagueOfLegendsOrder = await orderService.insert(req.body)
+
+        res.send(leagueOfLegendsOrder)
+    } catch (e) {
+        next(e)
+    }
+    const orders = await orderService.load()
+
+    // console.log(orders.filter((order) => order.state == 'active'))
+
+    socketServer().emit('orders updated', orders)
+})
 
 router.get('/:orderId', async (req, res) => {
     const { orderId } = req.params
@@ -60,6 +87,10 @@ router.get('/booster/:boosterId', async (req, res) => {
 router.patch('/', async (req, res) => {
     const { orderId, object } = req.body
     const order = await orderService.update(orderId, object)
+
+    const orders = await orderService.load()
+    socketServer().emit('orders updated', orders)
+
     res.send(order)
 })
 
@@ -67,6 +98,10 @@ router.delete('/:orderId', async (req, res) => {
     const { orderId } = req.params
 
     await orderService.removeBy('_id', orderId)
+
+    const orders = await orderService.load()
+
+    socketServer().emit('orders updated', orders)
 
     res.send('OK')
 })

@@ -49,14 +49,16 @@ function changeState(option){
 }
 
 async function createDivisionOrder()  {
+  console.log('selamlar ???*')
   await CurrentOrderStore.createOrder({
-    boostType: 'divisions',
-    options: options,
+    customer:'63f3e112765fba91eff7f95d',
+    gameType:'League Of Legends',
+    orderType: 'divisions',
     desiredRank: {
       division: desiredDivision.value.name,
       mileStone: desiredDivisionMileStone.value
     },
-    customer:'63f3e112765fba91eff7f95d'
+    options: options,
   }
   )
 }

@@ -1,22 +1,22 @@
 const express = require('express')
-const indexRouter = require('./src/routes/index')
-const boosterRouter = require('./src/routes/booster')
-const customerRouter = require('./src/routes/customer')
-const orderRouter = require('./src/routes/order/order')
+const indexRouter = require('./routes/index')
+const boosterRouter = require('./routes/booster')
+const customerRouter = require('./routes/customer')
+const orderRouter = require('./routes/order/order')
 
 var cors = require('cors')
 
 // body-parser helps to understand this file send with post is JSON
 const bodyParser = require('body-parser')
 
-require('./src/routes/mongo-connection')
+require('./routes/mongo-connection')
 
 const app = express()
 
 app.use(bodyParser.json())
 
 const corsOptions = {
-    origin: 'https://game-elo-boost-luvjvoipkq-uc.a.run.app',
+    origin: process.env.FRONTEND_BASE_PATH || 'http://localhost:5000',
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200
 }

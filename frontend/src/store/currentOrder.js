@@ -13,10 +13,21 @@ export const useCurrentOrder = defineStore('CurrentOrder', {
         queueType: 'Solo/Duo'
     }),
     actions: {
-        createOrder({ boostType, options, desiredRank, customer }) {
-            axios
-                .post(`/order/leagueOfLegends/${boostType}`, {
+        async createOrder({
+            customer,
+            gameType,
+            orderType,
+            desiredRank,
+            options,
+            state = 'active'
+        }) {
+            console.log('burası çalışıyor demi ?')
+            await axios
+                .post(`/order`, {
                     customer: customer,
+                    state: state,
+                    gameType: gameType,
+                    orderType: orderType,
                     server: this.server,
                     currentRank: {
                         division: this.division,
