@@ -1,8 +1,4 @@
 <script setup>
-import { ref,onMounted } from 'vue'
-
-import { useCurrentOrder } from '@/store/currentOrder'
-
 import SelectCurrentLP from '@/components/boosting/SelectCurrentLP'
 import SelectLPGain from '@/components/boosting/SelectLPGain'
 import SelectServer from '@/components/boosting/SelectServer'
@@ -10,7 +6,6 @@ import SelectServer from '@/components/boosting/SelectServer'
 import divisions from '@/constants/leagueOfLegendsDivisions'
 import divisionMileStones from '@/constants/leagueOfLegendsDivisionMileStones'
 
-const CurrentOrderStore = useCurrentOrder()
 
 const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*.png', {
   import: 'default',
