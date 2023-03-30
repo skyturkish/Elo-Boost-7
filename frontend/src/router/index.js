@@ -21,47 +21,26 @@ const routes = [
     {
         path: '/orders',
         name: 'Orders',
-        component: () => import('@/layouts/default/Default.vue'),
-        children: [
-            {
-                path: '',
-                name: 'orders',
-                // route level code-splitting
-                // this generates a separate chunk (about.[hash].js) for this route
-                // which is lazy-loaded when the route is visited.
-                component: () => import('@/views/Orders.vue')
-            }
-        ]
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/Orders.vue')
     },
     {
         path: '/customers',
         name: 'Customers',
-        component: () => import('@/layouts/default/Default.vue'),
-        children: [
-            {
-                path: '',
-                name: 'customers',
-                // route level code-splitting
-                // this generates a separate chunk (about.[hash].js) for this route
-                // which is lazy-loaded when the route is visited.
-                component: () => import('@/views/Customers.vue')
-            }
-        ]
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/Customers.vue')
     },
     {
         path: '/boosters',
         name: 'Boosters',
-        component: () => import('@/layouts/default/Default.vue'),
-        children: [
-            {
-                path: '',
-                name: 'boosters',
-                // route level code-splitting
-                // this generates a separate chunk (about.[hash].js) for this route
-                // which is lazy-loaded when the route is visited.
-                component: () => import('@/views/Boosters.vue')
-            }
-        ]
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/Boosters.vue')
     },
     {
         path: '/boosters/:id',
