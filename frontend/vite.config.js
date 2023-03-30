@@ -20,7 +20,11 @@ export default defineConfig({
             }
         })
     ],
-    define: { 'process.env': {} },
+    define: {
+        'process.env': {
+            baseURL: 'https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app'
+        }
+    },
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))
