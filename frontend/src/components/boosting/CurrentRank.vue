@@ -6,6 +6,9 @@ import SelectServer from '@/components/boosting/SelectServer'
 import divisions from '@/constants/leagueOfLegendsDivisions'
 import divisionMileStones from '@/constants/leagueOfLegendsDivisionMileStones'
 
+import { useCurrentOrder } from '@/store/currentOrder'
+
+const CurrentOrderStore = useCurrentOrder()
 
 const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*.png', {
   import: 'default',
