@@ -17,39 +17,18 @@ onMounted( async () =>  {
 })
 </script>
 
-<template>
-    <body>
-        <div
-        class="customers"
-        >
-            <v-card
-            v-for="customer in customers.data"
-            :key="customer"
-            class="customer"
-            max-width="344"
-            variant="outlined"
-            >
-                <v-card-item>
-                <div>
-                <div class="text-overline mb-1">
-                {{customer.name}}
-                </div>
-                <div class="text-h6 mb-1">
-                {{customer.balance}}
-                </div>
-                </div>
-                </v-card-item>
-                <v-card-actions>
-                <v-btn
-                variant="outlined"
-                :to="`/customers/${customer._id}`"
-                >
-                More Detail
-                </v-btn>
-                </v-card-actions>
-            </v-card>
-        </div>
-    </body>
+<template lang="pug">
+.customers
+  v-card.customer(v-for='customer in customers.data' :key='customer' max-width='344' variant='outlined')
+    v-card-item
+      div
+        .text-overline.mb-1
+          | {{customer.name}}
+        .text-h6.mb-1
+          | {{customer.balance}}
+    v-card-actions
+      v-btn(variant='outlined' :to='`/customers/${customer._id}`')
+        | More Detail
 </template>
 
 <style scoped>
