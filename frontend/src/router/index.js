@@ -1,54 +1,47 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
-// repeat code, fix this ??
+
+import Main from '@/views/MainPage.vue'
+import Boosting from '@/views/Boosting.vue'
+import Orders from '@/views/Orders.vue'
+import Customers from '@/views/Customers.vue'
+import Customer from '@/views/Customer.vue'
+import Boosters from '@/views/Boosters.vue'
+import Booster from '@/views/Booster.vue'
+
 const routes = [
     {
         path: '',
-        name: 'Mainn',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/MainPage.vue')
+        name: 'Main',
+        component: Main
     },
     {
         path: '/boosting',
         name: 'Boosting',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/Boosting.vue')
+        component: Boosting
     },
     {
         path: '/orders',
         name: 'Orders',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/Orders.vue')
+        component: Orders
     },
     {
         path: '/customers',
         name: 'Customers',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/Customers.vue')
+        component: Customers
+    },
+    {
+        path: '/customers/:id',
+        component: Customer
     },
     {
         path: '/boosters',
         name: 'Boosters',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/Boosters.vue')
+        component: Boosters
     },
     {
         path: '/boosters/:id',
-        component: () => import('@/views/Booster.vue')
-    },
-    {
-        path: '/customers/:id',
-        component: () => import('@/views/Customer.vue')
+        component: Booster
     }
 ]
 
