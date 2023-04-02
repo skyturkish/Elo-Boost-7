@@ -9,31 +9,29 @@ const properties = [
 </script>
 
 <template lang="pug">
-
-    
 .body
     .informations
         .title SHOP
         .sub-title Looking for accounts?
         .properties
-            li.property(v-for='property in properties') {{ property }} 
+            li.property(v-for='property in properties') {{ property }}
         v-img(
             src='../../assets/general/shop.png'
-            ) 
+            )
     .lace-accounts-checkoutMarketPlace
         v-img.lace(
             src='../../assets/general/shop-lace.png'
-            ) 
+            )
         v-img.accounts(
             cover
             src='../../assets/general/accounts.png'
-            ) 
-        .checkoutMarketPlace 
-            v-btn.select-game-background() 
+            )
+        .checkoutMarketPlace
+            v-btn.select-game-background()
                 v-img.game(
                 width="3rem"
                 src='../../assets/icons/valorant.png'
-                ) 
+                )
             v-btn.purchase()
                 .purchase-text CHECK OUT <br> MARKETPLACE
     .list-customer

@@ -4,7 +4,7 @@
 <template lang="pug">
 v-btn.logo(
     variant="tonal"
-)        
+)
 </template>
 
 <style scoped>
@@ -16,4 +16,3 @@ v-btn.logo(
     background-color: #d9d9d9;
 }
 </style>
-

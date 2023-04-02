@@ -12,26 +12,26 @@ const properties = [
     .best-coaches-list
     .coach-profile-briston
         v-img(
-        aspect-ratio='16/9' 
-        cover='' 
+        aspect-ratio='16/9'
+        cover=''
         src='../../assets/games/valorant/coach-briston-profile.png'
         )
     .informations
         .title COACHING
         .sub-title Need a pro that can coach you in-voice?
         .properties
-            li.property(v-for='property in properties') {{ property }} 
-        .game-purchase 
+            li.property(v-for='property in properties') {{ property }}
+        .game-purchase
             v-btn.purchase()
                 .purchase-text PURCHASE <br> COACHING
-            v-btn.select-game-background() 
+            v-btn.select-game-background()
                 v-img.game(
                 width="3rem"
-                aspect-ratio='1/1' 
+                aspect-ratio='1/1'
                 cover
                 src='../../assets/icons/overwatch.png'
-                ) 
-    
+                )
+
 </template>
 
 

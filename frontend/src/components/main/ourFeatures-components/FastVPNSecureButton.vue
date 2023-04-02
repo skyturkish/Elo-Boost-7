@@ -5,9 +5,9 @@
 v-btn.button-fast-secure()
     .fast-vpn-secure FAST & <br>  VPN SECURE
     v-img.verify(
-    aspect-ratio='1/1' 
-    cover='' 
-    src='../../../assets/icons/verify.png') 
+    aspect-ratio='1/1'
+    cover=''
+    src='../../../assets/icons/verify.png')
 </template>
 
 <style scoped>
@@ -27,4 +27,3 @@ v-btn.button-fast-secure()
     height: 4rem;
 }
 </style>
-

@@ -14,8 +14,8 @@ async function deleteOrder() {
   const message = await axios.delete(`/order/${orderId.value}`)
   return message
 }
-
 </script>
+
 <template lang="pug">
 v-btn(variant='outlined' color='error' @click='deleteOrder') Delete
 </template>

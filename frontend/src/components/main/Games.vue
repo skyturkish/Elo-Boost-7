@@ -1,5 +1,5 @@
 <script setup>
-const games = [ 
+const games = [
     'LeagueOfLegends',
     'Valorant',
     'TeamFightTactics',
@@ -21,15 +21,15 @@ const services = [
 </script>
 
 <template lang="pug">
-.games 
+.games
     v-img.game(
-        v-for="game in games" 
-        :key="game" 
+        v-for="game in games"
+        :key="game"
         :alt=game
-        aspect-ratio='5/3' 
-        cover='' 
+        aspect-ratio='5/3'
+        cover=''
         :src="imgUrls[`../../assets/games/splashScreens/${game}SplashScreen.png`]")
-        .services 
+        .services
             v-btn.service(
                 v-for="service in services"
             ) {{ service }}
@@ -56,4 +56,3 @@ const services = [
     opacity: 0.3;
 }
 </style>
-

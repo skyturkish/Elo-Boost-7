@@ -6,7 +6,7 @@
 v-btn.login(
         rounded="lg"
         variant="tonal"
-    ) 
+    )
     .login-text Login
 </template>
 
@@ -29,4 +29,3 @@ v-btn.login(
 }
 
 </style>
-

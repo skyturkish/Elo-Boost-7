@@ -15,7 +15,6 @@ v-btn.settings(
     height: 3.5rem;
     border-radius: 15px;
     background-color: #d9d9d9;
-    
+
 }
 </style>
-

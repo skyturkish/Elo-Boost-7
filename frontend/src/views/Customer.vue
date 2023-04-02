@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { ref, onMounted} from 'vue'
 import DivisionOrderCard from '@/components/order/DivisionOrderCard'
 
-const route = useRoute();  
+const route = useRoute();
 
 const customerId = route.params.id
 
@@ -19,8 +19,6 @@ async function getCustomerOrders() {
 onMounted( async () =>  {
     await getCustomerOrders()
 })
-
-
 </script>
 
 <template lang="pug">
@@ -43,4 +41,3 @@ onMounted( async () =>  {
     background-color: grey;
 }
 </style>
-

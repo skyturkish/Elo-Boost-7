@@ -5,9 +5,9 @@
 v-btn.button-boost-rank()
     .boost-rank BOOST <br> RANK!
     v-img.monitor(
-    aspect-ratio='1/1' 
-    cover='' 
-    src='../../../assets/icons/monitor.png') 
+    aspect-ratio='1/1'
+    cover=''
+    src='../../../assets/icons/monitor.png')
 </template>
 
 <style scoped>
@@ -27,4 +27,3 @@ v-btn.button-boost-rank()
     height: 4rem;
 }
 </style>
-

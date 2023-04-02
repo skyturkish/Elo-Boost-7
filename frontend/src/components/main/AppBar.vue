@@ -10,18 +10,18 @@ import LearnMoreButton from '@/components/main/appbar-components/LearnMoreButton
 
 <template lang="pug">
 v-img.body(
-    aspect-ratio='16/9' 
-    cover='' 
-    src='../../assets/games/leagueOfLegends/main_splash.png')     
-    .firstRow 
+    aspect-ratio='16/9'
+    cover=''
+    src='../../assets/games/leagueOfLegends/main_splash.png')
+    .firstRow
         Logo()
-        .buttons 
+        .buttons
             LoginButton()
             SettingsButton()
-    .trust-pilot ** TRUST PILOT 5 STAR REVIEW ** 
+    .trust-pilot ** TRUST PILOT 5 STAR REVIEW **
     .appbar-title WE ARE THE ONES MAKING IT REAL
     .appbar-subtitle we provide you everything that you need all in one place
-    .buttons 
+    .buttons
         PurchaseEloBoostingButton()
         LearnMoreButton()
 </template>

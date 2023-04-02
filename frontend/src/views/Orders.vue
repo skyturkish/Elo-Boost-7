@@ -26,7 +26,6 @@ onMounted(() =>  {
     UseOrders.getAllOrders()
     console.log(UseOrders.orders)
 })
-
 </script>
 
 <template lang="pug">
@@ -43,4 +42,3 @@ onMounted(() =>  {
     background-color: grey;
 }
 </style>
-

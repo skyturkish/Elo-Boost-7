@@ -15,5 +15,3 @@ v-select.selection(
     width: 13rem;
 }
 </style>
-
-

@@ -20,21 +20,21 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
 <template lang="pug">
 .current-rank
     .title CURRENT RANK
-    .divisions 
+    .divisions
         v-btn.division(
-            v-for='division in divisions' 
-            :key='division.name' 
+            v-for='division in divisions'
+            :key='division.name'
             @click="CurrentOrderStore.division = division.name"
-            ) 
+            )
             v-img.division(
-                :src='imgUrls[`../../assets/games/leagueOfLegends/divisions/${division.name}.png`]' 
-                :alt='division.name' 
-                ) 
+                :src='imgUrls[`../../assets/games/leagueOfLegends/divisions/${division.name}.png`]'
+                :alt='division.name'
+                )
     .mileStones
         v-btn.mileStone(
-            v-for='milestone in divisionMileStones' 
-            :key='milestone' 
-            variant='tonal' 
+            v-for='milestone in divisionMileStones'
+            :key='milestone'
+            variant='tonal'
             @click="CurrentOrderStore.mileStone = milestone"
             ) {{ milestone }}
     .selections
@@ -86,7 +86,7 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
     grid-template-columns: repeat(13,1fr);
     grid-gap: 3rem;
     grid-template-rows: repeat(2,1fr);
-    grid-template-areas: 
+    grid-template-areas:
     "currentRank currentRank currentRank currentRank currentRank currentRank currentRank currentRank checkout checkout checkout checkout checkout"
     "desiredRank desiredRank desiredRank desiredRank desiredRank desiredRank desiredRank desiredRank checkout checkout checkout checkout checkout";
 }
@@ -141,7 +141,7 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
 }
 .selections {
     display: flex;
-    gap: 1rem; 
+    gap: 1rem;
 }
 .checkout {
     border-radius: 15px;
@@ -165,7 +165,7 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
     width: 18%;
 }
 .options {
-    width: 100%;    
+    width: 100%;
 }
 .option {
     display: flex;
@@ -199,5 +199,3 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
   color: #000;
 }
 </style>
-
-

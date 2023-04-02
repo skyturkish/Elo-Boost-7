@@ -12,15 +12,15 @@ const properties = [
         v-img(
             width="133"
             src='../../assets/general/leaderboard.png'
-        ) 
+        )
         v-img(
             width="133"
             src='../../assets/general/guides.png'
-        ) 
+        )
         v-img(
             width="133"
             src='../../assets/general/lessons.png'
-        ) 
+        )
     .informations
         .first-row
             .emote-cat
@@ -29,12 +29,12 @@ const properties = [
                 aspect-ratio="16/9"
                 cover
                 src='../../assets/games/leagueOfLegends/emote_cat.png'
-            ) 
+            )
             .title HUB
         .sub-title Haven’t you seen our player hub yet?
         .properties
-            li.property(v-for='property in properties') {{ property }} 
-        .game-purchase 
+            li.property(v-for='property in properties') {{ property }}
+        .game-purchase
             v-btn.purchase()
                 .purchase-text TAKE A LOOK <br> AT OUR BLOG
 </template>

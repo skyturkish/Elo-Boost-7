@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { ref, onMounted} from 'vue'
 import DivisionOrderCard from '@/components/order/DivisionOrderCard'
 
-const route = useRoute();  
+const route = useRoute();
 
 const boosterId = route.params.id
 
@@ -43,4 +43,3 @@ onMounted( async () =>  {
     background-color: grey;
 }
 </style>
-

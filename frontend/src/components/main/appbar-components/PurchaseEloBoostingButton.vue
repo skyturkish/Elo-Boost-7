@@ -4,7 +4,7 @@
 <template lang="pug">
 v-btn.purchaseEloboosting.rounded-xl(
     variant="tonal"
-) 
+)
     .text PURCHASE <br> ELOBOOSTİNG
 </template>
 
@@ -23,4 +23,3 @@ v-btn.purchaseEloboosting.rounded-xl(
   color: #fff;
 }
 </style>
-

@@ -15,15 +15,15 @@ onMounted( async () =>  {
     await getAllCustomers()
     console.log(`All customers have benn taken.`)
 })
-
 </script>
+
 <template>
     <body>
-        <div 
+        <div
         class="customers"
-        > 
+        >
             <v-card
-            v-for="customer in customers.data" 
+            v-for="customer in customers.data"
             :key="customer"
             class="customer"
             max-width="344"
@@ -40,7 +40,7 @@ onMounted( async () =>  {
                 </div>
                 </v-card-item>
                 <v-card-actions>
-                <v-btn 
+                <v-btn
                 variant="outlined"
                 :to="`/customers/${customer._id}`"
                 >
@@ -53,13 +53,8 @@ onMounted( async () =>  {
 </template>
 
 <style scoped>
-
-
 .customers {
     display: grid;
     grid-template-columns: repeat(5,1fr);
 }
-
-
 </style>
-

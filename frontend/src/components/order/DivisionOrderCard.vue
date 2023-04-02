@@ -16,7 +16,6 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
   import: 'default',
   eager: true
 })
-
 </script>
 
 <template lang="pug">
@@ -35,12 +34,13 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
       .rank
         img(:src='imgUrls[`../../assets/games/leagueOfLegends/divisions/${order.desiredRank.division}.png`]' :alt='order.desiredRank.division')
         div {{ order.desiredRank.division }} {{ order.desiredRank.mileStone }}
-    h3  __server: {{ &grave;${order.server}&grave;}}  
-    h3  __{{ order.gainingLP }}  
+    h3  __server: {{ &grave;${order.server}&grave;}}
+    h3  __{{ order.gainingLP }}
     h3 {{ order.booster  }}
     v-card-actions
       TakeOrderButton(:orderId='order._id')
 </template>
+
 <style scoped>
 
 .card-title {
@@ -55,7 +55,7 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
 
 }
 img {
-  width: 4vw; 
+  width: 4vw;
 }
 .toRank {
   gap: 2.5rem;

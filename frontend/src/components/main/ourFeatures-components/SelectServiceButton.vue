@@ -5,9 +5,9 @@
 v-btn.button-select-service()
     .select-service SELECT <br> SERVICE
     v-img.double-click(
-    aspect-ratio='1/1' 
-    cover='' 
-    src='../../../assets/icons/double-click.png') 
+    aspect-ratio='1/1'
+    cover=''
+    src='../../../assets/icons/double-click.png')
 </template>
 
 <style scoped>
@@ -28,4 +28,3 @@ v-btn.button-select-service()
     height: 4rem;
 }
 </style>
-

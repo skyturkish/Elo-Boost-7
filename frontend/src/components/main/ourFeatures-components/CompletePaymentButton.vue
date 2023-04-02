@@ -5,9 +5,9 @@
 v-btn.button-complete-payment()
     .complete-payment COMPLETE <br> PAYMENT
     v-img.wallet(
-    aspect-ratio='1/1' 
-    cover='' 
-    src='../../../assets/icons/wallet.png') 
+    aspect-ratio='1/1'
+    cover=''
+    src='../../../assets/icons/wallet.png')
 </template>
 
 <style scoped>
@@ -27,4 +27,3 @@ v-btn.button-complete-payment()
     height: 4rem;
 }
 </style>
-

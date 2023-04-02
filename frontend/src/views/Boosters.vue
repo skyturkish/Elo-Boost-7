@@ -15,15 +15,15 @@ onMounted( async () =>  {
     await getAllBoosters()
     console.log(`All Booster have been taken.`)
 })
-
 </script>
+
 <template>
     <body>
-        <div 
+        <div
         class="boosters"
-        > 
+        >
             <v-card
-            v-for="booster in boosters.data" 
+            v-for="booster in boosters.data"
             :key="booster"
             class="booster"
             max-width="344"
@@ -40,7 +40,7 @@ onMounted( async () =>  {
                 </div>
                 </v-card-item>
                 <v-card-actions>
-                <v-btn 
+                <v-btn
                 variant="outlined"
                 :to="`/boosters/${booster._id}`"
                 >
@@ -53,11 +53,9 @@ onMounted( async () =>  {
 </template>
 
 <style scoped>
-
 .boosters {
     display: grid;
     grid-template-columns: repeat(5,1fr);
 }
 
 </style>
-

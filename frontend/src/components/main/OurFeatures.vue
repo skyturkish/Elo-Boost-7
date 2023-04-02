@@ -24,17 +24,17 @@ const properties = [
             .fast-safe Fast, safe, entertaining, professional
             .rows
                 .properties
-                    li.property(v-for='property in properties') {{ property }} 
+                    li.property(v-for='property in properties') {{ property }}
                 v-img.yasuo(
-                aspect-ratio='16/9' 
-                cover='' 
-                src='../../assets/games/leagueOfLegends/yasuo.png') 
+                aspect-ratio='16/9'
+                cover=''
+                src='../../assets/games/leagueOfLegends/yasuo.png')
         .buttons
             SelectServiceButton.select()
             FastVPNSecure.fast()
             CompletePayment.complete()
             BoostRank.boost()
-                
+
 
 </template>
 
@@ -95,5 +95,3 @@ const properties = [
    '. . . .';
 }
 </style>
-
-

@@ -1,5 +1,4 @@
 <script setup>
-
 import Logo from '@/components/main/appbar-components/Logo'
 import LoginButton from '@/components/main/appbar-components/LoginButton'
 import SettingsButton from '@/components/main/appbar-components/SettingsButton'
@@ -65,17 +64,17 @@ async function createDivisionOrder()  {
 </script>
 
 <template lang="pug">
-.body 
+.body
     v-img.appBar(
-    aspect-ratio='16/9' 
-    cover='' 
-    src='../assets/games/leagueOfLegends/talonSplash.png')     
-      .firstRow 
+    aspect-ratio='16/9'
+    cover=''
+    src='../assets/games/leagueOfLegends/talonSplash.png')
+      .firstRow
           Logo()
-          .buttons 
+          .buttons
               LoginButton()
               SettingsButton()
-      .trust-pilot ** TRUST PILOT 5 STAR REVIEW ** 
+      .trust-pilot ** TRUST PILOT 5 STAR REVIEW **
       .appbar-title LEAGUE OF LEGENDS
       .appbar-subtitle No time? Don’t worry. Let our team climb for you
       v-select.selectBoost(
@@ -83,25 +82,25 @@ async function createDivisionOrder()  {
         :items="['Division', 'Levelling', 'Clash']"
         variant="solo"
         )
-    .make-order 
+    .make-order
         CurrentRank()
         .desired-rank
             .title DESIRED RANK
-            .divisions     
+            .divisions
                 v-btn.division(
-                    v-for='division in divisions' 
-                    :key='division.name' 
+                    v-for='division in divisions'
+                    :key='division.name'
                     @click="changeDesiredDivision(division)"
-                    ) 
+                    )
                     v-img.division(
-                        :src='imgUrls[`../assets/games/leagueOfLegends/divisions/${division.name}.png`]' 
-                        :alt='division.name' 
-                        ) 
+                        :src='imgUrls[`../assets/games/leagueOfLegends/divisions/${division.name}.png`]'
+                        :alt='division.name'
+                        )
             .mileStones
                 v-btn.mileStone(
-                    v-for='milestone in divisionMileStones' 
-                    :key='milestone' 
-                    variant='tonal' 
+                    v-for='milestone in divisionMileStones'
+                    :key='milestone'
+                    variant='tonal'
                     @click="changeDesiredMileStone(milestone)"
                     ) {{ milestone }}
             .selections
@@ -115,39 +114,39 @@ async function createDivisionOrder()  {
             .fromTo
                 .checkout-division
                     v-img(
-                        :src='imgUrls[`../assets/games/leagueOfLegends/divisions/${CurrentOrderStore.division}.png`]' 
+                        :src='imgUrls[`../assets/games/leagueOfLegends/divisions/${CurrentOrderStore.division}.png`]'
                     )
-                    .league 
+                    .league
                         .d {{ CurrentOrderStore.division }}
                         .checkout-milestone {{ CurrentOrderStore.mileStone }}
 
-                .polygon 
+                .polygon
                     v-img(
-                        src='../assets/general/polygon.png' 
+                        src='../assets/general/polygon.png'
                         )
                 .checkout-division
                     v-img(
-                        :src='imgUrls[`../assets/games/leagueOfLegends/divisions/${desiredDivision.name}.png`]' 
+                        :src='imgUrls[`../assets/games/leagueOfLegends/divisions/${desiredDivision.name}.png`]'
                         )
-                    .league 
+                    .league
                         .d {{ desiredDivision.name }}
                         .checkout-milestone {{ desiredDivisionMileStone }}
-            .options                 
+            .options
                 .option(
-                    v-for='option in options' 
+                    v-for='option in options'
                     :key="option.label"
-                    ) 
+                    )
                     v-switch(
                         flat
                         inset
                         :@click='changeState(option)'
                         color="success"
                         )
-                    .text {{ option.label}} 
-                    .questionMark 
+                    .text {{ option.label}}
+                    .questionMark
                         v-img(
                             cover
-                            src='../assets/general/questionMark.png' 
+                            src='../assets/general/questionMark.png'
                         )
                     .percentage {{ option.price }}
             .total-price
@@ -159,7 +158,6 @@ async function createDivisionOrder()  {
 </template>
 
 <style scoped>
-
 .body {
     font-family: Inter;
 }
@@ -202,7 +200,7 @@ async function createDivisionOrder()  {
     grid-template-columns: repeat(13,1fr);
     grid-gap: 3rem;
     grid-template-rows: repeat(2,1fr);
-    grid-template-areas: 
+    grid-template-areas:
     "currentRank currentRank currentRank currentRank currentRank currentRank currentRank currentRank checkout checkout checkout checkout checkout"
     "desiredRank desiredRank desiredRank desiredRank desiredRank desiredRank desiredRank desiredRank checkout checkout checkout checkout checkout";
 }
@@ -247,7 +245,7 @@ async function createDivisionOrder()  {
 
 .selections {
     display: flex;
-    gap: 1rem; 
+    gap: 1rem;
 }
 .selection {
     width: 13rem;
@@ -274,7 +272,7 @@ async function createDivisionOrder()  {
     width: 18%;
 }
 .options {
-    width: 100%;    
+    width: 100%;
 }
 .option {
     display: flex;
@@ -307,4 +305,3 @@ async function createDivisionOrder()  {
   color: #000;
 }
 </style>
-

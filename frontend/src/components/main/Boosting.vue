@@ -13,15 +13,15 @@ const properties = [
         .title Boosting
         .sub-title Looking for carries on your favorite games?
         .properties
-            li.property(v-for='property in properties') {{ property }} 
-        .game-purchase 
-            v-btn.select-game-background() 
+            li.property(v-for='property in properties') {{ property }}
+        .game-purchase
+            v-btn.select-game-background()
                 v-img.game(
                 width="3rem"
-                aspect-ratio='1/1' 
+                aspect-ratio='1/1'
                 cover
                 src='../../assets/icons/valorant.png'
-                ) 
+                )
             v-btn.purchase()
                 .purchase-text PURCHASE <br> ELOBOOSTING
     .leagues-customer-review
@@ -31,7 +31,7 @@ const properties = [
             src='../../assets/games/leagueOfLegends/leagues.png'
             )
         v-btn.customer-review()
-            .logo 
+            .logo
             .customer-review-text CUSTOMER <br> REVIEW
     .match-history
 </template>

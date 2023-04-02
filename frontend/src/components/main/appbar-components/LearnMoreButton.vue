@@ -4,9 +4,9 @@
 <template lang="pug">
 v-btn.learnMore.rounded-xl(
     variant="tonal"
-) 
+)
     .learnMore-text LEARN <br>MORE
-    
+
 </template>
 
 <style scoped>
@@ -24,4 +24,3 @@ v-btn.learnMore.rounded-xl(
 }
 
 </style>
-
