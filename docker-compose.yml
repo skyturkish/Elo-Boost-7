@@ -4,14 +4,14 @@ services:
     build: frontend
     environment:
       baseURL: "http://localhost:3000"
-    ports: 
+    ports:
       - 5000:5000
   backend:
     build: backend
-    environment: 
+    environment:
       MONGODB_CONNECTION_STRING: "mongodb://mongodb/game-elo-boost"
       FRONTEND_BASE_PATH: "http://localhost:5000"
-    ports: 
+    ports:
       - 3000:3000
   mongodb:
     image: mongo
