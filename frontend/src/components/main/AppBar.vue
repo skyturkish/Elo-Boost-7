@@ -1,7 +1,7 @@
 <script setup>
 
 import Logo from '@/components/main/appbar-components/Logo'
-import LoginButton from '@/components/main/appbar-components/LoginButton'
+import ClientAreaButton from '@/components/main/appbar-components/ClientAreaButton'
 import SettingsButton from '@/components/main/appbar-components/SettingsButton'
 import PurchaseEloBoostingButton from '@/components/main/appbar-components/PurchaseEloBoostingButton'
 import LearnMoreButton from '@/components/main/appbar-components/LearnMoreButton'
@@ -16,7 +16,7 @@ v-img.body(
     .firstRow
         Logo()
         .buttons
-            LoginButton()
+            ClientAreaButton()
             SettingsButton()
     .trust-pilot ** TRUST PILOT 5 STAR REVIEW **
     .appbar-title WE ARE THE ONES MAKING IT REAL
