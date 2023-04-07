@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Main from '@/views/MainPage.vue'
+import ClientArea from '@/views/ClientArea.vue'
 import Boosting from '@/views/Boosting.vue'
 import Orders from '@/views/Orders.vue'
 import Customers from '@/views/Customers.vue'
@@ -14,6 +15,11 @@ const routes = [
         path: '',
         name: 'Main',
         component: Main
+    },
+    {
+        path: '/clientArea',
+        name: 'ClientArea',
+        component: ClientArea
     },
     {
         path: '/boosting',
