@@ -6,7 +6,7 @@ import axios from 'axios'
 const boosters = ref({})
 
 async function getAllBoosters()  {
-    const AllBoosters =  await axios.get('/booster')
+    const AllBoosters =  await axios.get('/user/role/booster')
     boosters.value = AllBoosters
 
 }

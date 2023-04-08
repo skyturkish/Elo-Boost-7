@@ -4,13 +4,13 @@ const OrderSchema = new mongoose.Schema(
     {
         customer: {
             type: mongoose.ObjectId,
-            ref: 'Customer',
+            ref: 'User',
             autopopulate: false,
             required: true
         },
         booster: {
             type: mongoose.ObjectId,
-            ref: 'Booster',
+            ref: 'User',
             autopopulate: false
         },
         state: {

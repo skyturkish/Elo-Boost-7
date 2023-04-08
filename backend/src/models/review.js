@@ -10,7 +10,7 @@ const ReviewSchema = new mongoose.Schema(
         },
         booster: {
             type: mongoose.ObjectId,
-            ref: 'Booster',
+            ref: 'User',
             autopopulate: false
         },
         star: {
@@ -31,6 +31,6 @@ const ReviewSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-CustomerSchema.plugin(autopopulate)
+ReviewSchema.plugin(autopopulate)
 
 module.exports = mongoose.model('Review', ReviewSchema)

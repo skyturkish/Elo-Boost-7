@@ -1,7 +1,7 @@
 const BaseService = require('./base-service')
-const Customer = require('../models/customer')
+const User = require('../models/user')
 
-class CustomerService extends BaseService {
+class UserService extends BaseService {
     async findAndUpdateBalance(id, amount) {
         return this.model.findOneAndUpdate(
             { _id: id },
@@ -10,4 +10,4 @@ class CustomerService extends BaseService {
     }
 }
 
-module.exports = new CustomerService(Customer)
+module.exports = new UserService(User)

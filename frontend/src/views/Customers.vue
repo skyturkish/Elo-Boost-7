@@ -6,14 +6,14 @@ import axios from 'axios'
 const customers = ref({})
 
 async function getAllCustomers()  {
-    const AllCustomers =  await axios.get('/customer',{withCredentials: true})
+    const AllCustomers =  await axios.get('/user/role/customer')
     customers.value = AllCustomers
 
 }
 
 onMounted( async () =>  {
     await getAllCustomers()
-    console.log(`All customers have benn taken.`)
+    console.log(`All customers have been taken.`)
 })
 </script>
 

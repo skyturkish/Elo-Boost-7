@@ -1,7 +1,6 @@
 const express = require('express')
 const indexRouter = require('./routes/index')
-const boosterRouter = require('./routes/booster')
-const customerRouter = require('./routes/customer')
+const userRouter = require('./routes/user')
 const orderRouter = require('./routes/order/order')
 
 var cors = require('cors')
@@ -24,8 +23,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.use('/', indexRouter)
-app.use('/booster', boosterRouter)
-app.use('/customer', customerRouter)
+app.use('/user', userRouter)
 app.use('/order', orderRouter)
 
 module.exports = app
