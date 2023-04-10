@@ -1,5 +1,11 @@
 <script setup>
-import { ref} from 'vue'
+import { onMounted, ref} from 'vue'
+
+import { useAccount } from '@/store/account'
+
+import axios from 'axios'
+
+const useAccountStore = useAccount()
 
 const dialog = ref(false)
 const isRegister = ref(true)
@@ -7,11 +13,7 @@ const isRegister = ref(true)
 const name = ref('')
 const email = ref('')
 const password = ref('')
-
-
-
 const valid =  ref(false)
-
 const loading = ref(false)
 
 const validationRules =
@@ -54,12 +56,33 @@ const validationRules =
       ]
     }
 
-function register() {
-  console.log('register moruk' + name.value + ' ' + email.value + ' ' + password.value + ' ' + valid.value)
+
+onMounted(() => {
+  fetchUser()
+})
+
+async function fetchUser() {
+  await useAccountStore.fetchSession()
 }
 
-function login() {
-  console.log('login moruk' + ' ' + email.value + ' ' + password.value + ' ' + valid.value)
+async function register() {
+  await useAccountStore.register({user: {
+    name: name.value,
+    email: email.value,
+    password: password.value,
+    mainGame: 'League Of Legends'
+  }})
+}
+
+async function login() {
+  await useAccountStore.login({user: {
+    email: email.value,
+    password: password.value
+  }})
+}
+
+async function logout() {
+  await useAccountStore.logout()
 }
 
 </script>
@@ -69,7 +92,10 @@ v-btn.client-area(
         rounded="lg"
         variant="tonal"
     )
-    .client-area-text Client Area
+    .logout-text(v-if="useAccountStore.user" @click="logout")
+      v-icon.mdi-logout-variant
+      | Hello {{ useAccountStore.user.name }}
+    .client-area-text(v-else) Client Area
       v-dialog.dialog(
           v-model='dialog'
           persistent
@@ -112,6 +138,7 @@ v-btn.client-area(
             )
             v-btn(
               @click="register"
+              :loading="loading"
             ) Create Account
           .login(v-else)
             .dialog Login
