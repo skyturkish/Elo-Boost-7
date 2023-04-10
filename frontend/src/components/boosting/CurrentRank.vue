@@ -1,6 +1,6 @@
 <script setup>
 import SelectCurrentLP from '@/components/boosting/SelectCurrentLP'
-import SelectLPGain from '@/components/boosting/SelectLPGain'
+import SelectGainLP from '@/components/boosting/SelectGainLP'
 import SelectServer from '@/components/boosting/SelectServer'
 
 import divisions from '@/constants/leagueOfLegendsDivisions'
@@ -39,7 +39,7 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
             ) {{ milestone }}
     .selections
         SelectCurrentLP()
-        SelectLPGain()
+        SelectGainLP()
         SelectServer()
 </template>
 
