@@ -31,7 +31,6 @@ router.use('/teamfightTactics', teamfightTacticsRouter)
 router.use('/wildRift', wildRiftRouter)
 
 router.post('/', async (req, res, next) => {
-    console.log('order created')
     console.log(req.body)
     try {
         const leagueOfLegendsOrder = await orderService.insert(req.body)
