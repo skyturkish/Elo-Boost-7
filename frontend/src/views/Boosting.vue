@@ -1,6 +1,6 @@
 <script setup>
 import Logo from '@/components/main/appbar-components/Logo'
-import LoginButton from '@/components/main/appbar-components/LoginButton'
+import ClientAreaButton from '@/components/main/appbar-components/ClientAreaButton'
 import SettingsButton from '@/components/main/appbar-components/SettingsButton'
 import PurchaseEloBoostingButton from '@/components/main/appbar-components/PurchaseEloBoostingButton'
 import LearnMoreButton from '@/components/main/appbar-components/LearnMoreButton'
@@ -11,7 +11,8 @@ import divisions from '@/constants/leagueOfLegendsDivisions'
 
 import divisionMileStones from '@/constants/leagueOfLegendsDivisionMileStones'
 
-import { ref,onMounted } from 'vue'
+
+import { ref } from 'vue'
 
 import { useCurrentOrder } from '@/store/currentOrder'
 
@@ -34,7 +35,7 @@ function changeDesiredMileStone(newMileStone) {
   desiredDivisionMileStone.value = newMileStone
 }
 
-
+// constanta alinabilir ?
 const options = [
   {
     label:'Stream',
@@ -48,7 +49,9 @@ function changeState(option){
 }
 
 async function createDivisionOrder()  {
-  console.log('selamlar ???*')
+  console.log('order created function called in Boosting.vue')
+
+
   await CurrentOrderStore.createOrder({
     customer:'63f3e112765fba91eff7f95d',
     gameType:'League Of Legends',
@@ -72,8 +75,8 @@ async function createDivisionOrder()  {
       .firstRow
           Logo()
           .buttons
-              LoginButton()
-              SettingsButton()
+            ClientAreaButton()
+            SettingsButton()
       .trust-pilot ** TRUST PILOT 5 STAR REVIEW **
       .appbar-title LEAGUE OF LEGENDS
       .appbar-subtitle No time? Don’t worry. Let our team climb for you
@@ -108,6 +111,7 @@ async function createDivisionOrder()  {
                     label="Queue"
                     :items="['Solo/Duo','Flex']"
                     variant="solo"
+                    v-model="CurrentOrderStore.queueType"
                     )
         .checkout
             .title CHECKOUT
