@@ -27,7 +27,9 @@ app.use(bodyParser.json())
 app.use(
     session({
         secret: 'anything',
-        store: MongoStore.create({ mongoUrl: 'mongodb://0.0.0.0:27017/game_elo_boost' }),
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGODB_CONNECTION_STRING || 'mongodb://0.0.0.0:27017/game_elo_boost'
+        }),
         resave: true,
         saveUninitialized: false
     })

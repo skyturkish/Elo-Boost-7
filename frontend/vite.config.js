@@ -22,7 +22,7 @@ export default defineConfig({
     ],
     define: {
         'process.env': {
-            baseURL: 'https://game-elo-boost-backend-luvjvoipkq-uc.a.run.app'
+            baseURL: process.env.baseURL || 'http://localhost:3000'
         }
     },
     resolve: {
