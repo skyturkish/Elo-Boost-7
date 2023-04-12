@@ -1,7 +1,7 @@
 const express = require('express')
 const passport = require('passport')
 const User = require('../models/user')
-// const Validator = require('async-validator').default
+const Validator = require('async-validator').default
 
 const router = express.Router()
 
@@ -11,7 +11,31 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/register', async (req, res, next) => {
+    const descriptor = {
+        email: [
+            { type: 'email', message: 'E-mail is not valid.\n' },
+            { required: true, message: 'E-mail is required.\n' }
+        ],
+        name: [
+            { required: true, message: 'Your name is required.\n' },
+            { min: 3, message: 'Name should have a minimum length of 3 characters.\n' }
+        ],
+        password: [
+            { required: true, message: 'Password is required.\n' },
+            { min: 6, message: 'Password should have a minimum length of 8 characters.\n' }
+        ]
+    }
+
+    const validator = new Validator(descriptor)
+
+    try {
+        await validator.validate(req.body.user)
+    } catch ({ errors }) {
+        return next({ message: errors.map((e) => e.message).join('') })
+    }
+
     console.log(req.body.user)
+
     try {
         const user = await User.register(new User(req.body.user), req.body.user.password)
         console.log('user logged in', user)
