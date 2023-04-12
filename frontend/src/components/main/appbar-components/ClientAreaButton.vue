@@ -115,6 +115,7 @@ async function login() {
       }
     })
     form.value.reset()
+    backendSuccess.value = null
     await fetchUser()
   } catch (error) {
     backendError.value = error.response.data.message
