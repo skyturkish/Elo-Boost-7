@@ -126,6 +126,7 @@ async function login() {
 
 async function logout() {
   await useAccountStore.logout()
+  await fetchUser()
 }
 </script>
 
