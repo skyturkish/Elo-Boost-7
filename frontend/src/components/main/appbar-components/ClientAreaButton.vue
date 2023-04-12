@@ -1,9 +1,6 @@
 <script setup>
 import { onMounted, ref} from 'vue'
-
 import { useAccount } from '@/store/account'
-
-import axios from 'axios'
 
 const useAccountStore = useAccount()
 
@@ -13,11 +10,14 @@ const isRegister = ref(true)
 const name = ref('')
 const email = ref('')
 const password = ref('')
-const valid =  ref(false)
+
+const form =  ref(false)
 const loading = ref(false)
 
-const validationRules =
-    {
+const backendError = ref(null)
+const backendSuccess = ref(null)
+
+const validationRules = {
       "name":  [
         value => {
           if (value) return true
@@ -54,37 +54,78 @@ const validationRules =
             return 'Password must be at least 6 characters.'
           },
       ]
-    }
-
+}
 
 onMounted(() => {
   fetchUser()
 })
+
+function changeSignType() {
+  isRegister.value = !isRegister.value
+  backendError.value = null
+}
+
+async function validate()   {
+  const { valid } = await form.value.validate()
+  return await valid
+}
 
 async function fetchUser() {
   await useAccountStore.fetchSession()
 }
 
 async function register() {
-  await useAccountStore.register({user: {
-    name: name.value,
-    email: email.value,
-    password: password.value,
-    mainGame: 'League Of Legends'
-  }})
+  backendError.value = null
+
+  const valid = await validate()
+
+  if (!valid) return
+
+  try {
+    loading.value = true
+    await useAccountStore.register({
+      user: {
+        name: name.value,
+        email: email.value,
+        password: password.value,
+        mainGame: 'League Of Legends'
+      }
+    })
+    backendSuccess.value = 'You are now registered! Now Login'
+    isRegister.value = !isRegister.value
+  } catch (error) {
+    backendError.value = error.response.data.message
+  } finally {
+    loading.value = false
+  }
 }
 
 async function login() {
-  await useAccountStore.login({user: {
-    email: email.value,
-    password: password.value
-  }})
+
+  const valid = await validate()
+
+  if (!valid) return
+
+  try {
+    loading.value = true
+    const user = await useAccountStore.login({
+      user: {
+        email: email.value,
+        password: password.value
+      }
+    })
+    form.value.reset()
+    await fetchUser()
+  } catch (error) {
+    backendError.value = error.response.data.message
+  } finally {
+    loading.value = false
+  }
 }
 
 async function logout() {
   await useAccountStore.logout()
 }
-
 </script>
 
 <template lang="pug">
@@ -105,7 +146,7 @@ v-btn.client-area(
           overlay-color="black"
         )
         v-form(
-          v-model="valid"
+          ref="form"
           )
           v-btn.close(
             icon="mdi-close-circle-outline"
@@ -116,7 +157,7 @@ v-btn.client-area(
           .register(v-if="isRegister")
             .title Sign in
             v-btn(
-                @click="isRegister = false"
+                @click="changeSignType()"
             ) Already have an account ? Sign in
             v-text-field(
               v-model="email"
@@ -143,7 +184,7 @@ v-btn.client-area(
           .login(v-else)
             .dialog Login
             v-btn(
-                @click="isRegister = true"
+                @click="changeSignType()"
             ) New user ? Create an account
             v-text-field(
               v-model="email"
@@ -160,11 +201,30 @@ v-btn.client-area(
             v-btn(
               @click="login"
             ) Login
+          v-alert.erroralert(
+            closable
+            title="A error appear"
+            text="..."
+            variant="outlined"
+            v-if="backendError"
+          ) {{ backendError }}
+          v-alert.successalert(
+            closable
+            title="Success  "
+            text="..."
+            variant="outlined"
+            v-if="backendSuccess"
+          ) {{ backendSuccess }}
 
 </template>
 
 <style scoped>
-
+.erroralert {
+  color: red;
+}
+.successalert {
+  color: green;
+}
 .dialog {
     display:flex;
     flex-direction: column;
@@ -172,8 +232,8 @@ v-btn.client-area(
     font-size: 1.5rem;
     font-weight: 800;
     color: #968484;
+    color: rgb(194, 167, 167);
 }
-
 .close {
     margin-left: auto;
 }
@@ -190,6 +250,4 @@ v-btn.client-area(
 .client-area-text {
     color: #fff;
 }
-
-
 </style>

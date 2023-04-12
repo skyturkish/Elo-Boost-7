@@ -13,13 +13,10 @@ export const useAccount = defineStore('useAccount', {
             this.user = user.data
         },
         async register({ user }) {
-            await axios.post('/account/register', { user })
-            return true
+            return await axios.post('/account/register', { user })
         },
         async login({ user }) {
-            const session = await axios.post('/account/session', user)
-            if (!session) return false
-            this.user = session
+            return await axios.post('/account/session', user)
         },
         async logout() {
             await axios.delete('/account/session')
