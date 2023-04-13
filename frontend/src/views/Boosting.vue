@@ -15,6 +15,10 @@ import divisionMileStones from '@/constants/leagueOfLegendsDivisionMileStones'
 import { ref } from 'vue'
 
 import { useCurrentOrder } from '@/store/currentOrder'
+import { useAccount } from '@/store/account'
+
+const useAccountStore = useAccount()
+
 
 const CurrentOrderStore = useCurrentOrder()
 
@@ -53,7 +57,7 @@ async function createDivisionOrder()  {
 
 
   await CurrentOrderStore.createOrder({
-    customer:'63f3e112765fba91eff7f95d',
+    customer: useAccountStore.user._id || 'will handle no user',
     gameType:'League Of Legends',
     orderType: 'divisions',
     desiredRank: {

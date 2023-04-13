@@ -2,6 +2,11 @@
 import { toRefs } from 'vue'
 import axios from 'axios'
 
+import { useAccount } from '@/store/account'
+
+const useAccountStore = useAccount()
+
+
 const props = defineProps({
   orderId: {
     type: String,
@@ -15,7 +20,7 @@ async function takeOrder(){
     orderId: orderId.value,
     object: {
       state: 'taken',
-      booster: '63f3e19c11ac9dd322e95d45',
+      booster: useAccountStore.user._id || 'will handle no user',
     }
   })
 }
