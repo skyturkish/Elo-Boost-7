@@ -1,6 +1,8 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { useAccount } from '@/store/account'
+
 import Main from '@/views/MainPage.vue'
 import Boosting from '@/views/Boosting.vue'
 import Orders from '@/views/Orders.vue'
@@ -11,7 +13,7 @@ import Booster from '@/views/Booster.vue'
 
 const routes = [
     {
-        path: '',
+        path: '/',
         name: 'Main',
         component: Main
     },
@@ -42,6 +44,19 @@ const routes = [
     {
         path: '/boosters/:id',
         component: Booster
+    },
+    {
+        path: '/dashboard',
+        name: 'Dashboard',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/Dashboard.vue'),
+        async beforeEnter(to, from, next) {
+            await useAccount().fetchSession()
+            if (!useAccount().user) return next('/')
+            return next()
+        }
     }
 ]
 
