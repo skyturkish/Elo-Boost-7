@@ -55,7 +55,8 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
 
 }
 img {
-  width: 4vw;
+  max-width: 5rem;
+  max-width: 3rem;
 }
 .toRank {
   gap: 2.5rem;
