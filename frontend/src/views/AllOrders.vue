@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 
 import axios from 'axios'
 
@@ -7,24 +7,20 @@ import DivisionOrderCard from '@/components/order/DivisionOrderCard'
 
 import { useOrders } from '@/store/orders'
 
-
 import io from 'socket.io-client'
+
+const UseOrders = useOrders()
 
 const socket = io(process.env.baseURL || 'http://localhost:3000', {
     withCredentials: true
 })
 
 socket.on("connect", () => {
-  console.log(socket.id);
    axios.get('/order/tick')
 });
 
-const UseOrders = useOrders()
-
 onMounted(() =>  {
-    console.log('adana')
     UseOrders.getAllOrders()
-    console.log(UseOrders.orders)
 })
 </script>
 

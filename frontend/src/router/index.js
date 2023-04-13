@@ -5,7 +5,7 @@ import { useAccount } from '@/store/account'
 
 import Main from '@/views/MainPage.vue'
 import Boosting from '@/views/Boosting.vue'
-import Orders from '@/views/Orders.vue'
+import AllOrders from '@/views/AllOrders.vue'
 import Customers from '@/views/Customers.vue'
 import Customer from '@/views/Customer.vue'
 import Boosters from '@/views/Boosters.vue'
@@ -23,9 +23,9 @@ const routes = [
         component: Boosting
     },
     {
-        path: '/orders',
-        name: 'Orders',
-        component: Orders
+        path: '/allOrders',
+        name: 'AllOrders',
+        component: AllOrders
     },
     {
         path: '/customers',
