@@ -20,6 +20,7 @@ export const useAccount = defineStore('useAccount', {
         },
         async logout() {
             await axios.delete('/account/session')
+            await this.fetchSession()
         }
     }
 })
