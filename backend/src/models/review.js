@@ -5,13 +5,11 @@ const ReviewSchema = new mongoose.Schema(
     {
         order: {
             type: mongoose.ObjectId,
-            ref: 'Order',
-            autopopulate: false
+            ref: 'Order'
         },
         booster: {
             type: mongoose.ObjectId,
-            ref: 'User',
-            autopopulate: false
+            ref: 'User'
         },
         star: {
             type: Number,

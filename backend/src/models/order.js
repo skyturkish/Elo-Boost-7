@@ -5,24 +5,15 @@ const OrderSchema = new mongoose.Schema(
         customer: {
             type: mongoose.ObjectId,
             ref: 'User',
-            autopopulate: false,
             required: true
         },
         booster: {
             type: mongoose.ObjectId,
-            ref: 'User',
-            autopopulate: false
+            ref: 'User'
         },
         state: {
             type: String,
-            enum: [
-                'active',
-                'process',
-                'released',
-                'unavailable',
-                'canceled',
-                'completed'
-            ],
+            enum: ['active', 'process', 'released', 'unavailable', 'canceled', 'completed'],
             default: 'active'
         },
         gameType: {
