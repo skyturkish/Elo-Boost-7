@@ -28,7 +28,7 @@ class BaseDataBase {
     }
 
     async findBy(property, value) {
-        return this.model.find({ [property]: value })
+        return this.model.find({ [property]: value }).sort({ createdAt: -1 })
     }
 }
 

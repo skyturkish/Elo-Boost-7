@@ -1,8 +1,6 @@
 const createError = require('http-errors')
 const express = require('express')
-const indexRouter = require('./routes/index')
-const userRouter = require('./routes/user')
-const orderRouter = require('./routes/order/order')
+
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
@@ -12,7 +10,14 @@ const User = require('./models/user')
 var accountRouter = require('./routes/account')
 // body-parser helps to understand this file send with post is JSON
 const bodyParser = require('body-parser')
+
 require('./routes/mongo-connection')
+
+const indexRouter = require('./routes/index')
+const userRouter = require('./routes/user')
+const orderRouter = require('./routes/order/order')
+const chatRouter = require('./routes/chat')
+
 var app = express()
 
 const corsOptions = {
@@ -50,6 +55,7 @@ app.use('/', indexRouter)
 app.use('/user', userRouter)
 app.use('/order', orderRouter)
 app.use('/account', accountRouter)
+app.use('/chat', chatRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -4,7 +4,7 @@ const teamfightTacticsRouter = require('./teamfightTactics/teamfightTacticsOrder
 const wildRiftRouter = require('./wildRift/wildRiftOrder')
 const socketServer = require('../../socket-connection')
 
-const { orderService } = require('../../services')
+const { orderService, chatService } = require('../../services')
 
 const router = require('express').Router()
 
@@ -31,6 +31,11 @@ router.use('/wildRift', wildRiftRouter)
 router.post('/', async (req, res, next) => {
     try {
         const leagueOfLegendsOrder = await orderService.insert(req.body)
+        await chatService.insert({
+            order: leagueOfLegendsOrder._id,
+            gameType: req.body.gameType,
+            participants: [req.body.customer]
+        })
 
         res.send(leagueOfLegendsOrder)
     } catch (e) {
@@ -83,6 +88,12 @@ router.get('/booster/:boosterId', async (req, res) => {
 router.patch('/', async (req, res) => {
     const { orderId, object } = req.body
     const order = await orderService.update(orderId, object)
+
+    if (object.state == 'taken') {
+        const chat = await chatService.findOneBy('order', orderId)
+        chat.participants.push(object.booster)
+        await chat.save()
+    }
 
     const orders = await orderService.load()
     socketServer().to('orders').emit('orders updated', orders)

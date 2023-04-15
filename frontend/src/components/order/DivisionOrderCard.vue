@@ -3,6 +3,7 @@ import { toRefs } from 'vue'
 
 import TakeOrderButton from '@/components/order/TakeOrderButton'
 import DeleteOrderButton from '@/components/order/DeleteOrderButton'
+import ChatButton from '@/components/order/ChatButton'
 
 const props = defineProps({
   order: {
@@ -39,6 +40,7 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
     h3 {{ order.booster  }}
     v-card-actions
       TakeOrderButton(:orderId='order._id')
+      ChatButton(:orderId='order._id')
 </template>
 
 <style scoped>
