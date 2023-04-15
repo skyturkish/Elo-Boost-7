@@ -15,6 +15,15 @@ module.exports = (app, server) => {
         //     socket.on('join-room', (chatId) => {
         //         socket.join(chatId)
         //     })
+        socket.on('join-orders', () => {
+            console.log('orderslara katıldım')
+            socket.join('orders')
+        })
+
+        socket.on('leave-orders', () => {
+            console.log('orderslardan çıktın')
+            socket.leave('orders')
+        })
     })
 
     return socketServer

@@ -13,13 +13,11 @@ router.get('/', async (req, res) => {
     res.send(orders)
 })
 
-router.get('/tick', async (req, res) => {
+router.get('/init', async (req, res) => {
     const orders = await orderService.load()
+    socketServer().to('orders').emit('orders updated', orders)
 
-    // console.log(orders.filter((order) => order.state == 'active'))
-    socketServer().emit('orders updated', orders)
-
-    return true
+    return orders
 })
 
 router.use('/leagueOfLegends', leagueOfLegendsRouter)
@@ -31,7 +29,6 @@ router.use('/teamfightTactics', teamfightTacticsRouter)
 router.use('/wildRift', wildRiftRouter)
 
 router.post('/', async (req, res, next) => {
-    console.log(req.body)
     try {
         const leagueOfLegendsOrder = await orderService.insert(req.body)
 
@@ -43,7 +40,7 @@ router.post('/', async (req, res, next) => {
 
     // console.log(orders.filter((order) => order.state == 'active'))
 
-    socketServer().emit('orders updated', orders)
+    socketServer().to('orders').emit('orders updated', orders)
 })
 
 router.get('/:orderId', async (req, res) => {
@@ -88,7 +85,7 @@ router.patch('/', async (req, res) => {
     const order = await orderService.update(orderId, object)
 
     const orders = await orderService.load()
-    socketServer().emit('orders updated', orders)
+    socketServer().to('orders').emit('orders updated', orders)
 
     res.send(order)
 })
@@ -100,7 +97,7 @@ router.delete('/:orderId', async (req, res) => {
 
     const orders = await orderService.load()
 
-    socketServer().emit('orders updated', orders)
+    socketServer().to('orders').emit('orders updated', orders)
 
     res.send('OK')
 })

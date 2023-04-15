@@ -1,32 +1,41 @@
 <script setup>
-import { onMounted } from 'vue'
+import { ref,onBeforeUnmount  } from 'vue'
 
 import axios from 'axios'
 
 import DivisionOrderCard from '@/components/order/DivisionOrderCard'
 
-import { useOrders } from '@/store/orders'
-
 import io from 'socket.io-client'
 
-const UseOrders = useOrders()
+const orders = ref([])
 
 const socket = io(process.env.baseURL || 'http://localhost:3000', {
     withCredentials: true
 })
 
-socket.on("connect", () => {
-   axios.get('/order/tick')
+socket.on("connect",async () => {
+    console.log('socket bağlantısı sağlandı')
+
+    socket.emit('join-orders')
+
+    await axios.get('/order/init')
 });
 
-onMounted(() =>  {
-    UseOrders.getAllOrders()
+socket.on('orders updated', (arg) => {
+    console.log('orderslar tetiklendi')
+    orders.value = arg
 })
+
+onBeforeUnmount(() => {
+    socket.emit('leave-orders')
+})
+
+
 </script>
 
 <template lang="pug">
 .orders
-  .order(v-for='order in UseOrders.orders' :key='order')
+  .order(v-for='order in orders' :key='order')
     DivisionOrderCard(:order='order')
 </template>
 
