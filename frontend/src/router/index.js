@@ -10,6 +10,7 @@ import Customers from '@/views/Customers.vue'
 import Customer from '@/views/Customer.vue'
 import Boosters from '@/views/Boosters.vue'
 import Booster from '@/views/Booster.vue'
+import Dashboard from '@/views/Dashboard.vue'
 
 const routes = [
     {
@@ -48,10 +49,13 @@ const routes = [
     {
         path: '/dashboard',
         name: 'Dashboard',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/Dashboard.vue'),
+        component: Dashboard,
+        async beforeEnter(to, from, next) {
+            await useAccount().fetchSession()
+            if (!useAccount().user) return next('/')
+            return next()
+        }
+    },
     {
         path: '/chat/:orderId',
         name: 'Chat',
