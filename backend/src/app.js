@@ -26,6 +26,8 @@ const corsOptions = {
     optionSuccessStatus: 200
 }
 
+app.set('trust proxy', 1)
+
 app.use(cors(corsOptions))
 
 app.use(bodyParser.json())
@@ -37,7 +39,12 @@ app.use(
             mongoUrl: process.env.MONGODB_CONNECTION_STRING || 'mongodb://0.0.0.0:27017/game_elo_boost'
         }),
         resave: true,
-        saveUninitialized: false
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 14 * 24 * 60 * 60 * 1000,
+            sameSite: process.env.NODE_ENV == 'production' && 'none',
+            secure: process.env.NODE_ENV == 'production'
+        }
     })
 )
 

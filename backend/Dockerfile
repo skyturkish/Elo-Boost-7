@@ -1,12 +1,21 @@
-FROM node:18.15-alpine3.17
+FROM node:18.15-alpine3.17 AS BUILDER
 
-WORKDIR /app
+WORKDIR /src
 
-COPY package.json package-lock.json ./
+ADD package.json package-lock.json ./
+RUN npm install --build-from-source
 
-RUN npm install
+FROM node:alpine
 
-COPY . .
+WORKDIR /src
+
+COPY --from=BUILDER /src/node_modules ./node_modules
+
+ENV NODE_ENV=production
+
+COPY package.json ./
+COPY src ./src
+COPY bin ./bin
 
 EXPOSE 3000
 
