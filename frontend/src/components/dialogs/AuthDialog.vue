@@ -2,11 +2,17 @@
 import { ref} from 'vue'
 import { useAccount } from '@/store/account'
 
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['close-dialog']);
+
+const closeDialog = function(){
+  emit('close-dialog');
+}
+
 const useAccountStore = useAccount()
 
-const isRegister = ref(true)
-
-const dialog = ref(false)
+const isRegister = ref(false)
 
 const name = ref('')
 const email = ref('')
@@ -117,7 +123,6 @@ async function login() {
     form.value.reset()
     backendSuccess.value = null
     await fetchUser()
-    dialog.value = false
     console.log('everthing is fine')
   } catch (error) {
     console.log('a error appeared', error)
@@ -129,84 +134,76 @@ async function login() {
 </script>
 
 <template lang="pug">
-v-dialog.dialog(
-    v-model='dialog'
-    persistent
-    activator='parent'
-    width="1024"
-    color="primary"
-    overlay-color="black"
+v-form(
+  ref="form"
   )
-  v-form(
-    ref="form"
+  v-btn.close(
+    icon="mdi-close-circle-outline"
+    color="transparent"
+    size="x-large"
+    @click="closeDialog()"
     )
-    v-btn.close(
-      icon="mdi-close-circle-outline"
-      color="transparent"
-      size="x-large"
-      @click="dialog = false"
-      )
-    .register(v-if="isRegister")
-      .title Sign in
-      v-btn(
-          @click="changeSignType()"
-      ) Already have an account ? Sign in
-      v-text-field(
-        v-model="email"
-        :rules="validationRules.email"
-        label="email"
-        required
-      )
-      v-text-field(
-        v-model="name"
-        :rules="validationRules.name"
-        label="Name"
-        required
-      )
-      v-text-field(
-        v-model="password"
-        :rules="validationRules.password"
-        label="Password"
-        required
-      )
-      v-btn(
-        @click="register"
-        :loading="loading"
-      ) Create Account
-    .login(v-else)
-      .dialog Login
-      v-btn(
-          @click="changeSignType()"
-      ) New user ? Create an account
-      v-text-field(
-        v-model="email"
-        :rules="validationRules.email"
-        label="Email"
-        required
-      )
-      v-text-field(
-        v-model="password"
-        :rules="validationRules.password"
-        label="Password"
-        required
-      )
-      v-btn(
-        @click="login"
-      ) Login
-    v-alert.erroralert(
-      closable
-      title="A error appear"
-      text="..."
-      variant="outlined"
-      v-if="backendError"
-    ) {{ backendError }}
-    v-alert.successalert(
-      closable
-      title="Success  "
-      text="..."
-      variant="outlined"
-      v-if="backendSuccess"
-    ) {{ backendSuccess }}
+  .register(v-if="isRegister")
+    .title Sign in
+    v-btn(
+        @click="changeSignType()"
+    ) Already have an account ? Sign in
+    v-text-field(
+      v-model="email"
+      :rules="validationRules.email"
+      label="email"
+      required
+    )
+    v-text-field(
+      v-model="name"
+      :rules="validationRules.name"
+      label="Name"
+      required
+    )
+    v-text-field(
+      v-model="password"
+      :rules="validationRules.password"
+      label="Password"
+      required
+    )
+    v-btn(
+      @click="register"
+      :loading="loading"
+    ) Create Account
+  .login(v-else)
+    .dialog Login
+    v-btn(
+        @click="changeSignType()"
+    ) New user ? Create an account
+    v-text-field(
+      v-model="email"
+      :rules="validationRules.email"
+      label="Email"
+      required
+    )
+    v-text-field(
+      v-model="password"
+      :rules="validationRules.password"
+      label="Password"
+      required
+    )
+    v-btn(
+      @click="login"
+    ) Login
+  v-alert.erroralert(
+    closable
+    title="A error appear"
+    text="..."
+    variant="outlined"
+    v-if="backendError"
+  ) {{ backendError }}
+  v-alert.successalert(
+    closable
+    title="Success  "
+    text="..."
+    variant="outlined"
+    v-if="backendSuccess"
+  ) {{ backendSuccess }}
 </template>
 
 <style scoped>

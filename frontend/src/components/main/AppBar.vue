@@ -1,7 +1,7 @@
 <script setup>
 
 import Logo from '@/components/main/appbar-components/Logo'
-import ClientAreaButton from '@/components/main/appbar-components/ClientAreaButton'
+import ClientAreaButton from '@/components/ClientAreaButton'
 import SettingsButton from '@/components/main/appbar-components/SettingsButton'
 import PurchaseEloBoostingButton from '@/components/main/appbar-components/PurchaseEloBoostingButton'
 import LearnMoreButton from '@/components/main/appbar-components/LearnMoreButton'
@@ -29,7 +29,6 @@ v-img.body(
 <style scoped>
 .body {
     padding: 3.2rem;
-    display: flex;
     font-family: Inter;
 }
 .firstRow {

@@ -1,6 +1,6 @@
 <script setup>
 import Logo from '@/components/main/appbar-components/Logo'
-import ClientAreaButton from '@/components/main/appbar-components/ClientAreaButton'
+import ClientAreaButton from '@/components/ClientAreaButton'
 import SettingsButton from '@/components/main/appbar-components/SettingsButton'
 import PurchaseEloBoostingButton from '@/components/main/appbar-components/PurchaseEloBoostingButton'
 import LearnMoreButton from '@/components/main/appbar-components/LearnMoreButton'
@@ -11,6 +11,9 @@ import divisions from '@/constants/leagueOfLegendsDivisions'
 
 import divisionMileStones from '@/constants/leagueOfLegendsDivisionMileStones'
 
+import AuthDialog from '@/components/dialogs/AuthDialog'
+
+
 
 import { ref } from 'vue'
 
@@ -19,6 +22,7 @@ import { useAccount } from '@/store/account'
 
 const useAccountStore = useAccount()
 
+const dialog = ref(false)
 
 const CurrentOrderStore = useCurrentOrder()
 
@@ -53,9 +57,12 @@ function changeState(option){
 }
 
 async function createDivisionOrder()  {
-  console.log('order created function called in Boosting.vue')
+    if(!useAccountStore.user) {
+        dialog.value = true
+        return
+    }
 
-
+    console.log('order created function called in Boosting.vue')
   await CurrentOrderStore.createOrder({
     customer: useAccountStore.user._id || 'will handle no user',
     gameType:'League Of Legends',
@@ -68,6 +75,12 @@ async function createDivisionOrder()  {
   }
   )
 }
+
+function closeDialog() {
+  dialog.value = false
+}
+
+
 </script>
 
 <template lang="pug">
@@ -163,6 +176,16 @@ async function createDivisionOrder()  {
             v-btn(
                 @click='createDivisionOrder()'
             ) CREATE ORDER
+              v-dialog(
+                v-model="dialog"
+                persistent
+                width="1024"
+                color="primary"
+                overlay-color="black")
+                AuthDialog(
+                    v-on:close-dialog="closeDialog"
+                )
+
 </template>
 
 <style scoped>

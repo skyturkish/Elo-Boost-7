@@ -1,4 +1,6 @@
 <script setup>
+import { ref} from 'vue'
+
 import { useAccount } from '@/store/account'
 
 import AuthMenu from '@/components/menus/AuthMenu'
@@ -6,13 +8,29 @@ import AuthDialog from '@/components/dialogs/AuthDialog'
 
 const useAccountStore = useAccount()
 
+const dialog = ref(false)
+
+function closeDialog() {
+  dialog.value = false
+}
+
 </script>
 
 <template lang="pug">
 v-btn.client-area(rounded="lg" variant="tonal")
-  .client-area-text Client Area
   AuthMenu(v-if="useAccountStore.user")
-  AuthDialog(v-else)
+  .client-area-text(v-else) Client Area
+    v-dialog.dialog(
+      v-model='dialog'
+      persistent
+      activator='parent'
+      width="1024"
+      color="primary"
+      overlay-color="black"
+    )
+      AuthDialog(
+        v-on:close-dialog="closeDialog"
+      )
 </template>
 
 <style scoped>
@@ -27,6 +45,7 @@ v-btn.client-area(rounded="lg" variant="tonal")
     letter-spacing: normal;
 }
 .client-area-text {
-    color: #fff;
+  color: #fff;
 }
+
 </style>
