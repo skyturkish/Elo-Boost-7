@@ -39,7 +39,7 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
     h3  __{{ order.gainingLP }}
     h3 {{ order.booster  }}
     v-card-actions
-      TakeOrderButton(:orderId='order._id')
+      TakeOrderButton(v-if="order.booster == null" :orderId='order._id')
       ChatButton(:orderId='order._id')
 </template>
 
