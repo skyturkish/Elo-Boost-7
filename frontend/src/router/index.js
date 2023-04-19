@@ -68,6 +68,11 @@ const routes = [
                 name: 'AllOrders',
                 component: () => import('@/views/AllOrders.vue')
             },
+            {
+                path: '/profile',
+                name: 'Profile',
+                component: () => import('@/views/Profile.vue')
+            }
         ],
         async beforeEnter(to, from, next) {
             await useAccount().fetchSession()

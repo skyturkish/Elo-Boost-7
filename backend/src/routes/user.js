@@ -53,6 +53,18 @@ router.delete('/:userId', async (req, res) => {
     res.send('OK')
 })
 
+router.patch('/:userId', async (req, res) => {
+    const { userId } = req.params
+
+    const { email } = req.body
+
+    if (email) return res.status(405).send('You cannot change email')
+
+    const user = await userService.update(userId, req.body)
+
+    res.send(user)
+})
+
 router.patch('/:userId/balance', async (req, res) => {
     const { userId } = req.params
 
