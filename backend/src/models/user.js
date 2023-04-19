@@ -22,6 +22,15 @@ const User = new mongoose.Schema(
         mainGame: {
             type: String,
             required: true
+        },
+        country: {
+            type: String
+        },
+        discord: {
+            type: String
+        },
+        phoneNumber: {
+            type: String
         }
     },
     { timestamps: true }
