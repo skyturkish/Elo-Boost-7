@@ -10,7 +10,7 @@ import Customers from '@/views/Customers.vue'
 import Customer from '@/views/Customer.vue'
 import Boosters from '@/views/Boosters.vue'
 import Booster from '@/views/Booster.vue'
-import Dashboard from '@/views/Dashboard.vue'
+import Dashboard from '@/layouts/Dashboard.vue'
 
 const routes = [
     {
@@ -50,6 +50,25 @@ const routes = [
         path: '/dashboard',
         name: 'Dashboard',
         component: Dashboard,
+        children: [
+            {
+                path: '/my-orders-customer',
+                name: 'MyOrdersCustomer',
+                component: () =>
+                    import('@/components/order/MyOrdersCustomer.vue')
+            },
+            {
+                path: '/my-orders-booster',
+                name: 'MyOrdersBooster',
+                component: () =>
+                    import('@/components/order/MyOrdersBooster.vue')
+            },
+            {
+                path: '/all-orders',
+                name: 'AllOrders',
+                component: () => import('@/views/AllOrders.vue')
+            },
+        ],
         async beforeEnter(to, from, next) {
             await useAccount().fetchSession()
             if (!useAccount().user) return next('/')
