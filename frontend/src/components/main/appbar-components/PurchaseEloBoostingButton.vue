@@ -1,9 +1,14 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 </script>
 
 <template lang="pug">
 v-btn.purchaseEloboosting.rounded-xl(
     variant="tonal"
+    @click="router.push('/boosting')"
 )
     .text PURCHASE <br> ELOBOOSTİNG
 </template>
