@@ -15,6 +15,11 @@ const useAccountStore = useAccount()
 const form =  ref(false)
 const valid = ref(false)
 
+async function validate()   {
+  const { valid } = await form.value.validate()
+  return await valid
+}
+
 const chat = ref(null)
 
 const messages = ref([])
@@ -33,9 +38,9 @@ const messageRules =  [
         return 'Message is requred.'
     },
     value => {
-        if (value?.length < 200) return true
+        if (value?.length < 350) return true
 
-        return 'Name must be less than 200 characters.'
+        return 'Name must be less than 350 characters.'
     },
 ]
 
@@ -63,6 +68,10 @@ onBeforeUnmount(() => {
 })
 
 async function sendMessage() {
+    const valid = await validate()
+
+    if (!valid) return
+
     await axios.post(`/chat/order/${orderId}/messages`, {
         sender: useAccountStore.user._id,
         message: message.value
@@ -96,7 +105,7 @@ function isMessageBelongSender(messageId) {
             span.time-left {{ message.createdAt }}
     v-form(ref='form' @submit.prevent="sendMessage()").message-input
       v-text-field(
-        v-model='message' :rules='messageRules' :counter='200' label='Message' required)
+        v-model='message' :rules='messageRules' counter='350' label='Message' required)
       v-btn(
         ref="sendMessageButton"
         color='primary' @click='sendMessage') Send

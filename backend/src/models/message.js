@@ -15,7 +15,8 @@ const MessageSchema = new mongoose.Schema(
         },
         message: {
             type: String,
-            required: true
+            required: true,
+            maxlength: 500
         }
     },
     {

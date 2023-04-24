@@ -4,21 +4,26 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
-var cors = require('cors')
+const cors = require('cors')
 const passport = require('passport')
 const User = require('./models/user')
-var accountRouter = require('./routes/account')
-// body-parser helps to understand this file send with post is JSON
 const bodyParser = require('body-parser')
 
-require('./routes/mongo-connection')
+const helmet = require('helmet')
+const mongoSanitize = require('express-mongo-sanitize')
+const { errors } = require('celebrate')
 
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
+const accountRouter = require('./routes/account')
 const orderRouter = require('./routes/order/order')
 const chatRouter = require('./routes/chat')
 
+require('./routes/mongo-connection')
+
 var app = express()
+
+app.use(helmet())
 
 const corsOptions = {
     origin: process.env.FRONTEND_BASE_PATH || 'http://localhost:5000',
@@ -58,6 +63,8 @@ passport.deserializeUser(User.deserializeUser())
 
 app.use(cookieParser())
 
+app.use(mongoSanitize())
+
 app.use('/', indexRouter)
 app.use('/user', userRouter)
 app.use('/order', orderRouter)
@@ -68,6 +75,8 @@ app.use('/chat', chatRouter)
 app.use(function (req, res, next) {
     next(createError(404))
 })
+
+app.use(errors())
 
 // error handler
 app.use(function (err, req, res, next) {

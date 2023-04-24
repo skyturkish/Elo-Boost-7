@@ -36,6 +36,11 @@ const validationRules = {
 
           return 'Name must be at least 3 characters.'
         },
+        value => {
+          if (value?.length < 64) return true
+
+          return 'Name must be less than 64 characters.'
+        },
       ],
       "email": [
           value => {
@@ -59,6 +64,11 @@ const validationRules = {
             if (value?.length >= 6) return true
 
             return 'Password must be at least 6 characters.'
+          },
+          value => {
+            if (value?.length < 32) return true
+
+            return 'Password must be less than 32 characters.'
           },
       ]
 }
