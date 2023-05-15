@@ -24,6 +24,10 @@ const OrderSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        priority: {
+            type: Boolean,
+            default: false
+        },
         reviewed: {
             type: Boolean,
             default: false,
