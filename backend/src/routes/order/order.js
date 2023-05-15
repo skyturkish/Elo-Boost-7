@@ -30,14 +30,15 @@ router.use('/wildRift', wildRiftRouter)
 
 router.post('/', async (req, res, next) => {
     try {
-        const leagueOfLegendsOrder = await orderService.insert(req.body)
+        const order = await orderService.insert(req.body)
+
         await chatService.insert({
-            order: leagueOfLegendsOrder._id,
+            order: order._id,
             gameType: req.body.gameType,
             participants: [req.body.customer]
         })
 
-        res.send(leagueOfLegendsOrder)
+        res.send(order)
     } catch (e) {
         next(e)
     }
