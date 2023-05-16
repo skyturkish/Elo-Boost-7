@@ -17,25 +17,25 @@ const menuItems = [
   {
     title: 'Profile',
     icon: 'mdi-clipboard-account',
-    path: '/profile',
+    path: '/dashboard/profile',
   },
   {
     title: 'My Orders (Customer)',
     icon: 'mdi-send',
-    path: '/my-orders-customer',
+    path: '/dashboard/my-orders-customer',
   },
   {
     title: 'My Orders (Booster)',
     icon: 'mdi-send',
     onlyBooster: true,
-    path: '/my-orders-booster',
+    path: '/dashboard/my-orders-booster',
 
   },
   {
     title: 'All Orders',
     icon: 'mdi-send',
     onlyBooster: true,
-    path: '/all-orders',
+    path: '/dashboard/all-orders',
   },
 ]
 

@@ -29,12 +29,12 @@ const imgUrls = import.meta.glob('../../assets/games/leagueOfLegends/divisions/*
     .toRank
       .rank
         img(:src='imgUrls[`../../assets/games/leagueOfLegends/divisions/${order.currentRank.division}.png`]' :alt='order.currentRank.division')
-        div {{ order.currentRank.division }} {{ order.currentRank.mileStone }}
+        div {{ order.currentRank.division }} {{ order.currentRank.milestone }}
       div
         | ----->
       .rank
         img(:src='imgUrls[`../../assets/games/leagueOfLegends/divisions/${order.desiredRank.division}.png`]' :alt='order.desiredRank.division')
-        div {{ order.desiredRank.division }} {{ order.desiredRank.mileStone }}
+        div {{ order.desiredRank.division }} {{ order.desiredRank.milestone }}
     h3  __server: {{ &grave;${order.server}&grave;}}
     h3  __{{ order.gainingLP }}
     h3 {{ order.booster  }}

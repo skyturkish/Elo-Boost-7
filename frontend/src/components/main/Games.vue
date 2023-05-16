@@ -39,7 +39,6 @@ const services = [
 .games {
     display: flex;
 }
-
 .game {
     background-color: purple;
     display: flex;

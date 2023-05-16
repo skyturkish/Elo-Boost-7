@@ -31,7 +31,7 @@ v-menu(
     v-btn(
       prepend-icon="mdi-view-dashboard"
       variant="outlined"
-      @click="router.push('/my-orders-customer')"
+      @click="router.push('/dashboard/my-orders-customer')"
     ) Dashboard
     v-btn(
       prepend-icon="mdi-logout"

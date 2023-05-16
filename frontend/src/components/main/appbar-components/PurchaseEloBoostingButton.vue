@@ -8,7 +8,7 @@ const router = useRouter()
 <template lang="pug">
 v-btn.purchaseEloboosting.rounded-xl(
     variant="tonal"
-    @click="router.push('/boosting')"
+    @click="router.push('/boosting/league-of-legends/divisions')"
 )
     .text PURCHASE <br> ELOBOOSTİNG
 </template>
