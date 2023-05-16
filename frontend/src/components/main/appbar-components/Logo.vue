@@ -10,8 +10,8 @@ v-btn.logo(
 <style scoped>
 
 .logo {
-    width: 11rem;
-    height: 11rem;
+    width: 8rem;
+    height: 8rem;
     border-radius: 1.6rem;
     background-color: #d9d9d9;
 }
