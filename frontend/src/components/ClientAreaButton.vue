@@ -19,7 +19,7 @@ function closeDialog() {
 <template lang="pug">
 v-btn.client-area(rounded="lg" variant="tonal")
   AuthMenu(v-if="useAccountStore.user")
-  .client-area-text(v-else) Client Area
+  .client-area-text(v-else) Login
     v-dialog.dialog(
       v-model='dialog'
       persistent
@@ -28,9 +28,7 @@ v-btn.client-area(rounded="lg" variant="tonal")
       color="primary"
       overlay-color="black"
     )
-      AuthDialog(
-        v-on:close-dialog="closeDialog"
-      )
+      AuthDialog(v-on:close-dialog="closeDialog")
 </template>
 
 <style scoped>
