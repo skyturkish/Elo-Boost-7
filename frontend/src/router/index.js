@@ -3,47 +3,39 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import { useAccount } from '@/store/account'
 
-import Main from '@/views/MainPage.vue'
-import AllOrders from '@/views/AllOrders.vue'
-import Customers from '@/views/Customers.vue'
-import Customer from '@/views/Customer.vue'
-import Boosters from '@/views/Boosters.vue'
-import Booster from '@/views/Booster.vue'
-import Dashboard from '@/layouts/Dashboard.vue'
-
 const routes = [
     {
         path: '/',
         name: 'Main',
-        component: Main
+        component: import('@/views/MainPage.vue')
     },
     {
         path: '/allOrders',
         name: 'AllOrders',
-        component: AllOrders
+        component: import('@/views/AllOrders.vue')
     },
     {
         path: '/customers',
         name: 'Customers',
-        component: Customers
+        component: import('@/views/Customers.vue')
     },
     {
         path: '/customers/:id',
-        component: Customer
+        component: import('@/views/Customer.vue')
     },
     {
         path: '/boosters',
         name: 'Boosters',
-        component: Boosters
+        component: import('@/views/Boosters.vue')
     },
     {
         path: '/boosters/:id',
-        component: Booster
+        component: import('@/views/Booster.vue')
     },
     {
         path: '/dashboard',
         name: 'Dashboard',
-        component: Dashboard,
+        component: import('@/layouts/Dashboard.vue'),
         children: [
             {
                 path: 'my-orders-customer',
