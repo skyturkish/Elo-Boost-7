@@ -5,6 +5,8 @@ import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
 import Checkout from '@/components/Checkout'
 import { LeagueOfLegendsDivisions, LeagueOfLegendsMilestones } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
+import { useAccount } from '@/store/account'
+import axios from 'axios'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
@@ -15,7 +17,6 @@ let selectedIndex = 4
 const desiredOrder = ref(divisions[selectedIndex])
 
 const desiredMilestone = ref('I')
-const server = ref('Turkey')
 
 function increment(isIncrement) {
   selectedIndex = isIncrement ? selectedIndex + 1 : selectedIndex - 1
@@ -40,6 +41,27 @@ const trimUrls = import.meta.glob('../../../assets/trims/*.png', {
   import: 'default',
   eager: true
 })
+
+async function createOrder() {
+  await axios.post('/order', {
+        customer: useAccount().user._id || 'test',
+        gameType: 'league-of-legends',
+        orderType: 'division',
+        currentRank: currentLeagueOfLegendsOrder.currentRank,
+        server: currentLeagueOfLegendsOrder.server,
+        gainLP: currentLeagueOfLegendsOrder.gainLP,
+        isSolo: currentLeagueOfLegendsOrder.isSolo,
+        lanes: currentLeagueOfLegendsOrder.lanes,
+        booster: currentLeagueOfLegendsOrder.booster,
+        champions: currentLeagueOfLegendsOrder.champions,
+        queue: currentLeagueOfLegendsOrder.queue,
+        options: currentLeagueOfLegendsOrder.options,
+        desiredRank: {
+          division: desiredOrder.value.name,
+          milestone: desiredMilestone.value
+        }
+    })
+}
 </script>
 
 <template lang="pug">
@@ -73,25 +95,24 @@ const trimUrls = import.meta.glob('../../../assets/trims/*.png', {
         v-select(:items="['solo','flex']" v-model="currentLeagueOfLegendsOrder.queue")
     v-img.trim(src="../../../assets/union.png")
       v-img(:src="trimUrls['../../../assets/trims/' + desiredOrder.name + '-trim.png']" )
-  Checkout
+  Checkout(v-on:create-order="createOrder")
 </template>
 
 <style scoped>
-
 .division {
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
-  padding-top: 2rem;
   flex-wrap: wrap;
   gap: 3rem;
   background-color: #f1f1f1;
 }
-
 .desired-rank {
   width: 360px;
   margin: 0 auto;
   border-radius: 15px;
+  background-color: #fff;
+  height: 690px;
 }
 .desired-rank-card {
   border-radius: 15px;

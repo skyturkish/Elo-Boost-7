@@ -1,4 +1,12 @@
 <script setup>
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['create-order']);
+
+
+const createOrder = function(){
+  emit('create-order');
+}
 // const props = defineProps({
 //   appearIsSoloSwitch: {
 //     type: Boolean,
@@ -21,7 +29,7 @@
 
 <template lang="pug">
 .checkout
-  v-img(src='@/assets/checkout.png' cover)
+  v-img(src='@/assets/checkout.png' width="33.81rem")
     .checkout-content
       .text-checkout CHECKOUT
       .solo-duo
@@ -46,7 +54,9 @@
             width="202px"
             elevation="5"
             size="x-large"
-            color='#444')
+            color='#444'
+            @click="createOrder()"
+            )
             v-icon.purchase-icon(color="#f1f1f1" icon="mdi-cash-multiple")
             .purchase.text PURCHASE
       .receipt
@@ -69,7 +79,7 @@
 
 <style scoped>
 .checkout {
-  width: 34rem;
+  width: 33.81rem;
   margin: 0 auto
 }
 .checkout-content {
