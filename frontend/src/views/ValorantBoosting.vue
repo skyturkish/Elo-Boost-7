@@ -5,7 +5,7 @@ import GamesMenu from '@/components/menus/GamesMenu'
 
 const boostTypes = [
   {
-    name: 'DIVISIOIN BOOST',
+    name: 'DIVISION BOOST',
     route: 'division',
   },
   {
@@ -46,9 +46,8 @@ Banner(splashArtPath = 'valorant' title= 'VALORANT' subtitle= 'Time to RISE UP!'
 .background-color {
   background-color: #1e1e1e;
 }
-
 .buttons {
-  padding-top: 2rem;
+  padding: 2rem 0;
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
