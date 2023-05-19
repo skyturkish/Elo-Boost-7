@@ -2,15 +2,14 @@
 import Banner from '@/components/Banner'
 import GamesMenu from '@/components/menus/GamesMenu'
 
-
 const boostTypes = [
   {
     name: 'DIVISION BOOST',
-    route: 'divisions',
+    route: 'division',
   },
   {
     name: 'WIN BOOST',
-    route: 'winn',
+    route: 'win',
   },
   {
     name: 'PLACEMENTS',
@@ -42,7 +41,6 @@ v-divider.border-opacity-100(thickness="1rem" )
 </template>
 
 <style scoped>
-
 .v-btn--active {
   color: #8A80AD;
 }
@@ -51,7 +49,7 @@ v-divider.border-opacity-100(thickness="1rem" )
   max-width: 1440px;
   margin: 0 auto;
   justify-content: space-around;
-  padding-top: 1rem;
+  padding: 2rem 0;
   background-color: #f1f1f1;
 }
 .v-btn {
@@ -67,5 +65,5 @@ v-divider.border-opacity-100(thickness="1rem" )
 }
 /* .boostType {
   background-color: #341017;
-}  */
+} */
 </style>

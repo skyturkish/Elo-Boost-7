@@ -15,7 +15,7 @@ const props = defineProps({
 
 const games = [
   {
-    url: '/boosting/league-of-legends/divisions',
+    url: '/boosting/league-of-legends/division',
     name: 'LEAGUE OF LEGENDS',
     imagePath: 'league-of-legends',
   },

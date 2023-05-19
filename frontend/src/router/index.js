@@ -7,35 +7,35 @@ const routes = [
     {
         path: '/',
         name: 'Main',
-        component: import('@/views/MainPage.vue')
+        component: () => import('@/views/MainPage.vue')
     },
     {
         path: '/allOrders',
         name: 'AllOrders',
-        component: import('@/views/AllOrders.vue')
+        component: () => import('@/views/AllOrders.vue')
     },
     {
         path: '/customers',
         name: 'Customers',
-        component: import('@/views/Customers.vue')
+        component: () => import('@/views/Customers.vue')
     },
     {
         path: '/customers/:id',
-        component: import('@/views/Customer.vue')
+        component: () => import('@/views/Customer.vue')
     },
     {
         path: '/boosters',
         name: 'Boosters',
-        component: import('@/views/Boosters.vue')
+        component: () => import('@/views/Boosters.vue')
     },
     {
         path: '/boosters/:id',
-        component: import('@/views/Booster.vue')
+        component: () => import('@/views/Booster.vue')
     },
     {
         path: '/dashboard',
         name: 'Dashboard',
-        component: import('@/layouts/Dashboard.vue'),
+        component: () => import('@/layouts/Dashboard.vue'),
         children: [
             {
                 path: 'my-orders-customer',
@@ -74,12 +74,130 @@ const routes = [
     {
         path: '/coaching',
         name: 'Coaching',
-        component: () => import('@/views/Coaching.vue')
+        children: [
+            {
+                path: 'league-of-legends',
+                name: 'LeagueOfLegendsCoaching',
+                component: () => import('@/views/LeagueOfLegendsCoaching.vue'),
+                children: [
+                    {
+                        path: 'lesson',
+                        name: 'Lesson',
+                        component: () =>
+                            import(
+                                '@/components/coaching/league-of-legends/Lesson.vue'
+                            )
+                    },
+                    {
+                        path: 'game-replay',
+                        name: 'GameReplay',
+                        component: () =>
+                            import(
+                                '@/components/coaching/league-of-legends/GameReplay.vue'
+                            )
+                    },
+                    {
+                        path: 'live-game',
+                        name: 'LiveGame',
+                        component: () =>
+                            import(
+                                '@/components/coaching/league-of-legends/LiveGame.vue'
+                            )
+                    },
+                    {
+                        path: 'play-together',
+                        name: 'PlayTogether',
+                        component: () =>
+                            import(
+                                '@/components/coaching/league-of-legends/PlayTogether.vue'
+                            )
+                    }
+                ]
+            },
+            {
+                path: 'valorant',
+                name: 'ValorantCoaching',
+                component: () => import('@/views/ValorantCoaching.vue'),
+                children: [
+                    {
+                        path: 'lesson',
+                        name: 'ValorantLesson',
+                        component: () =>
+                            import('@/components/coaching/valorant/Lesson.vue')
+                    },
+                    {
+                        path: 'live-game',
+                        name: 'ValorantLiveGame',
+                        component: () =>
+                            import(
+                                '@/components/coaching/valorant/LiveGame.vue'
+                            )
+                    },
+                    {
+                        path: 'play-together',
+                        name: 'ValorantPlayTogether',
+                        component: () =>
+                            import(
+                                '@/components/coaching/valorant/PlayTogether.vue'
+                            )
+                    }
+                ]
+            }
+        ]
     },
     {
         path: '/boosting',
         name: 'Boosting',
         children: [
+            {
+                path: 'league-of-legends',
+                name: 'LeagueOfLegends',
+                component: () => import('@/views/LeagueOfLegendsBoosting.vue'),
+                children: [
+                    {
+                        path: 'division',
+                        component: () =>
+                            import(
+                                '@/components/boosting/league-of-legends/Division.vue'
+                            )
+                    },
+                    {
+                        path: 'clash',
+                        component: () =>
+                            import(
+                                '@/components/boosting/league-of-legends/Clash.vue'
+                            )
+                    },
+                    {
+                        path: 'mastery',
+                        component: () =>
+                            import(
+                                '@/components/boosting/league-of-legends/Mastery.vue'
+                            )
+                    },
+                    {
+                        path: 'normal-game',
+                        component: () =>
+                            import(
+                                '@/components/boosting/league-of-legends/Normalgame.vue'
+                            )
+                    },
+                    {
+                        path: 'placement',
+                        component: () =>
+                            import(
+                                '@/components/boosting/league-of-legends/Placements.vue'
+                            )
+                    },
+                    {
+                        path: 'win',
+                        component: () =>
+                            import(
+                                '@/components/boosting/league-of-legends/Win.vue'
+                            )
+                    }
+                ]
+            },
             {
                 path: 'valorant',
                 name: 'Valorant',
@@ -125,61 +243,6 @@ const routes = [
                         component: () =>
                             import(
                                 '@/components/boosting/valorant/Contract.vue'
-                            )
-                    }
-                ]
-            },
-            {
-                path: 'league-of-legends',
-                name: 'LeagueOfLegends',
-                component: () => import('@/views/LeagueOfLegendsBoosting.vue'),
-                children: [
-                    {
-                        path: 'divisions',
-                        name: 'Divisions',
-                        component: () =>
-                            import(
-                                '@/components/boosting/league-of-legends/Division.vue'
-                            )
-                    },
-                    {
-                        path: 'clash',
-                        name: 'Clash',
-                        component: () =>
-                            import(
-                                '@/components/boosting/league-of-legends/Clash.vue'
-                            )
-                    },
-                    {
-                        path: 'mastery',
-                        name: 'Mastery',
-                        component: () =>
-                            import(
-                                '@/components/boosting/league-of-legends/Mastery.vue'
-                            )
-                    },
-                    {
-                        path: 'normal-game',
-                        name: 'NormalGame',
-                        component: () =>
-                            import(
-                                '@/components/boosting/league-of-legends/Normalgame.vue'
-                            )
-                    },
-                    {
-                        path: 'placement',
-                        name: 'Placement',
-                        component: () =>
-                            import(
-                                '@/components/boosting/league-of-legends/Placements.vue'
-                            )
-                    },
-                    {
-                        path: 'winn',
-                        name: 'Winn',
-                        component: () =>
-                            import(
-                                '@/components/boosting/league-of-legends/Win.vue'
                             )
                     }
                 ]

@@ -12,7 +12,7 @@ const router = useRouter()
   Logo
   .navigation-and-buttons
     v-btn.navigation-text(variant="text" @click="router.push('/boosting/valorant/division')") BOOSTING
-    v-btn.navigation-text(variant="text" @click="router.push('/coaching')") COACHING
+    v-btn.navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
     v-btn.navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
     ClientAreaButton
     SettingsButton
