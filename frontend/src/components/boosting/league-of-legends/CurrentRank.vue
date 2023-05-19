@@ -72,16 +72,18 @@ const currentDivisionName = computed(() => {
     .selections
       v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentRank.currentLP").selection-Current-LP
       v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
-  v-img.trim(src="../../../assets/union.png")
+  v-img.trim(src="../../../assets/union.png" width="22.5rem")
     v-img(:src="trimUrls['../../../assets/trims/' + currentRank.division + '-trim.png']" )
 </template>
 
 <style scoped>
 
 .current-rank {
-  width: 360px;
+  width: 22.5rem;
   margin: 0 auto;
   border-radius: 15px;
+  background-color: #fff;
+  height: 690px;
 }
 .current-rank-card {
   border-radius: 15px;
