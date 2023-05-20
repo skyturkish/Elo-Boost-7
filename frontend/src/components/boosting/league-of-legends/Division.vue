@@ -9,6 +9,7 @@ import { useAccount } from '@/store/account'
 import axios from 'axios'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
+const currentRank = currentLeagueOfLegendsOrder.currentRank
 
 const divisions = LeagueOfLegendsDivisions
 const milestones = LeagueOfLegendsMilestones
@@ -67,6 +68,15 @@ async function createOrder() {
 <template lang="pug">
 .division
   CurrentRank()
+    .mile-stones
+      div.mile-stone(
+      v-for="divisionMileStone in milestones"
+      :style="{backgroundColor: currentRank.milestone == divisionMileStone ? '#afafaf' : '#f4f1f0'}"
+      @click="changeMileStone(divisionMileStone)"
+      ) {{ divisionMileStone }}
+    .selections
+      v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentRank.currentLP").selection-Current-LP
+      v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
   .desired-rank
     .desired-rank-card(:style="`border: solid 5px ${desiredOrder.color}`")
       .desired-rank-title(:style="{color: desiredOrder.color, backgroundColor: '#f4f1f0'}") DESIRED RANK
@@ -76,6 +86,7 @@ async function createOrder() {
           v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + desiredOrder.name + '.png']" width="16rem" )
           .name(:style="{color: desiredOrder.color}") {{ desiredOrder.name }} {{ desiredMilestone }}
         v-icon(icon="mdi-menu-right" @click="increment(true)")
+      v-divider.divider()
       .colors
         v-btn.color(
           v-for="division in divisions"
@@ -84,13 +95,13 @@ async function createOrder() {
           :size="division.name == desiredOrder.name ? '2rem' : '1.5rem'"
           :color="division.color"
           @click="changeDesiredDivision(division)")
-      .mile-stones
+      .desired-mile-stones
         div.mile-stone(
         v-for="divisionMileStone in milestones"
         :style="{backgroundColor: desiredMilestone == divisionMileStone ? '#afafaf' : '#f4f1f0'}"
         @click="changeMileStone(divisionMileStone)"
         ) {{ divisionMileStone }}
-      .selections
+      .desired-selections
         v-select(:items="['Turkey','China']" v-model="currentLeagueOfLegendsOrder.server")
         v-select(:items="['solo','flex']" v-model="currentLeagueOfLegendsOrder.queue")
     v-img.trim(src="../../../assets/union.png")
@@ -119,6 +130,8 @@ async function createOrder() {
   border-radius: 15px;
   margin: 0 2px;
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
+  height: 42rem;
+
 }
 .desired-rank-title {
   font-weight: bold;
@@ -126,7 +139,6 @@ async function createOrder() {
   text-align:center;
   font-size: 2rem;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
 }
 .select-division {
   display: flex;
@@ -140,17 +152,24 @@ async function createOrder() {
 }
 .colors {
   display: flex;
-  margin-top: 5rem;
+  margin-top: 3rem;
   justify-content: center;
   align-items: center;
   gap: 0.90rem;
 }
-
 .mile-stones {
   display: flex;
   gap: 0.55rem;
   justify-content: center;
-  margin-top: 1.75rem;
+}
+.divider {
+  margin-top: 2rem;
+}
+.desired-mile-stones {
+  display: flex;
+  gap: 0.55rem;
+  justify-content: center;
+  padding-top: 2rem;
 }
 .mile-stone {
   width: 2rem;
@@ -163,7 +182,10 @@ async function createOrder() {
 }
 .selections {
   display: flex;
-  margin-top: 2.15rem;
+}
+.desired-selections {
+  display: flex;
+  padding-top: 1.43rem;
 }
 .trim {
   margin-top: -3rem

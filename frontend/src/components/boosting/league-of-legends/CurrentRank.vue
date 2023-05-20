@@ -64,16 +64,9 @@ const currentDivisionName = computed(() => {
         :size="division.name == currentRank.division ? '2rem' : '1.5rem'"
         :color="division.color"
         @click="changeCurrentDivision(division)")
-    .mile-stones
-      div.mile-stone(
-      v-for="divisionMileStone in milestones"
-      :style="{backgroundColor: currentRank.milestone == divisionMileStone ? '#afafaf' : '#f4f1f0'}"
-      @click="changeMileStone(divisionMileStone)"
-      ) {{ divisionMileStone }}
-    .selections
-      v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentRank.currentLP").selection-Current-LP
-      v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
-  v-img.trim(src="../../../assets/union.png" width="22.5rem")
+    .dynamic-view
+      slot
+  v-img.trim(src="../../../assets/union.png" width="23.5rem")
     v-img(:src="trimUrls['../../../assets/trims/' + currentRank.division + '-trim.png']" )
 </template>
 
@@ -81,12 +74,12 @@ const currentDivisionName = computed(() => {
 .current-rank {
   width: 22.5rem;
   border-radius: 15px;
-  height: 49rem;
 }
 .current-rank-card {
   border-radius: 15px;
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #fff;
+  height: 42rem;
 }
 .current-rank-title {
   font-weight: bold;
@@ -94,7 +87,6 @@ const currentDivisionName = computed(() => {
   text-align:center;
   font-size: 2rem;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
 }
 .select-division {
   display: flex;
@@ -116,7 +108,14 @@ const currentDivisionName = computed(() => {
   align-items: center;
   gap: 0.90rem;
 }
-
+.dynamic-view {
+  padding-top: 2rem;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.43rem;
+}
 .mile-stones {
   display: flex;
   gap: 0.55rem;
@@ -137,6 +136,6 @@ const currentDivisionName = computed(() => {
   margin-top: 2.15rem;
 }
 .trim {
-  margin-top: -3rem
+  margin-top: -3rem;
 }
 </style>
