@@ -55,6 +55,7 @@ const currentDivisionName = computed(() => {
         v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentRank.division + '.png']" width="16rem" )
         .name(:style="{color: currentLeagueOfLegendsOrder.color}") {{ currentDivisionName }} {{ currentRank.milestone }}
       v-icon(icon="mdi-menu-right" @click="increment(true)")
+    v-divider.divider()
     .colors
       v-btn.color(
         v-for="division in divisions"
@@ -77,7 +78,6 @@ const currentDivisionName = computed(() => {
 </template>
 
 <style scoped>
-
 .current-rank {
   width: 22.5rem;
   border-radius: 15px;
@@ -87,7 +87,6 @@ const currentDivisionName = computed(() => {
   border-radius: 15px;
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #fff;
-
 }
 .current-rank-title {
   font-weight: bold;
@@ -107,9 +106,12 @@ const currentDivisionName = computed(() => {
   font-weight: bold;
   text-align: center;
 }
+.divider {
+  margin-top: 2rem;
+}
 .colors {
   display: flex;
-  margin-top: 5rem;
+  margin-top: 3rem;
   justify-content: center;
   align-items: center;
   gap: 0.90rem;
