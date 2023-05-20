@@ -11,10 +11,9 @@ v-btn.settings(
 
 <style scoped>
 .settings {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 50px;
+    height: 50px;
     border-radius: 15px;
-    background-color: #d9d9d9;
-
+    background-color: #e4e6e7;
 }
 </style>

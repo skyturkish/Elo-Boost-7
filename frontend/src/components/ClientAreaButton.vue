@@ -17,9 +17,9 @@ function closeDialog() {
 </script>
 
 <template lang="pug">
-v-btn.client-area(rounded="lg" variant="tonal")
-  AuthMenu(v-if="useAccountStore.user")
-  .client-area-text(v-else) Login
+AuthMenu(v-if="useAccountStore.user")
+v-btn.client-area(v-else)
+  .client-area-text Login
     v-dialog.dialog(
       v-model='dialog'
       persistent
@@ -33,17 +33,17 @@ v-btn.client-area(rounded="lg" variant="tonal")
 
 <style scoped>
 .client-area {
-    margin-right: 1rem;
-    height: 3.5rem;
-    border-radius: 1rem;
-    box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.5);
-    background-color: #174e82;
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: normal;
+  width: 135px;
+  height: 50px;
+  border-radius: 15px;
+  box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.5);
+  background-color: #174e82;
 }
 .client-area-text {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 800;
   color: #fff;
+  letter-spacing: normal;
 }
-
 </style>

@@ -101,9 +101,6 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
   flex-wrap: wrap;
   background-color: #341017;
 }
-.desired-rank {
-  margin: 0 auto
-}
 .content {
   padding-top: 5rem;
   display:flex;

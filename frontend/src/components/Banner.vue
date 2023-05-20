@@ -28,16 +28,14 @@ const imgUrls = import.meta.glob('../assets/banners/*.png', {
 
 <template lang="pug">
 .banner(:style="{ backgroundColor: backgroundColor }")
-  v-img.image(
-    aspect-ratio='16/9'
-    cover=''
-    :src='imgUrls[`../assets/banners/${splashArtPath}.png`]')
+  v-img.image(cover :src='imgUrls[`../assets/banners/${splashArtPath}.png`]')
     .content
       AppBar
       .TRUST-PILOT-5-STAR-REVIEW ** TRUST PILOT 5 STAR REVIEW **
       .title {{ title }}
       .subtitle {{ subtitle }}
-      slot
+      .dynamic
+        slot
 </template>
 
 <style scoped>
@@ -52,23 +50,28 @@ const imgUrls = import.meta.glob('../assets/banners/*.png', {
   max-width: 1440px;
   min-width: 960px;
   margin: 0 auto;
-  padding: 3.6rem;
-  gap: 1rem;
+  padding: 49px 42px 32px 50px;
 }
 .TRUST-PILOT-5-STAR-REVIEW {
+  padding-top: 3rem;
   font-size: 24px;
   font-weight: bold;
   color: #fff;
 }
 .title {
+  padding-top: 0.5rem;
   font-size: 48px;
   font-weight: bold;
   color: #fff;
 }
 .subtitle {
+  padding-top: 0.5rem;
   font-family: Inter;
   font-size: 32px;
   font-weight: 500;
   color: #fff;
+}
+.dynamic {
+  padding-top: 2rem;
 }
 </style>

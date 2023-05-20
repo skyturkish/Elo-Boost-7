@@ -47,14 +47,10 @@ v-img.body(
     font-weight: bold;
     color: #fff;
 }
-
 .appbar-subtitle {
     text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
     font-size: 32px;
     font-weight: 500;
     color: #fff;
-}
-.buttons {
-    display: flex;
 }
 </style>

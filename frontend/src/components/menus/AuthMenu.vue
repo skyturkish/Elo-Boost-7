@@ -18,11 +18,9 @@ async function logout() {
 v-menu(
   v-model="menu"
   :close-on-content-click="false"
-  v-if="useAccountStore.user"
-  )
-  template(v-slot:activator='{ props }')
-    v-btn(color='indigo' v-bind='props')
-      | {{ useAccountStore.user.name }}
+  v-if="useAccountStore.user")
+  template.adana(v-slot:activator='{ props }')
+    v-icon.account(icon="mdi-account" v-bind='props')
   v-card.card(min-width='300')
     v-list()
       v-list-item(prepend-avatar="https://i.pinimg.com/474x/9d/49/96/9d4996efe343c725e2bbd39c3d79bb23.jpg" :title="useAccountStore.user.role" :subtitle="useAccountStore.user.name")
@@ -41,6 +39,13 @@ v-menu(
 </template>
 
 <style scoped>
+
+.account {
+  width: 50px;
+  height: 50.1px;
+  border-radius: 15px;
+  background-color: #e4e6e7;
+}
 .card{
   padding: 1rem;
   display:flex;

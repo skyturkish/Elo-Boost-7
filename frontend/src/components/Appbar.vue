@@ -11,11 +11,13 @@ const router = useRouter()
 .appbar
   Logo
   .navigation-and-buttons
-    v-btn.navigation-text(variant="text" @click="router.push('/boosting/valorant/division')") BOOSTING
-    v-btn.navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
-    v-btn.navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
-    ClientAreaButton
-    SettingsButton
+    .navigations
+      v-btn.navigation-text(variant="text" @click="router.push('/boosting/valorant/division')") BOOSTING
+      v-btn.navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
+      v-btn.navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
+    .buttons
+      ClientAreaButton
+      SettingsButton
 </template>
 
 <style scoped>
@@ -28,11 +30,19 @@ const router = useRouter()
   display: flex;
   gap: 1rem;
 }
+.navigations {
+  display: flex;
+  gap: 1.2rem;
+  padding-top: 0.5rem;
+}
+.buttons > * {
+  margin-left: 1rem;
+}
 .navigation-text {
-  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 24px;
   font-weight: bold;
-  line-height: normal;
+  letter-spacing: normal;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   color: #fff;
 }
 @media (max-width: 959px) {

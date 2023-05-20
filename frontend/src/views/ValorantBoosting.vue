@@ -47,12 +47,13 @@ Banner(splashArtPath = 'valorant' title= 'VALORANT' subtitle= 'Time to RISE UP!'
   background-color: #1e1e1e;
 }
 .buttons {
-  padding: 2rem 0;
+  padding: 2rem 2.75rem;
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
-  justify-content: space-around;
+  gap: 1.375rem;
   background-color: #341017;
+  flex-wrap: wrap;
 }
 .v-btn {
   width: 200px;

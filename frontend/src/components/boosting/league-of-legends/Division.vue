@@ -101,11 +101,12 @@ async function createOrder() {
 <style scoped>
 .division {
   display: flex;
+  justify-content: center;
   max-width: 1440px;
   margin: 0 auto;
   flex-wrap: wrap;
-  gap: 3rem;
   background-color: #f1f1f1;
+  padding: 0 2.75rem;
 }
 .desired-rank {
   width: 360px;

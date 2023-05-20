@@ -31,16 +31,18 @@ const boostTypes = [
 </script>
 
 <template lang="pug">
-Banner(splashArtPath = 'league-of-legends' title= 'LEAGUE OF LEGENDS' subtitle= 'No time? Don’t worry, Let our team climb for you' backgroundColor='#212027')
+Banner(splashArtPath = 'league-of-legends' title= 'LEAGUE OF LEGENDS' subtitle= 'No time? Don’t worry. Let our team climb for you' backgroundColor='#212027')
   GamesMenu(gameName='LEAGUE OF LEGENDS' gameImagePath='league-of-legends')
 v-divider.border-opacity-100(thickness="1rem" )
 .boostType
   .buttons
     v-btn(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`' ) {{ boostType.name }}
-  router-view()
+  .dynamic-view
+    router-view()
 </template>
 
 <style scoped>
+
 .v-btn--active {
   color: #8A80AD;
 }
@@ -48,9 +50,15 @@ v-divider.border-opacity-100(thickness="1rem" )
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
-  justify-content: space-around;
-  padding: 2rem 0;
+  gap: 1.375rem;
+  padding: 2rem 2.75rem;
   background-color: #f1f1f1;
+  flex-wrap: wrap;
+
+}
+.dynamic-view {
+  max-width: 1440px;
+  margin: 0 auto;
 }
 .v-btn {
   width: 200px;
@@ -59,7 +67,6 @@ v-divider.border-opacity-100(thickness="1rem" )
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
-
 .v-divider {
   border-color: #475a7e !important;
 }

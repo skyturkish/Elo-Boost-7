@@ -80,15 +80,14 @@ const currentDivisionName = computed(() => {
 
 .current-rank {
   width: 22.5rem;
-  margin: 0 auto;
   border-radius: 15px;
-  background-color: #fff;
-  height: 690px;
+  height: 49rem;
 }
 .current-rank-card {
   border-radius: 15px;
-  margin: 0 2px;
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+
 }
 .current-rank-title {
   font-weight: bold;
