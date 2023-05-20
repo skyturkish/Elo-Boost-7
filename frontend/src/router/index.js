@@ -179,7 +179,7 @@ const routes = [
                         path: 'normal-game',
                         component: () =>
                             import(
-                                '@/components/boosting/league-of-legends/Normalgame.vue'
+                                '@/components/boosting/league-of-legends/NormalGame.vue'
                             )
                     },
                     {
