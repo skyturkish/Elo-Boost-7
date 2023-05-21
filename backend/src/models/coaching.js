@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 
-const LeagueOfLegendsRank = require('./rank/leagueOfLegendsRank')
+const LeagueOfLegendsRank = require('./leagueOfLegendsRank')
 
 const CoachingSchema = new mongoose.Schema(
     {
