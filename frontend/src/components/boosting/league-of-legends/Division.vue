@@ -22,11 +22,16 @@ const desiredMilestone = ref('I')
 function increment(isIncrement) {
   selectedIndex = isIncrement ? selectedIndex + 1 : selectedIndex - 1
 
-  desiredOrder.value = divisions[selectedIndex % 7]
+  desiredOrder.value = divisions[selectedIndex % 9]
 }
 
 function changeDesiredDivision(division) {
+  console.log(desiredOrder.value.shadowColor)
   desiredOrder.value = division
+}
+
+function changeCurrentMileStone(milestone) {
+  currentRank.milestone = milestone
 }
 
 function changeMileStone(milestone) {
@@ -72,20 +77,20 @@ async function createOrder() {
       div.mile-stone(
       v-for="divisionMileStone in milestones"
       :style="{backgroundColor: currentRank.milestone == divisionMileStone ? '#afafaf' : '#f4f1f0'}"
-      @click="changeMileStone(divisionMileStone)"
+      @click="changeCurrentMileStone(divisionMileStone)"
       ) {{ divisionMileStone }}
     .selections
       v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentRank.currentLP").selection-Current-LP
       v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
   .desired-rank
-    .desired-rank-card(:style="`border: solid 2px ${desiredOrder.color}`")
-      .desired-rank-title(:style="{color: desiredOrder.color, backgroundColor: '#f4f1f0'}") DESIRED RANK
+    .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
+      .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
       .select-division
-        v-icon(icon="mdi-menu-left" @click="increment(false)")
+        v-icon(icon="mdi-menu-left" @click="increment(false)" :color="currentLeagueOfLegendsOrder.dominantColor")
         .division-name
           v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + desiredOrder.name + '.png']" width="16rem" )
-          .name(:style="{color: desiredOrder.color}") {{ desiredOrder.name }} {{ desiredMilestone }}
-        v-icon(icon="mdi-menu-right" @click="increment(true)")
+          .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
+        v-icon(icon="mdi-menu-right" @click="increment(true)" :color="currentLeagueOfLegendsOrder.dominantColor")
       v-divider.divider()
       .colors
         v-btn.color(
@@ -93,7 +98,7 @@ async function createOrder() {
           :flat="division.name == desiredOrder.name ? false : true"
           icon
           :size="division.name == desiredOrder.name ? '2rem' : '1.5rem'"
-          :color="division.color"
+          :color="division.buttonColor"
           @click="changeDesiredDivision(division)")
       .desired-mile-stones
         div.mile-stone(

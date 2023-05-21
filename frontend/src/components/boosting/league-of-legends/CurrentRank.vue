@@ -9,20 +9,21 @@ const milestones = LeagueOfLegendsMilestones
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const currentRank = currentLeagueOfLegendsOrder.currentRank
 let selectedIndex = 4
-const selectDivision = ref(divisions[selectedIndex % 7])
+const selectDivision = ref(divisions[selectedIndex % 9])
 
 function increment(isIncrement) {
   selectedIndex = isIncrement ? selectedIndex + 1 : selectedIndex - 1
 
-  selectDivision.value = divisions[selectedIndex % 7]
+  selectDivision.value = divisions[selectedIndex % 9]
 
   currentRank.division = selectDivision.value.name
-  currentLeagueOfLegendsOrder.color = selectDivision.value.color
+  currentLeagueOfLegendsOrder.colors = divisions[selectedIndex % 9]
+
 }
 
 function changeCurrentDivision(division) {
   currentRank.division = division.name
-  currentLeagueOfLegendsOrder.color = division.color
+  currentLeagueOfLegendsOrder.colors = division
 }
 
 function changeMileStone(milestone) {
@@ -47,14 +48,14 @@ const currentDivisionName = computed(() => {
 
 <template lang="pug">
 .current-rank
-  .current-rank-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.color}`")
-    .current-rank-title(:style="{color: currentLeagueOfLegendsOrder.color, backgroundColor: '#f4f1f0'}") CURRENT RANK
+  .current-rank-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.colors.borderColor}`")
+    .current-rank-title(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.colors.shadowColor}") CURRENT RANK
     .select-division
-      v-icon(icon="mdi-menu-left" @click="increment(false)")
+      v-icon(icon="mdi-menu-left" @click="increment(false)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name
         v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentRank.division + '.png']" width="16rem" )
-        .name(:style="{color: currentLeagueOfLegendsOrder.color}") {{ currentDivisionName }} {{ currentRank.milestone }}
-      v-icon(icon="mdi-menu-right" @click="increment(true)")
+        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentRank.milestone }}
+      v-icon(icon="mdi-menu-right" @click="increment(true)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
     .colors
       v-btn.color(
@@ -62,7 +63,7 @@ const currentDivisionName = computed(() => {
         :flat="division.name == currentRank.division ? false : true"
         icon
         :size="division.name == currentRank.division ? '2rem' : '1.5rem'"
-        :color="division.color"
+        :color="division.buttonColor"
         @click="changeCurrentDivision(division)")
     .dynamic-view
       slot
@@ -74,6 +75,8 @@ const currentDivisionName = computed(() => {
 .current-rank {
   width: 22.5rem;
   border-radius: 15px;
+  margin: 0 auto;
+  background-color: #fff;
 }
 .current-rank-card {
   border-radius: 15px;
@@ -108,6 +111,7 @@ const currentDivisionName = computed(() => {
   align-items: center;
   gap: 0.90rem;
 }
+
 .dynamic-view {
   padding-top: 2rem;
   display:flex;

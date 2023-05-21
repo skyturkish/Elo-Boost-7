@@ -43,25 +43,32 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 isActive: false
             }
         },
-        color: '#eeaf0c'
+        colors: {
+            rank: 4,
+            dominantColor: '#795700',
+            shadowColor: '#FBFAF8',
+            borderColor: '#EEAF0C',
+            buttonColor: '#EEAF0C',
+            name: 'gold'
+        }
     }),
     actions: {
-        async createOrder({ customer, orderType, desiredRank }) {
-            console.log('league of legends storun içindeyim')
-            await axios.post('/order', {
-                customer: customer,
-                state: 'active',
-                gameType: 'LeagueOfLegends',
-                orderType: orderType,
-                currentRank: this.currentRank,
-                desiredRank: desiredRank,
-                server: this.server,
-                gainLP: this.gainLP,
-                isSolo: this.isSolo,
-                lanes: this.lanes,
-                champions: this.champions,
-                options: this.options
-            })
-        }
+        // async createOrder({ customer, orderType, desiredRank }) {
+        //     console.log('league of legends storun içindeyim')
+        //     await axios.post('/order', {
+        //         customer: customer,
+        //         state: 'active',
+        //         gameType: 'LeagueOfLegends',
+        //         orderType: orderType,
+        //         currentRank: this.currentRank,
+        //         desiredRank: desiredRank,
+        //         server: this.server,
+        //         gainLP: this.gainLP,
+        //         isSolo: this.isSolo,
+        //         lanes: this.lanes,
+        //         champions: this.champions,
+        //         options: this.options
+        //     })
+        // }
     }
 })
