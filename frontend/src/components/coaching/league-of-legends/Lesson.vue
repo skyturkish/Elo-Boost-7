@@ -11,7 +11,7 @@ const hours = ref('2 HOURS')
 async function createOrder() {
   console.log('burası çalışıyor')
   await axios.post('/coaching', {
-        customer: useAccount().user._id || 'test',
+        customer: useAccount().user?._id || '643469684177539c6a6dcdb5',
         gameType: 'league-of-legends',
         orderType: 'division',
         coachingType: 'lesson',
