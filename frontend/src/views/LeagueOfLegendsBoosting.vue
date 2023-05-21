@@ -52,7 +52,7 @@ v-divider.border-opacity-100(thickness="1rem" )
   margin: 0 auto;
   gap: 1.375rem;
   padding: 2rem 2.75rem;
-  background-color: #f1f1f1;
+  background-color: #eeeeee;
   flex-wrap: wrap;
 
 }
@@ -69,6 +69,10 @@ v-divider.border-opacity-100(thickness="1rem" )
 }
 .v-divider {
   border-color: #475a7e !important;
+}
+.boostType {
+  background-color: #eeeeee;
+;
 }
 /* .boostType {
   background-color: #341017;

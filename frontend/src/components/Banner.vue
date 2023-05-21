@@ -41,13 +41,12 @@ const imgUrls = import.meta.glob('../assets/banners/*.png', {
 <style scoped>
 .image {
   max-height: 600px;
-  max-width: 1440px;
   margin: 0 auto;
 }
 .content {
   display:flex;
   flex-direction: column;
-  max-width: 1440px;
+  max-width: 1840px;
   min-width: 960px;
   margin: 0 auto;
   padding: 49px 42px 32px 50px;

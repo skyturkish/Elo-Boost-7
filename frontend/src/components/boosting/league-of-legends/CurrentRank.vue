@@ -47,7 +47,7 @@ const currentDivisionName = computed(() => {
 
 <template lang="pug">
 .current-rank
-  .current-rank-card(:style="`border: solid 5px ${currentLeagueOfLegendsOrder.color}`")
+  .current-rank-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.color}`")
     .current-rank-title(:style="{color: currentLeagueOfLegendsOrder.color, backgroundColor: '#f4f1f0'}") CURRENT RANK
     .select-division
       v-icon(icon="mdi-menu-left" @click="increment(false)")
