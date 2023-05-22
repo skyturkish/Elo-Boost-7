@@ -36,15 +36,32 @@ Banner(splashArtPath = 'league-of-legends' title= 'LEAGUE OF LEGENDS' subtitle= 
 v-divider.border-opacity-100(thickness="1rem" )
 .boostType
   .buttons
-    v-btn(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`' ) {{ boostType.name }}
+    v-btn.boost-type-button(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`') {{ boostType.name }}
   .dynamic-view
     router-view()
 </template>
 
 <style scoped>
-
+.boost-type-button {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: #BBBBBB;
+}
 .v-btn--active {
-  color: #8A80AD;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background-color: #3C54FF;
+  color: #FFFFFF;
+}
+.v-btn:hover {
+  margin-top: -0.5rem;
+}
+.v-btn {
+  width: 200px;
+  height: 70px;
+  border-radius: 15px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 .buttons {
   display: flex;
@@ -54,27 +71,15 @@ v-divider.border-opacity-100(thickness="1rem" )
   padding: 2rem 2.75rem;
   background-color: #eeeeee;
   flex-wrap: wrap;
-
 }
 .dynamic-view {
   max-width: 1440px;
   margin: 0 auto;
 }
-.v-btn {
-  width: 200px;
-  height: 70px;
-  border-radius: 15px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-}
 .v-divider {
-  border-color: #475a7e !important;
+  border-color: #656EC0 !important;
 }
 .boostType {
   background-color: #eeeeee;
-;
 }
-/* .boostType {
-  background-color: #341017;
-} */
 </style>

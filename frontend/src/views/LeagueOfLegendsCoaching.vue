@@ -28,7 +28,7 @@ Banner(splashArtPath = 'league-of-legends-coaching' title = 'LEAGUE OF LEGENDS' 
 v-divider.border-opacity-100(thickness="1rem" )
 .coachType
   .buttons
-    v-btn(v-for="coachType in coachingTypes" size="x-large" :to='`${coachType.route}`' ) {{ coachType.name }}
+    v-btn.coach-type-button(v-for="coachType in coachingTypes" size="x-large" :to='`${coachType.route}`' ) {{ coachType.name }}
   .c
     router-view()
 </template>
@@ -52,12 +52,27 @@ v-divider.border-opacity-100(thickness="1rem" )
   flex-wrap: wrap;
   justify-content: center;
 }
+.coach-type-button {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: #bbb;
+}
+.v-btn--active {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  border: solid 1px #6262ED;
+  color: #280051;
+}
+.v-btn:hover {
+  border: solid 1px #6262ED;
+  color: #280051;
+}
 .v-btn {
   width: 200px;
   height: 70px;
   border-radius: 15px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 .c {
   max-width: 926px;
