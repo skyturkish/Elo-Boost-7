@@ -3,7 +3,12 @@ import { ref, computed } from 'vue'
 import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
-const divisions = LeagueOfLegendsDivisions
+const props = defineProps({
+  divisionLimit: {
+  },
+})
+
+const divisions = LeagueOfLegendsDivisions.slice(0, props.divisionLimit)
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const currentRank = currentLeagueOfLegendsOrder.currentRank
@@ -28,11 +33,11 @@ const currentDivisionName = computed(() => {
   .current-rank-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.colors.borderColor}`")
     .current-rank-title(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.colors.shadowColor}") CURRENT RANK
     .select-division
-      v-icon(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(8)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
+      v-icon(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name
         v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png']" width="16rem" )
         .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentRank.milestone }}
-      v-icon(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision()" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
+      v-icon(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
     .colors
       v-btn.color(

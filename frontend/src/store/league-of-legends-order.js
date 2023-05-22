@@ -47,18 +47,14 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         selectedDivisionIndex: 3
     }),
     actions: {
-        incrementDivision() {
+        incrementDivision(limit) {
             this.selectedDivisionIndex++
 
-            this.selectedDivisionIndex =
-                this.selectedDivisionIndex % LeagueOfLegendsDivisions.length
+            this.selectedDivisionIndex = this.selectedDivisionIndex % limit
         },
-        decrementDivision() {
+        decrementDivision(limit) {
             this.selectedDivisionIndex =
-                (this.selectedDivisionIndex -
-                    1 +
-                    LeagueOfLegendsDivisions.length) %
-                LeagueOfLegendsDivisions.length
+                (this.selectedDivisionIndex - 1 + limit) % limit
         },
         changeCurrentDivision(division) {
             console.log(division)

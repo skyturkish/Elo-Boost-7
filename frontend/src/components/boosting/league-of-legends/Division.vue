@@ -11,7 +11,7 @@ import axios from 'axios'
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const currentRank = currentLeagueOfLegendsOrder.currentRank
 
-const divisions = LeagueOfLegendsDivisions
+const divisions = LeagueOfLegendsDivisions.slice(0,7)
 const milestones = LeagueOfLegendsMilestones
 
 const desiredMilestone = ref('I')
@@ -80,7 +80,7 @@ async function createOrder() {
 
 <template lang="pug">
 .division
-  CurrentRank()
+  CurrentRank(divisionLimit = 6)
     .mile-stones
       div.mile-stone(
       v-for="milestone in milestones"
