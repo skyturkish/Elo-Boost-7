@@ -14,21 +14,23 @@ const currentRank = currentLeagueOfLegendsOrder.currentRank
 const divisions = LeagueOfLegendsDivisions
 const milestones = LeagueOfLegendsMilestones
 
-let selectedIndex = ref(4)
-
 const desiredMilestone = ref('I')
-
-const limitedDivisions = computed(() => {
-  return divisions.slice(currentLeagueOfLegendsOrder.colors.rank)
-})
+const selectedIndex = ref(4)
 
 const desiredOrder = computed(() => {
   return divisions[selectedIndex.value % divisions.length]
 })
 
+const limitedDivisions = computed(() => {
+  if(currentLeagueOfLegendsOrder.colors.rank >= desiredOrder.value.rank) {
+    selectedIndex.value += 1 + currentLeagueOfLegendsOrder.colors.rank - desiredOrder.value.rank
+  }
+
+  return divisions.slice(currentLeagueOfLegendsOrder.colors.rank)
+})
+
 function increment() {
   selectedIndex.value++
-
   selectedIndex.value = selectedIndex.value % divisions.length
 }
 
@@ -100,7 +102,7 @@ async function createOrder() {
       v-divider.divider()
       .colors
         v-btn.color(
-          v-for="division in divisions"
+          v-for="division in limitedDivisions"
           :flat="division.name == desiredOrder.name ? false : true"
           icon
           :size="division.name == desiredOrder.name ? '2rem' : '1.5rem'"
