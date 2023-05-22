@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import CheckoutSelection from '@/components/CheckoutSelection'
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
 import Checkout from '@/components/Checkout'
@@ -15,6 +15,7 @@ const divisions = LeagueOfLegendsDivisions
 const milestones = LeagueOfLegendsMilestones
 
 let selectedIndex = 4
+
 const desiredOrder = ref(divisions[selectedIndex])
 
 const desiredMilestone = ref('I')
@@ -32,10 +33,6 @@ function increment(isIncrement) {
 function changeDesiredDivision(division) {
   console.log(desiredOrder.value.shadowColor)
   desiredOrder.value = division
-}
-
-function changeCurrentMileStone(milestone) {
-  currentRank.milestone = milestone
 }
 
 function changeMileStone(milestone) {
@@ -79,10 +76,10 @@ async function createOrder() {
   CurrentRank()
     .mile-stones
       div.mile-stone(
-      v-for="divisionMileStone in milestones"
-      :style="{backgroundColor: currentRank.milestone == divisionMileStone ? '#afafaf' : '#f4f1f0'}"
-      @click="changeCurrentMileStone(divisionMileStone)"
-      ) {{ divisionMileStone }}
+      v-for="milestone in milestones"
+      :style="{backgroundColor: currentRank.milestone == milestone ? '#afafaf' : '#f4f1f0'}"
+      @click="currentLeagueOfLegendsOrder.changeCurrentMileStone(milestone)"
+      ) {{ milestone }}
     .selections
       v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentRank.currentLP").selection-Current-LP
       v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp

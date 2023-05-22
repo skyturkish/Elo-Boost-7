@@ -1,40 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { LeagueOfLegendsDivisions, LeagueOfLegendsMilestones } from '@/constants/league-of-legends-constants'
+import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
 const divisions = LeagueOfLegendsDivisions
-const milestones = LeagueOfLegendsMilestones
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const currentRank = currentLeagueOfLegendsOrder.currentRank
-let selectedIndex = 3
-const selectDivision = ref(divisions[selectedIndex % 9])
-
-function increment(isIncrement) {
-
-  selectedIndex = isIncrement ? selectedIndex + 1 : selectedIndex - 1
-
-  if(selectedIndex < 0) {
-    selectedIndex = 8
-  }
-
-  selectDivision.value = divisions[selectedIndex % 9]
-
-  currentRank.division = selectDivision.value.name
-  currentLeagueOfLegendsOrder.colors = divisions[selectedIndex % 9]
-
-
-}
-
-function changeCurrentDivision(division) {
-  currentRank.division = division.name
-  currentLeagueOfLegendsOrder.colors = division
-}
-
-function changeMileStone(milestone) {
-  currentRank.milestone = milestone
-}
 
 const divisionUrls = import.meta.glob('../../../assets/ranks/league-of-legends/*.png', {
   import: 'default',
@@ -47,9 +19,8 @@ const trimUrls = import.meta.glob('../../../assets/trims/*.png', {
 })
 
 const currentDivisionName = computed(() => {
-  return currentRank.division.toUpperCase()
+  return currentLeagueOfLegendsOrder.colors.name.toUpperCase()
 });
-
 </script>
 
 <template lang="pug">
@@ -57,24 +28,24 @@ const currentDivisionName = computed(() => {
   .current-rank-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.colors.borderColor}`")
     .current-rank-title(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.colors.shadowColor}") CURRENT RANK
     .select-division
-      v-icon(icon="mdi-menu-left" @click="increment(false)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
+      v-icon(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(8)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name
-        v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentRank.division + '.png']" width="16rem" )
+        v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png']" width="16rem" )
         .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentRank.milestone }}
-      v-icon(icon="mdi-menu-right" @click="increment(true)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
+      v-icon(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision()" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
     .colors
       v-btn.color(
         v-for="division in divisions"
-        :flat="division.name == currentRank.division ? false : true"
+        :flat="division.name == currentLeagueOfLegendsOrder.colors.name ? false : true"
         icon
-        :size="division.name == currentRank.division ? '2rem' : '1.5rem'"
+        :size="division.name == currentLeagueOfLegendsOrder.colors.name ? '2rem' : '1.5rem'"
         :color="division.buttonColor"
-        @click="changeCurrentDivision(division)")
+        @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
     .dynamic-view
       slot
   v-img.trim(src="../../../assets/union.png" width="23.5rem")
-    v-img(:src="trimUrls['../../../assets/trims/' + currentRank.division + '-trim.png']" )
+    v-img(:src="trimUrls['../../../assets/trims/' + currentLeagueOfLegendsOrder.colors.name + '-trim.png']" )
 </template>
 
 <style scoped>
