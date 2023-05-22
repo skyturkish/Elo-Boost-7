@@ -14,25 +14,30 @@ const currentRank = currentLeagueOfLegendsOrder.currentRank
 const divisions = LeagueOfLegendsDivisions
 const milestones = LeagueOfLegendsMilestones
 
-let selectedIndex = 4
-
-const desiredOrder = ref(divisions[selectedIndex])
+let selectedIndex = ref(4)
 
 const desiredMilestone = ref('I')
 
-function increment(isIncrement) {
-  selectedIndex = isIncrement ? selectedIndex + 1  : selectedIndex - 1
+const limitedDivisions = computed(() => {
+  return divisions.slice(currentLeagueOfLegendsOrder.colors.rank)
+})
 
-  if(selectedIndex < 0) {
-    selectedIndex = 8
-  }
+const desiredOrder = computed(() => {
+  return divisions[selectedIndex.value % divisions.length]
+})
 
-  desiredOrder.value = divisions[selectedIndex % 9]
+function increment() {
+  selectedIndex.value++
+
+  selectedIndex.value = selectedIndex.value % divisions.length
+}
+
+function decrement() {
+  selectedIndex.value = (selectedIndex.value - 1 + divisions.length) % divisions.length
 }
 
 function changeDesiredDivision(division) {
-  console.log(desiredOrder.value.shadowColor)
-  desiredOrder.value = division
+  selectedIndex.value = divisions.indexOf(division)
 }
 
 function changeMileStone(milestone) {
@@ -87,11 +92,11 @@ async function createOrder() {
     .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
       .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
       .select-division
-        v-icon(icon="mdi-menu-left" @click="increment(false)" :color="currentLeagueOfLegendsOrder.dominantColor")
+        v-icon(icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
         .division-name
           v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + desiredOrder.name + '.png']" width="16rem" )
           .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
-        v-icon(icon="mdi-menu-right" @click="increment(true)" :color="currentLeagueOfLegendsOrder.dominantColor")
+        v-icon(icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
       v-divider.divider()
       .colors
         v-btn.color(
