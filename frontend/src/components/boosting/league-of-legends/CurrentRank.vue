@@ -8,16 +8,22 @@ const milestones = LeagueOfLegendsMilestones
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const currentRank = currentLeagueOfLegendsOrder.currentRank
-let selectedIndex = 4
+let selectedIndex = 3
 const selectDivision = ref(divisions[selectedIndex % 9])
 
 function increment(isIncrement) {
+
   selectedIndex = isIncrement ? selectedIndex + 1 : selectedIndex - 1
+
+  if(selectedIndex < 0) {
+    selectedIndex = 8
+  }
 
   selectDivision.value = divisions[selectedIndex % 9]
 
   currentRank.division = selectDivision.value.name
   currentLeagueOfLegendsOrder.colors = divisions[selectedIndex % 9]
+
 
 }
 
@@ -77,6 +83,7 @@ const currentDivisionName = computed(() => {
   border-radius: 15px;
   margin: 0 auto;
   background-color: #fff;
+  height: 42rem;
 }
 .current-rank-card {
   border-radius: 15px;
@@ -111,7 +118,6 @@ const currentDivisionName = computed(() => {
   align-items: center;
   gap: 0.90rem;
 }
-
 .dynamic-view {
   padding-top: 2rem;
   display:flex;

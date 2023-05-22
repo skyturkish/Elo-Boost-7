@@ -20,7 +20,11 @@ const desiredOrder = ref(divisions[selectedIndex])
 const desiredMilestone = ref('I')
 
 function increment(isIncrement) {
-  selectedIndex = isIncrement ? selectedIndex + 1 : selectedIndex - 1
+  selectedIndex = isIncrement ? selectedIndex + 1  : selectedIndex - 1
+
+  if(selectedIndex < 0) {
+    selectedIndex = 8
+  }
 
   desiredOrder.value = divisions[selectedIndex % 9]
 }
