@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import CheckoutSelection from '@/components/CheckoutSelection'
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
+import CurrentMilestones from '@/components/boosting/league-of-legends/CurrentMilestones'
 import Checkout from '@/components/Checkout'
 import { LeagueOfLegendsDivisions, LeagueOfLegendsMilestones } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
@@ -89,12 +90,7 @@ async function createOrder() {
 <template lang="pug">
 .division
   CurrentRank(divisionLimit = 6 title = "CURRENT RANK")
-    .mile-stones
-      div.mile-stone(
-      v-for="milestone in milestones"
-      :style="{color: currentLeagueOfLegendsOrder.isSelectedMilestone(milestone) ? currentLeagueOfLegendsOrder.colors.dominantColor : '#bbb',border: 'solid 1px ' + (currentLeagueOfLegendsOrder.isSelectedMilestone(milestone) ? currentLeagueOfLegendsOrder.colors.borderColor : '#bbb')}"
-      @click="currentLeagueOfLegendsOrder.changeCurrentMileStone(milestone)"
-      ) {{ milestone }}
+    CurrentMilestones
     .selections
       v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentRank.currentLP").selection-Current-LP
       v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
@@ -186,11 +182,6 @@ async function createOrder() {
   gap: 0.55rem;
   justify-content: center;
   padding-top: 2rem;
-}
-.mile-stones {
-  display: flex;
-  gap: 0.55rem;
-  justify-content: center;
 }
 .mile-stone {
   width: 2rem;
