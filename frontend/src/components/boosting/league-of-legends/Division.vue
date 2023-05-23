@@ -202,6 +202,6 @@ async function createOrder() {
   padding-top: 1.43rem;
 }
 .trim {
-  margin-top: -3rem
+  margin-top: -2rem;
 }
 </style>

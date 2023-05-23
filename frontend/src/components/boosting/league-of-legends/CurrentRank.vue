@@ -5,6 +5,7 @@ import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
 const props = defineProps({
   divisionLimit: {
+    type: String,
   },
   title: {
     type: String,
@@ -104,7 +105,7 @@ const currentDivisionName = computed(() => {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 1.43rem;
+  gap: 1rem;
 }
 .mile-stones {
   display: flex;
@@ -126,6 +127,6 @@ const currentDivisionName = computed(() => {
   margin-top: 2.15rem;
 }
 .trim {
-  margin-top: -3rem;
+  margin-top: -2rem;
 }
 </style>
