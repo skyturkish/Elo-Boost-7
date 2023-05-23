@@ -53,15 +53,19 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             this.selectedDivisionIndex = this.selectedDivisionIndex % limit
         },
         decrementDivision(limit) {
-            this.selectedDivisionIndex =
-                (this.selectedDivisionIndex - 1 + limit) % limit
+            this.selectedDivisionIndex -= 1
+            if (this.selectedDivisionIndex < 0) {
+                this.selectedDivisionIndex = limit - 1
+            }
         },
         changeCurrentDivision(division) {
-            console.log(division)
             this.selectedDivisionIndex = division.rank - 1
         },
         changeCurrentMileStone(milestone) {
             this.currentRank.milestone = milestone
+        },
+        isSelectedMilestone(milestone) {
+            return this.currentRank.milestone === milestone
         }
     },
     getters: {

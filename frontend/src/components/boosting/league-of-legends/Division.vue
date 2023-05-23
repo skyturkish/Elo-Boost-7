@@ -35,7 +35,11 @@ function increment() {
 }
 
 function decrement() {
-  selectedIndex.value = (selectedIndex.value - 1 + divisions.length) % divisions.length
+  selectedIndex.value -= 1
+
+  if (selectedIndex.value < currentLeagueOfLegendsOrder.colors.rank) {
+    selectedIndex.value = divisions.length - 1
+  }
 }
 
 function changeDesiredDivision(division) {
@@ -44,6 +48,10 @@ function changeDesiredDivision(division) {
 
 function changeMileStone(milestone) {
   desiredMilestone.value = milestone
+}
+
+function isSelectedMilestone(milestone) {
+  return desiredMilestone.value === milestone
 }
 
 const divisionUrls = import.meta.glob('../../../assets/ranks/league-of-legends/*.png', {
@@ -84,7 +92,7 @@ async function createOrder() {
     .mile-stones
       div.mile-stone(
       v-for="milestone in milestones"
-      :style="{backgroundColor: currentRank.milestone == milestone ? '#afafaf' : '#f4f1f0'}"
+      :style="{color: currentLeagueOfLegendsOrder.isSelectedMilestone(milestone) ? currentLeagueOfLegendsOrder.colors.dominantColor : '#bbb',border: 'solid 1px ' + (currentLeagueOfLegendsOrder.isSelectedMilestone(milestone) ? currentLeagueOfLegendsOrder.colors.borderColor : '#bbb')}"
       @click="currentLeagueOfLegendsOrder.changeCurrentMileStone(milestone)"
       ) {{ milestone }}
     .selections
@@ -110,10 +118,10 @@ async function createOrder() {
           @click="changeDesiredDivision(division)")
       .desired-mile-stones
         div.mile-stone(
-        v-for="divisionMileStone in milestones"
-        :style="{backgroundColor: desiredMilestone == divisionMileStone ? '#afafaf' : '#f4f1f0'}"
-        @click="changeMileStone(divisionMileStone)"
-        ) {{ divisionMileStone }}
+        v-for="milestone in milestones"
+        :style="{color: isSelectedMilestone(milestone) ? desiredOrder.dominantColor : '#bbb',border: 'solid 1px ' + (isSelectedMilestone(milestone) ? desiredOrder.borderColor : '#bbb')}"
+        @click="changeMileStone(milestone)"
+        ) {{ milestone }}
       .desired-selections
         v-select(:items="['Turkey','China']" v-model="currentLeagueOfLegendsOrder.server")
         v-select(:items="['solo','flex']" v-model="currentLeagueOfLegendsOrder.queue")
@@ -170,11 +178,6 @@ async function createOrder() {
   align-items: center;
   gap: 0.90rem;
 }
-.mile-stones {
-  display: flex;
-  gap: 0.55rem;
-  justify-content: center;
-}
 .divider {
   margin-top: 2rem;
 }
@@ -184,13 +187,20 @@ async function createOrder() {
   justify-content: center;
   padding-top: 2rem;
 }
+.mile-stones {
+  display: flex;
+  gap: 0.55rem;
+  justify-content: center;
+}
 .mile-stone {
   width: 2rem;
   height: 2rem;
-  border-radius: 5px;
-  background-color: #f4f1f0;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
 .selections {
