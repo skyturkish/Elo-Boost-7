@@ -6,11 +6,9 @@ import CurrentMilestones from '@/components/boosting/league-of-legends/CurrentMi
 import Checkout from '@/components/Checkout'
 import { LeagueOfLegendsDivisions, LeagueOfLegendsMilestones } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
-import { useAccount } from '@/store/account'
 import axios from 'axios'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
-const currentRank = currentLeagueOfLegendsOrder.currentRank
 
 const divisions = LeagueOfLegendsDivisions.slice(0,7)
 const milestones = LeagueOfLegendsMilestones
@@ -66,24 +64,10 @@ const trimUrls = import.meta.glob('../../../assets/trims/*.png', {
 })
 
 async function createOrder() {
-  await axios.post('/order', {
-        customer: useAccount().user._id || 'test',
-        gameType: 'league-of-legends',
-        orderType: 'division',
-        currentRank: currentLeagueOfLegendsOrder.currentRank,
-        server: currentLeagueOfLegendsOrder.server,
-        gainLP: currentLeagueOfLegendsOrder.gainLP,
-        isSolo: currentLeagueOfLegendsOrder.isSolo,
-        lanes: currentLeagueOfLegendsOrder.lanes,
-        booster: currentLeagueOfLegendsOrder.booster,
-        champions: currentLeagueOfLegendsOrder.champions,
-        queue: currentLeagueOfLegendsOrder.queue,
-        options: currentLeagueOfLegendsOrder.options,
-        desiredRank: {
-          division: desiredOrder.value.name,
-          milestone: desiredMilestone.value
-        }
-    })
+  await currentLeagueOfLegendsOrder.createDivisionOrder({
+    division: desiredOrder.value.name,
+    milestone: desiredMilestone.value
+  })
 }
 </script>
 
@@ -92,7 +76,7 @@ async function createOrder() {
   CurrentRank(divisionLimit = 6 title = "CURRENT RANK")
     CurrentMilestones
     .selections
-      v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentRank.currentLP").selection-Current-LP
+      v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentLeagueOfLegendsOrder.currentLP").selection-Current-LP
       v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
   .desired-rank
     .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")

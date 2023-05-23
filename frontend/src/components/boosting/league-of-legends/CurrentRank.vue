@@ -16,7 +16,6 @@ const props = defineProps({
 const divisions = LeagueOfLegendsDivisions.slice(0, props.divisionLimit)
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
-const currentRank = currentLeagueOfLegendsOrder.currentRank
 
 const divisionUrls = import.meta.glob('../../../assets/ranks/league-of-legends/*.png', {
   import: 'default',
@@ -41,7 +40,7 @@ const currentDivisionName = computed(() => {
       v-icon(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name
         v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png']" width="16rem" )
-        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentRank.milestone }}
+        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentLeagueOfLegendsOrder.milestone }}
       v-icon(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
     .colors

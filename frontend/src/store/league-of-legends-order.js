@@ -3,14 +3,12 @@ import { defineStore } from 'pinia'
 
 import axios from 'axios'
 import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
+import { useAccount } from '@/store/account'
 
 export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
     state: () => ({
-        currentRank: {
-            division: 'gold',
-            milestone: 'I',
-            currentLP: '0-20LP'
-        },
+        milestone: 'I',
+        currentLP: '0-20LP',
         server: 'Turkey',
         gainLP: '25-20LP',
         isSolo: false,
@@ -62,13 +60,55 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             this.selectedDivisionIndex = division.rank - 1
         },
         changeCurrentMileStone(milestone) {
-            this.currentRank.milestone = milestone
+            this.milestone = milestone
         },
         isSelectedMilestone(milestone) {
-            return this.currentRank.milestone === milestone
+            return this.milestone === milestone
+        },
+        async createDivisionOrder(desiredRank) {
+            await axios.post('/order', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                orderType: 'division',
+                currentRank: this.currentRank,
+                server: this.server,
+                gainLP: this.gainLP,
+                isSolo: this.isSolo,
+                lanes: this.lanes,
+                booster: this.booster,
+                champions: this.champions,
+                queue: this.queue,
+                options: this.options,
+                desiredRank: desiredRank
+            })
+        },
+        async createWinOrder(AmountGame) {
+            await axios.post('/order', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                orderType: 'win',
+                currentRank: this.currentRank,
+                server: this.server,
+                gainLP: this.gainLP,
+                isSolo: this.isSolo,
+                lanes: this.lanes,
+                booster: this.booster,
+                champions: this.champions,
+                queue: this.queue,
+                options: this.options,
+                amountGame: AmountGame
+            })
         }
     },
     getters: {
-        colors: (state) => LeagueOfLegendsDivisions[state.selectedDivisionIndex]
+        colors: (state) =>
+            LeagueOfLegendsDivisions[state.selectedDivisionIndex],
+        currentRank: (state) => {
+            return {
+                division: state.colors.name,
+                milestone: state.milestone,
+                currentLP: state.currentLP
+            }
+        }
     }
 })
