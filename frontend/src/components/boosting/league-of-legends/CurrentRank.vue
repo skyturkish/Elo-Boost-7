@@ -6,6 +6,10 @@ import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 const props = defineProps({
   divisionLimit: {
   },
+  title: {
+    type: String,
+    required: true
+  }
 })
 
 const divisions = LeagueOfLegendsDivisions.slice(0, props.divisionLimit)
@@ -31,7 +35,7 @@ const currentDivisionName = computed(() => {
 <template lang="pug">
 .current-rank
   .current-rank-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.colors.borderColor}`")
-    .current-rank-title(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.colors.shadowColor}") CURRENT RANK
+    .current-rank-title(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.colors.shadowColor}") {{ title }}
     .select-division
       v-icon(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name

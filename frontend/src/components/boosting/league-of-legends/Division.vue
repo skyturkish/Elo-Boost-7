@@ -88,7 +88,7 @@ async function createOrder() {
 
 <template lang="pug">
 .division
-  CurrentRank(divisionLimit = 6)
+  CurrentRank(divisionLimit = 6 title = "CURRENT RANK")
     .mile-stones
       div.mile-stone(
       v-for="milestone in milestones"
