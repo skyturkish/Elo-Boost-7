@@ -99,7 +99,7 @@ const currentDivisionName = computed(() => {
   gap: 0.90rem;
 }
 .dynamic-view {
-  padding-top: 2rem;
+  padding-top: 1rem;
   display:flex;
   justify-content: center;
   flex-direction: column;
