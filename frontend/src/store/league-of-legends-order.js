@@ -98,6 +98,22 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 options: this.options,
                 amountGame: AmountGame
             })
+        },
+        async createPlacementsOrder(AmountGame) {
+            await axios.post('/order', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                orderType: 'placements',
+                currentRank: this.currentRank,
+                server: this.server,
+                isSolo: this.isSolo,
+                lanes: this.lanes,
+                booster: this.booster,
+                champions: this.champions,
+                queue: this.queue,
+                options: this.options,
+                amountGame: AmountGame
+            })
         }
     },
     getters: {
