@@ -12,9 +12,9 @@ const router = useRouter()
   Logo
   .navigation-and-buttons
     .navigations
-      v-btn.navigation-text(variant="text" @click="router.push('/boosting/valorant/division')") BOOSTING
-      v-btn.navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
-      v-btn.navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
+      .navigation-text(variant="text" @click="router.push('/boosting/valorant/division')") BOOSTING
+      .navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
+      .navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
     .buttons
       ClientAreaButton
       SettingsButton
@@ -32,8 +32,9 @@ const router = useRouter()
 }
 .navigations {
   display: flex;
-  gap: 1.2rem;
+  gap: 3rem;
   padding-top: 0.5rem;
+  padding-right: 2rem;
 }
 .buttons > * {
   margin-left: 1rem;
@@ -44,6 +45,11 @@ const router = useRouter()
   letter-spacing: normal;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   color: #fff;
+  height: min-content;
+}
+.navigation-text:hover {
+  cursor: pointer;
+  color: #b252ca;
 }
 @media (max-width: 959px) {
   .navigation-text {
