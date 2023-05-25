@@ -90,7 +90,7 @@ const createOrder = function(){
   font-size: 48px;
   font-weight: 800;
   text-align: end;
-  color: #300;
+  color: #2b2d3d;
 }
 .solo-duo {
   display: flex;

@@ -1,4 +1,5 @@
 <script setup>
+// bu değeri değiştireceksin, listen bu, bu da default değerin diye bir ayar yapılacak buraya tüm değerler de store'da tutulacak.
 import { ref, defineProps, defineEmits } from 'vue'
 
 const props = defineProps({

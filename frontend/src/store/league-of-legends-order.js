@@ -2,7 +2,10 @@
 import { defineStore } from 'pinia'
 
 import axios from 'axios'
-import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
+import {
+    LeagueOfLegendsDivisions,
+    mapColors
+} from '@/constants/league-of-legends-constants'
 import { useAccount } from '@/store/account'
 
 export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
@@ -42,7 +45,12 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 isActive: false
             }
         },
-        selectedDivisionIndex: 3
+        selectedDivisionIndex: 3,
+        map: 'aram',
+        normalGameAmount: '2 GAMES',
+        clashTier: 'TIER IV',
+        clashAmountGame: '5 GAMES',
+        clashAmountBooster: '5 BOOSTER'
     }),
     actions: {
         incrementDivision(limit) {
@@ -65,6 +73,17 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         isSelectedMilestone(milestone) {
             return this.milestone === milestone
         },
+        changeMap(map) {
+            this.map = map.name
+        },
+        changeMapWithIcon() {
+            if (this.map == 'aram') {
+                this.map = 'rift'
+            } else {
+                this.map = 'aram'
+            }
+        },
+
         async createDivisionOrder(desiredRank) {
             await axios.post('/order', {
                 customer: useAccount().user._id || 'test',
@@ -82,7 +101,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 desiredRank: desiredRank
             })
         },
-        async createWinOrder(AmountGame) {
+        async createWinOrder(amountGame) {
             await axios.post('/order', {
                 customer: useAccount().user._id || 'test',
                 gameType: 'league-of-legends',
@@ -96,10 +115,10 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 champions: this.champions,
                 queue: this.queue,
                 options: this.options,
-                amountGame: AmountGame
+                amountGame: amountGame
             })
         },
-        async createPlacementsOrder(AmountGame) {
+        async createPlacementsOrder(amountGame) {
             await axios.post('/order', {
                 customer: useAccount().user._id || 'test',
                 gameType: 'league-of-legends',
@@ -112,7 +131,39 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 champions: this.champions,
                 queue: this.queue,
                 options: this.options,
-                amountGame: AmountGame
+                amountGame: amountGame
+            })
+        },
+        async createNormalGamesOrder() {
+            await axios.post('/order', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                orderType: 'normal-game',
+                map: this.map,
+                amountGame: this.normalGameAmount,
+                server: this.server,
+                isSolo: this.isSolo,
+                lanes: this.lanes,
+                booster: this.booster,
+                champions: this.champions,
+                queue: this.queue,
+                options: this.options
+            })
+        },
+        async createClashOrder() {
+            await axios.post('/order', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                orderType: 'clash',
+                server: this.server,
+                clashTier: this.clashTier,
+                clashAmountBooster: this.clashAmountBooster,
+                amountGame: this.clashAmountGame,
+                isSolo: this.isSolo,
+                lanes: this.lanes,
+                booster: this.booster,
+                champions: this.champions,
+                options: this.options
             })
         }
     },
@@ -125,6 +176,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 milestone: state.milestone,
                 currentLP: state.currentLP
             }
-        }
+        },
+        maps: (state) => mapColors,
+        selectedMap: (state) => mapColors[state.map]
     }
 })

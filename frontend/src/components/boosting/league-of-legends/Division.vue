@@ -80,7 +80,7 @@ async function createOrder() {
     CurrentMilestones
     .selections
       v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentLeagueOfLegendsOrder.currentLP").selection-Current-LP
-      SelectGainLP
+      v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
   .desired-rank
     .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
       .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK

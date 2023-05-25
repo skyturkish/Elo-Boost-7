@@ -82,3 +82,30 @@ export const LeagueOfLegendsDivisions = [
 ]
 
 export const LeagueOfLegendsMilestones = ['IV', 'III', 'II', 'I']
+
+export const mapColors = {
+    rift: {
+        name: 'rift',
+        dominantColor: '#194F00',
+        shadowColor: '#F9FBF8',
+        buttonColor: '#1DA411',
+        borderColor: '#0F6F00',
+        width: '23.25rem'
+    },
+    aram: {
+        name: 'aram',
+        dominantColor: '#003879',
+        shadowColor: '#F8F8FB',
+        buttonColor: '#476CC4',
+        borderColor: '#7DB1FF',
+        width: '25.64rem'
+    }
+}
+export const clash = {
+    name: 'clash',
+    dominantColor: '#93006A',
+    shadowColor: '#FBF8FA',
+    borderColor: '#980092',
+    buttonColor: '#692F56',
+    width: '26.78rem'
+}
