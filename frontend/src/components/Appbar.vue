@@ -1,5 +1,4 @@
 <script setup>
-import Logo from '@/components/main/appbar-components/Logo'
 import ClientAreaButton from '@/components/ClientAreaButton'
 import SettingsButton from '@/components/main/appbar-components/SettingsButton'
 import { useRouter } from 'vue-router'
@@ -9,7 +8,7 @@ const router = useRouter()
 
 <template lang="pug">
 .appbar
-  Logo
+  v-btn.logo(variant="tonal" @click="router.push('/')")
   .navigation-and-buttons
     .navigations
       .navigation-text(variant="text" @click="router.push('/boosting/valorant/division')") BOOSTING
@@ -26,6 +25,12 @@ const router = useRouter()
   justify-content: space-between;
   font-family: Inter;
 }
+.logo {
+    width: 9.25rem;
+    height: 9.25rem;
+    border-radius: 1.6rem;
+    background-color: #d9d9d9;
+}
 .navigation-and-buttons {
   display: flex;
   gap: 1rem;
@@ -36,8 +41,9 @@ const router = useRouter()
   padding-top: 0.5rem;
   padding-right: 2rem;
 }
-.buttons > * {
-  margin-left: 1rem;
+.buttons {
+  display: flex;
+  gap: 1rem;
 }
 .navigation-text {
   font-size: 24px;

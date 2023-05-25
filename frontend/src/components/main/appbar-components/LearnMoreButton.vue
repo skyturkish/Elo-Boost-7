@@ -2,10 +2,8 @@
 </script>
 
 <template lang="pug">
-v-btn.learnMore.rounded-xl(
-    variant="tonal"
-)
-    .learnMore-text LEARN <br>MORE
+v-btn.learnMore.rounded-xl(variant="tonal")
+    .learnMore-text LEARN <br> MORE
 
 </template>
 

@@ -24,7 +24,7 @@ async function createOrder() {
 
 <template lang="pug">
 .lesson
-  CurrentRank
+  CurrentRank(title = "YOUR RANK")
     .hours-of-lesson HOURS OF LESSON
     v-select(:items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" v-model="hours")
   Checkout(v-on:create-order="createOrder")

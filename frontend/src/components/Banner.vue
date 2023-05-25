@@ -27,20 +27,19 @@ const imgUrls = import.meta.glob('../assets/banners/*.png', {
 </script>
 
 <template lang="pug">
-.banner(:style="{ backgroundColor: backgroundColor }")
-  v-img.image(cover :src='imgUrls[`../assets/banners/${splashArtPath}.png`]')
-    .content
-      AppBar
-      .TRUST-PILOT-5-STAR-REVIEW ** TRUST PILOT 5 STAR REVIEW **
-      .title {{ title }}
-      .subtitle {{ subtitle }}
-      .dynamic
-        slot
+v-img.image(cover :src='imgUrls[`../assets/banners/${splashArtPath}.png`]')
+  .content
+    AppBar
+    .TRUST-PILOT-5-STAR-REVIEW ** TRUST PILOT 5 STAR REVIEW **
+    .title {{ title }}
+    .subtitle {{ subtitle }}
+    .dynamic
+      slot
 </template>
 
 <style scoped>
 .image {
-  max-height: 600px;
+  max-height: 540px;
   margin: 0 auto;
 }
 .content {
@@ -49,7 +48,7 @@ const imgUrls = import.meta.glob('../assets/banners/*.png', {
   max-width: 1840px;
   min-width: 960px;
   margin: 0 auto;
-  padding: 49px 42px 32px 50px;
+  padding: 42px 40px 30px 45px;
 }
 .TRUST-PILOT-5-STAR-REVIEW {
   padding-top: 3rem;
