@@ -4,6 +4,9 @@ import CheckoutSelection from '@/components/CheckoutSelection'
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
 import CurrentMilestones from '@/components/boosting/league-of-legends/CurrentMilestones'
 import Checkout from '@/components/Checkout'
+import SelectServer from '@/components/boosting/league-of-legends/SelectServer'
+import SelectQueue from '@/components/boosting/league-of-legends/SelectQueue'
+import SelectGainLP from '@/components/boosting/league-of-legends/SelectGainLP'
 import { LeagueOfLegendsDivisions, LeagueOfLegendsMilestones } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import axios from 'axios'
@@ -77,7 +80,7 @@ async function createOrder() {
     CurrentMilestones
     .selections
       v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentLeagueOfLegendsOrder.currentLP").selection-Current-LP
-      v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
+      SelectGainLP
   .desired-rank
     .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
       .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
@@ -103,8 +106,8 @@ async function createOrder() {
         @click="changeMileStone(milestone)"
         ) {{ milestone }}
       .desired-selections
-        v-select(:items="['Turkey','China']" v-model="currentLeagueOfLegendsOrder.server")
-        v-select(:items="['solo','flex']" v-model="currentLeagueOfLegendsOrder.queue")
+        SelectServer
+        SelectQueue
     v-img.trim(src="../../../assets/union.png")
       v-img(:src="trimUrls['../../../assets/trims/' + desiredOrder.name + '-trim.png']" )
   Checkout(v-on:create-order="createOrder")
