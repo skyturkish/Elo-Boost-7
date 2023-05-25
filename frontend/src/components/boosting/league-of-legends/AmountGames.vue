@@ -9,6 +9,10 @@ const props = defineProps({
   title: {
     type: String,
     required: true
+  },
+  items: {
+    type: Array,
+    required: true
   }
 })
 
@@ -25,7 +29,7 @@ const updateSelectedValue = (value) => {
 <template lang="pug">
 .amount-games
   .hours-of-lesson {{ title }}
-  v-select(:items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" v-model="currentValue" @update:modelValue="updateSelectedValue")
+  v-select(:items=items v-model="currentValue" @update:modelValue="updateSelectedValue")
 </template>
 
 <style scoped>

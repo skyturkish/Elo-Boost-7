@@ -17,13 +17,15 @@ const updateSelectedValue = (value) => {
 async function createOrder() {
   await currentLeagueOfLegendsOrder.createWinOrder(hours.value)
 }
+
+const items = ['1 HOURS','2 HOURS','3 HOURS', '4 HOURS', '5 HOURS', '6 HOURS']
 </script>
 
 <template lang="pug">
 .win
   CurrentRank(divisionLimit = 9 title = "YOUR RANK" v-model="hours")
     CurrentMilestones
-    AmountGames(title="AMOUNT" :selected-value="hours" @update:selectedValue="updateSelectedValue")
+    AmountGames(items=items title="AMOUNT" :selected-value="hours" @update:selectedValue="updateSelectedValue")
   Checkout(v-on:create-order="createOrder")
 </template>
 
