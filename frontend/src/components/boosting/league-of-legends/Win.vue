@@ -1,6 +1,6 @@
 <script setup>
 import CurrentMilestones from '@/components/boosting/league-of-legends/CurrentMilestones'
-import AmountGames from '@/components/boosting/league-of-legends/AmountGames'
+import SelectAmountGames from '@/components/boosting/league-of-legends/SelectAmountGames'
 import Checkout from '@/components/Checkout'
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
@@ -25,7 +25,8 @@ const items = ['1 HOURS','2 HOURS','3 HOURS', '4 HOURS', '5 HOURS', '6 HOURS']
 .win
   CurrentRank(divisionLimit = 9 title = "YOUR RANK" v-model="hours")
     CurrentMilestones
-    AmountGames(:selected-value="hours" @update:selectedValue="updateSelectedValue")
+    .selections
+      SelectAmountGames(:selected-value="hours" @update:selectedValue="updateSelectedValue")
   Checkout(v-on:create-order="createOrder")
 </template>
 
