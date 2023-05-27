@@ -39,7 +39,8 @@ const currentDivisionName = computed(() => {
     .select-division
       v-icon(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name
-        v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png']" width="16rem" )
+        .rank-icon-box
+          v-img.rank-icon(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png']")
         .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentLeagueOfLegendsOrder.milestone }}
       v-icon(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
@@ -82,6 +83,10 @@ const currentDivisionName = computed(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.rank-icon-box {
+  height: 15.625rem;
+  width: 15.625rem;
 }
 .name {
   font-size: 32px;
