@@ -11,7 +11,7 @@ const router = useRouter()
   v-btn.logo(variant="tonal" @click="router.push('/')")
   .navigation-and-buttons
     .navigations
-      .navigation-text(variant="text" @click="router.push('/boosting/valorant/division')") BOOSTING
+      .navigation-text(variant="text" @click="router.push('/boosting/league-of-legends/division')") BOOSTING
       .navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
       .navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
     .buttons
