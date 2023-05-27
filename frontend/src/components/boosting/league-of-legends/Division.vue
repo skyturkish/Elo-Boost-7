@@ -85,12 +85,12 @@ async function createOrder() {
     .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
       .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
       .select-division
-        v-icon(icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
+        v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
         .division-name
           .rank-icon-box
             v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + desiredOrder.name + '.png']" width="16rem" )
           .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
-        v-icon(icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
+        v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
       v-divider.divider()
       .colors
         v-btn.color(
@@ -150,11 +150,18 @@ async function createOrder() {
   justify-content: space-between;
   align-items: center;
 }
+.division-name {
+  margin-top: -2rem;
+}
 .rank-icon-box {
   height: 15.625rem;
   width: 15.625rem;
 }
+.rank-icon {
+  padding-bottom: -5rem;
+}
 .name {
+  padding-top: 0.5rem;
   font-size: 32px;
   font-weight: bold;
   text-align: center;

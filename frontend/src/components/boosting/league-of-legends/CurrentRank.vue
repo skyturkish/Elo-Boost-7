@@ -37,12 +37,12 @@ const currentDivisionName = computed(() => {
   .current-rank-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.colors.borderColor}`")
     .current-rank-title(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.colors.shadowColor}") {{ title }}
     .select-division
-      v-icon(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
+      v-icon(size='large' icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name
         .rank-icon-box
           v-img.rank-icon(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png']")
         .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentLeagueOfLegendsOrder.milestone }}
-      v-icon(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
+      v-icon(size='large' icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
     .colors
       v-btn.color(
@@ -84,11 +84,18 @@ const currentDivisionName = computed(() => {
   justify-content: space-between;
   align-items: center;
 }
+.division-name {
+  margin-top: -2rem;
+}
 .rank-icon-box {
   height: 15.625rem;
   width: 15.625rem;
 }
+.rank-icon {
+  padding-bottom: -5rem;
+}
 .name {
+  padding-top: 0.5rem;
   font-size: 32px;
   font-weight: bold;
   text-align: center;
