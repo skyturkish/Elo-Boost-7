@@ -2,21 +2,14 @@
 import { ref } from 'vue'
 import { useAccount } from '@/store/account'
 
-import { defineEmits } from 'vue';
-
-const emit = defineEmits(['close-dialog']);
-
-const closeDialog = function(){
-  emit('close-dialog');
-}
-
 const useAccountStore = useAccount()
 
-const isRegister = ref(false)
+const authType = ref('login')
 
 const name = ref('')
 const email = ref('')
 const password = ref('')
+const repeatPassword = ref('')
 
 const form =  ref(false)
 const loading = ref(false)
@@ -70,16 +63,23 @@ const validationRules = {
 
             return 'Password must be less than 32 characters.'
           },
+      ],
+      "repeatPassword": [
+        value => {
+          if (value) return true
+
+          return 'Password have to check please type'
+        },
+        value => {
+          if(value === password.value) return true
+
+          return 'Password have to be the same'
+        }
       ]
 }
 
 async function fetchUser() {
   await useAccountStore.fetchSession()
-}
-
-function changeSignType() {
-  isRegister.value = !isRegister.value
-  backendError.value = null
 }
 
 async function validate()   {
@@ -106,7 +106,7 @@ async function register() {
       }
     })
     backendSuccess.value = 'You are now registered! Now Login'
-    isRegister.value = !isRegister.value
+    authType.value = 'login'
   } catch (error) {
     backendError.value = error.response.data.message
   } finally {
@@ -115,11 +115,13 @@ async function register() {
 }
 
 async function login() {
+  console.log('login yapılıyor')
   backendError.value = null
   backendSuccess.value = null
 
   const valid = await validate()
 
+  console.log('valid evet', valid)
   if (!valid) return
 
   try {
@@ -141,98 +143,140 @@ async function login() {
     loading.value = false
   }
 }
+function continueAsGuest() {
+  console.log('continue as guest')
+}
 </script>
 
 <template lang="pug">
-v-form(
-  ref="form"
-  )
-  v-btn.close(
-    icon="mdi-close-circle-outline"
-    color="transparent"
-    size="x-large"
-    @click="closeDialog()"
-    )
-  .register(v-if="isRegister")
-    .title Sign in
-    v-btn(
-        @click="changeSignType()"
-    ) Already have an account ? Sign in
-    v-text-field(
-      v-model="email"
-      :rules="validationRules.email"
-      label="email"
-      required
-    )
-    v-text-field(
-      v-model="name"
-      :rules="validationRules.name"
-      label="Name"
-      required
-    )
-    v-text-field(
-      v-model="password"
-      :rules="validationRules.password"
-      label="Password"
-      required
-    )
-    v-btn(
-      @click="register"
-      :loading="loading"
-    ) Create Account
-  .login(v-else)
-    .dialog Login
-    v-btn(
-        @click="changeSignType()"
-    ) New user ? Create an account
-    v-text-field(
-      v-model="email"
-      :rules="validationRules.email"
-      label="Email"
-      required
-    )
-    v-text-field(
-      v-model="password"
-      :rules="validationRules.password"
-      label="Password"
-      required
-    )
-    v-btn(
-      @click="login"
-    ) Login
-  v-alert.erroralert(
-    closable
-    title="A error appear"
-    text="..."
-    variant="outlined"
-    v-if="backendError"
-  ) {{ backendError }}
-  v-alert.successalert(
-    closable
-    title="Success  "
-    text="..."
-    variant="outlined"
-    v-if="backendSuccess"
-  ) {{ backendSuccess }}
+v-form(ref="form")
+  .account-login(v-show="authType === 'login'")
+    v-img.left-image(cover src="../../assets/auth-dialog-image.png")
+    .background
+      .title ACCOUNT LOGIN
+      v-alert.erroralert(closable title="A error appear" text="..." variant="outlined" v-if="backendError") {{ backendError }}
+      v-alert.successalert(closable title="Success" text="..." variant="outlined" v-if="backendSuccess") {{ backendSuccess }}
+      .subtitle-text-fields
+        .subtitle Sign into your EB7 account
+        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
+        v-text-field.password-text-field(v-model="password" :rules="validationRules.password" bg-color="#333" label="Password" variant="solo" required)
+      v-btn.colorfulbutton(@click="login" :loading="loading") LOGIN
+      v-divider(thickness="0.5px")
+      .connect-text-background
+        .connect-text CONNECT
+      .logos
+      v-btn.grey-button(@click="authType = 'register'") CREATE ACCOUNT
+  .create-account(v-show="authType === 'register'")
+    v-img.left-image(cover src="../../assets/auth-dialog-image.png")
+    .background
+      .title CREATE ACCOUNT
+      .subtitle-text-fields
+        .subtitle Create a new EB7 account
+        v-text-field.username-text-field(v-if="authType === 'register'" v-model="name" :rules="validationRules.name" bg-color="#333" label="Username" variant="solo" required)
+        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
+        v-text-field.password-text-field(v-model="password" :rules="validationRules.password" bg-color="#333" label="Password" variant="solo" required)
+        v-text-field.repeat-password-text-field(v-if="authType === 'register'" v-model="repeatPassword" :rules="validationRules.repeatPassword" bg-color="#333" label="Repeat Password" variant="solo" required)
+      v-btn.colorfulbutton(@click="register" :loading="loading") REGISTER
+      v-divider(thickness="0.5px")
+      .connect-text-background
+        .connect-text CONNECT
+      v-btn.grey-button(@click="authType = 'login'") LOGIN
+  .continue-as-guest(v-show="authType === 'guest'")
+    v-img.left-image(cover src="../../assets/auth-dialog-image.png")
+    .background(v-bind:style="{height: '43.875rem'}")
+      .title CONTINUE AS GUEST
+      .subtitle-text-fields
+        .subtitle Continue as Guest for one time purchase
+        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
+      v-btn.colorfulbutton(@click="continueAsGuest" :loading="loading") CONTINUE AS GUEST
+      v-btn.grey-button.little-padding-top(@click="authType = 'register'") CREATE AN ACCOUNT INSTEAD
+
 </template>
 
 <style scoped>
-.erroralert {
-  color: red;
+.v-form {
+  font-family: Inter;
 }
-.successalert {
-  color: green;
+.account-login,
+.create-account,
+.continue-as-guest,
+.one-more-step {
+  width: 68.75rem;
+  display: flex;
 }
-.dialog {
-    display:flex;
-    flex-direction: column;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #968484;
-    color: rgb(194, 167, 167);
+.account-login,
+.create-account,
+.one-more-step {
+  height: 64.5rem;
 }
-.close {
-    margin-left: auto;
+.continue-as-guest {
+  height: 43.875rem;
+}
+.left-image {
+  width: 27.27%;
+}
+.background {
+  width: 800px;
+  height: 64.5rem;
+  background-color: #161616;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 100px 60px 100px
+}
+.title {
+  font-size: 50px;
+  font-weight: bold;
+  color: #ddd;
+}
+.subtitle-text-fields {
+  width: 37.5rem;
+}
+.subtitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  padding-top: 3.625rem;
+  padding-bottom: 2rem;
+}
+.colorfulbutton {
+  background-image: linear-gradient(to right, #1c00c9, #260056);
+  width: 37.5rem;
+  height: 4.375rem;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: normal;
+  color: #fff;
+}
+.v-divider {
+  border-color: #ffffff !important;
+  width: 37.5rem;
+  margin-top: 3rem;
+}
+.connect-text-background {
+  background-color: #161616;
+  z-index: 0;
+  margin-top: -7.5px;
+  padding-right: 30px;
+
+}
+.connect-text {
+  padding-left: 30px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ddd;
+}
+.grey-button {
+  width: 600px;
+  height: 70px;
+  border-radius: 8px;
+  background-color: #d9d9d9;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: normal;
+  color: #000;
+}
+.little-padding-top {
+  margin-top: 1.5rem;
 }
 </style>
