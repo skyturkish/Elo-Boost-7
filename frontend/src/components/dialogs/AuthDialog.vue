@@ -154,10 +154,10 @@ v-form(ref="form")
     v-img.left-image(cover src="../../assets/auth-dialog-image.png")
     .background
       .title ACCOUNT LOGIN
-      v-alert.erroralert(closable title="A error appear" text="..." variant="outlined" v-if="backendError") {{ backendError }}
-      v-alert.successalert(closable title="Success" text="..." variant="outlined" v-if="backendSuccess") {{ backendSuccess }}
       .subtitle-text-fields
         .subtitle Sign into your EB7 account
+        .erroralert(v-if="backendError") {{ backendError }}
+        .successalert(v-if="backendSuccess") {{ backendSuccess }}
         v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
         v-text-field.password-text-field(v-model="password" :rules="validationRules.password" bg-color="#333" label="Password" variant="solo" required)
       v-btn.colorfulbutton(@click="login" :loading="loading") LOGIN
@@ -172,6 +172,7 @@ v-form(ref="form")
       .title CREATE ACCOUNT
       .subtitle-text-fields
         .subtitle Create a new EB7 account
+        .erroralert(v-if="backendError") {{ backendError }}
         v-text-field.username-text-field(v-if="authType === 'register'" v-model="name" :rules="validationRules.name" bg-color="#333" label="Username" variant="solo" required)
         v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
         v-text-field.password-text-field(v-model="password" :rules="validationRules.password" bg-color="#333" label="Password" variant="solo" required)
@@ -187,6 +188,7 @@ v-form(ref="form")
       .title CONTINUE AS GUEST
       .subtitle-text-fields
         .subtitle Continue as Guest for one time purchase
+        .erroralert(v-if="backendError") {{ backendError }}
         v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
       v-btn.colorfulbutton(@click="continueAsGuest" :loading="loading") CONTINUE AS GUEST
       v-btn.grey-button.little-padding-top(@click="authType = 'register'") CREATE AN ACCOUNT INSTEAD
@@ -279,4 +281,15 @@ v-form(ref="form")
 .little-padding-top {
   margin-top: 1.5rem;
 }
+.erroralert,
+.successalert {
+  width: 37.5rem;
+}
+.erroralert {
+  color: #632929;
+}
+.successalert {
+  color: #195819;
+}
+
 </style>
