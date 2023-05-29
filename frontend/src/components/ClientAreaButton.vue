@@ -18,17 +18,9 @@ function closeDialog() {
 
 <template lang="pug">
 AuthMenu(v-if="useAccountStore.user")
-v-btn.client-area(v-else)
-  .client-area-text Login
-    v-dialog.dialog(
-      v-model='dialog'
-      persistent
-      activator='parent'
-      width="1024"
-      color="primary"
-      overlay-color="black"
-    )
-      AuthDialog(v-on:close-dialog="closeDialog")
+v-btn.client-area(v-else) Login
+  v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black")
+    AuthDialog(v-on:close-dialog="closeDialog")
 </template>
 
 <style scoped>
@@ -38,8 +30,8 @@ v-btn.client-area(v-else)
   border-radius: 15px;
   box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.5);
   background-color: #174e82;
-}
-.client-area-text {
+
+
   font-family: Inter;
   font-size: 24px;
   font-weight: 800;

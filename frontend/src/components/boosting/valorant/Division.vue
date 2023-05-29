@@ -81,15 +81,11 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
     CheckoutSelection(toolTipText="Bonus win istiyorsan buna tıkla" title="BONUS WIN")
       .display-flex
         v-img(src='@/assets/icons/high-mmr.png' width="50px")
-        v-switch(
-        v-model='currentValorantOrder.bonusWin.isActivate'
-        color='blue')
+        v-switch(v-model='currentValorantOrder.bonusWin.isActivate' color='blue')
     CheckoutSelection(toolTipText="premium istiyorsan tamı tamına şu yanımdaki şeye basabilirisin" title="PREMİUM")
       .display-flex
         v-img(src='@/assets/icons/premium.png' width="50px")
-        v-switch(
-        v-model='currentValorantOrder.premium.isActivate'
-        color='blue')
+        v-switch(v-model='currentValorantOrder.premium.isActivate' color='blue')
 </template>
 
 <style scoped>
