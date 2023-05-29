@@ -33,7 +33,7 @@ const boostTypes = [
 <template lang="pug">
 Banner(splashArtPath = 'league-of-legends' title= 'LEAGUE OF LEGENDS' subtitle= 'No time? Don’t worry. Let our team climb for you' backgroundColor='#212027')
   GamesMenu(gameName='LEAGUE OF LEGENDS' gameImagePath='league-of-legends')
-v-divider.border-opacity-100(thickness="1rem" )
+v-divider.border-opacity-100(thickness="1rem")
 .boostType
   .buttons
     v-btn.boost-type-button(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`') {{ boostType.name }}
