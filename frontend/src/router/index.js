@@ -33,31 +33,41 @@ const routes = [
         component: () => import('@/views/Booster.vue')
     },
     {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: () => import('@/layouts/Dashboard.vue'),
+        path: '/panel',
+        name: 'Panel',
+        component: () => import('@/views/Panel.vue'),
         children: [
             {
-                path: 'my-orders-customer',
-                name: 'MyOrdersCustomer',
+                path: 'dashboard',
+                component: () => import('@/components/panel/Dashboard.vue')
+            },
+            {
+                path: 'boosting-available-offers',
                 component: () =>
-                    import('@/components/order/MyOrdersCustomer.vue')
+                    import('@/components/panel/BoostingAvailableOffers.vue')
             },
             {
-                path: 'my-orders-booster',
-                name: 'MyOrdersBooster',
+                path: 'boosting-current-order',
                 component: () =>
-                    import('@/components/order/MyOrdersBooster.vue')
+                    import('@/components/panel/BoostingCurrentOffers.vue')
             },
             {
-                path: 'all-orders',
-                name: 'AllOrders',
-                component: () => import('@/views/AllOrders.vue')
+                path: 'coaching-available-offers',
+                component: () =>
+                    import('@/components/panel/CoachingAvailableOffers.vue')
             },
             {
-                path: 'profile',
-                name: 'Profile',
-                component: () => import('@/views/Profile.vue')
+                path: 'coaching-current-order',
+                component: () =>
+                    import('@/components/panel/CoachingCurrentOffers.vue')
+            },
+            {
+                path: 'account-market',
+                component: () => import('@/components/panel/AccountMarket.vue')
+            },
+            {
+                path: 'hub',
+                component: () => import('@/components/panel/Hub.vue')
             }
         ],
         async beforeEnter(to, from, next) {
