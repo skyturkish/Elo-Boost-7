@@ -20,11 +20,11 @@ router.get('/init', async (req, res) => {
     return orders
 })
 
-router.use('/leagueOfLegends', leagueOfLegendsRouter)
+router.use('/league-of-legends', leagueOfLegendsRouter)
 
 router.use('/valorant', valorantRouter)
 
-router.use('/teamfightTactics', teamfightTacticsRouter)
+router.use('/teamfight-tactics', teamfightTacticsRouter)
 
 router.use('/wildRift', wildRiftRouter)
 
