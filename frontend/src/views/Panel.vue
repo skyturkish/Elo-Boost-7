@@ -1,5 +1,20 @@
 <script setup>
 import Banner from '@/components/Banner'
+
+// import { ref } from 'vue'
+
+// import { useAccount } from '@/store/account'
+
+// import { useRouter } from 'vue-router'
+
+// const router = useRouter()
+
+// const drawer = true
+
+// const useAccountStore = useAccount()
+
+// const selectedMenuItem = ref('My Orders (Customer)')
+
 const menuItems = [
   {
     title: 'Dashboard',
@@ -9,7 +24,7 @@ const menuItems = [
   {
     title: 'Boosting',
     icon: 'mdi-gamepad-variant-outline',
-    path: 'boosting-available-offers',
+    path: 'boosting-current-orders',
     subItems: [
       {
         title: 'AVAILABLE OFFERS',
@@ -47,6 +62,12 @@ const menuItems = [
     path: 'hub',
   }
 ]
+
+// async function logout() {
+//   await useAccountStore.logout()
+//   router.push('/')
+// }
+
 </script>
 
 <template lang="pug">
@@ -60,13 +81,42 @@ v-divider.border-opacity-100(thickness="1rem")
           v-icon(:icon='menuItem.icon')
         v-list-item-title(v-text='menuItem.title')
   router-view()
+  .a
+
+
+//- v-app(
+//-   v-if="useAccountStore.user"
+//-   id='inspire')
+//-   v-navigation-drawer(
+//-     permanent
+//-     v-model='drawer')
+//-     v-sheet.pa-4(color='grey-lighten-4')
+//-       v-avatar.mb-4(image="https://i.pinimg.com/474x/9d/49/96/9d4996efe343c725e2bbd39c3d79bb23.jpg" color='grey-darken-1' size='64')
+//-       div {{ useAccountStore.user.email }}
+//-       div {{ useAccountStore.user.name }}
+//-     v-divider
+//-     v-list
+//-       v-list-item(
+//-         v-for = 'menuItem in menuItems.filter(item => item.onlyBooster ? useAccountStore.user.role == "booster" : true)'
+//-         :to="menuItem.path" @click="selectedMenuItem = menuItem.title"
+//-         link='')
+//-         template( v-slot:prepend='')
+//-           v-icon {{ menuItem.icon }}
+//-         v-list-item-title {{ menuItem.title }}
+//-       v-list-item(
+//-         @click="logout()"
+//-         link='')
+//-         template(v-slot:prepend='')
+//-           v-icon mdi-logout
+//-         v-list-item-title logout
+//-   v-main.main
+//-     router-view()
 </template>
 
 <style scoped>
 .panel {
-  max-width: 1440px;
-  margin: 0 auto;
-  display: flex
+  display: flex;
+  justify-content: space-between;
 }
 .routers-select {
   background-color: #f9f9f9;

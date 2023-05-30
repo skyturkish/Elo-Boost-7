@@ -3,7 +3,7 @@ import { onMounted, toRefs, ref } from 'vue'
 
 import axios from 'axios'
 
-import DivisionOrderCard from '@/components/order/DivisionOrderCard'
+import OrderCard from '@/components/order/OrderCard'
 
 const props = defineProps({
   ordersURL: {
@@ -30,7 +30,7 @@ onMounted(() =>  {
 <template lang="pug">
 .orders(v-if="orders")
   .order(v-for='order in orders' :key='order')
-    DivisionOrderCard(:order='order')
+    OrderCard(:order='order')
 </template>
 
 <style scoped>

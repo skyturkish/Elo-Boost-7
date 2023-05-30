@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { useRoute } from 'vue-router';
 import { ref, onMounted} from 'vue'
-import DivisionOrderCard from '@/components/order/DivisionOrderCard'
+import OrderCard from '@/components/order/OrderCard'
 
 const route = useRoute();
 
@@ -26,7 +26,7 @@ onMounted( async () =>  {
   .a(v-if="customerOrders !== null")
     .orders(v-if="customerOrders.length !== 0")
       .order(v-for='order in customerOrders' :key='order')
-        DivisionOrderCard(:order='order')
+        OrderCard(:order='order')
     div(v-else)
       h1 No order belong this Customer
   div(v-else)

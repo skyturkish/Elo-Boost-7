@@ -2,7 +2,7 @@
 </script>
 
 <template lang="pug">
-h1 Boosting available orders
+h1 Boosting Avaiblabde offers
 </template>
 
 <style scoped>

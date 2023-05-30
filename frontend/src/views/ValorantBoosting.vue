@@ -34,8 +34,7 @@ const boostTypes = [
 <template lang="pug">
 Banner(splashArtPath = 'valorant' title= 'VALORANT' subtitle= 'Time to RISE UP!')
   GamesMenu(gameName='VALORANT' gameImagePath='valorant')
-.background-color
-  v-divider.border-opacity-100(thickness="1rem")
+v-divider.border-opacity-100(thickness="1rem")
 .boostType
   .buttons
     v-btn(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`' ) {{ boostType.name }}
@@ -43,8 +42,8 @@ Banner(splashArtPath = 'valorant' title= 'VALORANT' subtitle= 'Time to RISE UP!'
 </template>
 
 <style scoped>
-.background-color {
-  background-color: #1e1e1e;
+.boostType {
+  background-color: #341017;
 }
 .buttons {
   padding: 2rem 2.75rem;
@@ -63,10 +62,6 @@ Banner(splashArtPath = 'valorant' title= 'VALORANT' subtitle= 'Time to RISE UP!'
 }
 .v-divider {
   border-color: #f83e4b !important;
-  max-width: 1440px;
-  margin: 0 auto;
 }
-.boostType {
-  background-color: #1e1e1e;
-}
+
 </style>
