@@ -12,3 +12,9 @@ onMounted(() => {
 <template>
   <router-view />
 </template>
+
+<style>
+.v-btn--active > .v-btn__overlay, .v-btn[aria-haspopup=menu][aria-expanded=true] > .v-btn__overlay {
+   opacity: 0.01 !important;
+}
+</style>
