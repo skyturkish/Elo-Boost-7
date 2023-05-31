@@ -42,6 +42,21 @@ v-divider.border-opacity-100(thickness="1rem")
 </template>
 
 <style scoped>
+.v-divider {
+  border-color: #656EC0 !important;
+}
+.boostType {
+  background-color: #eeeeee;
+}
+.buttons {
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: 1.375rem;
+  padding: 2rem 2.75rem;
+  background-color: #eeeeee;
+  flex-wrap: wrap;
+}
 .boost-type-button {
   font-family: Inter;
   font-size: 20px;
@@ -63,23 +78,8 @@ v-divider.border-opacity-100(thickness="1rem")
   border-radius: 15px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
-.buttons {
-  display: flex;
-  max-width: 1440px;
-  margin: 0 auto;
-  gap: 1.375rem;
-  padding: 2rem 2.75rem;
-  background-color: #eeeeee;
-  flex-wrap: wrap;
-}
 .dynamic-view {
   max-width: 1440px;
   margin: 0 auto;
-}
-.v-divider {
-  border-color: #656EC0 !important;
-}
-.boostType {
-  background-color: #eeeeee;
 }
 </style>

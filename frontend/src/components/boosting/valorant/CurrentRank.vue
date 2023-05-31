@@ -49,16 +49,9 @@ function adana(se) {
           @click="changeCurrentDivision(division.name)")
       .selections
         v-select(
-          v-model="currentValorantOrder.currentRank.currentRR"
-          outline height="20"
-          :items="['100-80', '80-60', '60-40','40-20','20-0']"
-          variant="solo"
-        )
+          v-model="currentValorantOrder.currentRank.currentRR" outline height="20" :items="['100-80', '80-60', '60-40','40-20','20-0']" variant="solo")
         .buttons
-          div.button(
-          v-for="milestone in milestones"
-          @click="changeCurrentDivisionMileStone(milestone)"
-        ) {{ milestone }}
+          div.button(v-for="milestone in milestones" @click="changeCurrentDivisionMileStone(milestone)") {{ milestone }}
 </template>
 
 <style scoped>
@@ -66,14 +59,12 @@ function adana(se) {
 .checkout,
 .current-rank {
   margin: 0 auto
-
 }
 .content {
   padding-top: 5rem;
   display:flex;
   flex-direction: column;
   align-items: center;
-
 }
 .title {
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
@@ -81,7 +72,6 @@ function adana(se) {
   font-weight: 600;
   color: #fff;
 }
-
 .buttons {
   display: flex;
   gap: 0.5rem;

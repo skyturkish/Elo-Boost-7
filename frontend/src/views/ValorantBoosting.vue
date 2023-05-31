@@ -79,8 +79,5 @@ v-divider.border-opacity-100(thickness="1rem")
   max-width: 1440px;
   margin: 0 auto;
 }
-#app > div.v-responsive.v-img.image > div.v-responsive__content > div > div.appbar > button > span.v-btn__overlay{
-  opacity: 1 !important;
-  border: 1px solid red; /*for visual*/
-}
+
 </style>
