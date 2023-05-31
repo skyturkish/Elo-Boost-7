@@ -2,7 +2,6 @@
 import Banner from '@/components/Banner'
 import GamesMenu from '@/components/menus/GamesMenu'
 
-
 const boostTypes = [
   {
     name: 'DIVISION BOOST',
@@ -37,13 +36,18 @@ Banner(splashArtPath = 'valorant' title= 'VALORANT' subtitle= 'Time to RISE UP!'
 v-divider.border-opacity-100(thickness="1rem")
 .boostType
   .buttons
-    v-btn(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`' ) {{ boostType.name }}
-  router-view()
+    v-btn.boost-type-button(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`' ) {{ boostType.name }}
+  .dynamic-view
+    router-view()
 </template>
 
 <style scoped>
+.v-divider {
+  border-color: #f83e4b ;
+}
 .boostType {
   background-color: #341017;
+  font-family: Inter;
 }
 .buttons {
   padding: 2rem 2.75rem;
@@ -51,17 +55,32 @@ v-divider.border-opacity-100(thickness="1rem")
   max-width: 1440px;
   margin: 0 auto;
   gap: 1.375rem;
-  background-color: #341017;
   flex-wrap: wrap;
 }
 .v-btn {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: normal;
   width: 200px;
   height: 70px;
   border-radius: 15px;
-  background-color: #444;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  color: #DDDDDD;
+  background-color: #444444;
 }
-.v-divider {
-  border-color: #f83e4b !important;
+.v-btn--active {
+  background-color: #D42D2D;
+  color: #FFFFFF;
 }
-
+.v-btn:hover {
+  margin-top: -0.5rem;
+}
+.dynamic-view {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+#app > div.v-responsive.v-img.image > div.v-responsive__content > div > div.appbar > button > span.v-btn__overlay{
+  opacity: 1 !important;
+  border: 1px solid red; /*for visual*/
+}
 </style>
