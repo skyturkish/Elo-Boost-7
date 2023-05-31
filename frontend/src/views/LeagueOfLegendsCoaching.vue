@@ -38,9 +38,7 @@ v-divider.border-opacity-100(thickness="1rem" )
   border-color: #1c1645 !important;
 }
 .coachType {
-  max-width: 1440px;
   background-color: #f1f1f1;
-  margin: 0 auto;
 }
 .buttons {
   display: flex;
