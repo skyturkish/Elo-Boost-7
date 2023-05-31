@@ -5,6 +5,8 @@ import CheckoutSelection from '@/components/CheckoutSelection'
 import { valorantDivisions, valorantMilestones  } from '@/constants/valorant-constants'
 import { useValorantOrder } from '@/store/valorant-order'
 import { ref, computed } from 'vue'
+import { useAccount } from '@/store/account'
+
 
 const divisions = valorantDivisions
 const milestones = valorantMilestones
@@ -28,7 +30,7 @@ const changeMilestoneToNumber = computed(()=> {
 
 async function createOrder() {
   await currentValorantOrder.createOrder({
-    customer: '643aa08bc21b28c485b11772',
+    customer: useAccount().user._id,
     orderType: 'division',
     desiredRank: {
       division: desiredDivision.value.name,
@@ -73,7 +75,7 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
             v-for="milestone in milestones"
             @click="changeDesiredDivisionMileStone(milestone)"
           ) {{ milestone }}
-  Checkout()
+  Checkout(v-on:create-order="createOrder")
     CheckoutSelection(toolTipText="BOOSTER SEÇEBİLİRSİN" title="BOOSTER")
       v-btn(icon="mdi-plus-circle")
     CheckoutSelection(toolTipText="AGENTLARI SEÇEBİLİRİSİNZ" title="AGENTS")
