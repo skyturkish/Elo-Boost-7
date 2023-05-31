@@ -52,7 +52,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         clashAmountGame: '5 GAMES',
         clashAmountBooster: '5 BOOSTER',
         coachingHours: '1 HOUR',
-        languages: ['ENGLISH']
+        languages: ['ENGLISH'],
+        coachingGamesAmount: '2 GAMES'
     }),
     actions: {
         incrementDivision(limit) {
@@ -178,6 +179,48 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 server: this.server,
                 currentRank: this.currentRank,
                 coachingHours: this.coachingHours,
+                languages: this.languages,
+                options: this.options
+            })
+        },
+        async createGameReplayOrder(coach) {
+            await axios.post('/coaching', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                coachingType: 'game-replay',
+                coach: coach,
+                champions: this.champions,
+                server: this.server,
+                currentRank: this.currentRank,
+                coachingGamesAmount: this.coachingGamesAmount,
+                languages: this.languages,
+                options: this.options
+            })
+        },
+        async createLiveGameOrder(coach) {
+            await axios.post('/coaching', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                coachingType: 'game-replay',
+                coach: coach,
+                champions: this.champions,
+                server: this.server,
+                currentRank: this.currentRank,
+                coachingGamesAmount: this.coachingGamesAmount,
+                languages: this.languages,
+                options: this.options
+            })
+        },
+        async createPlayTogetherOrder(coach) {
+            await axios.post('/coaching', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                coachingType: 'game-replay',
+                coach: coach,
+                champions: this.champions,
+                server: this.server,
+                currentRank: this.currentRank,
+                coachingGamesAmount: this.coachingGamesAmount,
                 languages: this.languages,
                 options: this.options
             })

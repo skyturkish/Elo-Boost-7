@@ -1,9 +1,7 @@
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
+import SelectLanguages from '@/components/coaching/league-of-legends/SelectLanguages'
 import Checkout from '@/components/Checkout'
-import { useAccount } from '@/store/account'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
@@ -17,7 +15,7 @@ async function createOrder() {
 .lesson
   CurrentRank(divisionLimit = 6 title = "YOUR RANK")
     v-select(v-model="currentLeagueOfLegendsOrder.coachingHours" :items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" )
-    v-select(v-model="currentLeagueOfLegendsOrder.languages" :items="['ENGLISH', 'TURKISH', 'ARABIC']" chips multiple)
+    SelectLanguages
   Checkout(v-on:create-order="createOrder")
 </template>
 
