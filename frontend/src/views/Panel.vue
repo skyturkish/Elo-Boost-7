@@ -1,20 +1,6 @@
 <script setup>
 import Banner from '@/components/Banner'
 
-// import { ref } from 'vue'
-
-// import { useAccount } from '@/store/account'
-
-// import { useRouter } from 'vue-router'
-
-// const router = useRouter()
-
-// const drawer = true
-
-// const useAccountStore = useAccount()
-
-// const selectedMenuItem = ref('My Orders (Customer)')
-
 const menuItems = [
   {
     title: 'Dashboard',
@@ -62,12 +48,6 @@ const menuItems = [
     path: 'hub',
   }
 ]
-
-// async function logout() {
-//   await useAccountStore.logout()
-//   router.push('/')
-// }
-
 </script>
 
 <template lang="pug">
@@ -76,41 +56,12 @@ v-divider.border-opacity-100(thickness="1rem")
 .panel
   .routers-select
     v-list
-      v-list-item(v-for='menuItem in menuItems' :key='menuItem.title' :value='menuItem' active-color='red' variant='plain' :to='`${menuItem.path}`')
+      v-list-item(v-for='menuItem in menuItems' :key='menuItem.title' :value='menuItem' active-color='#bc2842' variant='plain' :to='`${menuItem.path}`')
         template(v-slot:prepend='')
           v-icon(:icon='menuItem.icon')
         v-list-item-title(v-text='menuItem.title')
   router-view()
-  .a
-
-
-//- v-app(
-//-   v-if="useAccountStore.user"
-//-   id='inspire')
-//-   v-navigation-drawer(
-//-     permanent
-//-     v-model='drawer')
-//-     v-sheet.pa-4(color='grey-lighten-4')
-//-       v-avatar.mb-4(image="https://i.pinimg.com/474x/9d/49/96/9d4996efe343c725e2bbd39c3d79bb23.jpg" color='grey-darken-1' size='64')
-//-       div {{ useAccountStore.user.email }}
-//-       div {{ useAccountStore.user.name }}
-//-     v-divider
-//-     v-list
-//-       v-list-item(
-//-         v-for = 'menuItem in menuItems.filter(item => item.onlyBooster ? useAccountStore.user.role == "booster" : true)'
-//-         :to="menuItem.path" @click="selectedMenuItem = menuItem.title"
-//-         link='')
-//-         template( v-slot:prepend='')
-//-           v-icon {{ menuItem.icon }}
-//-         v-list-item-title {{ menuItem.title }}
-//-       v-list-item(
-//-         @click="logout()"
-//-         link='')
-//-         template(v-slot:prepend='')
-//-           v-icon mdi-logout
-//-         v-list-item-title logout
-//-   v-main.main
-//-     router-view()
+  .empty
 </template>
 
 <style scoped>
@@ -120,11 +71,19 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 .routers-select {
   background-color: #f9f9f9;
-  width: 16rem;
   max-height: 125rem;
+}
+.v-list-item {
+  height: 4.4rem;;
+  background-color: #fff;
+  font-family: Inter;
+  font-size: 26px;
 }
 .v-list-item--variant-plain:focus{
     color: #bc2842;
+}
+.v-list-item--variant-plain {
+    opacity: 1;
 }
 .v-divider {
   border-color: #BC2842 !important;
