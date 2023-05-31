@@ -48,4 +48,21 @@ router.get('/:coachingId', async (req, res) => {
     res.send(coaching)
 })
 
+router.get('/customer/:customerId', async (req, res) => {
+    const { customerId } = req.params
+    const orders = await coachingService.findBy('customer', customerId)
+
+    if (!orders) return res.status(404).send("Cannot find customer's orders")
+
+    res.send(orders)
+})
+
+router.get('/booster/:coachID', async (req, res) => {
+    const { coachId } = req.params
+    const orders = await coachingService.findBy('coach', coachId)
+
+    if (!orders) return res.status(404).send("Cannot find coach's orders")
+
+    res.send(orders)
+})
 module.exports = router
