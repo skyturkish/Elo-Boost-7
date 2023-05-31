@@ -25,8 +25,10 @@ onMounted(async () =>   {
       v-icon.settings-icon(icon='mdi-cog' size="33px")
   .place-order
     .orders
-      .order(v-for='order in orders' :key='order')
+      .order(v-if="orders.length != 0" v-for='order in orders' :key='order')
         h1 {{order}}
+      .a(v-else)
+        h1 You have no orders
 </template>
 
 <style scoped>
