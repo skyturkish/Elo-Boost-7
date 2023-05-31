@@ -39,7 +39,19 @@ async function createOrder() {
   })
 }
 
+function isDesiredDivision(division) {
+  return desiredDivision.value.name == division.name
+}
+function isSelectedMilestone(milestone) {
+  return desiredMilestone.value == milestone
+}
+
 const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
+  import: 'default',
+  eager: true
+})
+
+const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png', {
   import: 'default',
   eager: true
 })
@@ -49,32 +61,29 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
 .division-boost
   CurrentRank()
   .desired-rank
-    v-img(src='@/assets/valorant-player-card.png' width="28rem")
+    v-img(src='@/assets/valorant-player-card.png' width="23rem")
       .content
         .title DESIRED RANK
-        v-img.act-rank(src='@/assets/act-rank-level3.png' width="10rem")
-          v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredDivision.name}-${changeMilestoneToNumber}.png`]' width="3.5rem")
-        .title {{ desiredDivision.name }} {{ desiredMilestone }}
+        v-img.act-rank(src='@/assets/act-rank-level3.png' width="12rem")
+          v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${desiredDivision.name}.png`]' width="9rem")
+            v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredDivision.name}-${changeMilestoneToNumber}.png`]' width="4.2rem")
+        .title {{ desiredDivision.name.toUpperCase() }} {{ desiredMilestone }}
         .colors
           v-btn.color(
             v-for="division in divisions"
-            :flat="division.name == desiredDivision.name ? false : true"
+            :flat="isDesiredDivision(division) ? false : true"
             icon
-            :size="division.name == desiredDivision.name ? '2rem' : '1.5rem'"
+            :size="isDesiredDivision(division) ? '2rem' : '1.5rem'"
             :color="division.color"
             @click="changeDesiredDivision(division)")
         .selections
-          v-select(
-            v-model="currentValorantOrder.server"
-            outline height="20"
-            :items="['EUROPE','TURKEY','CHINA']"
-            variant="solo"
-          )
+          v-select(v-model="currentValorantOrder.server" outline height="20" :items="['EUROPE','TURKEY','CHINA']" variant="solo")
           .milestones
-            div.milestone(
-            v-for="milestone in milestones"
-            @click="changeDesiredDivisionMileStone(milestone)"
-          ) {{ milestone }}
+            .milestone(
+              v-for="milestone in milestones"
+              :style="{backgroundColor: isSelectedMilestone(milestone) ? '#f4f1f0' : '#afafaf'}"
+              @click="changeDesiredDivisionMileStone(milestone)"
+              ) {{ milestone }}
   Checkout(v-on:create-order="createOrder")
     CheckoutSelection(toolTipText="BOOSTER SEÇEBİLİRSİN" title="BOOSTER")
       v-btn(icon="mdi-plus-circle")
@@ -99,8 +108,11 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
   flex-wrap: wrap;
   background-color: #341017;
 }
+.desired-rank {
+  margin: 0 auto
+}
 .content {
-  padding-top: 5rem;
+  padding-top: 3.6rem;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -115,9 +127,12 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
   display: flex;
   align-items: center;
 }
+.rank-background {
+  margin: 0 auto
+}
 .rank-icon {
   margin: 0 auto;
-  margin-top: 1.5rem;
+  margin-top: 31%;
 }
 .colors {
   padding-top: 13rem;
@@ -128,24 +143,29 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
 .selections {
   display: flex;
   gap: 1rem;
-  align-items: center
+  align-items: center;
+  padding-top: 1.5rem;
 }
 .milestones {
   display: flex;
   gap: 0.5rem;
-}
-.milestone {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 5px;
-  background-color: #f4f1f0;
-  display: flex;
   justify-content: center;
 }
-.display-flex {
+.milestone {
+  font-family: Inter;
+  width: 1.9375rem;
+  height: 1.9375rem;
+  border-radius: 6px;
+  background-color: #afafaf;
+  font-size: 15px;
+  font-weight: 800;
+  color: #444;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
-.v-select.v-input--horizontal{
+/* .v-select.v-input--horizontal{
   grid-template-areas: 'reset';
 }
 .v-select > .v-input__control > .v-field{
@@ -156,5 +176,5 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
 }
 .v-switch.v-input--horizontal {
   grid-template-areas: 'reset'
-}
+} */
 </style>

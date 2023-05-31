@@ -1,22 +1,11 @@
 <script setup>
-import { ref } from 'vue'
-
-import { valorantDivisions, valorantMilestones } from '@/constants/valorant-constants'
 import { useValorantOrder } from '@/store/valorant-order'
-
+import { valorantDivisions } from '@/constants/valorant-constants'
+import CurrentMilestones from '@/components/boosting/valorant/CurrentMilestones'
+import SelectCurrentRR from '@/components/boosting/valorant/SelectCurrentRR'
 
 const divisions = valorantDivisions
-const milestones = valorantMilestones
-
 const currentValorantOrder = useValorantOrder()
-
-function changeCurrentDivision(division) {
-  currentValorantOrder.currentRank.division = division
-}
-
-function changeCurrentDivisionMileStone(milestone) {
-  currentValorantOrder.currentRank.milestone = milestone
-}
 
 const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
   import: 'default',
@@ -29,39 +18,40 @@ function adana(se) {
   if (se == 'III') return 3;
 }
 
+const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png', {
+  import: 'default',
+  eager: true
+})
 </script>
 
 <template lang="pug">
 .current-rank
-  v-img(src='@/assets/valorant-player-card.png' width="28rem")
+  v-img(src='@/assets/valorant-player-card.png' width="23rem")
     .content
       .title CURRENT RANK
-      v-img.act-rank(src='@/assets/act-rank-level1.png'  width="10rem")
-        v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${adana(currentValorantOrder.currentRank.milestone)}.png`]' width="3.5rem")
-      .title {{ currentValorantOrder.currentRank.division }} {{ currentValorantOrder.currentRank.milestone }}
+      v-img.act-rank(src='@/assets/act-rank-level1.png'  width="12rem")
+        v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${currentValorantOrder.division}.png`]' width="9rem")
+          v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.division}-${adana(currentValorantOrder.milestone)}.png`]' width="4.2rem")
+      .title {{ currentValorantOrder.division.toUpperCase() }} {{ currentValorantOrder.milestone }}
       .colors
         v-btn.color(
           v-for="division in divisions"
-          :flat="division.name == currentValorantOrder.currentRank.division ? false : true"
+          :flat="currentValorantOrder.isSelectedDivision(division) ? false : true"
           icon
-          :size="division.name == currentValorantOrder.currentRank.division ? '2rem' : '1.5rem'"
+          :size="currentValorantOrder.isSelectedDivision(division) ? '2rem' : '1.6rem'"
           :color="division.color"
-          @click="changeCurrentDivision(division.name)")
+          @click="currentValorantOrder.changeCurrentDivision(division)")
       .selections
-        v-select(
-          v-model="currentValorantOrder.currentRank.currentRR" outline height="20" :items="['100-80', '80-60', '60-40','40-20','20-0']" variant="solo")
-        .buttons
-          div.button(v-for="milestone in milestones" @click="changeCurrentDivisionMileStone(milestone)") {{ milestone }}
+        SelectCurrentRR
+        CurrentMilestones
 </template>
 
 <style scoped>
-.desired-rank,
-.checkout,
 .current-rank {
   margin: 0 auto
 }
 .content {
-  padding-top: 5rem;
+  padding-top: 3.6rem;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -72,25 +62,16 @@ function adana(se) {
   font-weight: 600;
   color: #fff;
 }
-.buttons {
-  display: flex;
-  gap: 0.5rem;
-}
-.button {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 5px;
-  background-color: #f4f1f0;
-  display: flex;
-  justify-content: center;
-}
 .act-rank {
   display: flex;
   align-items: center;
 }
+.rank-background {
+  margin: 0 auto
+}
 .rank-icon {
   margin: 0 auto;
-  margin-top: 1.5rem;
+  margin-top: 31%;
 }
 .colors {
   padding-top: 13rem;
@@ -101,12 +82,13 @@ function adana(se) {
 .selections {
   display: flex;
   gap: 1rem;
-  align-items: center
+  align-items: center;
+  padding-top: 1.5rem;
 }
-.v-select.v-input--horizontal{
+/* .v-select.v-input--horizontal{
   grid-template-areas: 'reset';
 }
 .v-select > .v-input__control > .v-field{
   font-size: 8px;
-}
+} */
 </style>
