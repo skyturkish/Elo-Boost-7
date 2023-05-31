@@ -1,11 +1,5 @@
-const leagueOfLegendsRouter = require('./leagueOfLegends/leagueOfLegendsOrder')
-const valorantRouter = require('./valorant/valorantOrder')
-const teamfightTacticsRouter = require('./teamfightTactics/teamfightTacticsOrder')
-const wildRiftRouter = require('./wildRift/wildRiftOrder')
 const socketServer = require('../../socket-connection')
-
 const { orderService, chatService } = require('../../services')
-
 const router = require('express').Router()
 
 router.get('/', async (req, res) => {
@@ -15,18 +9,11 @@ router.get('/', async (req, res) => {
 
 router.get('/init', async (req, res) => {
     const orders = await orderService.load()
+
     socketServer().to('orders').emit('orders updated', orders)
 
     return orders
 })
-
-router.use('/league-of-legends', leagueOfLegendsRouter)
-
-router.use('/valorant', valorantRouter)
-
-router.use('/teamfight-tactics', teamfightTacticsRouter)
-
-router.use('/wildRift', wildRiftRouter)
 
 router.post('/', async (req, res, next) => {
     try {
@@ -51,21 +38,11 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:orderId', async (req, res) => {
     const { orderId } = req.params
-
     const order = await orderService.find(orderId)
 
     if (!order) return res.status(404).send('Cannot find order')
 
     res.send(order)
-})
-
-router.get('/booster/:boosterId', async (req, res) => {
-    const { boosterId } = req.params
-    const orders = await orderService.findBy('booster', boosterId)
-
-    if (!orders) return res.status(404).send("Cannot find booster's orders")
-
-    res.send(orders)
 })
 
 router.get('/customer/:customerId', async (req, res) => {
