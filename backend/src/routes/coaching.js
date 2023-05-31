@@ -8,44 +8,14 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res, next) => {
-    console.log('postun içindeyim ' + req.body)
-    const { customer, coach, state, gameType, coachingType, currentRank, lessonHour, amountGame } = req.body
-
     try {
-        const coachings = await coachingService.insert({
-            customer,
-            coach,
-            state,
-            gameType,
-            coachingType,
-            currentRank,
-            lessonHour,
-            amountGame
-        })
+        const coachings = await coachingService.insert(req.body)
 
         res.send(coachings)
     } catch (e) {
         console.log('hata ' + e)
         next(e)
     }
-})
-
-router.use('/:coachingId', (req, res, next) => {
-    const { coachingId } = req.params
-    // bunu tüm routelarda yapabiliriz
-    if (!coachingId.match(/^[0-9a-fA-F]{24}$/)) return res.status(404).send('coachingId is not valid')
-
-    next()
-})
-
-router.get('/:coachingId', async (req, res) => {
-    const { coachingId } = req.params
-
-    const coaching = await coachingService.find(coachingId)
-
-    if (!coaching) return res.status(404).send('Cannot find coaching order')
-
-    res.send(coaching)
 })
 
 router.get('/customer/:customerId', async (req, res) => {
@@ -64,5 +34,23 @@ router.get('/booster/:coachID', async (req, res) => {
     if (!orders) return res.status(404).send("Cannot find coach's orders")
 
     res.send(orders)
+})
+
+router.use('/:coachingId', (req, res, next) => {
+    const { coachingId } = req.params
+    // bunu tüm routelarda yapabiliriz
+    if (!coachingId.match(/^[0-9a-fA-F]{24}$/)) return res.status(404).send('coachingId is not valid')
+
+    next()
+})
+
+router.get('/:coachingId', async (req, res) => {
+    const { coachingId } = req.params
+
+    const coaching = await coachingService.find(coachingId)
+
+    if (!coaching) return res.status(404).send('Cannot find coaching order')
+
+    res.send(coaching)
 })
 module.exports = router
