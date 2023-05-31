@@ -24,7 +24,7 @@ const menuItems = [
   {
     title: 'Boosting',
     icon: 'mdi-gamepad-variant-outline',
-    path: 'boosting-current-orders',
+    path: 'boosting-current-offers',
     subItems: [
       {
         title: 'AVAILABLE OFFERS',
@@ -32,14 +32,14 @@ const menuItems = [
       },
       {
         title: 'CURRENT ORDERS',
-        path: 'boosting-current-orders',
+        path: 'boosting-current-offers',
       },
     ],
   },
   {
     title: 'Coaching',
     icon: 'mdi-human-male-board-poll',
-    path: 'coaching-available-offers',
+    path: 'coaching-current-offers',
     subItems: [
       {
         title: 'AVAILABLE OFFERS',
@@ -47,7 +47,7 @@ const menuItems = [
       },
       {
         title: 'CURRENT ORDERS',
-        path: 'coaching-current-orders',
+        path: 'coaching-current-offers',
       },
     ],
   },

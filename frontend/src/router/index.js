@@ -47,7 +47,7 @@ const routes = [
                     import('@/components/panel/BoostingAvailableOffers.vue')
             },
             {
-                path: 'boosting-current-orders',
+                path: 'boosting-current-offers',
                 component: () =>
                     import('@/components/panel/BoostingCurrentOffers.vue')
             },
@@ -57,7 +57,7 @@ const routes = [
                     import('@/components/panel/CoachingAvailableOffers.vue')
             },
             {
-                path: 'coaching-current-orders',
+                path: 'coaching-current-offers',
                 component: () =>
                     import('@/components/panel/CoachingCurrentOffers.vue')
             },
