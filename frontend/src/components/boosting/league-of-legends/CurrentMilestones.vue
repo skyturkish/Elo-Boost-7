@@ -9,8 +9,8 @@ const milestones = LeagueOfLegendsMilestones
 </script>
 
 <template lang="pug">
-.mile-stones
-  div.mile-stone(
+.milestones
+  .milestone(
   v-for="milestone in milestones"
   :style="{color: currentLeagueOfLegendsOrder.isSelectedMilestone(milestone) ? currentLeagueOfLegendsOrder.colors.dominantColor : '#bbb',border: 'solid 1px ' + (currentLeagueOfLegendsOrder.isSelectedMilestone(milestone) ? currentLeagueOfLegendsOrder.colors.borderColor : '#bbb')}"
   @click="currentLeagueOfLegendsOrder.changeCurrentMileStone(milestone)"
@@ -18,12 +18,12 @@ const milestones = LeagueOfLegendsMilestones
 </template>
 
 <style scoped>
-.mile-stones {
+.milestones {
   display: flex;
   gap: 0.55rem;
   justify-content: center;
 }
-.mile-stone {
+.milestone {
   width: 2rem;
   height: 2rem;
   border-radius: 6px;
