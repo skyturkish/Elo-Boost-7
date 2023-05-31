@@ -6,27 +6,18 @@ import Checkout from '@/components/Checkout'
 import { useAccount } from '@/store/account'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
-const hours = ref('2 HOURS')
+const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 async function createOrder() {
-  console.log('burası çalışıyor')
-  await axios.post('/coaching', {
-        customer: useAccount().user?._id || '643469684177539c6a6dcdb5',
-        gameType: 'league-of-legends',
-        orderType: 'division',
-        coachingType: 'lesson',
-        currentRank: useLeagueOfLegendsOrder().currentRank,
-        lessonHour: hours.value
-    })
+  await currentLeagueOfLegendsOrder.createLessonOrder()
 }
-
 </script>
 
 <template lang="pug">
 .lesson
-  CurrentRank(title = "YOUR RANK")
-    .hours-of-lesson HOURS OF LESSON
-    v-select(:items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" v-model="hours")
+  CurrentRank(divisionLimit = 6 title = "YOUR RANK")
+    v-select(v-model="currentLeagueOfLegendsOrder.coachingHours" :items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" )
+    v-select(v-model="currentLeagueOfLegendsOrder.languages" :items="['ENGLISH', 'TURKISH', 'ARABIC']" chips multiple)
   Checkout(v-on:create-order="createOrder")
 </template>
 
@@ -37,14 +28,7 @@ async function createOrder() {
   justify-content: center;
   gap: 25px;
 }
-.hours-of-lesson {
-    font-family: Inter;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: normal;
-    color: #444;
-}
 .v-select {
-  width: 50%;
+  width: 100%;
 }
 </style>

@@ -50,7 +50,9 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         normalGameAmount: '2 GAMES',
         clashTier: 'TIER IV',
         clashAmountGame: '5 GAMES',
-        clashAmountBooster: '5 BOOSTER'
+        clashAmountBooster: '5 BOOSTER',
+        coachingHours: '1 HOUR',
+        languages: ['ENGLISH']
     }),
     actions: {
         incrementDivision(limit) {
@@ -163,6 +165,20 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 lanes: this.lanes,
                 booster: this.booster,
                 champions: this.champions,
+                options: this.options
+            })
+        },
+        async createLessonOrder(coach) {
+            await axios.post('/coaching', {
+                customer: useAccount().user._id || 'test',
+                gameType: 'league-of-legends',
+                coachingType: 'lesson',
+                coach: coach,
+                champions: this.champions,
+                server: this.server,
+                currentRank: this.currentRank,
+                coachingHours: this.coachingHours,
+                languages: this.languages,
                 options: this.options
             })
         }
