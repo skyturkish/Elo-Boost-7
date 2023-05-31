@@ -10,15 +10,6 @@ const CoachingSchema = new mongoose.Schema(
             ref: 'User',
             required: true
         },
-        coach: {
-            type: mongoose.ObjectId,
-            ref: 'User'
-        },
-        state: {
-            type: String,
-            enum: ['active', 'process', 'released', 'unavailable', 'canceled', 'completed'],
-            default: 'active'
-        },
         gameType: {
             type: String,
             required: true
@@ -28,6 +19,15 @@ const CoachingSchema = new mongoose.Schema(
             enum: ['lesson', 'game-replay', 'live-game', 'play-together'],
             required: true
         },
+        coach: {
+            type: mongoose.ObjectId,
+            ref: 'User'
+        },
+        state: {
+            type: String,
+            enum: ['active', 'process', 'released', 'unavailable', 'canceled', 'completed'],
+            default: 'active'
+        },
         currentRank: {
             type: LeagueOfLegendsRank,
             required: true
@@ -36,15 +36,10 @@ const CoachingSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
             required: true
-        },
-        lessonHour: {
-            type: String
-        },
-        amountGame: {
-            type: Number
         }
     },
     {
+        strict: false,
         timestamps: true
     }
 )
