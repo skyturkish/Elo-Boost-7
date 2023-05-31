@@ -19,8 +19,7 @@ async function createOrder() {
     .crown-background
       v-img.crown(src="../../../assets/crowns/clash.png")
     .normal-game-card
-      .change-logo-and-logo
-        v-img.logo(src="../../../assets/crowns/clash-logo.png")
+      v-img.logo(src="../../../assets/crowns/clash-logo.png")
       .game-name CLASH
       .selections
         SelectServer
@@ -55,9 +54,11 @@ async function createOrder() {
   height: 42rem;
   border: solid 2px #980092;
 }
-.change-logo-and-logo {
-  display: flex;
-  align-items: center;
+.logo {
+  height: 15.625rem;
+  width: 15.625rem;
+  margin: 0 auto;
+  margin-top: 4rem;
 }
 .game-name {
   font-weight: bold;
@@ -66,7 +67,8 @@ async function createOrder() {
   font-size: 2rem;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   color: #93006A;
-  background-color: '#F8FBF8';
+  background-color: '#FBF8FA';
+  margin-bottom: 2rem;
 }
 .colors {
   display: flex;
