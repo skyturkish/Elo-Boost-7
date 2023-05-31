@@ -22,7 +22,7 @@ const imgUrls = import.meta.glob('../../assets/ranks/league-of-legends/*.png', {
 .order
   .row
     .isSolo {{ order.isSolo ? 'Solo' : 'Duo' }}
-    .id {{ order._id.substring(0,9) + '...' }}
+    .id {{ '#' + order._id.substring(0,10) }}
   .orderType {{ order.orderType.toUpperCase() + ' BOOST ORDER' }}
   .place
     .division-order(v-if='order.orderType == "division"')
