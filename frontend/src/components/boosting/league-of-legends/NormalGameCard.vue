@@ -21,9 +21,9 @@ const crownUrls = import.meta.glob('../../../assets/crowns/*.png', {
     v-img.crown(:src="crownUrls['../../../assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '.png']" :width="currentLeagueOfLegendsOrder.selectedMap.width")
   .normal-game-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.selectedMap.borderColor}`")
     .change-logo-and-logo
-      v-icon(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
+      v-icon.left-(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
       v-img.logo(:src="crownUrls['../../../assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '-logo.png']" width="11.625rem")
-      v-icon(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
+      v-icon.right-(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
     .game-name(:style="{color: currentLeagueOfLegendsOrder.selectedMap.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.selectedMap.shadowColor}") {{ currentLeagueOfLegendsOrder.selectedMap.name.toUpperCase() }}
     .colors
       v-btn.color(
@@ -58,6 +58,19 @@ const crownUrls = import.meta.glob('../../../assets/crowns/*.png', {
 .change-logo-and-logo {
   display: flex;
   align-items: center;
+  padding-top: 3rem;
+  padding-left: 1.8rem;
+}
+.left- {
+  margin-right: -2.5rem;
+
+}
+.logo {
+  height: 15.625rem;
+  width: 15.625rem;
+}
+.right- {
+  margin-left: -2.5rem;
 }
 .game-name {
   font-weight: bold;
@@ -68,7 +81,8 @@ const crownUrls = import.meta.glob('../../../assets/crowns/*.png', {
 }
 .colors {
   display: flex;
-  margin-top: 3rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
   justify-content: center;
   align-items: center;
   gap: 0.90rem;
