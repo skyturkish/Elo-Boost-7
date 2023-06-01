@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted  } from 'vue'
 import axios from 'axios'
-import OrderCard from '@/components/order/OrderCard'
 import { useAccount } from '@/store/account'
 
 const useAccountStore = useAccount()
