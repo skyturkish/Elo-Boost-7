@@ -2,9 +2,10 @@
 import { defineStore } from 'pinia'
 
 import { valorantDivisions } from '@/constants/valorant-constants'
-
+import { useAccount } from '@/store/account'
 import axios from 'axios'
 
+const userId = useAccount().user._id
 export const useValorantOrder = defineStore('ValorantOrder', {
     state: () => ({
         milestone: 'I',
@@ -20,9 +21,21 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         premium: {
             price: 0,
             isActive: false
-        }
+        },
+        agents: []
     }),
     actions: {
+        async createDivisionOrder(desiredRank) {
+            await axios.post('/order', {
+                customer: userId || 'test',
+                gameType: 'valorant',
+                orderType: 'division',
+                currentRank: this.currentRank,
+                server: this.server,
+                agents: this.agents,
+                desiredRank: desiredRank
+            })
+        },
         changeCurrentDivision(division) {
             this.division = division.name
         },

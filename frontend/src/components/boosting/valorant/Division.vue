@@ -4,13 +4,13 @@ import Checkout from '@/components/Checkout'
 import CheckoutSelection from '@/components/CheckoutSelection'
 import { valorantDivisions, valorantMilestones  } from '@/constants/valorant-constants'
 import { useValorantOrder } from '@/store/valorant-order'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useAccount } from '@/store/account'
 
+const currentValorantOrder = useValorantOrder()
 
 const divisions = valorantDivisions
 const milestones = valorantMilestones
-const currentValorantOrder = useValorantOrder()
 const desiredDivision = ref(divisions[3])
 const desiredMilestone = ref('II')
 
@@ -22,20 +22,10 @@ function changeDesiredDivisionMileStone(milestone) {
   desiredMilestone.value = milestone
 }
 
-async function createOrder() {
-  await currentValorantOrder.createOrder({
-    customer: useAccount().user._id,
-    orderType: 'division',
-    desiredRank: {
-      division: desiredDivision.value.name,
-      milestone: desiredMilestone.value,
-    },
-  })
-}
-
 function isDesiredDivision(division) {
   return desiredDivision.value.name == division.name
 }
+
 function isSelectedMilestone(milestone) {
   return desiredMilestone.value == milestone
 }
@@ -49,6 +39,13 @@ const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png'
   import: 'default',
   eager: true
 })
+
+async function createOrder() {
+  await currentValorantOrder.createDivisionOrder({
+    division: desiredDivision.value,
+    milestone: desiredMilestone.value
+  })
+}
 </script>
 
 <template lang="pug">
