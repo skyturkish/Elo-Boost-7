@@ -24,28 +24,52 @@ Banner(splashArtPath = 'valorant-coaching' title = 'VALORANT' subtitle = 'FPS go
 v-divider.border-opacity-100(thickness="1rem" )
 .coachType
   .buttons
-    v-btn(v-for="coachType in coachingTypes" size="x-large" :to='`${coachType.route}`' ) {{ coachType.name }}
-  router-view()
+    v-btn.coach-type-button(v-for="coachType in coachingTypes" size="x-large" :to='`${coachType.route}`' ) {{ coachType.name }}
+  .c
+    router-view()
 </template>
 
 <style scoped>
 .v-divider {
   border-color:  #0a0b0f !important;
 }
+.coachType {
+  background-color: #1c1920;
+}
 .buttons {
+  font-family: Inter;
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
-  justify-content: space-around;
-  padding: 2rem 0;
-  background-color: #f1f1f1;
+  gap: 1.375rem;
+  padding: 2rem 2.75rem;
   flex-wrap: wrap;
+  justify-content: center;
+}
+.coach-type-button {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: #eee;
+  background-color: #444;
+}
+.v-btn--active {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background-color: #7000ff;
+  color: #fff;
+}
+.v-btn:hover {
+  margin-top: -0.5rem;
 }
 .v-btn {
   width: 200px;
   height: 70px;
   border-radius: 15px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.c {
+  min-height: 1000px;
+  max-width: 926px;
+  margin: 0 auto;
 }
 </style>
