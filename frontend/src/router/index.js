@@ -15,24 +15,6 @@ const routes = [
         component: () => import('@/views/AllOrders.vue')
     },
     {
-        path: '/customers',
-        name: 'Customers',
-        component: () => import('@/views/Customers.vue')
-    },
-    {
-        path: '/customers/:id',
-        component: () => import('@/views/Customer.vue')
-    },
-    {
-        path: '/boosters',
-        name: 'Boosters',
-        component: () => import('@/views/Boosters.vue')
-    },
-    {
-        path: '/boosters/:id',
-        component: () => import('@/views/Booster.vue')
-    },
-    {
         path: '/panel',
         name: 'Panel',
         component: () => import('@/views/Panel.vue'),
