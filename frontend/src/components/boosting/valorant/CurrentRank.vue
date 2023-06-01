@@ -12,12 +12,6 @@ const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
   eager: true
 })
 
-function adana(se) {
-  if (se == 'I') return 1;
-  if (se == 'II') return 2;
-  if (se == 'III') return 3;
-}
-
 const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png', {
   import: 'default',
   eager: true
@@ -31,7 +25,7 @@ const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png'
       .title CURRENT RANK
       v-img.act-rank(src='@/assets/act-rank-level1.png'  width="12rem")
         v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${currentValorantOrder.division}.png`]' width="9rem")
-          v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.division}-${adana(currentValorantOrder.milestone)}.png`]' width="4.2rem")
+          v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.division}-${currentValorantOrder.milestone}.png`]' width="4.2rem")
       .title {{ currentValorantOrder.division.toUpperCase() }} {{ currentValorantOrder.milestone }}
       .colors
         v-btn.color(

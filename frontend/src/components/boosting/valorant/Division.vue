@@ -22,12 +22,6 @@ function changeDesiredDivisionMileStone(milestone) {
   desiredMilestone.value = milestone
 }
 
-const changeMilestoneToNumber = computed(()=> {
-  if (desiredMilestone.value == 'I') return 1;
-  if (desiredMilestone.value == 'II') return 2;
-  if (desiredMilestone.value == 'III') return 3;
-})
-
 async function createOrder() {
   await currentValorantOrder.createOrder({
     customer: useAccount().user._id,
@@ -66,7 +60,7 @@ const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png'
         .title DESIRED RANK
         v-img.act-rank(src='@/assets/act-rank-level3.png' width="12rem")
           v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${desiredDivision.name}.png`]' width="9rem")
-            v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredDivision.name}-${changeMilestoneToNumber}.png`]' width="4.2rem")
+            v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredDivision.name}-${desiredMilestone}.png`]' width="4.2rem")
         .title {{ desiredDivision.name.toUpperCase() }} {{ desiredMilestone }}
         .colors
           v-btn.color(
