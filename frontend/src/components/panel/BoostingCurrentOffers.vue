@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed  } from 'vue'
 import axios from 'axios'
-import OrderCard from '@/components/order/OrderCard'
+import LeagueOfLegendsOrderCard from '@/components/order/LeagueOfLegendsOrderCard'
 import { useAccount } from '@/store/account'
 
 const useAccountStore = useAccount()
@@ -37,7 +37,7 @@ const selamlar = () => {
   .place-order
     .orders
       .order(v-if="orders.length != 0" v-for='order in filteredOrders' :key='order')
-        OrderCard(:order='order')
+        LeagueOfLegendsOrderCard(:order='order')
       .a(v-else)
         h1 You have no orders
 </template>

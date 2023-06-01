@@ -3,7 +3,7 @@ import { ref,onBeforeUnmount  } from 'vue'
 
 import axios from 'axios'
 
-import OrderCard from '@/components/order/OrderCard'
+import LeagueOfLegendsOrderCard from '@/components/order/LeagueOfLegendsOrderCard'
 
 import io from 'socket.io-client'
 
@@ -46,7 +46,7 @@ onBeforeUnmount(() => {
 <template lang="pug">
 .orders
   .order(v-for='order in orders' :key='order')
-    OrderCard(:order='order')
+    LeagueOfLegendsOrderCard(:order='order')
 </template>
 
 <style scoped>
