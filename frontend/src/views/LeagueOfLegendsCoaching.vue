@@ -41,30 +41,31 @@ v-divider.border-opacity-100(thickness="1rem" )
   background-color: #f1f1f1;
 }
 .buttons {
+  font-family: Inter;
   display: flex;
-  gap: 1.375rem;
-  padding: 2rem 0;
+  max-width: 1440px;
   margin: 0 auto;
-  max-width: 926px;
-  background-color: #f1f1f1;
+  gap: 1.375rem;
+  padding: 2rem 2.75rem;
   flex-wrap: wrap;
   justify-content: center;
+
 }
 .coach-type-button {
-  font-family: Inter;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: normal;
   color: #bbb;
+  background-color: #fff;
+
 }
 .v-btn--active {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  border: solid 1px #6262ED;
-  color: #280051;
+  background-color: #382b8f;
+  color: #fff;
 }
 .v-btn:hover {
-  border: solid 1px #6262ED;
-  color: #280051;
+  margin-top: -0.5rem;
 }
 .v-btn {
   width: 200px;
