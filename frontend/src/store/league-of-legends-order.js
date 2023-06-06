@@ -68,7 +68,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             }
         },
         changeCurrentDivision(division) {
-            this.selectedDivisionIndex = division.rank - 1
+            const index = LeagueOfLegendsDivisions.indexOf(division)
+            this.selectedDivisionIndex = index
         },
         changeCurrentMileStone(milestone) {
             this.milestone = milestone

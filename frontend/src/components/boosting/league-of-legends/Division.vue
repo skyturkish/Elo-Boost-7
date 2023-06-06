@@ -9,47 +9,65 @@ import SelectQueue from '@/components/boosting/league-of-legends/SelectQueue'
 import SelectGainLP from '@/components/boosting/league-of-legends/SelectGainLP'
 import { LeagueOfLegendsDivisions, LeagueOfLegendsMilestones } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
-import axios from 'axios'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 const divisions = LeagueOfLegendsDivisions.slice(0,7)
 const milestones = LeagueOfLegendsMilestones
 
-const desiredMilestone = ref('I')
-const selectedIndex = ref(4)
+const selectedDivisionIndex = ref(4)
+const selectedMilestoneIndex = ref(3)
 
-const desiredOrder = computed(() => {
-  return divisions[selectedIndex.value % divisions.length]
+const addCount = computed(() => {
+  return milestones.indexOf(currentLeagueOfLegendsOrder.milestone) === 3 ? 1 :0
 })
 
 const limitedDivisions = computed(() => {
-  if(currentLeagueOfLegendsOrder.colors.rank >= desiredOrder.value.rank) {
-    selectedIndex.value += 1 + currentLeagueOfLegendsOrder.colors.rank - desiredOrder.value.rank
+  return divisions.slice(currentLeagueOfLegendsOrder.selectedDivisionIndex + addCount.value)
+})
+
+const limitedMilestones = computed(() => {
+  if (currentLeagueOfLegendsOrder.selectedDivisionIndex === selectedDivisionIndex.value) {
+    return milestones.slice(milestones.indexOf(currentLeagueOfLegendsOrder.milestone) + 1)
+  }
+  return milestones
+})
+
+const desiredOrder = computed(() => {
+  if(!limitedDivisions.value.includes(divisions[selectedDivisionIndex.value])) {
+    selectedDivisionIndex.value = divisions.indexOf(limitedDivisions.value[0])
   }
 
-  return divisions.slice(currentLeagueOfLegendsOrder.colors.rank)
+  return divisions[selectedDivisionIndex.value]
+})
+
+const desiredMilestone = computed(() => {
+  if(!limitedMilestones.value.includes(milestones[selectedMilestoneIndex.value])) {
+    selectedMilestoneIndex.value = milestones.indexOf(limitedMilestones.value[0])
+  }
+
+  return milestones[selectedMilestoneIndex.value]
 })
 
 function increment() {
-  selectedIndex.value++
-  selectedIndex.value = selectedIndex.value % divisions.length
+  selectedDivisionIndex.value++
+  selectedDivisionIndex.value = selectedDivisionIndex.value % divisions.length
 }
 
 function decrement() {
-  selectedIndex.value -= 1
+  selectedDivisionIndex.value -= 1
 
-  if (selectedIndex.value < currentLeagueOfLegendsOrder.colors.rank) {
-    selectedIndex.value = divisions.length - 1
+  if(!limitedMilestones.value.includes(milestones[selectedMilestoneIndex.value])) {
+    selectedDivisionIndex.value = divisions.length - 1
   }
 }
 
 function changeDesiredDivision(division) {
-  selectedIndex.value = divisions.indexOf(division)
+  selectedDivisionIndex.value = divisions.indexOf(division)
 }
 
 function changeMileStone(milestone) {
-  desiredMilestone.value = milestone
+  selectedMilestoneIndex.value = milestones.indexOf(milestone)
 }
 
 function isSelectedMilestone(milestone) {
@@ -102,7 +120,7 @@ async function createOrder() {
           @click="changeDesiredDivision(division)")
       .desired-mile-stones
         div.mile-stone(
-        v-for="milestone in milestones"
+        v-for="milestone in limitedMilestones"
         :style="{color: isSelectedMilestone(milestone) ? desiredOrder.dominantColor : '#bbb',border: 'solid 1px ' + (isSelectedMilestone(milestone) ? desiredOrder.borderColor : '#bbb')}"
         @click="changeMileStone(milestone)"
         ) {{ milestone }}
