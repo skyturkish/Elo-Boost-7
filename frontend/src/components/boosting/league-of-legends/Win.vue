@@ -43,7 +43,6 @@ const items = ['1 HOURS','2 HOURS','3 HOURS', '4 HOURS', '5 HOURS', '6 HOURS']
   max-width: 1440px;
   margin: 0 auto;
   flex-wrap: wrap;
-  background-color: #eeeeee;
   padding: 0 2.75rem;
 }
 .selections-layout {

@@ -46,7 +46,7 @@ v-divider.border-opacity-100(thickness="1rem")
   border-color: #656EC0 !important;
 }
 .boostType {
-  background-color: #eeeeee;
+  background-color: #FBFBFB;
 }
 .buttons {
   display: flex;
@@ -54,7 +54,6 @@ v-divider.border-opacity-100(thickness="1rem")
   margin: 0 auto;
   gap: 1.375rem;
   padding: 2rem 2.75rem;
-  background-color: #eeeeee;
   flex-wrap: wrap;
 }
 .boost-type-button {

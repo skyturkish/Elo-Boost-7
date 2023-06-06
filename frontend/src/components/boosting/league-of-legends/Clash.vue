@@ -36,7 +36,6 @@ async function createOrder() {
   max-width: 1440px;
   margin: 0 auto;
   flex-wrap: wrap;
-  background-color: #eeeeee;
   padding: 0 2.75rem;
 }
 .crown{
