@@ -8,7 +8,6 @@ export const LeagueOfLegendsDivisions = [
     //     name: 'iron'
     // },
     {
-        rank: 1,
         dominantColor: '#423428',
         shadowColor: '#FBF8F8',
         borderColor: '#4B270D',
@@ -16,7 +15,6 @@ export const LeagueOfLegendsDivisions = [
         name: 'iron'
     },
     {
-        rank: 2,
         dominantColor: '#421106',
         shadowColor: '#F4F1F0',
         borderColor: '#52251F',
@@ -24,7 +22,6 @@ export const LeagueOfLegendsDivisions = [
         name: 'bronze'
     },
     {
-        rank: 3,
         dominantColor: '#303747',
         shadowColor: '#F8F8FB',
         borderColor: '#454A55',
@@ -32,7 +29,6 @@ export const LeagueOfLegendsDivisions = [
         name: 'silver'
     },
     {
-        rank: 4,
         dominantColor: '#795700',
         shadowColor: '#FBFAF8',
         borderColor: '#EEAF0C',
@@ -40,7 +36,6 @@ export const LeagueOfLegendsDivisions = [
         name: 'gold'
     },
     {
-        rank: 5,
         dominantColor: '#033F1F',
         shadowColor: '#F8FBF8',
         borderColor: '#068D45',
@@ -48,7 +43,6 @@ export const LeagueOfLegendsDivisions = [
         name: 'platinum'
     },
     {
-        rank: 6,
         dominantColor: '#0A2972',
         shadowColor: '#F8F9FB',
         borderColor: '#0A2972',
@@ -56,7 +50,6 @@ export const LeagueOfLegendsDivisions = [
         name: 'diamond'
     },
     {
-        rank: 7,
         dominantColor: '#421059',
         shadowColor: '#F4F0F4',
         borderColor: '#9E008E',
@@ -64,7 +57,6 @@ export const LeagueOfLegendsDivisions = [
         name: 'master'
     },
     {
-        rank: 8,
         dominantColor: '#460505',
         shadowColor: '#FBF8F8',
         borderColor: '#8D0606',
@@ -72,7 +64,6 @@ export const LeagueOfLegendsDivisions = [
         name: 'grandmaster'
     },
     {
-        rank: 9,
         dominantColor: '#155367',
         shadowColor: '#F8FBFA',
         borderColor: '#00D1FF',
