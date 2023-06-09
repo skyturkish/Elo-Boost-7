@@ -5,7 +5,7 @@ import { valorantDivisions } from '@/constants/valorant-constants'
 import { useAccount } from '@/store/account'
 import axios from 'axios'
 
-const userId = useAccount().user._id
+const userId = useAccount().user?._id || null
 export const useValorantOrder = defineStore('ValorantOrder', {
     state: () => ({
         milestone: 'I',
