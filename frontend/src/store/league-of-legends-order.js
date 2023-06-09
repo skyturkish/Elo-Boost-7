@@ -41,7 +41,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         languages: ['ENGLISH'],
         coachingGamesAmount: '2 GAMES',
         amountWinGame: '2 GAMES',
-        gameOrNetWin: false
+        gameOrNetWin: false,
+        amountPlacementsGame: '10 GAMES'
     }),
     actions: {
         incrementDivision(limit) {
@@ -144,17 +145,19 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         async createPlacementsOrder(amountGame) {
             await axios.post('/order', {
                 customer: useAccount().user._id || 'test',
+                booster: this.booster?._id,
                 gameType: 'league-of-legends',
                 orderType: 'placements',
                 currentRank: this.currentRank,
                 server: this.server,
+                queue: this.queue,
+                amountGame: this.amountPlacementsGame,
                 isSolo: this.isSolo,
                 lanes: this.lanes,
-                booster: this.booster,
                 champions: this.champions,
-                queue: this.queue,
-                options: this.options,
-                amountGame: amountGame
+                ...this.getDynamicOptions,
+                premium: this.premium,
+                bonusWin: this.bonuwWin
             })
         },
         async createNormalGamesOrder() {

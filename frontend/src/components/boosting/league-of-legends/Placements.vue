@@ -2,19 +2,20 @@
 import CurrentMilestones from '@/components/boosting/league-of-legends/CurrentMilestones'
 import SelectServer from '@/components/boosting/league-of-legends/SelectServer'
 import SelectQueue from '@/components/boosting/league-of-legends/SelectQueue'
-import SelectAmountGames from '@/components/boosting/league-of-legends/SelectAmountGames'
+import SelectPlacementsGamesAmount from '@/components/boosting/league-of-legends/SelectPlacementsGamesAmount'
 import Checkout from '@/components/Checkout'
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
+import CustomSwitch from '@/components/CustomSwitch'
+import BonusWin from '@/components/boosting/league-of-legends/BonusWin'
+import Premium from '@/components/boosting/league-of-legends/Premium'
+import HighMmrAndSoloOnly from '@/components/boosting/league-of-legends/HighMmrAndSoloOnly'
+import UntrackableOrStream from '@/components/boosting/league-of-legends/UntrackableOrStream'
+import SelectBooster from '@/components/boosting/league-of-legends/SelectBooster'
+import SelectChampions from '@/components/boosting/league-of-legends/SelectChampions'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import { ref } from 'vue'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
-
-const hours = ref('10 GAMES')
-
-const updateSelectedValue = (value) => {
-  hours.value = value
-}
 
 async function createOrder() {
   await currentLeagueOfLegendsOrder.createPlacementsOrder(hours.value)
@@ -27,8 +28,20 @@ async function createOrder() {
     .selections-layout
       SelectServer
       SelectQueue
-      SelectAmountGames(:selected-value="hours" @update:selectedValue="updateSelectedValue")
+      SelectPlacementsGamesAmount
   Checkout(v-on:create-order="createOrder")
+    template(v-slot:options)
+      SelectBooster
+      SelectChampions
+      BonusWin
+      Premium
+      HighMmrAndSoloOnly
+      UntrackableOrStream
+    template(v-slot:switchs)
+      .custom-switch-two-options
+        .choice SOLO
+        CustomSwitch(v-model="currentLeagueOfLegendsOrder.isSolo")
+        .choice DUO
 </template>
 
 <style scoped>
