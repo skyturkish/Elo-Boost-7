@@ -8,9 +8,17 @@ export const useAccount = defineStore('useAccount', {
         user: null
     }),
     actions: {
+        async changeUserOnlineState(state) {
+            if (this.user) {
+                await axios.patch(`/user/${this.user._id}`, {
+                    onlineState: state
+                })
+            }
+        },
         async fetchSession() {
             const user = await axios.get('/account/session')
             this.user = user.data || null
+            await this.changeUserOnlineState('online')
         },
         async register({ user }) {
             return await axios.post('/account/register', { user })
@@ -19,6 +27,7 @@ export const useAccount = defineStore('useAccount', {
             return await axios.post('/account/session', user)
         },
         async logout() {
+            await this.changeUserOnlineState('offline')
             await axios.delete('/account/session')
             await this.fetchSession()
         }

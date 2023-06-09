@@ -16,10 +16,10 @@ async function logout() {
 <template lang="pug">
 v-menu(v-if="useAccountStore.user" v-model="menu" :close-on-content-click="false")
   template(v-slot:activator='{ props }')
-    v-img.profile(v-bind="props" src="../../assets/profiles/profile-ahri.png")
+    v-img.profile(v-bind="props" :src="useAccountStore.user.photo")
   v-card.card(min-width='300')
     v-list()
-      v-list-item(prepend-avatar="https://i.pinimg.com/474x/9d/49/96/9d4996efe343c725e2bbd39c3d79bb23.jpg" :title="useAccountStore.user.role" :subtitle="useAccountStore.user.name")
+      v-list-item(:prepend-avatar="useAccountStore.user.photo" :title="useAccountStore.user.role" :subtitle="useAccountStore.user.name")
     h4 Balance: {{ useAccountStore.user.balance }}
     v-divider()
     v-btn(prepend-icon="mdi-view-dashboard" variant="outlined" @click="router.push('/panel/dashboard')") Dashboard

@@ -3,10 +3,18 @@ import { ref, computed } from 'vue'
 import CheckoutSelection from '@/components/CheckoutSelection'
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
 import CurrentMilestones from '@/components/boosting/league-of-legends/CurrentMilestones'
+import SelectBooster from '@/components/boosting/league-of-legends/SelectBooster'
+import SelectCurrentLP from '@/components/boosting/league-of-legends/SelectCurrentLP'
+import SelectGainLP from '@/components/boosting/league-of-legends/SelectGainLP'
+import SelectChampions from '@/components/boosting/league-of-legends/SelectChampions'
 import Checkout from '@/components/Checkout'
 import SelectServer from '@/components/boosting/league-of-legends/SelectServer'
+import BonusWin from '@/components/boosting/league-of-legends/BonusWin'
+import Premium from '@/components/boosting/league-of-legends/Premium'
+import HighMmrAndSoloOnly from '@/components/boosting/league-of-legends/HighMmrAndSoloOnly'
+import UntrackableOrStream from '@/components/boosting/league-of-legends/UntrackableOrStream'
 import SelectQueue from '@/components/boosting/league-of-legends/SelectQueue'
-import SelectGainLP from '@/components/boosting/league-of-legends/SelectGainLP'
+import CustomSwitch from '@/components/CustomSwitch'
 import { LeagueOfLegendsDivisions, LeagueOfLegendsMilestones } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
@@ -84,21 +92,26 @@ const trimUrls = import.meta.glob('../../../assets/trims/*.png', {
   eager: true
 })
 
+
 async function createOrder() {
   await currentLeagueOfLegendsOrder.createDivisionOrder({
     division: desiredOrder.value.name,
     milestone: desiredMilestone.value
   })
 }
+function adana() {
+  console.log(currentLeagueOfLegendsOrder.isSolo)
+}
+
 </script>
 
 <template lang="pug">
 .division
-  CurrentRank(divisionLimit = 6 title = "CURRENT RANK")
+  CurrentRank(divisionLimit = 6 title = "CURRENT RANK" @click="adana")
     CurrentMilestones
     .selections
-      v-select(:items="['0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" v-model="currentLeagueOfLegendsOrder.currentLP").selection-Current-LP
-      v-select(:items="['+25','25-20LP','20-15LP','15-10LP','10-']" v-model="currentLeagueOfLegendsOrder.gainLP").selection-Gain-Lp
+      SelectCurrentLP
+      SelectGainLP
   .desired-rank
     .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
       .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
@@ -129,7 +142,20 @@ async function createOrder() {
         SelectQueue
     v-img.trim(src="../../../assets/union.png")
       v-img(:src="trimUrls['../../../assets/trims/' + desiredOrder.name + '-trim.png']" )
-  Checkout(v-on:create-order="createOrder")
+  Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
+    template(v-slot:options)
+      SelectBooster
+      SelectChampions
+      BonusWin
+      Premium
+      HighMmrAndSoloOnly
+      UntrackableOrStream
+    template(v-slot:switchs)
+      .custom-switch-two-options
+        .choice SOLO
+        CustomSwitch(v-model="currentLeagueOfLegendsOrder.isSolo")
+        .choice DUO
+
 </template>
 
 <style scoped>
@@ -153,7 +179,6 @@ async function createOrder() {
   margin: 0 2px;
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
   height: 42rem;
-
 }
 .desired-rank-title {
   font-weight: bold;
@@ -173,9 +198,6 @@ async function createOrder() {
 .rank-icon-box {
   height: 15.625rem;
   width: 15.625rem;
-}
-.rank-icon {
-  padding-bottom: -5rem;
 }
 .name {
   padding-top: 0.5rem;

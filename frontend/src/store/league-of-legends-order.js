@@ -14,37 +14,23 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         currentLP: '0-20LP',
         server: 'Turkey',
         gainLP: '25-20LP',
-        isSolo: false,
+        isSolo: true,
         lanes: [],
         booster: null,
-        champions: [],
-        queue: 'solo',
-        options: {
-            bonusWin: {
-                price: 0,
-                isActive: false
-            },
-            premium: {
-                price: 0,
-                isActive: false
-            },
-            highMMR: {
-                price: 0,
-                isActive: false
-            },
-            untrackable: {
-                price: 0,
-                isActive: false
-            },
-            soloOnly: {
-                price: 0,
-                isActive: false
-            },
-            stream: {
-                price: 0,
-                isActive: false
-            }
+        champions: {
+            top: [],
+            jungle: [],
+            mid: [],
+            adc: [],
+            support: []
         },
+        queue: 'solo',
+        bonuwWin: true,
+        premium: false,
+        highMMR: false,
+        untrackable: false,
+        soloOnly: false,
+        stream: false,
         selectedDivisionIndex: 3,
         map: 'aram',
         normalGameAmount: '2 GAMES',
@@ -53,7 +39,9 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         clashAmountBooster: '5 BOOSTER',
         coachingHours: '1 HOUR',
         languages: ['ENGLISH'],
-        coachingGamesAmount: '2 GAMES'
+        coachingGamesAmount: '2 GAMES',
+        amountWinGame: '2 GAMES',
+        gameOrNetWin: false
     }),
     actions: {
         incrementDivision(limit) {
@@ -87,39 +75,70 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 this.map = 'aram'
             }
         },
+        addOrRemoveLane(lane) {
+            if (this.lanes.includes(lane)) {
+                this.lanes = this.lanes.filter((l) => l !== lane)
+            } else {
+                this.lanes.push(lane)
+            }
+        },
+        addChampion(lane, champion) {
+            const champions = this.champions[lane]
 
+            if (champions.includes(champion)) {
+                const index = champions.findIndex((item) => item === champion)
+
+                if (index !== -1) {
+                    champions.splice(index, 1)
+                }
+            } else {
+                console.log('burada mu ???')
+                champions.push(champion)
+            }
+        },
+        isLaneSelected(lane) {
+            return this.lanes.includes(lane)
+        },
+        isAnyChampionSelected() {
+            return Object.values(this.champions).some((list) => list.length > 0)
+        },
         async createDivisionOrder(desiredRank) {
             await axios.post('/order', {
-                customer: useAccount().user._id || 'test',
+                customer: useAccount().user?._id || 'test',
+                booster: this.booster?._id,
                 gameType: 'league-of-legends',
                 orderType: 'division',
                 currentRank: this.currentRank,
+                desiredRank: desiredRank,
                 server: this.server,
+                queue: this.queue,
                 gainLP: this.gainLP,
                 isSolo: this.isSolo,
                 lanes: this.lanes,
                 booster: this.booster,
                 champions: this.champions,
-                queue: this.queue,
-                options: this.options,
-                desiredRank: desiredRank
+                ...this.getDynamicOptions,
+                bonusWin: this.bonuwWin,
+                premium: this.premium
             })
         },
         async createWinOrder(amountGame) {
             await axios.post('/order', {
-                customer: useAccount().user._id || 'test',
+                customer: useAccount().user?._id || 'test',
+                booster: this.booster?._id,
                 gameType: 'league-of-legends',
                 orderType: 'win',
                 currentRank: this.currentRank,
                 server: this.server,
+                queue: this.queue,
+                amountGame: this.amountWinGame,
                 gainLP: this.gainLP,
                 isSolo: this.isSolo,
+                gameOrNetWin: this.gameOrNetWin,
                 lanes: this.lanes,
-                booster: this.booster,
                 champions: this.champions,
-                queue: this.queue,
-                options: this.options,
-                amountGame: amountGame
+                ...this.getDynamicOptions,
+                premium: this.premium
             })
         },
         async createPlacementsOrder(amountGame) {
@@ -238,6 +257,19 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             }
         },
         maps: (state) => mapColors,
-        selectedMap: (state) => mapColors[state.map]
+        selectedMap: (state) => mapColors[state.map],
+        getDynamicOptions: (state) => {
+            if (state.isSolo) {
+                return {
+                    highMMR: state.highMMR,
+                    untrackable: state.untrackable
+                }
+            } else {
+                return {
+                    soloOnly: state.soloOnly,
+                    stream: state.stream
+                }
+            }
+        }
     }
 })

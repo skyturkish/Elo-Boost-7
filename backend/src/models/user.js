@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
+const randomPhoto = require('../lib/random-photo-selection.js')
 
 const User = new mongoose.Schema(
     {
@@ -17,11 +18,16 @@ const User = new mongoose.Schema(
         role: {
             type: String,
             enum: ['customer', 'booster', 'stuff', 'admin'],
-            default: 'customer'
+            default: 'booster'
         },
         mainGame: {
             type: String,
             required: true
+        },
+        onlineState: {
+            type: String,
+            enum: ['online', 'offline', 'dont-disturb'],
+            default: 'offline'
         },
         country: {
             type: String
@@ -31,6 +37,19 @@ const User = new mongoose.Schema(
         },
         phoneNumber: {
             type: String
+        },
+        mainLanes: {
+            type: [String]
+        },
+        maxRank: {
+            type: String
+        },
+        rate: {
+            type: Number
+        },
+        photo: {
+            type: String,
+            default: randomPhoto
         }
     },
     { timestamps: true }
