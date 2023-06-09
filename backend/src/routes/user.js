@@ -8,10 +8,8 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res, next) => {
-    const { name, balance, role, mainGame } = req.body
-
     try {
-        const user = await userService.insert({ name, balance, role, mainGame })
+        const user = await userService.insert(req.body)
 
         res.send(user)
     } catch (e) {
