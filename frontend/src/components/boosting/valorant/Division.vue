@@ -77,7 +77,7 @@ async function createOrder() {
               ) {{ milestone }}
   Checkout(v-on:create-order="createOrder")
     CheckoutSelection(toolTipText="BOOSTER SEÇEBİLİRSİN" title="BOOSTER")
-      v-btn(icon="mdi-plus-circle")
+      v-img(src='@/assets/icons/plus.png' width="50px")
     CheckoutSelection(toolTipText="AGENTLARI SEÇEBİLİRİSİNZ" title="AGENTS")
       v-btn(icon="mdi-plus-circle")
     CheckoutSelection(toolTipText="Bonus win istiyorsan buna tıkla" title="BONUS WIN")
