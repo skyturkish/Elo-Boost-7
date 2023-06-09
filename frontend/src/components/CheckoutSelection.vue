@@ -19,7 +19,8 @@ const props = defineProps({
   .row
     v-tooltip(location="left" :text='toolTipText' )
       template(v-slot:activator='{ props }')
-        v-icon(v-bind='props' icon="mdi-help-circle")
+        .question-mark
+          v-img(src="@/assets/icons/question-mark.png" v-bind='props')
     .title {{ title }}
     .empty
   .slot
@@ -29,6 +30,7 @@ const props = defineProps({
 <style scoped>
 .checkout-selection {
   width: 250px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   font-family: Inter;
@@ -38,15 +40,22 @@ const props = defineProps({
   justify-content: space-between;
   align-items: center;
 }
+.question-mark {
+  width: 1.2rem;
+  height: 1.2rem;
+}
 .title {
   font-size: 24px;
   font-weight: 600;
-  color: #000;
+  color: #1B1A1A;
 }
 .empty {
   width: 24px;
 }
 .slot {
   align-self: center;
+  display:flex;
+  align-items: center;
+  gap: 1rem
 }
 </style>
