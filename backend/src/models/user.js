@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
-const randomPhoto = require('../lib/random-photo-selection.js')
+const randomPhoto = require('../functions/random-photo-selection.js')
 
 const User = new mongoose.Schema(
     {
