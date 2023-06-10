@@ -8,6 +8,8 @@ import {
 } from '@/constants/league-of-legends-constants'
 import { useAccount } from '@/store/account'
 
+const customerId = useAccount().user?._id || 'test'
+
 export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
     state: () => ({
         milestone: 'I',
@@ -105,7 +107,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createDivisionOrder(desiredRank) {
             await axios.post('/order', {
-                customer: useAccount().user?._id || 'test',
+                customer: customerId,
                 booster: this.booster?._id,
                 gameType: 'league-of-legends',
                 orderType: 'division',
@@ -125,7 +127,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createWinOrder(amountGame) {
             await axios.post('/order', {
-                customer: useAccount().user?._id || 'test',
+                customer: customerId,
                 booster: this.booster?._id,
                 gameType: 'league-of-legends',
                 orderType: 'win',
@@ -144,7 +146,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createPlacementsOrder(amountGame) {
             await axios.post('/order', {
-                customer: useAccount().user._id || 'test',
+                customer: customerId,
                 booster: this.booster?._id,
                 gameType: 'league-of-legends',
                 orderType: 'placements',
@@ -162,7 +164,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createNormalGamesOrder() {
             await axios.post('/order', {
-                customer: useAccount().user._id || 'test',
+                customer: customerId,
                 gameType: 'league-of-legends',
                 orderType: 'normal-game',
                 map: this.map,
@@ -178,7 +180,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createClashOrder() {
             await axios.post('/order', {
-                customer: useAccount().user._id || 'test',
+                customer: customerId,
                 gameType: 'league-of-legends',
                 orderType: 'clash',
                 server: this.server,
@@ -194,7 +196,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createLessonOrder(coach) {
             await axios.post('/coaching', {
-                customer: useAccount().user._id || 'test',
+                customer: customerId,
                 gameType: 'league-of-legends',
                 coachingType: 'lesson',
                 coach: coach,
@@ -208,7 +210,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createGameReplayOrder(coach) {
             await axios.post('/coaching', {
-                customer: useAccount().user._id || 'test',
+                customer: customerId,
                 gameType: 'league-of-legends',
                 coachingType: 'game-replay',
                 coach: coach,
@@ -222,7 +224,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createLiveGameOrder(coach) {
             await axios.post('/coaching', {
-                customer: useAccount().user._id || 'test',
+                customer: customerId,
                 gameType: 'league-of-legends',
                 coachingType: 'game-replay',
                 coach: coach,
@@ -236,7 +238,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
         async createPlayTogetherOrder(coach) {
             await axios.post('/coaching', {
-                customer: useAccount().user._id || 'test',
+                customer: customerId,
                 gameType: 'league-of-legends',
                 coachingType: 'game-replay',
                 coach: coach,
