@@ -62,7 +62,6 @@ const currentDivisionName = computed(() => {
 .current-rank {
   width: 22.5rem;
   border-radius: 15px;
-  margin: 0 auto;
   background-color: #fff;
   height: 42rem;
 }

@@ -29,9 +29,6 @@ Checkout(v-on:create-order="createOrder")
 </template>
 
 <style scoped>
-.a {
-  margin: 0 auto;
-}
 .crown{
   margin: 0 auto;
   margin-bottom: -4rem;
@@ -39,6 +36,9 @@ Checkout(v-on:create-order="createOrder")
 }
 .crown-background {
   width: 26.7rem;
+}
+.crown {
+  margin-top: -1rem;
 }
 .normal-game-card {
   width: 22.5rem;

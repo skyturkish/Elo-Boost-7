@@ -40,9 +40,6 @@ const crownUrls = import.meta.glob('../../../assets/crowns/*.png', {
 </template>
 
 <style scoped>
-.a {
-  margin: 0 auto;
-}
 .crown{
   margin: 0 auto;
   margin-bottom: -4rem;

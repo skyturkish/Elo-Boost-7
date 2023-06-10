@@ -160,7 +160,6 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
 <style scoped>
 .desired-rank {
   width: 360px;
-  margin: 0 auto;
   border-radius: 15px;
   background-color: #fff;
   height: 690px;

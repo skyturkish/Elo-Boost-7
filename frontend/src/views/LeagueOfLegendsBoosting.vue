@@ -81,10 +81,10 @@ v-divider.border-opacity-100(thickness="1rem")
 .dynamic-view {
   max-width: 1440px;
   margin: 0 auto;
-
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   padding: 0 2.75rem;
+  gap: 2.5rem;
 }
 </style>
