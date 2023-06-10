@@ -37,9 +37,9 @@ const createOrder = function(){
       .price
         | 730
         span.smalltext ,35
-        span.euro €
-      v-btn.purchase-button(height="70px" width="202px" elevation="5" size="x-large" color='#444' @click="createOrder()")
-        v-icon.purchase-icon(color="#f1f1f1" icon="mdi-cash-multiple")
+      v-btn.purchase-button.elevation-8(@click="createOrder()")
+        .logo
+          v-img(src='@/assets/icons/money.png')
         .purchase.text PURCHASE
   .custom-divider
   .receipt-and-barkod
@@ -49,7 +49,12 @@ const createOrder = function(){
 </template>
 
 <style scoped>
-
+.price:after {
+    content: '€';
+    font-size:48px;
+    position: relative;
+    top: -12px;
+}
 .row-flex {
   display:flex
 }
@@ -141,26 +146,35 @@ const createOrder = function(){
   color: #444;
 }
 
-.euro {
-  margin-top: -4px;
-}
+
 
 .purchase-button {
   margin-top: -3rem;
+  margin-right: -1rem;
   border-radius: 15px;
+  width: 202px;
+  height: 70px;
+  flex-grow: 0;
+  background-color: #fff;
+  display:flex;
+  gap:1rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.logo {
+  width: 30px;
+  height: 30px;
+}
+.purchase.text {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: normal;
+  color: #444;
 }
 
 .purchase-icon {
   /* purchase-icon styles if needed */
-}
-
-.purchase.text {
-  font-family: Inter;
-  font-size: 20px;
-  letter-spacing: normal;
-  font-weight: 600;
-  margin: 0px 0px 0px 16px;
-  color: #ddd;
 }
 
 .custom-divider {
