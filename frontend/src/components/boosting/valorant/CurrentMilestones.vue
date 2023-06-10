@@ -12,8 +12,8 @@ const milestones = valorantMilestones
 .milestones
   .milestone(
     v-for="milestone in milestones"
-    :style="{backgroundColor: currentValorantOrder.isSelectedMilestone(milestone) ? '#f4f1f0' : '#afafaf'}"
-    @click="useValorantOrder().changeCurrentMileStone(milestone)"
+    :style="{backgroundColor: currentValorantOrder.isSelectedMilestone(milestone) ? currentValorantOrder.colors.color : '#fff'}"
+    @click="currentValorantOrder.changeCurrentMileStone(milestone)"
     ) {{ milestone }}
 </template>
 
@@ -25,10 +25,11 @@ const milestones = valorantMilestones
 }
 .milestone {
   font-family: Inter;
-  width: 1.9375rem;
-  height: 1.9375rem;
-  border-radius: 6px;
-  background-color: #afafaf;
+  width: 31px;
+  height: 31px;
+  flex-grow: 0;
+  border-radius: 5px;
+  background-color: #fff;
   font-size: 15px;
   font-weight: 800;
   color: #444;

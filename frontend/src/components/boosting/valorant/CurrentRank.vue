@@ -1,10 +1,21 @@
 <script setup>
-import { useValorantOrder } from '@/store/valorant-order'
+import { ref, computed } from 'vue'
 import { valorantDivisions } from '@/constants/valorant-constants'
+import { useValorantOrder } from '@/store/valorant-order'
 import CurrentMilestones from '@/components/boosting/valorant/CurrentMilestones'
-import SelectCurrentRR from '@/components/boosting/valorant/SelectCurrentRR'
 
-const divisions = valorantDivisions
+const props = defineProps({
+  divisionLimit: {
+    type: String,
+  },
+  title: {
+    type: String,
+    required: true
+  }
+})
+
+const divisions = valorantDivisions.slice(0, props.divisionLimit)
+
 const currentValorantOrder = useValorantOrder()
 
 const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
@@ -16,28 +27,32 @@ const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png'
   import: 'default',
   eager: true
 })
+
+const currentDivisionName = computed(() => {
+  return currentValorantOrder.currentRank.division.toUpperCase()
+});
 </script>
 
 <template lang="pug">
 .current-rank
   v-img(src='@/assets/valorant-player-card.png' width="23rem")
     .content
-      .title CURRENT RANK
+      .title {{ title}}
       v-img.act-rank(src='@/assets/act-rank-level1.png'  width="12rem")
-        v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${currentValorantOrder.division}.png`]' width="9rem")
-          v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.division}-${currentValorantOrder.milestone}.png`]' width="4.2rem")
-      .title {{ currentValorantOrder.division.toUpperCase() }} {{ currentValorantOrder.milestone }}
+        v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${currentValorantOrder.currentRank.division}.png`]' width="9rem")
+          v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`]' width="4.2rem")
+      .title {{ currentDivisionName }} {{ currentValorantOrder.milestone }}
+      .dynamic-view
+        slot
       .colors
         v-btn.color(
           v-for="division in divisions"
           :flat="currentValorantOrder.isSelectedDivision(division) ? false : true"
           icon
-          :size="currentValorantOrder.isSelectedDivision(division) ? '2rem' : '1.6rem'"
+          :size="currentValorantOrder.isSelectedDivision(division) ? '2rem' : '1.5rem'"
           :color="division.color"
           @click="currentValorantOrder.changeCurrentDivision(division)")
-      .selections
-        SelectCurrentRR
-        CurrentMilestones
+      CurrentMilestones
 </template>
 
 <style scoped>
@@ -68,21 +83,16 @@ const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png'
   margin-top: 31%;
 }
 .colors {
-  padding-top: 13rem;
+  padding-top: 6rem;
 }
 .color {
   margin-left: 0.5rem;
 }
-.selections {
+.dynamic-view {
   display: flex;
   gap: 1rem;
   align-items: center;
   padding-top: 1.5rem;
 }
-/* .v-select.v-input--horizontal{
-  grid-template-areas: 'reset';
-}
-.v-select > .v-input__control > .v-field{
-  font-size: 8px;
-} */
+
 </style>

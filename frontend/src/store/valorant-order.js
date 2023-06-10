@@ -10,21 +10,48 @@ export const useValorantOrder = defineStore('ValorantOrder', {
     state: () => ({
         milestone: 'I',
         currentRR: '0-20 RR',
-        division: 'silver',
+        currentGainRR: '25-20 RR',
         server: 'Turkey',
         agents: [],
         isSolo: false,
-        bonusWin: {
-            price: 0,
-            isActive: false
-        },
-        premium: {
-            price: 0,
-            isActive: false
-        },
-        agents: []
+        booster: null,
+        bonusWin: false,
+        premium: true,
+        coach: null,
+        languages: ['ENGLISH'],
+        amountWinGame: '2 GAMES',
+        amountPlacementsGame: '10 GAMES',
+        amountUnratedMatchGame: '5 GAMES',
+        amountLessonGame: '3 HOURS',
+        amountCoachGame: '3 GAMES',
+        selectedDivisionIndex: 3
     }),
     actions: {
+        incrementDivision(limit) {
+            this.selectedDivisionIndex++
+
+            this.selectedDivisionIndex = this.selectedDivisionIndex % limit
+        },
+        decrementDivision(limit) {
+            this.selectedDivisionIndex -= 1
+            if (this.selectedDivisionIndex < 0) {
+                this.selectedDivisionIndex = limit - 1
+            }
+        },
+        changeCurrentDivision(division) {
+            const index = valorantDivisions.indexOf(division)
+            this.selectedDivisionIndex = index
+        },
+        isSelectedDivision(division) {
+            return this.division === this.colors.name
+        },
+        changeCurrentMileStone(milestone) {
+            this.milestone = milestone
+        },
+        isSelectedMilestone(milestone) {
+            return this.milestone === milestone
+        },
+
         async createDivisionOrder(desiredRank) {
             await axios.post('/order', {
                 customer: userId || 'test',
@@ -35,24 +62,13 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 agents: this.agents,
                 desiredRank: desiredRank
             })
-        },
-        changeCurrentDivision(division) {
-            this.division = division.name
-        },
-        isSelectedDivision(division) {
-            return this.division === division.name
-        },
-        changeCurrentMileStone(milestone) {
-            this.milestone = milestone
-        },
-        isSelectedMilestone(milestone) {
-            return this.milestone === milestone
         }
     },
     getters: {
+        colors: (state) => valorantDivisions[state.selectedDivisionIndex],
         currentRank: (state) => {
             return {
-                division: state.division,
+                division: state.colors.name,
                 milestone: state.milestone,
                 currentRR: state.currentRR
             }

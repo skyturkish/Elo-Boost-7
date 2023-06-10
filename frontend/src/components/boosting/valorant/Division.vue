@@ -50,7 +50,7 @@ async function createOrder() {
 
 <template lang="pug">
 .division-boost
-  CurrentRank()
+  CurrentRank(title="CURRENT RANK")
   .desired-rank
     v-img(src='@/assets/valorant-player-card.png' width="23rem")
       .content
