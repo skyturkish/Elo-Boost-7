@@ -50,10 +50,11 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 .buttons {
   display: flex;
+  justify-content: center;
   max-width: 1440px;
   margin: 0 auto;
   gap: 1.375rem;
-  padding: 2rem 2.75rem;
+  padding: 2rem 2.75rem 2rem 4rem;
   flex-wrap: wrap;
 }
 .boost-type-button {
