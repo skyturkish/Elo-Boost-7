@@ -14,30 +14,21 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-.clash
-  .a
-    .crown-background
-      v-img.crown(src="../../../assets/crowns/clash.png")
-    .normal-game-card
-      v-img.logo(src="../../../assets/crowns/clash-logo.png")
-      .game-name CLASH
-      .selections
-        SelectServer
-        SelectClashTier
-        SelectClashAmountBooster
-        SelectClashAmountGames
-  Checkout(v-on:create-order="createOrder")
+.a
+  .crown-background
+    v-img.crown(src="../../../assets/crowns/clash.png")
+  .normal-game-card
+    v-img.logo(src="../../../assets/crowns/clash-logo.png")
+    .game-name CLASH
+    .selections
+      SelectServer
+      SelectClashTier
+      SelectClashAmountBooster
+      SelectClashAmountGames
+Checkout(v-on:create-order="createOrder")
 </template>
 
 <style scoped>
-.clash {
-  display: flex;
-  justify-content: center;
-  max-width: 1440px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  padding: 0 2.75rem;
-}
 .crown{
   margin: 0 auto;
   margin-bottom: -4rem;

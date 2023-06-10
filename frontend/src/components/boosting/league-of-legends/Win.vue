@@ -26,43 +26,34 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-.win
-  CurrentRank(divisionLimit = 9 title = "YOUR RANK" v-model="hours")
-    CurrentMilestones
-    .selections-layout
-      SelectServer
-      SelectQueue
-      SelectAmountWinGames
-      SelectCurrentLP
-      SelectGainLP
-  Checkout(v-on:create-order="createOrder")
-    template(v-slot:options)
-      SelectBooster
-      SelectChampions
-      UntrackableOrStream
-      Premium
-      HighMmrAndSoloOnly
-    template(v-slot:switchs)
-      .custom-switch-two-options
-        .choice GAME
-        CustomSwitch(v-model="currentLeagueOfLegendsOrder.gameOrNetWin")
-        .choice NET WIN
-      .custom-switch-two-options
-        .choice SOLO
-        CustomSwitch(v-model="currentLeagueOfLegendsOrder.isSolo")
-        .choice DUO
+CurrentRank(divisionLimit = 9 title = "YOUR RANK" v-model="hours")
+  CurrentMilestones
+  .selections-layout
+    SelectServer
+    SelectQueue
+    SelectAmountWinGames
+    SelectCurrentLP
+    SelectGainLP
+Checkout(v-on:create-order="createOrder")
+  template(v-slot:options)
+    SelectBooster
+    SelectChampions
+    UntrackableOrStream
+    Premium
+    HighMmrAndSoloOnly
+  template(v-slot:switchs)
+    .custom-switch-two-options
+      .choice GAME
+      CustomSwitch(v-model="currentLeagueOfLegendsOrder.gameOrNetWin")
+      .choice NET WIN
+    .custom-switch-two-options
+      .choice SOLO
+      CustomSwitch(v-model="currentLeagueOfLegendsOrder.isSolo")
+      .choice DUO
 
 </template>
 
 <style scoped>
-.win {
-  display: flex;
-  justify-content: center;
-  max-width: 1440px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  padding: 0 2.75rem;
-}
 .selections-layout {
   display: flex;
   flex-wrap: wrap;

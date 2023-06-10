@@ -106,67 +106,58 @@ function adana() {
 </script>
 
 <template lang="pug">
-.division
-  CurrentRank(divisionLimit = 6 title = "CURRENT RANK" @click="adana")
-    CurrentMilestones
-    .selections
-      SelectCurrentLP
-      SelectGainLP
-  .desired-rank
-    .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
-      .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
-      .select-division
-        v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
-        .division-name
-          .rank-icon-box
-            v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + desiredOrder.name + '.png']" width="16rem" )
-          .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
-        v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
-      v-divider.divider()
-      .colors
-        v-btn.color(
-          v-for="division in limitedDivisions"
-          :flat="division.name == desiredOrder.name ? false : true"
-          icon
-          :size="division.name == desiredOrder.name ? '2rem' : '1.5rem'"
-          :color="division.buttonColor"
-          @click="changeDesiredDivision(division)")
-      .desired-mile-stones
-        div.mile-stone(
-        v-for="milestone in limitedMilestones"
-        :style="{color: isSelectedMilestone(milestone) ? desiredOrder.dominantColor : '#bbb',border: 'solid 1px ' + (isSelectedMilestone(milestone) ? desiredOrder.borderColor : '#bbb')}"
-        @click="changeMileStone(milestone)"
-        ) {{ milestone }}
-      .desired-selections
-        SelectServer
-        SelectQueue
-    v-img.trim(src="../../../assets/union.png")
-      v-img(:src="trimUrls['../../../assets/trims/' + desiredOrder.name + '-trim.png']" )
-  Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
-    template(v-slot:options)
-      SelectBooster
-      SelectChampions
-      BonusWin
-      Premium
-      HighMmrAndSoloOnly
-      UntrackableOrStream
-    template(v-slot:switchs)
-      .custom-switch-two-options
-        .choice SOLO
-        CustomSwitch(v-model="currentLeagueOfLegendsOrder.isSolo")
-        .choice DUO
+CurrentRank(divisionLimit = 6 title = "CURRENT RANK" @click="adana")
+  CurrentMilestones
+  .selections
+    SelectCurrentLP
+    SelectGainLP
+.desired-rank
+  .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
+    .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
+    .select-division
+      v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
+      .division-name
+        .rank-icon-box
+          v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + desiredOrder.name + '.png']" width="16rem" )
+        .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
+      v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
+    v-divider.divider()
+    .colors
+      v-btn.color(
+        v-for="division in limitedDivisions"
+        :flat="division.name == desiredOrder.name ? false : true"
+        icon
+        :size="division.name == desiredOrder.name ? '2rem' : '1.5rem'"
+        :color="division.buttonColor"
+        @click="changeDesiredDivision(division)")
+    .desired-mile-stones
+      div.mile-stone(
+      v-for="milestone in limitedMilestones"
+      :style="{color: isSelectedMilestone(milestone) ? desiredOrder.dominantColor : '#bbb',border: 'solid 1px ' + (isSelectedMilestone(milestone) ? desiredOrder.borderColor : '#bbb')}"
+      @click="changeMileStone(milestone)"
+      ) {{ milestone }}
+    .desired-selections
+      SelectServer
+      SelectQueue
+  v-img.trim(src="../../../assets/union.png")
+    v-img(:src="trimUrls['../../../assets/trims/' + desiredOrder.name + '-trim.png']" )
+Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
+  template(v-slot:options)
+    SelectBooster
+    SelectChampions
+    BonusWin
+    Premium
+    HighMmrAndSoloOnly
+    UntrackableOrStream
+  template(v-slot:switchs)
+    .custom-switch-two-options
+      .choice SOLO
+      CustomSwitch(v-model="currentLeagueOfLegendsOrder.isSolo")
+      .choice DUO
 
 </template>
 
 <style scoped>
-.division {
-  display: flex;
-  justify-content: center;
-  max-width: 1440px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  padding: 0 2.75rem;
-}
 .desired-rank {
   width: 360px;
   margin: 0 auto;
