@@ -29,9 +29,13 @@ Checkout(v-on:create-order="createOrder")
 </template>
 
 <style scoped>
+.a {
+  margin: 0 auto;
+}
 .crown{
   margin: 0 auto;
   margin-bottom: -4rem;
+  height: 7rem;
 }
 .crown-background {
   width: 26.7rem;
