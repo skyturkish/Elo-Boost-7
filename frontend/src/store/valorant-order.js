@@ -5,7 +5,8 @@ import { valorantDivisions } from '@/constants/valorant-constants'
 import { useAccount } from '@/store/account'
 import axios from 'axios'
 
-const userId = useAccount().user?._id || null
+const customerId = useAccount().user?._id || 'test'
+
 export const useValorantOrder = defineStore('ValorantOrder', {
     state: () => ({
         milestone: 'I',
@@ -61,13 +62,19 @@ export const useValorantOrder = defineStore('ValorantOrder', {
 
         async createDivisionOrder(desiredRank) {
             await axios.post('/order', {
-                customer: userId || 'test',
+                customer: customerId,
+                booster: this.booster?._id,
                 gameType: 'valorant',
                 orderType: 'division',
                 currentRank: this.currentRank,
+                desiredRank: desiredRank,
+                gainRR: this.gainRR,
                 server: this.server,
+                isSolo: this.isSolo,
                 agents: this.agents,
-                desiredRank: desiredRank
+                ...this.getDynamicOptions,
+                bonusWin: this.bonuwWin,
+                premium: this.premium
             })
         }
     },
@@ -78,6 +85,19 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 division: state.colors.name,
                 milestone: state.milestone,
                 currentRR: state.currentRR
+            }
+        },
+        getDynamicOptions: (state) => {
+            if (state.isSolo) {
+                return {
+                    highMMR: state.highMMR,
+                    untrackable: state.untrackable
+                }
+            } else {
+                return {
+                    soloOnly: state.soloOnly,
+                    stream: state.stream
+                }
             }
         }
     }
