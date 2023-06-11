@@ -76,6 +76,20 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 bonusWin: this.bonuwWin,
                 premium: this.premium
             })
+        },
+        async createWinOrder() {
+            await axios.post('/order', {
+                customer: customerId,
+                booster: this.booster?._id,
+                gameType: 'valorant',
+                orderType: 'win',
+                currentRank: this.currentRank,
+                server: this.server,
+                isSolo: this.isSolo,
+                agents: this.agents,
+                ...this.getDynamicOptions,
+                premium: this.premium
+            })
         }
     },
     getters: {
