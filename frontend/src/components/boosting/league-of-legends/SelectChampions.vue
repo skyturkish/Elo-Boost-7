@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import CheckoutSelection from '@/components/CheckoutSelection'
-import { useBoosters } from '@/store/boosters'
 
 import { champions } from '@/constants/league-of-legends-constants'
 
@@ -179,5 +178,4 @@ CheckoutSelection(toolTipText="You can set your champions which ones you wanted 
   letter-spacing: normal;
   color: #ffffff;
 }
-
 </style>
