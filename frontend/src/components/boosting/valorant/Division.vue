@@ -6,17 +6,27 @@ import CheckoutSelection from '@/components/CheckoutSelection'
 import { valorantDivisions, valorantMilestones  } from '@/constants/valorant-constants'
 import { useValorantOrder } from '@/store/valorant-order'
 import { useAccount } from '@/store/account'
-
 import SelectCurrentRR from '@/components/boosting/valorant/SelectCurrentRR'
 import SelectGainRR from '@/components/boosting/valorant/SelectGainRR'
 import SelectServer from '@/components/boosting/valorant/SelectServer'
+import SelectBooster from '@/components/boosting/valorant/SelectBooster'
+import SelectAgents from '@/components/boosting/valorant/SelectAgents'
+import BonusWin from '@/components/boosting/valorant/BonusWin'
+import Premium from '@/components/boosting/valorant/Premium'
+import HighMmrAndSoloOnly from '@/components/boosting/valorant/HighMmrAndSoloOnly'
+import UntrackableOrStream from '@/components/boosting/valorant/UntrackableOrStream'
+
+
+
+import CustomSwitch from '@/components/CustomSwitch'
+
+
 
 const currentValorantOrder = useValorantOrder()
 
 const divisions = valorantDivisions.slice(0,8)
 const milestones = valorantMilestones
 
-// -------
 const selectedDivisionIndex = ref(4)
 const selectedMilestoneIndex = ref(3)
 
@@ -68,8 +78,6 @@ function isSelectedMilestone(milestone) {
   return desiredMilestone.value === milestone
 }
 
-// ------
-
 const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
   import: 'default',
   eager: true
@@ -117,20 +125,19 @@ async function createOrder() {
             @click="changeMileStone(milestone)"
             ) {{ milestone }}
     v-img.last-rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
-
-  Checkout(v-on:create-order="createOrder")
-    CheckoutSelection(toolTipText="BOOSTER SEÇEBİLİRSİN" title="BOOSTER")
-      v-img(src='@/assets/icons/plus.png' width="50px")
-    CheckoutSelection(toolTipText="AGENTLARI SEÇEBİLİRİSİNZ" title="AGENTS")
-      v-btn(icon="mdi-plus-circle")
-    CheckoutSelection(toolTipText="Bonus win istiyorsan buna tıkla" title="BONUS WIN")
-      .display-flex
-        v-img(src='@/assets/icons/high-mmr.png' width="50px")
-        v-switch(v-model='currentValorantOrder.bonusWin' color='blue')
-    CheckoutSelection(toolTipText="premium istiyorsan tamı tamına şu yanımdaki şeye basabilirisin" title="PREMİUM")
-      .display-flex
-        v-img(src='@/assets/icons/premium.png' width="50px")
-        v-switch(v-model='currentValorantOrder.premium' color='blue')
+  Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
+    template(v-slot:switchs)
+      .custom-switch-two-options
+        .choice SOLO
+        CustomSwitch(v-model="currentValorantOrder.isSolo")
+        .choice DUO
+    template(v-slot:options)
+      SelectBooster
+      SelectAgents
+      BonusWin
+      Premium
+      HighMmrAndSoloOnly
+      UntrackableOrStream
 </template>
 
 <style scoped>
