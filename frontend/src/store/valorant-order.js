@@ -32,6 +32,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         amountUnratedMatchGame: '5 GAMES',
         amountLessonGame: '3 HOURS',
         amountCoachGame: '3 GAMES',
+        amountUnratedMatchGame: '5 GAMES',
         selectedDivisionIndex: 3
     }),
     actions: {
@@ -118,6 +119,20 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 ...this.getDynamicOptions,
                 premium: this.premium,
                 amountGame: this.amountPlacementsGame
+            })
+        },
+        async createUnratedMatch(selectedGameType) {
+            await axios.post('/order', {
+                customer: customerId,
+                booster: this.booster?._id,
+                gameType: 'valorant',
+                orderType: 'unrated',
+                server: this.server,
+                isSolo: this.isSolo,
+                agents: this.agents,
+                ...this.getDynamicOptions,
+                premium: this.premium,
+                amountGame: this.amountUnratedMatchGame
             })
         }
     },
