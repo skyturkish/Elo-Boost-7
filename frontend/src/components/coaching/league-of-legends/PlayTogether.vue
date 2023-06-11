@@ -12,21 +12,11 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-.lesson
-  CurrentRank(divisionLimit = 6 title = "YOUR RANK")
-    v-select(v-model="currentLeagueOfLegendsOrder.coachingGamesAmount" :items="['1 GAMES', '2 GAMES', '3 GAMES', '4 GAMES', '5 GAMES']" )
-    SelectLanguages
-  Checkout(v-on:create-order="createOrder")
+CurrentRank(divisionLimit = 6 title = "YOUR RANK")
+  v-select(v-model="currentLeagueOfLegendsOrder.coachingGamesAmount" :items="['1 GAMES', '2 GAMES', '3 GAMES', '4 GAMES', '5 GAMES']" )
+  SelectLanguages
+Checkout(v-on:create-order="createOrder")
 </template>
 
 <style scoped>
-.lesson {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-}
-.v-select {
-  width: 100%;
-}
 </style>
