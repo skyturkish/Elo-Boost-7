@@ -38,3 +38,27 @@ export const valorantDivisions = [
 ]
 
 export const valorantMilestones = ['I', 'II', 'III']
+
+export const agents = [
+    'astra',
+    'breach',
+    'brimstone',
+    'chamber',
+    'cypher',
+    'fade',
+    'gekko',
+    'harbor',
+    'jett',
+    'kayo',
+    'killjoy',
+    'neon',
+    'omen',
+    'phoenix',
+    'raze',
+    'reyna',
+    'sage',
+    'skye',
+    'sova',
+    'viper',
+    'yoru'
+]

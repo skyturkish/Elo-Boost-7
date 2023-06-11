@@ -59,7 +59,20 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         isSelectedMilestone(milestone) {
             return this.milestone === milestone
         },
+        addAgent(agent) {
+            if (this.agents.includes(agent)) {
+                const index = this.agents.findIndex((item) => item === agent)
 
+                if (index !== -1) {
+                    this.agents.splice(index, 1)
+                }
+            } else {
+                this.agents.push(agent)
+            }
+        },
+        isAnyAgentSelected() {
+            return this.agents.length > 0
+        },
         async createDivisionOrder(desiredRank) {
             await axios.post('/order', {
                 customer: customerId,
