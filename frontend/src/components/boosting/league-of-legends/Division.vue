@@ -99,14 +99,10 @@ async function createOrder() {
     milestone: desiredMilestone.value
   })
 }
-function adana() {
-  console.log(currentLeagueOfLegendsOrder.isSolo)
-}
-
 </script>
 
 <template lang="pug">
-CurrentRank(divisionLimit = 6 title = "CURRENT RANK" @click="adana")
+CurrentRank(divisionLimit = 6 title = "CURRENT RANK")
   CurrentMilestones
   .selections
     SelectCurrentLP
