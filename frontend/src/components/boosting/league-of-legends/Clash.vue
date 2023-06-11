@@ -25,7 +25,7 @@ async function createOrder() {
       SelectClashTier
       SelectClashAmountBooster
       SelectClashAmountGames
-Checkout(v-on:create-order="createOrder")
+Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
 </template>
 
 <style scoped>

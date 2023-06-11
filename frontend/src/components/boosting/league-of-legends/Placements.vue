@@ -23,12 +23,12 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-CurrentRank(divisionLimit = 9 title = "LAST SEASON" v-model="hours")
+CurrentRank(divisionLimit = 9 title = "LAST SEASON")
   .selections-layout
     SelectServer
     SelectQueue
     SelectPlacementsGamesAmount
-Checkout(v-on:create-order="createOrder")
+Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
   template(v-slot:options)
     SelectBooster
     SelectChampions
