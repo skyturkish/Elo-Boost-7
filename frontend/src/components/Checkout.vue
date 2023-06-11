@@ -91,6 +91,7 @@ const gameName = computed(() => {
 .second-slot {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .total-price-background {
