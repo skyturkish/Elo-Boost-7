@@ -86,5 +86,6 @@ v-divider.border-opacity-100(thickness="1rem")
   flex-wrap: wrap;
   padding: 0 2.75rem;
   gap: 2.5rem;
+  min-height: 900px;
 }
 </style>

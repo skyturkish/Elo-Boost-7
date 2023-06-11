@@ -76,6 +76,7 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 .dynamic-view {
   max-width: 1440px;
+  min-height: 900px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
