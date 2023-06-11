@@ -111,7 +111,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 customer: customerId,
                 booster: this.booster?._id,
                 gameType: 'valorant',
-                orderType: 'win',
+                orderType: 'placements',
                 currentRank: this.currentRank,
                 server: this.server,
                 isSolo: this.isSolo,
