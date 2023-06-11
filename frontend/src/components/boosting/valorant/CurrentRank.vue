@@ -45,14 +45,15 @@ const currentDivisionName = computed(() => {
       .dynamic-view
         slot
       .colors
-        v-btn.color(
-          v-for="division in divisions"
-          :flat="currentValorantOrder.isSelectedDivision(division) ? false : true"
-          icon
-          :size="currentValorantOrder.isSelectedDivision(division) ? '2rem' : '1.5rem'"
-          :color="division.color"
-          @click="currentValorantOrder.changeCurrentDivision(division)")
+        .color-background(v-for="division in divisions")
+          v-btn.color(
+            :flat="currentValorantOrder.isSelectedDivision(division) ? false : true"
+            icon
+            :size="currentValorantOrder.isSelectedDivision(division) ? '2rem' : '1.5rem'"
+            :color="division.color"
+            @click="currentValorantOrder.changeCurrentDivision(division)")
       CurrentMilestones
+      v-img.last-rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`]' width="4.2rem")
 </template>
 
 <style scoped>
@@ -83,16 +84,32 @@ const currentDivisionName = computed(() => {
   margin-top: 31%;
 }
 .colors {
-  padding-top: 6rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  display:flex;
+  max-width: 155px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.color-background {
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .color {
   margin-left: 0.5rem;
 }
+
 .dynamic-view {
+  height: 6.5rem;
   display: flex;
   gap: 1rem;
   align-items: center;
-  padding-top: 1.5rem;
+  padding-top: 4.5rem;
 }
-
+.last-rank-icon {
+  margin-top: 7rem;
+}
 </style>

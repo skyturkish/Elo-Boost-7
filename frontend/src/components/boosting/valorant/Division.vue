@@ -1,34 +1,74 @@
 <script setup>
+import { ref, computed  } from 'vue'
 import CurrentRank from '@/components/boosting/valorant/CurrentRank'
 import Checkout from '@/components/Checkout'
 import CheckoutSelection from '@/components/CheckoutSelection'
 import { valorantDivisions, valorantMilestones  } from '@/constants/valorant-constants'
 import { useValorantOrder } from '@/store/valorant-order'
-import { ref } from 'vue'
 import { useAccount } from '@/store/account'
+
+import SelectCurrentRR from '@/components/boosting/valorant/SelectCurrentRR'
+import SelectGainRR from '@/components/boosting/valorant/SelectGainRR'
+import SelectServer from '@/components/boosting/valorant/SelectServer'
 
 const currentValorantOrder = useValorantOrder()
 
-const divisions = valorantDivisions
+const divisions = valorantDivisions.slice(0,8)
 const milestones = valorantMilestones
-const desiredDivision = ref(divisions[3])
-const desiredMilestone = ref('II')
+
+// -------
+const selectedDivisionIndex = ref(4)
+const selectedMilestoneIndex = ref(3)
+
+const addCount = computed(() => {
+  return milestones.indexOf(currentValorantOrder.milestone) ===  2 ? 1 :0
+})
+
+const limitedDivisions = computed(() => {
+  return divisions.slice(currentValorantOrder.selectedDivisionIndex + addCount.value)
+})
+
+const limitedMilestones = computed(() => {
+  if (currentValorantOrder.selectedDivisionIndex === selectedDivisionIndex.value) {
+    return milestones.slice(milestones.indexOf(currentValorantOrder.milestone) + 1)
+  }
+  return milestones
+})
+
+const desiredOrder = computed(() => {
+  if(!limitedDivisions.value.includes(divisions[selectedDivisionIndex.value])) {
+    selectedDivisionIndex.value = divisions.indexOf(limitedDivisions.value[0])
+  }
+
+  return divisions[selectedDivisionIndex.value]
+})
+
+const desiredMilestone = computed(() => {
+  if(!limitedMilestones.value.includes(milestones[selectedMilestoneIndex.value])) {
+    selectedMilestoneIndex.value = milestones.indexOf(limitedMilestones.value[0])
+  }
+
+  return milestones[selectedMilestoneIndex.value]
+})
 
 function changeDesiredDivision(division) {
-  desiredDivision.value = division
-}
-
-function changeDesiredDivisionMileStone(milestone) {
-  desiredMilestone.value = milestone
+  selectedDivisionIndex.value = divisions.indexOf(division)
 }
 
 function isDesiredDivision(division) {
-  return desiredDivision.value.name == division.name
+  return desiredOrder.value.name === division.name
+}
+
+
+function changeMileStone(milestone) {
+  selectedMilestoneIndex.value = milestones.indexOf(milestone)
 }
 
 function isSelectedMilestone(milestone) {
-  return desiredMilestone.value == milestone
+  return desiredMilestone.value === milestone
 }
+
+// ------
 
 const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
   import: 'default',
@@ -42,7 +82,7 @@ const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png'
 
 async function createOrder() {
   await currentValorantOrder.createDivisionOrder({
-    division: desiredDivision.value,
+    division: desiredOrder.value.name,
     milestone: desiredMilestone.value
   })
 }
@@ -50,31 +90,34 @@ async function createOrder() {
 
 <template lang="pug">
 .division-boost
-  CurrentRank(title="CURRENT RANK")
+  CurrentRank(title="CURRENT RANK" divisionLimit="7")
+    SelectCurrentRR
+    SelectGainRR
   .desired-rank
     v-img(src='@/assets/valorant-player-card.png' width="23rem")
       .content
         .title DESIRED RANK
         v-img.act-rank(src='@/assets/act-rank-level3.png' width="12rem")
-          v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${desiredDivision.name}.png`]' width="9rem")
-            v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredDivision.name}-${desiredMilestone}.png`]' width="4.2rem")
-        .title {{ desiredDivision.name.toUpperCase() }} {{ desiredMilestone }}
+          v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${desiredOrder.name}.png`]' width="9rem")
+            v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
+        .title {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
+        SelectServer.selectServer
         .colors
-          v-btn.color(
-            v-for="division in divisions"
-            :flat="isDesiredDivision(division) ? false : true"
-            icon
-            :size="isDesiredDivision(division) ? '2rem' : '1.5rem'"
-            :color="division.color"
-            @click="changeDesiredDivision(division)")
-        .selections
-          v-select(v-model="currentValorantOrder.server" outline height="20" :items="['EUROPE','TURKEY','CHINA']" variant="solo")
-          .milestones
-            .milestone(
-              v-for="milestone in milestones"
-              :style="{backgroundColor: isSelectedMilestone(milestone) ? '#f4f1f0' : '#afafaf'}"
-              @click="changeDesiredDivisionMileStone(milestone)"
-              ) {{ milestone }}
+          .color-background(v-for="division in limitedDivisions")
+            v-btn.color(
+              :flat="isDesiredDivision(division) ? false : true"
+              icon
+              :size="isDesiredDivision(division) ? '2rem' : '1.5rem'"
+              :color="division.color"
+              @click="changeDesiredDivision(division)")
+        .milestones
+          .milestone(
+            v-for="milestone in limitedMilestones"
+            :style="{backgroundColor: isSelectedMilestone(milestone) ? desiredOrder.color : '#fff'}"
+            @click="changeMileStone(milestone)"
+            ) {{ milestone }}
+    v-img.last-rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
+
   Checkout(v-on:create-order="createOrder")
     CheckoutSelection(toolTipText="BOOSTER SEÇEBİLİRSİN" title="BOOSTER")
       v-img(src='@/assets/icons/plus.png' width="50px")
@@ -83,14 +126,17 @@ async function createOrder() {
     CheckoutSelection(toolTipText="Bonus win istiyorsan buna tıkla" title="BONUS WIN")
       .display-flex
         v-img(src='@/assets/icons/high-mmr.png' width="50px")
-        v-switch(v-model='currentValorantOrder.bonusWin.isActivate' color='blue')
+        v-switch(v-model='currentValorantOrder.bonusWin' color='blue')
     CheckoutSelection(toolTipText="premium istiyorsan tamı tamına şu yanımdaki şeye basabilirisin" title="PREMİUM")
       .display-flex
         v-img(src='@/assets/icons/premium.png' width="50px")
-        v-switch(v-model='currentValorantOrder.premium.isActivate' color='blue')
+        v-switch(v-model='currentValorantOrder.premium' color='blue')
 </template>
 
 <style scoped>
+.selectServer {
+  padding-top: 3rem;
+}
 .division-boost {
   font-family: Inter;
   margin: 0 auto;
@@ -126,7 +172,20 @@ async function createOrder() {
   margin-top: 31%;
 }
 .colors {
-  padding-top: 13rem;
+  padding-top: 0.2rem;
+  padding-bottom: 4.9rem;
+  display:flex;
+  width: 155px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  height: 4rem;
+}
+.color-background {
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .color {
   margin-left: 0.5rem;
@@ -143,11 +202,10 @@ async function createOrder() {
   justify-content: center;
 }
 .milestone {
-  font-family: Inter;
-  width: 1.9375rem;
-  height: 1.9375rem;
-  border-radius: 6px;
-  background-color: #afafaf;
+  width: 31px;
+  height: 31px;
+  border-radius: 5px;
+  background-color: #fff;
   font-size: 15px;
   font-weight: 800;
   color: #444;
@@ -156,16 +214,8 @@ async function createOrder() {
   align-items: center;
   cursor: pointer;
 }
-/* .v-select.v-input--horizontal{
-  grid-template-areas: 'reset';
+.last-rank-icon {
+  margin: 0 auto;
+  margin-top: -8.5rem;
 }
-.v-select > .v-input__control > .v-field{
-  font-size: 8px;
-}
-.v-switch.v-input {
-  flex: 0 auto
-}
-.v-switch.v-input--horizontal {
-  grid-template-areas: 'reset'
-} */
 </style>

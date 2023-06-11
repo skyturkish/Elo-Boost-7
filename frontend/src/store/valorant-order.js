@@ -11,6 +11,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         milestone: 'I',
         currentRR: '0-20 RR',
         currentGainRR: '25-20 RR',
+        gainRR: '+25 GAIN',
         server: 'Turkey',
         agents: [],
         isSolo: false,
@@ -43,7 +44,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
             this.selectedDivisionIndex = index
         },
         isSelectedDivision(division) {
-            return this.division === this.colors.name
+            return this.colors.name === division.name
         },
         changeCurrentMileStone(milestone) {
             this.milestone = milestone

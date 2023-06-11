@@ -16,7 +16,7 @@ export const valorantDivisions = [
         name: 'gold'
     },
     {
-        color: '#3acd7f',
+        color: '#11a49b',
         name: 'platinum'
     },
     {
@@ -30,6 +30,10 @@ export const valorantDivisions = [
     {
         color: '#ff3156',
         name: 'immortal'
+    },
+    {
+        color: '#FFDB7E',
+        name: 'radiant'
     }
 ]
 
