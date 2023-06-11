@@ -2,6 +2,10 @@
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
 import SelectLanguages from '@/components/coaching/league-of-legends/SelectLanguages'
 import SelectHours from '@/components/coaching/league-of-legends/SelectHours'
+import SelectCoach from '@/components/coaching/league-of-legends/SelectCoach'
+import SelectChampions from '@/components/boosting/league-of-legends/SelectChampions'
+import Premium from '@/components/boosting/league-of-legends/Premium'
+
 import Checkout from '@/components/Checkout'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
@@ -17,6 +21,10 @@ CurrentRank(divisionLimit = 6 title = "YOUR RANK")
   SelectHours
   SelectLanguages
 Checkout(v-on:create-order="createOrder")
+  template(v-slot:options)
+    SelectCoach
+    SelectChampions
+    Premium
 </template>
 
 <style scoped>

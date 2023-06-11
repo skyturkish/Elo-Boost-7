@@ -19,6 +19,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         isSolo: true,
         lanes: [],
         booster: null,
+        coach: null,
         champions: {
             top: [],
             jungle: [],
@@ -197,6 +198,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 options: this.options
             })
         },
+
         async createLessonOrder(coach) {
             await axios.post('/coaching', {
                 customer: customerId,
