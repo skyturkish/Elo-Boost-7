@@ -95,7 +95,7 @@ const currentDivisionName = computed(() => {
   padding-top: 2rem;
   padding-bottom: 1.7rem;
   display:flex;
-  max-width: 155px;
+  max-width: 165px;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
