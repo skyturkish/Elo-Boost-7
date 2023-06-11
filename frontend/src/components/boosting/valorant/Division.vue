@@ -97,60 +97,51 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-.division-boost
-  CurrentRank(title="CURRENT RANK" divisionLimit="7")
-    SelectCurrentRR
-    SelectGainRR
-  .desired-rank
-    v-img(src='@/assets/valorant-player-card.png' width="23rem")
-      .content
-        .title DESIRED RANK
-        v-img.act-rank(src='@/assets/act-rank-level3.png' width="12rem")
-          v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${desiredOrder.name}.png`]' width="9rem")
-            v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
-        .title {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
-        SelectServer.selectServer
-        .colors
-          .color-background(v-for="division in limitedDivisions")
-            v-btn.color(
-              :flat="isDesiredDivision(division) ? false : true"
-              icon
-              :size="isDesiredDivision(division) ? '2rem' : '1.5rem'"
-              :color="division.color"
-              @click="changeDesiredDivision(division)")
-        .milestones
-          .milestone(
-            v-for="milestone in limitedMilestones"
-            :style="{backgroundColor: isSelectedMilestone(milestone) ? desiredOrder.color : '#fff'}"
-            @click="changeMileStone(milestone)"
-            ) {{ milestone }}
-    v-img.last-rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
-  Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
-    template(v-slot:switchs)
-      .custom-switch-two-options
-        .choice SOLO
-        CustomSwitch(v-model="currentValorantOrder.isSolo")
-        .choice DUO
-    template(v-slot:options)
-      SelectBooster
-      SelectAgents
-      BonusWin
-      Premium
-      HighMmrAndSoloOnly
-      UntrackableOrStream
+CurrentRank(title="CURRENT RANK" divisionLimit="7")
+  SelectCurrentRR
+  SelectGainRR
+.desired-rank
+  v-img(src='@/assets/valorant-player-card.png' width="23rem")
+    .content
+      .title DESIRED RANK
+      v-img.act-rank(src='@/assets/act-rank-level3.png' width="12rem")
+        v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${desiredOrder.name}.png`]' width="9rem")
+          v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
+      .division-name {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
+      SelectServer.selectServer
+      .colors
+        .color-background(v-for="division in limitedDivisions")
+          v-btn.color(
+            :flat="isDesiredDivision(division) ? false : true"
+            icon
+            :size="isDesiredDivision(division) ? '2rem' : '1.5rem'"
+            :color="division.color"
+            @click="changeDesiredDivision(division)")
+      .milestones
+        .milestone(
+          v-for="milestone in limitedMilestones"
+          :style="{backgroundColor: isSelectedMilestone(milestone) ? desiredOrder.color : '#fff'}"
+          @click="changeMileStone(milestone)"
+          ) {{ milestone }}
+  v-img.last-rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
+Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
+  template(v-slot:switchs)
+    .custom-switch-two-options
+      .choice SOLO
+      CustomSwitch(v-model="currentValorantOrder.isSolo")
+      .choice DUO
+  template(v-slot:options)
+    SelectBooster
+    SelectAgents
+    BonusWin
+    Premium
+    HighMmrAndSoloOnly
+    UntrackableOrStream
 </template>
 
 <style scoped>
 .selectServer {
-  padding-top: 3rem;
-}
-.division-boost {
-  font-family: Inter;
-  margin: 0 auto;
-  max-width: 1440px;
-  display:flex;
-  flex-wrap: wrap;
-  background-color: #341017;
+  padding-top: 2.5rem;
 }
 .desired-rank {
   margin: 0 auto
@@ -162,6 +153,13 @@ async function createOrder() {
   align-items: center;
 }
 .title {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  padding-top: 0.75rem
+}
+.division-name {
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
   font-size: 32px;
   font-weight: 600;
@@ -179,7 +177,7 @@ async function createOrder() {
   margin-top: 31%;
 }
 .colors {
-  padding-top: 0.2rem;
+  padding-top: 1rem;
   padding-bottom: 4.9rem;
   display:flex;
   width: 155px;
@@ -207,6 +205,7 @@ async function createOrder() {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
+  padding-top: 1rem;
 }
 .milestone {
   width: 31px;
@@ -223,6 +222,6 @@ async function createOrder() {
 }
 .last-rank-icon {
   margin: 0 auto;
-  margin-top: -8.5rem;
+  margin-top: -8.7rem;
 }
 </style>

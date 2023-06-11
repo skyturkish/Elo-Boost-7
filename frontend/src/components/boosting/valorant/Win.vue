@@ -23,7 +23,7 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-CurrentRank(title="CURRENT RANK" divisionLimit="7")
+CurrentRank(title="YOUR RANK" divisionLimit="7")
   SelectServer
   SelectAmountWinGames
 Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')

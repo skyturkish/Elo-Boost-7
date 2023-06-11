@@ -36,7 +36,7 @@ v-divider.border-opacity-100(thickness="1rem")
   .buttons
     v-btn.boost-type-button(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`' ) {{ boostType.name }}
   .dynamic-view
-    router-view()
+    router-view
 </template>
 
 <style scoped>
@@ -48,11 +48,12 @@ v-divider.border-opacity-100(thickness="1rem")
   font-family: Inter;
 }
 .buttons {
-  padding: 2rem 2.75rem;
   display: flex;
+  justify-content: center;
   max-width: 1440px;
   margin: 0 auto;
   gap: 1.375rem;
+  padding: 2rem 2.75rem 2rem 4rem;
   flex-wrap: wrap;
 }
 .v-btn {
@@ -76,6 +77,11 @@ v-divider.border-opacity-100(thickness="1rem")
 .dynamic-view {
   max-width: 1440px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 2rem;
+  gap: 2.5rem;
 }
 
 </style>

@@ -34,14 +34,14 @@ const currentDivisionName = computed(() => {
 </script>
 
 <template lang="pug">
-.current-rank
-  v-img(src='@/assets/valorant-player-card.png' width="23rem")
+.valorant-card
+  v-img(src='@/assets/valorant-player-card.png')
     .content
       .title {{ title}}
       v-img.act-rank(src='@/assets/act-rank-level1.png'  width="12rem")
         v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${currentValorantOrder.currentRank.division}.png`]' width="9rem")
           v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`]' width="4.2rem")
-      .title {{ currentDivisionName }} {{ currentValorantOrder.milestone }}
+      .division-name {{ currentDivisionName }} {{ currentValorantOrder.milestone }}
       .dynamic-view
         slot
       .colors
@@ -54,11 +54,12 @@ const currentDivisionName = computed(() => {
             @click="currentValorantOrder.changeCurrentDivision(division)")
       CurrentMilestones
       v-img.last-rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`]' width="4.2rem")
+
 </template>
 
 <style scoped>
-.current-rank {
-  margin: 0 auto
+.valorant-card {
+  width: 23rem;
 }
 .content {
   padding-top: 3.6rem;
@@ -67,6 +68,13 @@ const currentDivisionName = computed(() => {
   align-items: center;
 }
 .title {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  padding-top: 0.75rem
+}
+.division-name {
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
   font-size: 32px;
   font-weight: 600;
@@ -85,7 +93,7 @@ const currentDivisionName = computed(() => {
 }
 .colors {
   padding-top: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.7rem;
   display:flex;
   max-width: 155px;
   flex-wrap: wrap;
@@ -101,15 +109,14 @@ const currentDivisionName = computed(() => {
 .color {
   margin-left: 0.5rem;
 }
-
 .dynamic-view {
   height: 6.5rem;
   display: flex;
   gap: 1rem;
   align-items: center;
-  padding-top: 4.5rem;
+  padding-top: 3.5rem;
 }
 .last-rank-icon {
-  margin-top: 7rem;
+  margin-top: 5.32rem;
 }
 </style>
