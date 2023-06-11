@@ -88,7 +88,23 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 isSolo: this.isSolo,
                 agents: this.agents,
                 ...this.getDynamicOptions,
-                premium: this.premium
+                premium: this.premium,
+                amountGame: this.amountWinGame
+            })
+        },
+        async createPlacementsOrder() {
+            await axios.post('/order', {
+                customer: customerId,
+                booster: this.booster?._id,
+                gameType: 'valorant',
+                orderType: 'win',
+                currentRank: this.currentRank,
+                server: this.server,
+                isSolo: this.isSolo,
+                agents: this.agents,
+                ...this.getDynamicOptions,
+                premium: this.premium,
+                amountGame: this.amountPlacementsGame
             })
         }
     },
