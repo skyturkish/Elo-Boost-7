@@ -21,6 +21,8 @@ const searchName = ref('')
 
 const filteredBoosters = computed(() => {
   return useBoosters().boosters.filter((booster) => {
+    return booster.mainGame == 'league-of-legends'
+  }).filter((booster) => {
     return booster.name.toLowerCase().includes(searchName.value.toLowerCase())
   }).filter((booster) => {
       if (filteredLanes.value.length === 0) return true
