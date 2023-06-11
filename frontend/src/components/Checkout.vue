@@ -1,4 +1,5 @@
 <script setup>
+import { computed  } from 'vue'
 import { defineEmits } from 'vue';
 import SelectLanes from '@/components/boosting/league-of-legends/SelectLanes'
 
@@ -7,17 +8,24 @@ const props = defineProps({
     type: String,
     required: true
   },
-  isLanesExist: {
-    type: Boolean,
-    default: true
+  game: {
+    type: String,
+    default: 'league-of-legends'
   }
 })
 
-const emit = defineEmits(['create-order']);
+const emit = defineEmits(['create-order'])
 
 const createOrder = function(){
-  emit('create-order');
+  emit('create-order')
 }
+const isGameLeagueOfLegends = computed(() => {
+  return props.game == 'valorant' ? false : true
+})
+
+const gameName = computed(() => {
+  return props.game == 'valorant' ? 'valorant' : 'league-of-legends'
+})
 
 </script>
 
@@ -27,7 +35,7 @@ const createOrder = function(){
   v-divider
   .first-slot.row-flex
     slot(name="switchs")
-  SelectLanes.lanes(v-if="isLanesExist")
+  SelectLanes.lanes(v-if="isGameLeagueOfLegends")
   .second-slot
     slot(name="options")
   .total-price-background
@@ -37,9 +45,9 @@ const createOrder = function(){
       .price
         | 730
         span.smalltext ,35
-      v-btn.purchase-button.elevation-8(@click="createOrder()")
+      .purchase-button.elevation-8(@click="createOrder()" v-bind:class="!isGameLeagueOfLegends ? 'valorant-button' : 'league-of-legends-button'")
         .logo
-          v-img(src='@/assets/icons/money.png')
+          v-img(:src="`../../src/assets/icons/${gameName}-money.png`")
         .purchase.text PURCHASE
   .custom-divider
   .receipt-and-barkod
@@ -63,6 +71,7 @@ const createOrder = function(){
   font-family: Inter;
   padding: 1rem;
   border-left: 1px solid #C8AA6E;
+  background-color: #FFFFFF;
 }
 
 .text-checkout {
@@ -145,9 +154,6 @@ const createOrder = function(){
   font-weight: 500;
   color: #444;
 }
-
-
-
 .purchase-button {
   margin-top: -3rem;
   margin-right: -1rem;
@@ -155,24 +161,28 @@ const createOrder = function(){
   width: 202px;
   height: 70px;
   flex-grow: 0;
-  background-color: #fff;
   display:flex;
   gap:1rem;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: normal;
+}
+.league-of-legends-button {
+  background-color: #DDDDDD ;
+  color: #444444;
+}
+.valorant-button {
+  background-color: #444444;
+  color: #DDDDDD;
 }
 .logo {
   width: 30px;
   height: 30px;
 }
-.purchase.text {
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: normal;
-  color: #444;
-}
-
 .purchase-icon {
   /* purchase-icon styles if needed */
 }
