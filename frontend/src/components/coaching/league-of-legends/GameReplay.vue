@@ -20,7 +20,7 @@ async function createOrder() {
 CurrentRank(divisionLimit = 6 title = "YOUR RANK")
   SelectCoachAmountGame
   SelectLanguages
-Checkout(v-on:create-order="createOrder")
+Checkout(checkoutTextColor="#2B2D3D"  v-on:create-order="createOrder")
   template(v-slot:options)
     SelectCoach
     SelectChampions
