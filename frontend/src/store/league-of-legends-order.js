@@ -221,18 +221,18 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 premium: this.premium
             })
         },
-        async createGameReplayOrder(coach) {
+        async createGameReplayOrder() {
             await axios.post('/coaching', {
                 customer: customerId,
+                coach: this.coach_id,
                 gameType: 'league-of-legends',
                 coachingType: 'game-replay',
-                coach: coach,
-                champions: this.champions,
-                server: this.server,
                 currentRank: this.currentRank,
-                coachingGamesAmount: this.coachingGamesAmount,
+                amountGame: this.amountCoachingGame,
                 languages: this.languages,
-                options: this.options
+                lanes: this.lanes,
+                champions: this.champions,
+                premium: this.premium
             })
         },
         async createLiveGameOrder(coach) {
