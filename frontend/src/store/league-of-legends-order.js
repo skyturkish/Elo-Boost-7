@@ -16,10 +16,9 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         currentLP: '0-20LP',
         server: 'Turkey',
         gainLP: '25-20LP',
-        isSolo: true,
-        lanes: [],
         booster: null,
         coach: null,
+        lanes: [],
         champions: {
             top: [],
             jungle: [],
@@ -27,26 +26,35 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             adc: [],
             support: []
         },
-        queue: 'solo',
+        isSolo: true,
+        gameOrNetWin: false,
+
         bonuwWin: true,
         premium: false,
         highMMR: false,
         untrackable: false,
         soloOnly: false,
         stream: false,
-        selectedDivisionIndex: 3,
+        stier: false,
+
         map: 'aram',
-        normalGameAmount: '2 GAMES',
+
+        queue: 'solo',
+
+        coachingHours: '1 HOUR',
+
+        amountPlacementsGame: '10 GAMES',
+        amountNormalGame: '2 GAMES',
+        amountCoachingGame: '2 GAMES',
+        amountWinGame: '2 GAMES',
+
+        languages: ['ENGLISH'],
+
         clashTier: 'TIER IV',
         clashAmountGame: '5 GAMES',
         clashAmountBooster: '5 BOOSTER',
-        coachingHours: '1 HOUR',
-        languages: ['ENGLISH'],
-        coachingGamesAmount: '2 GAMES',
-        amountWinGame: '2 GAMES',
-        gameOrNetWin: false,
-        amountPlacementsGame: '10 GAMES',
-        stier: false
+
+        selectedDivisionIndex: 3
     }),
     actions: {
         incrementDivision(limit) {
@@ -173,7 +181,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 map: this.map,
                 server: this.server,
                 queue: this.queue,
-                amountGame: this.normalGameAmount,
+                amountGame: this.amountNormalGame,
                 isSolo: this.isSolo,
                 lanes: this.lanes,
                 champions: this.champions,
