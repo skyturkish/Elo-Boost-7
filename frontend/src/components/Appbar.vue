@@ -55,7 +55,8 @@ const router = useRouter()
 }
 .navigation-text:hover {
   cursor: pointer;
-  color: #b252ca;
+  text-shadow: 0 8px 4px rgba(0, 0, 0, 0.25);
+
 }
 @media (max-width: 959px) {
   .navigation-text {

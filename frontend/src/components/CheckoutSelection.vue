@@ -45,7 +45,7 @@ const props = defineProps({
   height: 1.2rem;
 }
 .title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   color: #1B1A1A;
 }

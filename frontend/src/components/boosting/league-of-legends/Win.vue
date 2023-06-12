@@ -59,6 +59,6 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
   flex-wrap: wrap;
 }
 .selections-layout > * {
-  width: 50%;
+  width: 33%;
 }
 </style>
