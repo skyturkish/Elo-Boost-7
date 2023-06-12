@@ -31,7 +31,8 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         amountPlacementsGame: '10 GAMES',
         amountUnratedMatchGame: '5 GAMES',
         amountLessonGame: '3 HOURS',
-        amountCoachGame: '3 GAMES',
+        amountCoachingGame: '3 GAMES',
+        coachingHours: '2 HOURS',
         amountUnratedMatchGame: '5 GAMES',
         selectedDivisionIndex: 3
     }),
@@ -133,6 +134,45 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 ...this.getDynamicOptions,
                 premium: this.premium,
                 amountGame: this.amountUnratedMatchGame
+            })
+        },
+        async createLessonOrder() {
+            await axios.post('/coaching', {
+                customer: customerId,
+                coach: this.coach_id,
+                gameType: 'valorant',
+                coachingType: 'lesson',
+                currentRank: this.currentRank,
+                hours: this.coachingHours,
+                languages: this.languages,
+                agents: this.agents,
+                premium: this.premium
+            })
+        },
+        async createLiveGameOrder() {
+            await axios.post('/coaching', {
+                customer: customerId,
+                coach: this.coach_id,
+                gameType: 'valorant',
+                coachingType: 'lesson',
+                currentRank: this.currentRank,
+                amountGame: this.amountCoachingGame,
+                languages: this.languages,
+                agents: this.agents,
+                premium: this.premium
+            })
+        },
+        async createPlayTogetherOrder() {
+            await axios.post('/coaching', {
+                customer: customerId,
+                coach: this.coach_id,
+                gameType: 'valorant',
+                coachingType: 'lesson',
+                currentRank: this.currentRank,
+                amountGame: this.amountCoachingGame,
+                languages: this.languages,
+                agents: this.agents,
+                premium: this.premium
             })
         }
     },

@@ -9,7 +9,7 @@ const currentValorantOrder = useValorantOrder()
 
 <template lang="pug">
 CheckoutSelection(toolTipText="bunu seçerseniz aimimizin daha iyi bir booster veriyoruz, ve toxic falan da olmuyor ha, keke anladın" title="Premium")
-  v-img.logo(src='@/assets/icons/bonus-win.png' width="50px")
+  v-img.logo(src='@/assets/icons/premium.png' width="50px")
   CustomSwitch(v-model="currentValorantOrder.premium")
 </template>
 

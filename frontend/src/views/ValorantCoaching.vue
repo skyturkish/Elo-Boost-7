@@ -25,7 +25,7 @@ v-divider.border-opacity-100(thickness="1rem" )
 .coachType
   .buttons
     v-btn.coach-type-button(v-for="coachType in coachingTypes" size="x-large" :to='`${coachType.route}`' ) {{ coachType.name }}
-  .c
+  .dynamic-view
     router-view()
 </template>
 
@@ -67,9 +67,14 @@ v-divider.border-opacity-100(thickness="1rem" )
   border-radius: 15px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
-.c {
-  min-height: 1000px;
-  max-width: 926px;
+.dynamic-view {
+  max-width: 1440px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 2.75rem;
+  gap: 2.5rem;
+  min-height: 900px;
 }
 </style>
