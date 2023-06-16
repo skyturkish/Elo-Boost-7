@@ -41,6 +41,9 @@ export const useAccount = defineStore('useAccount', {
                 themePreference: preferences
             })
             await this.fetchSession()
+        },
+        isBooster() {
+            return this.user.role === 'booster'
         }
     }
 })

@@ -24,7 +24,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
   .first-row
     .first-column.column
       .name {{ useAccountStore.user.name || 'No name' }}
-      .other-information
+      .other-information(v-if="useAccountStore.isBooster()")
         .real-name {{ useAccountStore.user.personalInformation?.name || 'No real name' }}
         .country {{ useAccountStore.user.personalInformation?.country || 'No country' }}
         .birthday {{ useAccountStore.user.personalInformation?.birthDate|| 'No birthday' }}
@@ -47,7 +47,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
       .tags-title.center-child TAGS
       .tags
         .tag.center-child(v-for="tag in useAccountStore.user.permissions") {{ tag }}
-    .games-information
+    .games-information(v-if="useAccountStore.isBooster()")
       .black-title GAMES
       .game-and-information.row
         .game-logo.row
@@ -86,7 +86,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
             v-btn.action-grey-button.center-child EDIT
       .range.grey-text RANGE
   v-divider
-  .profile-setup
+  .profile-setup(v-if="useAccountStore.isBooster()")
     .black-title PROFILE SETUP
     .text-fields
       .description
