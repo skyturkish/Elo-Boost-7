@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
 const randomPhoto = require('../functions/random-photo-selection.js')
+const PersonalInformation = require('./personalInformation.js')
 
 const User = new mongoose.Schema(
     {
@@ -29,9 +30,6 @@ const User = new mongoose.Schema(
             enum: ['online', 'offline', 'dont-disturb'],
             default: 'offline'
         },
-        country: {
-            type: String
-        },
         discord: {
             type: String
         },
@@ -39,7 +37,24 @@ const User = new mongoose.Schema(
             type: String
         },
         mainLanes: {
-            type: [String]
+            type: [String],
+            default: ['top', 'jungle']
+        },
+        mainChampions: {
+            type: [String],
+            default: ['viego', 'yasuo', 'zac', 'gwen']
+        },
+        mainServers: {
+            type: [String],
+            default: ['EUW', 'TR', 'EUNE']
+        },
+        languages: {
+            type: [String],
+            default: ['English', 'Turkish']
+        },
+        mainAgents: {
+            type: [String],
+            default: ['jett', 'sage', 'brimstone']
         },
         maxRank: {
             type: String
@@ -50,6 +65,26 @@ const User = new mongoose.Schema(
         photo: {
             type: String,
             default: randomPhoto
+        },
+        permissions: {
+            type: [String],
+            default: ['coach', 'booster', 'seller']
+        },
+        personalInformation: {
+            type: PersonalInformation,
+            default: {
+                name: 'Ahmet',
+                surname: 'Yildirim',
+                country: 'China',
+                birthDate: '25-08-2001'
+            }
+        },
+        themePreference: {
+            type: Object,
+            default: {
+                path: 'viego',
+                color: '#08866B'
+            }
         }
     },
     { timestamps: true }

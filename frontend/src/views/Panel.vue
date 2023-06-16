@@ -1,5 +1,9 @@
 <script setup>
-import Banner from '@/components/Banner'
+import PanelBanner from '@/components/PanelBanner'
+
+import { useAccount } from '@/store/account'
+
+const useAccountStore = useAccount()
 
 const menuItems = [
   {
@@ -51,8 +55,8 @@ const menuItems = [
 </script>
 
 <template lang="pug">
-Banner(splashArtPath = 'zed' title= '' subtitle= '')
-v-divider.border-opacity-100(thickness="1rem")
+PanelBanner
+v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAccountStore.user.themePreference.color }")
 .panel
   .routers-select
     v-list
@@ -84,8 +88,5 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 .v-list-item--variant-plain {
     opacity: 1;
-}
-.v-divider {
-  border-color: #BC2842 !important;
 }
 </style>

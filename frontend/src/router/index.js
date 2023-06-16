@@ -250,6 +250,15 @@ const routes = [
             if (!useAccount().user) return next('/')
             return next()
         }
+    },
+    {
+        path: '/edit-profile',
+        component: () => import('@/views/EditProfile.vue'),
+        async beforeEnter(to, from, next) {
+            await useAccount().fetchSession()
+            if (!useAccount().user) return next('/')
+            return next()
+        }
     }
 ]
 

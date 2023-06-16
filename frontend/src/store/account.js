@@ -30,6 +30,17 @@ export const useAccount = defineStore('useAccount', {
             await this.changeUserOnlineState('offline')
             await axios.delete('/account/session')
             await this.fetchSession()
+        },
+        async updatePhoto(photoUrl) {
+            await axios.patch(`/user/${this.user._id}`, {
+                photo: photoUrl
+            })
+        },
+        async updateThemePreference(preferences) {
+            await axios.patch(`/user/${this.user._id}`, {
+                themePreference: preferences
+            })
+            await this.fetchSession()
         }
     }
 })
