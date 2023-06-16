@@ -100,6 +100,7 @@ const gameName = computed(() => {
   padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
+  margin: -1rem;
 }
 
 .total-price-text {
