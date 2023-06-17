@@ -128,6 +128,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 booster: this.booster?._id,
                 gameType: 'valorant',
                 orderType: 'unrated',
+                selectedGameType: selectedGameType,
                 server: this.server,
                 isSolo: this.isSolo,
                 agents: this.agents,
@@ -139,7 +140,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         async createLessonOrder() {
             await axios.post('/coaching', {
                 customer: customerId,
-                coach: this.coach_id,
+                coach: this.coach._id,
                 gameType: 'valorant',
                 coachingType: 'lesson',
                 currentRank: this.currentRank,
@@ -152,7 +153,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         async createLiveGameOrder() {
             await axios.post('/coaching', {
                 customer: customerId,
-                coach: this.coach_id,
+                coach: this.coach._id,
                 gameType: 'valorant',
                 coachingType: 'lesson',
                 currentRank: this.currentRank,
@@ -165,7 +166,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         async createPlayTogetherOrder() {
             await axios.post('/coaching', {
                 customer: customerId,
-                coach: this.coach_id,
+                coach: this.coach._id,
                 gameType: 'valorant',
                 coachingType: 'lesson',
                 currentRank: this.currentRank,

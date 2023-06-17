@@ -23,7 +23,7 @@ const gameTypes = ['unrated','swift','spike-rush','deathmatch','escalation']
 const selectedGameType = ref('unrated')
 
 async function createOrder() {
-  await currentValorantOrder.createUnratedMatch()
+  await currentValorantOrder.createUnratedMatch(selectedGameType.value)
 }
 </script>
 
