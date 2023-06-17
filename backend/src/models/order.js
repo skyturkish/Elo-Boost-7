@@ -14,7 +14,7 @@ const OrderSchema = new mongoose.Schema(
         state: {
             type: String,
             enum: ['payed', 'active', 'reserved', 'ongoing', 'unavailable', 'canceled', 'completed'],
-            default: 'payed'
+            default: 'active'
         },
         gameType: {
             type: String,
