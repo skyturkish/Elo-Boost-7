@@ -1,8 +1,6 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 
-const LeagueOfLegendsRank = require('./leagueOfLegendsRank')
-
 const CoachingSchema = new mongoose.Schema(
     {
         customer: {
@@ -16,8 +14,7 @@ const CoachingSchema = new mongoose.Schema(
         },
         coachingType: {
             type: String,
-            enum: ['lesson', 'game-replay', 'live-game', 'play-together'],
-            required: true
+            enum: ['lesson', 'game-replay', 'live-game', 'play-together']
         },
         coach: {
             type: mongoose.ObjectId,
@@ -28,14 +25,9 @@ const CoachingSchema = new mongoose.Schema(
             enum: ['active', 'process', 'released', 'unavailable', 'canceled', 'completed'],
             default: 'active'
         },
-        currentRank: {
-            type: LeagueOfLegendsRank,
-            required: true
-        },
         reviewed: {
             type: Boolean,
-            default: false,
-            required: true
+            default: false
         }
     },
     {

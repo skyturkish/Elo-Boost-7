@@ -8,9 +8,18 @@ import { useAccount } from '@/store/account'
 const userId = useAccount().user?._id || 'test'
 const role = useAccount().user?.role || 'test'
 
+const socket = io(process.env.baseURL || 'http://localhost:3000', {
+    withCredentials: true
+})
+
+socket.on('orders updated', (arg) => {
+    console.log('orderslar tetiklendi')
+    orders.value = arg
+})
 export const useOrders = defineStore('useOrders', {
     state: () => ({
-        myOrders: []
+        myOrders: [],
+        availableOrders: []
     }),
     actions: {
         async fetchMyOrdersIfNotFetched() {
@@ -22,6 +31,22 @@ export const useOrders = defineStore('useOrders', {
                 console.log(orders)
                 this.myOrders = orders.data || null
             }
+        },
+        async takeOrder(orderId) {
+            const order = await axios.patch('/order', {
+                orderId,
+                object: {
+                    state: 'taken',
+                    booster: userId
+                }
+            })
+            return order
+        },
+        startListeningAvailableOrders() {
+            socket.on('connect', async () => {
+                socket.emit('join-orders')
+                await axios.get('/order/init')
+            })
         }
     }
 })

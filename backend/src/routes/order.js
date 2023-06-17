@@ -47,39 +47,14 @@ router.get('/:orderId', async (req, res) => {
 
 router.get('/by-role/:role/:roleId', async (req, res) => {
     const { role, roleId } = req.params
-    console.log('burada')
     if (!(role == 'booster' || role == 'customer')) return res.status(404).send('this role is not valid')
-    console.log('sonra burada')
-
-    console.log(role)
-    console.log(roleId.split(''))
 
     const orders = await orderService.findBy(role, roleId)
-    console.log('orderslari aldi')
 
     if (!orders) return res.status(404).send(`Cannot find ${role}'s orders`)
-    console.log('orderslarda problem yok')
 
     res.send(orders)
 })
-
-// router.get('/customer/:customerId', async (req, res) => {
-//     const { customerId } = req.params
-//     const orders = await orderService.findBy('customer', customerId)
-
-//     if (!orders) return res.status(404).send("Cannot find customer's orders")
-
-//     res.send(orders)
-// })
-
-// router.get('/booster/:boosterId', async (req, res) => {
-//     const { boosterId } = req.params
-//     const orders = await orderService.findBy('booster', boosterId)
-
-//     if (!orders) return res.status(404).send("Cannot find booster's orders")
-
-//     res.send(orders)
-// })
 
 router.patch('/', async (req, res) => {
     const { orderId, object } = req.body

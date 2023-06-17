@@ -1,26 +1,27 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useAccount } from '@/store/account'
+import Footer from '@/components/Footer'
 
 const useAccountStore = useAccount()
 
 onMounted(async () => {
-  console.log('selamlar')
   await useAccountStore.fetchSession()
   window.addEventListener('beforeunload', () => {
     useAccountStore.changeUserOnlineState('offline')
-
-
   });
 })
 
 </script>
 
-<template>
-  <router-view />
+<template lang="pug">
+router-view
+Footer
 </template>
 
 <style>
+
+
 .v-btn--active > .v-btn__overlay, .v-btn[aria-haspopup=menu][aria-expanded=true] > .v-btn__overlay {
    opacity: 0.01 !important;
 }
