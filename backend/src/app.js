@@ -16,7 +16,7 @@ const { errors } = require('celebrate')
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
 const accountRouter = require('./routes/account')
-const orderRouter = require('./routes/order/order')
+const orderRouter = require('./routes/order')
 const chatRouter = require('./routes/chat')
 const coachingRouter = require('./routes/coaching')
 
