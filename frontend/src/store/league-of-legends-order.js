@@ -135,7 +135,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 premium: this.premium
             })
         },
-        async createWinOrder(amountGame) {
+        async createWinOrder() {
             await axios.post('/order', {
                 customer: customerId,
                 booster: this.booster?._id,
