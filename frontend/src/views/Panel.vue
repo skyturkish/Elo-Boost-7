@@ -32,7 +32,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
       v-list-item(v-else to='your-eloboost-orders')
         template(v-slot:prepend='')
           v-icon(icon='mdi-gamepad-variant-outline')
-        v-list-item-title(v-text='`Booster`')
+        v-list-item-title(v-text='`Boosting`')
       v-list-group(v-if="useAccountStore.isBooster()" value="coaching")
         template(v-slot:activator="{ props }")
           v-list-item(v-bind="props" prepend-icon="mdi-human-male-board-poll" title="Coaching" )
