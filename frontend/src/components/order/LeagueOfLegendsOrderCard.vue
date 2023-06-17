@@ -1,9 +1,12 @@
 <script setup>
+import { computed } from 'vue'
 import TakeOrderButton from '@/components/order/TakeOrderButton'
 import DeleteOrderButton from '@/components/order/DeleteOrderButton'
 import ChatButton from '@/components/order/ChatButton'
 import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
+import { useOrders } from '@/store/orders'
 
+const useOrdersStore = useOrders()
 
 const props = defineProps({
   order: {
@@ -12,10 +15,10 @@ const props = defineProps({
   }
 })
 
-const imgUrls = import.meta.glob('../../assets/ranks/league-of-legends/*.png', {
-  import: 'default',
-  eager: true
+const champions = computed(() => {
+  return Object.values(props.order.champions).flat().slice(0, 3)
 })
+
 </script>
 
 <template lang="pug">
@@ -27,28 +30,28 @@ const imgUrls = import.meta.glob('../../assets/ranks/league-of-legends/*.png', {
   .place
     .division-order(v-if='order.orderType == "division"')
       .flex-column
-        v-img.division-image(:src="imgUrls['../../assets/ranks/league-of-legends/' + order.currentRank.division + '.png']")
+        v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
         .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.currentRank.division).dominantColor) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
       v-img.to-where(width="0.7rem" src='../../assets/to-where.png')
       .flex-column
-        v-img.division-image(:src="imgUrls['../../assets/ranks/league-of-legends/' + order.desiredRank.division + '.png']")
+        v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`')
         .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.desiredRank.division).dominantColor) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
     .win-order(v-else-if='order.orderType == "win"')
       .flex-column
-        v-img.division-image(:src="imgUrls['../../assets/ranks/league-of-legends/' + order.currentRank.division + '.png']")
+        v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
         .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.currentRank.division).dominantColor) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
         .amount-game {{ order.amountGame.split(' ')[0] }}
     .placements-order(v-else-if='order.orderType == "placements"')
       .flex-column
-        v-img.division-image(:src="imgUrls['../../assets/ranks/league-of-legends/' + order.currentRank.division + '.png']")
+        v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
         .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.currentRank.division).dominantColor) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
         .amount-game {{ order.amountGame.split(' ')[0] }}
     .normal-order(v-else-if='order.orderType == "normal-game"')
-      img(:src='imgUrls[`../../assets/games/leagueOfLegends/divisions/${order.division}.png`]')
+      img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
     .clash-order(v-else-if='order.orderType == "clash"')
-      img(:src='imgUrls[`../../assets/games/leagueOfLegends/divisions/${order.division}.png`]')
+      img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
     .challenge-order(v-else-if='order.orderType == "challenge"')
-      img(:src='imgUrls[`../../assets/games/leagueOfLegends/divisions/${order.division}.png`]')
+      img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
   .row.padding-top-medium.padding-horizontal-medium
     .server {{ order.server.toUpperCase() }}
     .pay (%65)
@@ -56,8 +59,13 @@ const imgUrls = import.meta.glob('../../assets/ranks/league-of-legends/*.png', {
     .lane JUNGLE
     .price 170.30€
   .row.padding-horizontal-medium
-    .champions {{ order.champions }}
-    v-icon(icon="mdi-menu").more
+    .champions
+      v-img.champion(v-for="champion in champions" :src='`../../src/assets/squares/league-of-legends/${champion}.png`')
+    .buttons.row
+      .more
+        v-img(src='../../assets/icons/menu.png')
+      .take-order(v-if='order.state != "active"' @click="useOrdersStore.takeOrder(order._id)")
+        v-img(src='../../assets/icons/checkmark.png')
 
 </template>
 
@@ -81,6 +89,7 @@ const imgUrls = import.meta.glob('../../assets/ranks/league-of-legends/*.png', {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
 }
 .isSolo {
   font-size: 12px;
@@ -158,5 +167,37 @@ const imgUrls = import.meta.glob('../../assets/ranks/league-of-legends/*.png', {
   font-size: 24px;
   font-weight: bold;
   color: #222;
+}
+.champions {
+  display: flex;
+}
+.champion {
+  width: 30px;
+  height: 30px;
+  border-radius: 48px;
+  border: solid 0.5px #000;
+  margin-left: -10px
+}
+.champions .champion:first-child {
+  margin-left: 0px;
+}
+.more,
+.take-order {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  padding: 5px;
+  display:flex;
+  align-items: center;
+  cursor: pointer;
+}
+.more {
+  background-color: #bababa;
+}
+.take-order {
+  background-color: #54BF00;
+}
+.buttons {
+  gap: 4.5px;
 }
 </style>
