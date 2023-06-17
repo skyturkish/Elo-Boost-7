@@ -34,6 +34,11 @@ const routes = [
                     import('@/components/panel/BoostingCurrentOffers.vue')
             },
             {
+                path: 'your-eloboost-orders',
+                component: () =>
+                    import('@/components/panel/YourEloboostOrders.vue')
+            },
+            {
                 path: 'coaching-available-offers',
                 component: () =>
                     import('@/components/panel/CoachingAvailableOffers.vue')
@@ -42,6 +47,11 @@ const routes = [
                 path: 'coaching-current-offers',
                 component: () =>
                     import('@/components/panel/CoachingCurrentOffers.vue')
+            },
+            {
+                path: 'your-coaching-orders',
+                component: () =>
+                    import('@/components/panel/YourCoachingOrders.vue')
             },
             {
                 path: 'account-market',

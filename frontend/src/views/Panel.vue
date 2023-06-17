@@ -1,57 +1,16 @@
 <script setup>
+import { ref, computed } from 'vue'
 import PanelBanner from '@/components/PanelBanner'
-
 import { useAccount } from '@/store/account'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const useAccountStore = useAccount()
 
-const menuItems = [
-  {
-    title: 'Dashboard',
-    icon: 'mdi-monitor-dashboard',
-    path: 'dashboard',
-  },
-  {
-    title: 'Boosting',
-    icon: 'mdi-gamepad-variant-outline',
-    path: 'boosting-current-offers',
-    subItems: [
-      {
-        title: 'AVAILABLE OFFERS',
-        path: 'boosting-available-offers',
-      },
-      {
-        title: 'CURRENT ORDERS',
-        path: 'boosting-current-offers',
-      },
-    ],
-  },
-  {
-    title: 'Coaching',
-    icon: 'mdi-human-male-board-poll',
-    path: 'coaching-current-offers',
-    subItems: [
-      {
-        title: 'AVAILABLE OFFERS',
-        path: 'coaching-available-offers',
-      },
-      {
-        title: 'CURRENT ORDERS',
-        path: 'coaching-current-offers',
-      },
-    ],
-  },
-  {
-    title: 'Account Market',
-    icon: 'mdi-shopping-outline',
-    path: 'account-market',
-  },
-  {
-    title: 'Hub',
-    icon: 'mdi-account-box-outline',
-    path: 'hub',
-  }
-]
+const dynamicColor = computed(() => {
+  return useAccountStore.user.themePreference.color
+})
 </script>
 
 <template lang="pug">
@@ -59,11 +18,39 @@ PanelBanner
 v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAccountStore.user.themePreference.color }")
 .panel
   .routers-select
-    v-list
-      v-list-item(v-for='menuItem in menuItems' :key='menuItem.title' :value='menuItem' active-color='#bc2842' variant='plain' :to='`${menuItem.path}`')
+    v-list(:active-color="dynamicColor")
+      v-list-item(to='dashboard')
         template(v-slot:prepend='')
-          v-icon(:icon='menuItem.icon')
-        v-list-item-title(v-text='menuItem.title')
+          v-icon(icon='mdi-monitor-dashboard')
+        v-list-item-title(v-text='`Dashboard`')
+      v-list-group(v-if="useAccountStore.isBooster()" value="booster")
+        template(v-slot:activator="{ props }")
+          v-list-item(v-bind="props" prepend-icon="mdi-gamepad-variant-outline" title="Boosting" )
+        .selections(v-bind:style="{ borderTop: `solid 1px ${dynamicColor}` , borderBottom: `solid 1px ${dynamicColor}` }")
+          .selection(@click="router.push('/panel/boosting-available-offers')") AVAILABLE OFFERS
+          .selection(@click="router.push('/panel/boosting-current-offers')") CURRENT ORDERS
+      v-list-item(v-else to='your-eloboost-orders')
+        template(v-slot:prepend='')
+          v-icon(icon='mdi-gamepad-variant-outline')
+        v-list-item-title(v-text='`Booster`')
+      v-list-group(v-if="useAccountStore.isBooster()" value="coaching")
+        template(v-slot:activator="{ props }")
+          v-list-item(v-bind="props" prepend-icon="mdi-human-male-board-poll" title="Coaching" )
+        .selections(v-bind:style="{ borderTop: `solid 1px ${dynamicColor}` , borderBottom: `solid 1px ${dynamicColor}` }")
+          .selection(@click="router.push('/panel/coaching-available-offers')") AVAILABLE OFFERS
+          .selection(@click="router.push('/panel/coaching-current-offers')") CURRENT ORDERS
+      v-list-item(v-else to='your-coaching-orders')
+        template(v-slot:prepend='')
+          v-icon(icon='mdi-human-male-board-poll')
+        v-list-item-title(v-text='`Coaching`')
+      v-list-item(to='account-market')
+        template(v-slot:prepend='')
+          v-icon(icon='mdi-shopping-outline')
+        v-list-item-title(v-text='`Account-Market`')
+      v-list-item(to='hub')
+        template(v-slot:prepend='')
+          v-icon(icon="mdi-account-box-outline")
+        v-list-item-title(v-text='`Hub`')
   router-view()
   .empty
 </template>
@@ -76,17 +63,28 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 .routers-select {
   background-color: #f9f9f9;
   max-height: 125rem;
+  min-width: 212px;
 }
 .v-list-item {
-  height: 4.4rem;;
-  background-color: #fff;
+  height: 4.4rem;
   font-family: Inter;
-  font-size: 26px;
 }
-.v-list-item--variant-plain:focus{
-    color: #bc2842;
+.v-list-item {
+  font-size: 16px;
+  font-weight: bold;
 }
-.v-list-item--variant-plain {
-    opacity: 1;
+.selections {
+  height: 119px;
+  background-color: #f9f9f9;
+  font-size: 10px;
+  font-weight: 600;
+  color: #676767;
+  display:flex;
+  flex-direction: column;
+  padding: 1.9rem;
+  gap: 1.75rem;
+}
+.selection {
+  cursor: pointer;
 }
 </style>
