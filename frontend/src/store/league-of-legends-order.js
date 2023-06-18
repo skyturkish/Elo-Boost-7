@@ -154,7 +154,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 premium: this.premium
             })
         },
-        async createPlacementsOrder(amountGame) {
+        async createPlacementsOrder() {
             await axios.post('/order', {
                 customer: customerId,
                 booster: this.booster?._id,
@@ -210,7 +210,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         async createLessonOrder() {
             await axios.post('/coaching', {
                 customer: customerId,
-                coach: this.coach_id,
+                coach: this.coach?._id,
                 gameType: 'league-of-legends',
                 coachingType: 'lesson',
                 currentRank: this.currentRank,
@@ -224,7 +224,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         async createGameReplayOrder() {
             await axios.post('/coaching', {
                 customer: customerId,
-                coach: this.coach_id,
+                coach: this.coach?._id,
                 gameType: 'league-of-legends',
                 coachingType: 'game-replay',
                 currentRank: this.currentRank,
@@ -235,10 +235,10 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 premium: this.premium
             })
         },
-        async createLiveGameOrder(coach) {
+        async createLiveGameOrder() {
             await axios.post('/coaching', {
                 customer: customerId,
-                coach: this.coach_id,
+                coach: this.coach?._id,
                 gameType: 'league-of-legends',
                 coachingType: 'game-replay',
                 currentRank: this.currentRank,
@@ -249,10 +249,10 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 premium: this.premium
             })
         },
-        async createPlayTogetherOrder(coach) {
+        async createPlayTogetherOrder() {
             await axios.post('/coaching', {
                 customer: customerId,
-                coach: this.coach_id,
+                coach: this.coach?._id,
                 gameType: 'league-of-legends',
                 coachingType: 'game-replay',
                 currentRank: this.currentRank,
