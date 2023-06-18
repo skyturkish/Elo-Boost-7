@@ -8,11 +8,9 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/init', async (req, res) => {
-    const orders = await orderService.load()
+    const orders = await orderService.findBy('state', 'active')
 
-    socketServer().to('orders').emit('orders updated', orders)
-
-    return orders
+    res.send(orders)
 })
 
 router.post('/', async (req, res, next) => {
@@ -29,7 +27,7 @@ router.post('/', async (req, res, next) => {
     } catch (e) {
         next(e)
     }
-    const orders = await orderService.load()
+    const orders = await orderService.findBy('state', 'active')
 
     // console.log(orders.filter((order) => order.state == 'active'))
     // burada oyuna göre bildirim yolla
@@ -66,7 +64,8 @@ router.patch('/', async (req, res) => {
         await chat.save()
     }
 
-    const orders = await orderService.load()
+    const orders = await orderService.findBy('state', 'active')
+
     socketServer().to('orders').emit('orders updated', orders)
 
     res.send(order)

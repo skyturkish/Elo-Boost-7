@@ -5,7 +5,9 @@ import DeleteOrderButton from '@/components/order/DeleteOrderButton'
 import ChatButton from '@/components/order/ChatButton'
 import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
 import { useOrders } from '@/store/orders'
+import { useAccount } from '@/store/account'
 
+const useAccountStore = useAccount()
 const useOrdersStore = useOrders()
 
 const props = defineProps({
@@ -25,6 +27,7 @@ const champions = computed(() => {
 .order
   .row
     .isSolo {{ order.isSolo ? 'Solo' : 'Duo' }}
+    .state {{ order.state }}
     .id {{ '#' + order._id.substring(0,10) }}
   .orderType {{ order.orderType.toUpperCase() + ' BOOST ORDER' }}
   .place
@@ -54,7 +57,7 @@ const champions = computed(() => {
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
   .row.padding-top-medium.padding-horizontal-medium
     .server {{ order.server.toUpperCase() }}
-    .pay (%65)
+    .pay(v-if="useAccountStore.isBooster()") (%65)
   .row.padding-horizontal-medium
     .lane JUNGLE
     .price 170.30€
@@ -64,9 +67,8 @@ const champions = computed(() => {
     .buttons.row
       .more
         v-img(src='../../assets/icons/menu.png')
-      .take-order(v-if='order.state != "active"' @click="useOrdersStore.takeOrder(order._id)")
+      .take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)")
         v-img(src='../../assets/icons/checkmark.png')
-
 </template>
 
 <style scoped>

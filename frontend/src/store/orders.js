@@ -1,21 +1,11 @@
 // Utilities
 import { defineStore } from 'pinia'
-
 import axios from 'axios'
-
 import { useAccount } from '@/store/account'
 
 const userId = useAccount().user?._id || 'test'
 const role = useAccount().user?.role || 'test'
 
-const socket = io(process.env.baseURL || 'http://localhost:3000', {
-    withCredentials: true
-})
-
-socket.on('orders updated', (arg) => {
-    console.log('orderslar tetiklendi')
-    orders.value = arg
-})
 export const useOrders = defineStore('useOrders', {
     state: () => ({
         myOrders: [],
@@ -41,12 +31,6 @@ export const useOrders = defineStore('useOrders', {
                 }
             })
             return order
-        },
-        startListeningAvailableOrders() {
-            socket.on('connect', async () => {
-                socket.emit('join-orders')
-                await axios.get('/order/init')
-            })
         }
     }
 })
