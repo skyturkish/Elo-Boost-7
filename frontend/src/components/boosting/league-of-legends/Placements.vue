@@ -18,7 +18,7 @@ import { ref } from 'vue'
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 async function createOrder() {
-  await currentLeagueOfLegendsOrder.createPlacementsOrder(hours.value)
+  await currentLeagueOfLegendsOrder.createPlacementsOrder()
 }
 </script>
 
