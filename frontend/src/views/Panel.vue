@@ -1,11 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue'
 import PanelBanner from '@/components/PanelBanner'
+import { computed } from 'vue'
 import { useAccount } from '@/store/account'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
 const useAccountStore = useAccount()
 
 const dynamicColor = computed(() => {

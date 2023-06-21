@@ -11,20 +11,33 @@ const socket = io(process.env.baseURL || 'http://localhost:3000', {
 })
 
 socket.on("connect", async () => {
+    console.log('socket bağlantısı sağlandı')
+    console.log('join-orders isteği yollanıyor')
+
     socket.emit('join-orders')
+
+    console.log('join-orders isteği yollandı')
+    console.log('order init yapılacak')
 
     const orders = await axios.get('/order/init')
 
+    console.log('buraya geldi')
+    console.log(orders)
+
     useOrdersStore.availableOrders = orders.data
+
+    console.log('order init yapıldı')
 });
 
 socket.on("disconnect", () => {
-  console.log('disconnect');
+  console.log('disconnect yapıldı');
 });
 
 socket.on('orders updated', (arg) => {
+    console.log('orderslar tetiklendi')
     useOrdersStore.availableOrders = arg
 })
+
 </script>
 
 <template lang="pug">

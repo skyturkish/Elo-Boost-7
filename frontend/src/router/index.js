@@ -60,6 +60,15 @@ const routes = [
             {
                 path: 'hub',
                 component: () => import('@/components/panel/Hub.vue')
+            },
+            {
+                path: 'edit-order/:orderId',
+                component: () => import('@/components/panel/EditOrder.vue')
+                // async beforeEnter(to, from, next) {
+                //     await useAccount().fetchSession()
+                //     if (!useAccount().user) return next('/')
+                //     return next()
+                // }
             }
         ],
         async beforeEnter(to, from, next) {

@@ -6,7 +6,9 @@ import ChatButton from '@/components/order/ChatButton'
 import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
 import { useOrders } from '@/store/orders'
 import { useAccount } from '@/store/account'
+import { useRouter} from 'vue-router'
 
+const router = useRouter()
 const useAccountStore = useAccount()
 const useOrdersStore = useOrders()
 
@@ -26,8 +28,8 @@ const champions = computed(() => {
 <template lang="pug">
 .order
   .row
-    .isSolo {{ order.isSolo ? 'Solo' : 'Duo' }}
-    .state {{ order.state }}
+    .isSolo(v-if="useAccountStore.isBooster()") {{ order.isSolo ? 'Solo' : 'Duo' }}
+    .state(v-else) {{ order.state }}
     .id {{ '#' + order._id.substring(0,10) }}
   .orderType {{ order.orderType.toUpperCase() + ' BOOST ORDER' }}
   .place
@@ -65,7 +67,8 @@ const champions = computed(() => {
     .champions
       v-img.champion(v-for="champion in champions" :src='`../../src/assets/squares/league-of-legends/${champion}.png`')
     .buttons.row
-      .more
+      .edit-and-release(v-if="order.state == 'payed'" @click='router.push(`/panel/edit-order/${order._id}`)') EDIT AND RELEASE
+      .more(v-else)
         v-img(src='../../assets/icons/menu.png')
       .take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)")
         v-img(src='../../assets/icons/checkmark.png')
@@ -198,6 +201,19 @@ const champions = computed(() => {
 }
 .take-order {
   background-color: #54BF00;
+}
+.edit-and-release {
+  width: 120px;
+  height: 24px;
+  border-radius: 8px;
+  padding: 5px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #9EB339;
 }
 .buttons {
   gap: 4.5px;

@@ -72,6 +72,11 @@ export const LeagueOfLegendsDivisions = [
     }
 ]
 
+export const findDominantColorByDivisionName = (name) => {
+    return LeagueOfLegendsDivisions.find((rank) => rank.name === name)
+        .dominantColor
+}
+
 export const LeagueOfLegendsMilestones = ['IV', 'III', 'II', 'I']
 
 export const mapColors = {

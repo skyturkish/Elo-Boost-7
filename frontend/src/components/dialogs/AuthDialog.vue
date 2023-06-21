@@ -102,17 +102,17 @@ async function register() {
         name: name.value,
         email: email.value,
         password: password.value,
-        role:'customer',
+        role:'booster',
         mainGame: 'league-of-legends',
-        // maxRank:'diamond',
-        // rate:5.0,
+        maxRank:'diamond',
+        rate:5.0,
         permissions: ['customer','seller'],
-        // personalInformation: {
-        //   name: 'Süleyman',
-        //   surName: 'Kiral',
-        //   country: 'Turkey',
-        //   birthDate: '27-10-2002',
-        // },
+        personalInformation: {
+          name: 'Süleyman',
+          surName: 'Kiral',
+          country: 'Turkey',
+          birthDate: '27-10-2002',
+        },
       }
     })
     backendSuccess.value = 'You are now registered! Now Login'
