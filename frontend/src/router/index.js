@@ -64,12 +64,7 @@ const routes = [
                 path: 'order-detail/:orderId',
                 component: () => import('@/components/panel/OrderDetail.vue')
             }
-        ],
-        async beforeEnter(to, from, next) {
-            await useAccount().fetchSession()
-            if (!useAccount().user) return next('/')
-            return next()
-        }
+        ]
     },
     {
         path: '/marketplace',
@@ -255,16 +250,6 @@ const routes = [
         ]
     },
     {
-        path: '/chat/:orderId',
-        name: 'Chat',
-        component: () => import('@/views/Chat.vue'),
-        async beforeEnter(to, from, next) {
-            await useAccount().fetchSession()
-            if (!useAccount().user) return next('/')
-            return next()
-        }
-    },
-    {
         path: '/edit-profile',
         component: () => import('@/views/EditProfile.vue')
     }
@@ -279,7 +264,6 @@ router.beforeEach(async (to, from, next) => {
     const rootPathName = to.fullPath.split('/')[1]
 
     if (rootPathName == 'panel' || rootPathName == 'edit-profile') {
-        console.log('panele gidiyoz')
         await useAccount().fetchSession()
         if (!useAccount().user) return next('/')
         return next()
