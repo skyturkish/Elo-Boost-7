@@ -59,20 +59,10 @@ const routes = [
             {
                 path: 'edit-order/:orderId',
                 component: () => import('@/components/panel/EditOrder.vue')
-                // async beforeEnter(to, from, next) {
-                //     await useAccount().fetchSession()
-                //     if (!useAccount().user) return next('/')
-                //     return next()
-                // }
             },
             {
                 path: 'order-detail/:orderId',
                 component: () => import('@/components/panel/OrderDetail.vue')
-                // async beforeEnter(to, from, next) {
-                //     await useAccount().fetchSession()
-                //     if (!useAccount().user) return next('/')
-                //     return next()
-                // }
             }
         ],
         async beforeEnter(to, from, next) {
@@ -276,18 +266,26 @@ const routes = [
     },
     {
         path: '/edit-profile',
-        component: () => import('@/views/EditProfile.vue'),
-        async beforeEnter(to, from, next) {
-            await useAccount().fetchSession()
-            if (!useAccount().user) return next('/')
-            return next()
-        }
+        component: () => import('@/views/EditProfile.vue')
     }
 ]
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
+})
+
+router.beforeEach(async (to, from, next) => {
+    const rootPathName = to.fullPath.split('/')[1]
+
+    if (rootPathName == 'panel' || rootPathName == 'edit-profile') {
+        console.log('panele gidiyoz')
+        await useAccount().fetchSession()
+        if (!useAccount().user) return next('/')
+        return next()
+    }
+
+    return next()
 })
 
 export default router
