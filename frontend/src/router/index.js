@@ -64,6 +64,15 @@ const routes = [
                 //     if (!useAccount().user) return next('/')
                 //     return next()
                 // }
+            },
+            {
+                path: 'order-detail/:orderId',
+                component: () => import('@/components/panel/OrderDetail.vue')
+                // async beforeEnter(to, from, next) {
+                //     await useAccount().fetchSession()
+                //     if (!useAccount().user) return next('/')
+                //     return next()
+                // }
             }
         ],
         async beforeEnter(to, from, next) {

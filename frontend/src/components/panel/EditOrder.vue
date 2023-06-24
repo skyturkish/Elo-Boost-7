@@ -1,7 +1,7 @@
  <script setup>
 import axios from 'axios'
 import { ref ,computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { findDominantColorByDivisionName } from '@/constants/league-of-legends-constants'
 import { useAccount } from '@/store/account'
 import { useOrders } from '@/store/orders'
@@ -10,6 +10,7 @@ import SelectBooster from '@/components/boosting/league-of-legends/SelectBooster
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
+const router = useRouter()
 
 const validationRules = {
       "userName":  [
@@ -68,6 +69,17 @@ const backendSuccess = ref(null)
 
 const flash = ref('D')
 
+const useAccountStore = useAccount()
+const useOrdersStore = useOrders()
+
+const route = useRoute()
+const orderId = route.params.orderId
+
+const order = ref(null)
+const accountInformation = ref(null)
+
+const autoPublish = ref(true)
+
 const isReadyToPublish = computed(() => {
   return userName.value != '' && password.value != ''
 })
@@ -93,6 +105,10 @@ async function isAccountInformationExists() {
 }
 
 async function save() {
+  const valid = await validate()
+
+  if (!valid) return
+
   dialog.value = false
 }
 
@@ -130,28 +146,21 @@ async function publish() {
         flash: flash.value,
         state: 'active',
         autoPublish: autoPublish.value,
-        booster: currentLeagueOfLegendsOrder.booster._id
+        booster: currentLeagueOfLegendsOrder.booster?._id || null
      }
     })
 
     dialog.value = false
-
+    order.value.state = 'active'
     backendSuccess.value = 'you successfully saved your account information'
   } catch (error) {
+    console.log(error)
     backendError.value = error.response.data.message
   } finally {
     loading.value = false
   }
 }
 
-const useAccountStore = useAccount()
-const useOrdersStore = useOrders()
-
-const route = useRoute()
-const orderId = route.params.orderId
-
-const order = ref(null)
-const accountInformation = ref(null)
 
 onMounted(async () => {
   const adana = await axios.get(`order/${orderId}`)
@@ -178,7 +187,6 @@ const orderInformations = computed(() => {
 const champions = computed(() => {
   return Object.values(order.value.champions).flat().slice(0, 3)
 })
-const autoPublish = ref(true)
 
 </script>
 
@@ -186,7 +194,7 @@ const autoPublish = ref(true)
 .edit-order(v-if="order != null" )
   .row.first-row
     .row
-      .arrow.center-child
+      .arrow.center-child(@click="router.go(-1)")
         v-icon(icon="mdi-arrow-left-thick" size="50px")
       .need-help.row.center-child
         .need-help-icon
@@ -242,14 +250,14 @@ const autoPublish = ref(true)
         .only-payed(v-if="order.state == 'payed'")
           .please-edit-order(v-if="!isReadyToPublish") PLEASE EDIT YOUR ORDER AND ADD LOGIN INFO
           v-btn.publish-button(v-else :loading="loading" @click="publish" ) PUBLIsH
-        .active
+        .active(v-else)
           .active-button ACTIVE
         .last-row
           v-btn.edit-order-button
             .little-icon
               v-img(src='@/assets/icons/edit-order.png')
             .edit-order-text EDIT ORDER
-          v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black")
+          v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black" eager persistent)
             v-form(ref="form")
               .account-information
                 .title EDIT ORDER
@@ -264,7 +272,9 @@ const autoPublish = ref(true)
                 .flash
                   .title AUTO PUBLİSH
                   CustomSwitch(v-model="autoPublish")
-                .save-button(@click="save()") SAVE
+                .buttons
+                  .save-button(@click="dialog = false") CANCEL
+                  .save-button(@click="save()") SAVE
           SelectBooster
       v-divider
       .champions-text-and-select-lane
@@ -279,6 +289,11 @@ const autoPublish = ref(true)
 </template>
 
 <style scoped>
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-left: 700px;
+}
 
 .publish-button {
   width: 300px;
@@ -541,7 +556,6 @@ const autoPublish = ref(true)
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: auto;
   cursor: pointer;
 }
 .lanes {
@@ -561,24 +575,20 @@ const autoPublish = ref(true)
 }
 
 .account-information {
-  width: 900;
-  height: 700;
+  height: 580px;
   background-color: #FFFFFF;
+  padding: 2rem;
 }
 .title {
   font-size: 24px;
   font-weight: bold;
-  padding-left: 1.5rem;
 }
-.v-text-field {
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
-}
+
 .flash {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 1.5rem;
+  padding-top: 0.5rem;
 }
 .d,
 .f {

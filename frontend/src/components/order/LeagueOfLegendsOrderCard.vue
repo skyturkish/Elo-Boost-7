@@ -68,7 +68,7 @@ const champions = computed(() => {
       v-img.champion(v-for="champion in champions" :src='`../../src/assets/squares/league-of-legends/${champion}.png`')
     .buttons.row
       .edit-and-release(v-if="order.state == 'payed'" @click='router.push(`/panel/edit-order/${order._id}`)') EDIT AND RELEASE
-      .more(v-else)
+      .more(v-else @click='router.push(`/panel/order-detail/${order._id}`)')
         v-img(src='../../assets/icons/menu.png')
       .take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)")
         v-img(src='../../assets/icons/checkmark.png')
