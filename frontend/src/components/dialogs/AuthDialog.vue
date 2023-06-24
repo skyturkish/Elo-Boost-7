@@ -102,7 +102,7 @@ async function register() {
         name: name.value,
         email: email.value,
         password: password.value,
-        role:'booster',
+        role:'customer',
         mainGame: 'league-of-legends',
         maxRank:'diamond',
         rate:5.0,

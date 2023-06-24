@@ -30,8 +30,14 @@ const OrderSchema = new mongoose.Schema(
         },
         reviewed: {
             type: Boolean,
-            default: false,
-            required: true
+            default: false
+        },
+        autoPublish: {
+            type: Boolean,
+            default: true
+        },
+        note: {
+            type: String
         }
     },
     {

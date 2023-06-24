@@ -18,7 +18,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 .panel
   .routers-select
     v-list(:active-color="dynamicColor")
-      v-list-item(to='dashboard')
+      v-list-item(@click="router.push('/panel/dashboard')")
         template(v-slot:prepend='')
           v-icon(icon='mdi-monitor-dashboard')
         v-list-item-title(v-text='`Dashboard`')
@@ -28,7 +28,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
         .selections(v-bind:style="{ borderTop: `solid 1px ${dynamicColor}` , borderBottom: `solid 1px ${dynamicColor}` }")
           .selection(@click="router.push('/panel/boosting-available-offers')") AVAILABLE OFFERS
           .selection(@click="router.push('/panel/boosting-current-offers')") CURRENT ORDERS
-      v-list-item(v-else to='your-eloboost-orders')
+      v-list-item(v-else @click="router.push('/panel/your-eloboost-orders')")
         template(v-slot:prepend='')
           v-icon(icon='mdi-gamepad-variant-outline')
         v-list-item-title(v-text='`Boosting`')
@@ -38,15 +38,15 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
         .selections(v-bind:style="{ borderTop: `solid 1px ${dynamicColor}` , borderBottom: `solid 1px ${dynamicColor}` }")
           .selection(@click="router.push('/panel/coaching-available-offers')") AVAILABLE OFFERS
           .selection(@click="router.push('/panel/coaching-current-offers')") CURRENT ORDERS
-      v-list-item(v-else to='your-coaching-orders')
+      v-list-item(v-else @click="router.push('/panel/your-coaching-orders')")
         template(v-slot:prepend='')
           v-icon(icon='mdi-human-male-board-poll')
         v-list-item-title(v-text='`Coaching`')
-      v-list-item(to='account-market')
+      v-list-item(@click="router.push('/panel/account-market')")
         template(v-slot:prepend='')
           v-icon(icon='mdi-shopping-outline')
         v-list-item-title(v-text='`Account-Market`')
-      v-list-item(to='hub')
+      v-list-item(@click="router.push('/panel/hub')")
         template(v-slot:prepend='')
           v-icon(icon="mdi-account-box-outline")
         v-list-item-title(v-text='`Hub`')

@@ -3,13 +3,16 @@ const { accountInformationService } = require('../services')
 const router = require('express').Router()
 
 router.post('/', async (req, res, next) => {
-    const { userName, password } = req.body
-
     try {
-        const accountInformation = await accountInformationService.insert({ userName, password })
+        console.log('post denicez')
+        console.log(req.body)
+        const accountInformation = await accountInformationService.insert(req.body)
+
+        console.log('posttan sonra')
 
         res.send(accountInformation)
     } catch (e) {
+        console.log(e)
         next('error' + e)
     }
 })
@@ -23,21 +26,28 @@ router.get('/:orderId', async (req, res) => {
     res.send(accountInformation)
 })
 
-router.patch('/:accountInformationId', async (req, res) => {
-    const { orderId, object } = req.body
-    const order = await orderService.update(orderId, object)
+router.get('/is-exist/:orderId', async (req, res) => {
+    const { orderId } = req.params
+    try {
+        console.log('bu account informatinin order idsi: ' + orderId)
+        const accountInformation = await accountInformationService.findBy('order', orderId)
 
-    if (object.state == 'taken') {
-        const chat = await chatService.findOneBy('order', orderId)
-        chat.participants.push(object.booster)
-        await chat.save()
+        res.send(true)
+    } catch (error) {
+        console.log(error)
+        res.send(false)
     }
+})
 
-    const orders = await orderService.findBy('state', 'active')
+router.patch('/:accountInformationId', async (req, res) => {
+    const { object } = req.body
+    const { accountInformationId } = req.params
 
-    socketServer().to('orders').emit('orders updated', orders)
+    console.log('güncelleniyor')
 
-    res.send(order)
+    const accountInformation = await accountInformationService.update(accountInformationId, object)
+
+    res.send(accountInformation)
 })
 
 module.exports = router

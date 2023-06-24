@@ -1,25 +1,163 @@
  <script setup>
 import axios from 'axios'
 import { ref ,computed, onMounted } from 'vue'
-import { useOrders } from '@/store/orders'
-import { useAccount } from '@/store/account'
 import { useRoute } from 'vue-router';
 import { findDominantColorByDivisionName } from '@/constants/league-of-legends-constants'
+import { useAccount } from '@/store/account'
+import { useOrders } from '@/store/orders'
+import CustomSwitch from '@/components/CustomSwitch'
+import SelectBooster from '@/components/boosting/league-of-legends/SelectBooster'
+import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
+
+const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
+
+const validationRules = {
+      "userName":  [
+        value => {
+          if (value) return true
+
+          return 'User-name is requred.'
+        },
+        value => {
+          if (value?.length > 2) return true
+
+          return 'Name must be at least 3 characters.'
+        },
+        value => {
+          if (value?.length < 64) return true
+
+          return 'Name must be less than 64 characters.'
+        },
+      ],
+      "password": [
+          value => {
+            if (value) return true
+
+            return 'Password is requred.'
+          },
+          value => {
+            if (value?.length >= 6) return true
+
+            return 'Password must be at least 6 characters.'
+          },
+          value => {
+            if (value?.length < 32) return true
+
+            return 'Password must be less than 32 characters.'
+          },
+      ],
+      "yourNote": [
+          value => {
+            if (value?.length < 250) return true
+
+            return 'Password must be less than 250 characters.'
+          },
+      ]
+}
+const dialog = ref(false)
+
+const userName = ref('')
+const password = ref('')
+const yourNote = ref('')
+
+const form =  ref(false)
+const loading = ref(false)
+
+const backendError = ref(null)
+const backendSuccess = ref(null)
+
+const flash = ref('D')
+
+const isReadyToPublish = computed(() => {
+  return userName.value != '' && password.value != ''
+})
+
+function isSelectedFlash(flashName) {
+  return flash.value === flashName
+}
+
+async function fetchAccountInformation() {
+  const adana = await axios.get(`/account-information/${order._id}`)
+  userName.value = adana.data.userName
+  password.value = adana.data.password
+}
+
+async function validate()   {
+  const { valid } = await form.value.validate()
+  return await valid
+}
+
+async function isAccountInformationExists() {
+  const adana = await axios.get(`/account-information/is-exist/${order.value._id}`)
+  return adana.data
+}
+
+async function save() {
+  dialog.value = false
+}
+
+async function publish() {
+  backendError.value = null
+  backendSuccess.value = null
+
+  const valid = await validate()
+
+  if (!valid) return
+
+  try {
+    loading.value = true
+
+    const isExist = await isAccountInformationExists()
+
+    if (isExist) {
+      await axios.patch(`/account-information/${order.value._id}`, {
+        userName: userName.value,
+        password: password.value,
+      })
+
+    }else {
+      await axios.post(`/account-information`, {
+        order: order.value._id,
+        userName: userName.value,
+        password: password.value,
+      })
+    }
+
+    await axios.patch(`/order`, {
+      orderId: order.value._id,
+      object:{
+        yourNote: yourNote.value,
+        flash: flash.value,
+        state: 'active',
+        autoPublish: autoPublish.value,
+        booster: currentLeagueOfLegendsOrder.booster._id
+     }
+    })
+
+    dialog.value = false
+
+    backendSuccess.value = 'you successfully saved your account information'
+  } catch (error) {
+    backendError.value = error.response.data.message
+  } finally {
+    loading.value = false
+  }
+}
 
 const useAccountStore = useAccount()
 const useOrdersStore = useOrders()
+
 const route = useRoute()
 const orderId = route.params.orderId
+
 const order = ref(null)
+const accountInformation = ref(null)
 
 onMounted(async () => {
-  console.log('Edit ordera girdik')
-  console.log( 'suan bunu kontrol ediyorum'+ orderId)
   const adana = await axios.get(`order/${orderId}`)
   order.value = adana.data
-  console.log(order.value)
+  currentLeagueOfLegendsOrder.booster = null
 })
-// ;
 
 const orderInformations = computed(() => {
   if (order.value == null) return null
@@ -36,15 +174,16 @@ const orderInformations = computed(() => {
   'ACCOUNT INFO': 'UNVERIFIED'
   }
 })
+
 const champions = computed(() => {
   return Object.values(order.value.champions).flat().slice(0, 3)
 })
-
+const autoPublish = ref(true)
 
 </script>
 
 <template lang="pug">
-.edit-order(v-if="order != null")
+.edit-order(v-if="order != null" )
   .row.first-row
     .row
       .arrow.center-child
@@ -55,7 +194,7 @@ const champions = computed(() => {
         .black-text NEED HELP
     .state.center-child {{ order.state }}
   .background-template
-    .order-and-chat
+    .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .row
         .game-background
           v-img(:src='`../../../src/assets/icons/${order.gameType}.png`')
@@ -91,7 +230,7 @@ const champions = computed(() => {
             .process-bar
       .chat
         //- OrderChat(orderId=order._id)
-    .order-detail
+    .order-detail(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .information-row
          .big-black-text ORDER DETAILS
          .black-id-text {{ '#' + order._id.substring(0,10) }}
@@ -100,29 +239,79 @@ const champions = computed(() => {
           .information-row
             .normal-black-text {{ b }}
             .grey-text {{ a }}
-        .please-edit-order PLEASE EDIT YOUR ORDER AND ADD LOGIN INFO
-          span AS SOON AS POSSIBLE
+        .only-payed(v-if="order.state == 'payed'")
+          .please-edit-order(v-if="!isReadyToPublish") PLEASE EDIT YOUR ORDER AND ADD LOGIN INFO
+          v-btn.publish-button(v-else :loading="loading" @click="publish" ) PUBLIsH
+        .active
+          .active-button ACTIVE
         .last-row
           v-btn.edit-order-button
             .little-icon
               v-img(src='@/assets/icons/edit-order.png')
             .edit-order-text EDIT ORDER
-          .select-booster.column-center
-            .black-text BOOSTER
-            .plus-icon
-              v-img(src='@/assets/icons/plus.png')
+          v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black")
+            v-form(ref="form")
+              .account-information
+                .title EDIT ORDER
+                v-text-field(v-model="userName" :rules="validationRules.userName" label="UserName" variant="outlined" required append-inner-icon='mdi-pencil')
+                v-text-field(v-model="password" :rules="validationRules.password" label="password" variant="outlined" required append-inner-icon='mdi-pencil')
+                v-text-field.your-note(v-model="yourNote" :rules="validationRules.yourNote" label="your note" variant="outlined" required)
+                .flash
+                  .title FLASH
+                  .flash-buttons
+                    .d( v-bind:style="isSelectedFlash('D') ? `border: solid 1px #444444` : `border: 1px solid #DDDDDD`  " @click="flash = 'D'") D
+                    .f(v-bind:style="isSelectedFlash('F') ? 'border: solid 1px #444444'  : 'border: 1px solid #DDDDDD'  " @click="flash = 'F'") F
+                .flash
+                  .title AUTO PUBLİSH
+                  CustomSwitch(v-model="autoPublish")
+                .save-button(@click="save()") SAVE
+          SelectBooster
       v-divider
       .champions-text-and-select-lane
         .champions-text CHAMPİONS
         .lanes(v-if="order.lanes.length > 0")
-          v-img.lane(v-for="lane in order.lanes")
+          v-img.lane(v-for="lane in order.lanes" :src="`../../../src/assets/lanes/${lane}.png`")
         div.any-lane-text(v-else) Any Lane
       v-divider
-      .champions(v-if="champions.length > 0" v-for="champion in champions")
+      .champions(v-if="champions.length > 0")
+        v-img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
       div.any-champion-text(v-else) Any Champion
 </template>
 
 <style scoped>
+
+.publish-button {
+  width: 300px;
+  height: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  background-color: green;
+  margin: 0 auto;
+  margin-left: 35%
+}
+.active-button {
+  width: 300px;
+  height: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  background-color: rgb(45, 128, 151);
+  margin: 0 auto;
+  margin-left: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(189, 177, 177);
+}
+.your-note {
+  height: 300px;
+  margin-bottom: -130px;
+}
 .champions-text-and-select-lane {
   display: flex;
   justify-content: space-between;
@@ -245,9 +434,9 @@ const champions = computed(() => {
   height: 1546px;
   border-radius: 4px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-  border: solid 1px #e29812;
   background-color: #fff;
   padding: 3rem;
+  margin: 0 auto;
 }
 .game-background {
   width: 75px;
@@ -327,25 +516,84 @@ const champions = computed(() => {
   color: #555;
 }
 .please-edit-order {
-  width: 477px;
-  height: 48px;
-  flex-grow: 0;
-  margin: 109px 50px 27px 195px;
   font-family: Inter;
   font-size: 20px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: center;
   color: #f66;
 }
+
 .edit-order-button {
   width: 200px;
   height: 50px;
   border-radius: 5px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #fff;
+}
+.save-button {
+  width: 140px;
+  height: 50px;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+  color: #222222;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  cursor: pointer;
+}
+.lanes {
+  display: flex;
+}
+.lane {
+  height: 50px;
+  width: 50px;
+}
+.champions {
+  display: flex;
+  justify-content: flex-start;
+}
+.champion {
+  height: 50px;
+  width: 50px;
+}
+
+.account-information {
+  width: 900;
+  height: 700;
+  background-color: #FFFFFF;
+}
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  padding-left: 1.5rem;
+}
+.v-text-field {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+.flash {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1.5rem;
+}
+.d,
+.f {
+  height: 45px;
+  width: 45px;
+  font-size: 32px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 15px;
+}
+.flash-buttons {
+  display: flex;
+  gap: 13px;
 }
 </style>
