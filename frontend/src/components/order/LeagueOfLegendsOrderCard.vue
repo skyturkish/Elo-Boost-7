@@ -20,6 +20,22 @@ const props = defineProps({
   }
 })
 
+const goToOrderDetailPage = (order) => {
+  const orderState = order.state
+  const orderCustomerId = order.customer
+  const orderboosterId = order.booster
+  const userRole = useAccountStore.user.role
+  const userId = useAccountStore.user._id
+
+  const isBelongToUser = userRole == 'customer' ? orderCustomerId == userId : orderboosterId == userId
+
+  if (isBelongToUser && orderState != 'done') {
+    router.push(`/panel/own-order-detail/${order._id}`)
+  } else {
+    router.push(`/panel/order-detail/${order._id}`)
+  }
+}
+
 const champions = computed(() => {
   return Object.values(props.order.champions).flat().slice(0, 3)
 })
@@ -70,7 +86,7 @@ const champions = computed(() => {
       .any-hero Any Hero
     .buttons.row
       .edit-and-release(v-if="order.state == 'paid'" @click='router.push(`/panel/own-order-detail/${order._id}`)') EDIT AND RELEASE
-      .more(v-else @click='router.push(`/panel/order-detail/${order._id}`)')
+      .more(v-else @click='goToOrderDetailPage(order)')
         v-img(src='../../assets/icons/menu.png')
       .take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)")
         v-img(src='../../assets/icons/checkmark.png')
@@ -79,7 +95,7 @@ const champions = computed(() => {
     .server {{ order.server.toUpperCase() }}
     .price 170.30€
     .buttons.row
-      .more(@click='router.push(`/panel/order-detail/${order._id}`)')
+      .more(@click='goToOrderDetailPage(order)')
         v-img(src='../../assets/icons/menu.png')
 
 </template>
