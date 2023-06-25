@@ -6,12 +6,10 @@ import { useAccount } from '@/store/account'
 const routes = [
     {
         path: '/',
-        name: 'Main',
         component: () => import('@/views/MainPage.vue')
     },
     {
         path: '/panel',
-        name: 'Panel',
         component: () => import('@/views/Panel.vue'),
         children: [
             {
@@ -68,21 +66,17 @@ const routes = [
     },
     {
         path: '/marketplace',
-        name: 'Marketplace',
         component: () => import('@/views/Marketplace.vue')
     },
     {
         path: '/coaching',
-        name: 'Coaching',
         children: [
             {
                 path: 'league-of-legends',
-                name: 'LeagueOfLegendsCoaching',
                 component: () => import('@/views/LeagueOfLegendsCoaching.vue'),
                 children: [
                     {
                         path: 'lesson',
-                        name: 'Lesson',
                         component: () =>
                             import(
                                 '@/components/coaching/league-of-legends/Lesson.vue'
@@ -90,7 +84,6 @@ const routes = [
                     },
                     {
                         path: 'game-replay',
-                        name: 'GameReplay',
                         component: () =>
                             import(
                                 '@/components/coaching/league-of-legends/GameReplay.vue'
@@ -98,7 +91,6 @@ const routes = [
                     },
                     {
                         path: 'live-game',
-                        name: 'LiveGame',
                         component: () =>
                             import(
                                 '@/components/coaching/league-of-legends/LiveGame.vue'
@@ -106,7 +98,6 @@ const routes = [
                     },
                     {
                         path: 'play-together',
-                        name: 'PlayTogether',
                         component: () =>
                             import(
                                 '@/components/coaching/league-of-legends/PlayTogether.vue'
@@ -116,18 +107,15 @@ const routes = [
             },
             {
                 path: 'valorant',
-                name: 'ValorantCoaching',
                 component: () => import('@/views/ValorantCoaching.vue'),
                 children: [
                     {
                         path: 'lesson',
-                        name: 'ValorantLesson',
                         component: () =>
                             import('@/components/coaching/valorant/Lesson.vue')
                     },
                     {
                         path: 'live-game',
-                        name: 'ValorantLiveGame',
                         component: () =>
                             import(
                                 '@/components/coaching/valorant/LiveGame.vue'
@@ -135,7 +123,6 @@ const routes = [
                     },
                     {
                         path: 'play-together',
-                        name: 'ValorantPlayTogether',
                         component: () =>
                             import(
                                 '@/components/coaching/valorant/PlayTogether.vue'
@@ -147,11 +134,9 @@ const routes = [
     },
     {
         path: '/boosting',
-        name: 'Boosting',
         children: [
             {
                 path: 'league-of-legends',
-                name: 'LeagueOfLegends',
                 component: () => import('@/views/LeagueOfLegendsBoosting.vue'),
                 children: [
                     {
@@ -200,12 +185,10 @@ const routes = [
             },
             {
                 path: 'valorant',
-                name: 'Valorant',
                 component: () => import('@/views/ValorantBoosting.vue'),
                 children: [
                     {
                         path: 'division',
-                        name: 'Division',
                         component: () =>
                             import(
                                 '@/components/boosting/valorant/Division.vue'
@@ -213,13 +196,11 @@ const routes = [
                     },
                     {
                         path: 'win',
-                        name: 'Win',
                         component: () =>
                             import('@/components/boosting/valorant/Win.vue')
                     },
                     {
                         path: 'placements',
-                        name: 'Placements',
                         component: () =>
                             import(
                                 '@/components/boosting/valorant/Placement.vue'
@@ -227,19 +208,16 @@ const routes = [
                     },
                     {
                         path: 'unrated-match',
-                        name: 'Unrated',
                         component: () =>
                             import('@/components/boosting/valorant/Unrated.vue')
                     },
                     {
                         path: 'premier',
-                        name: 'Premier',
                         component: () =>
                             import('@/components/boosting/valorant/Premier.vue')
                     },
                     {
                         path: 'contracts',
-                        name: 'Contracts',
                         component: () =>
                             import(
                                 '@/components/boosting/valorant/Contract.vue'
