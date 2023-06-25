@@ -214,15 +214,15 @@ const champions = computed(() => {
               .previous-rank
                 .rank-image
                   v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division }} {{ order.currentRank.milestone }}
+                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
               .current-rank
                 .rank-image
                   v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division }} {{ order.currentRank.milestone }}
+                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
               .desired-rank
                 .rank-image
                   v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.desiredRank.division))}") {{ order.desiredRank.division }} {{ order.desiredRank.milestone }}
+                .rank-name(:style="{color: (findDominantColorByDivisionName(order.desiredRank.division))}") {{ order.desiredRank.division.toUpperCase() }} {{ order.desiredRank.milestone }}
             .process-bar
         .wind-and-placement-process(v-if="order.orderType === 'win' || order.orderType === 'placements' ")
           .column
@@ -230,7 +230,7 @@ const champions = computed(() => {
               .current-rank
                 .rank-image
                   v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division }} {{ order.currentRank.milestone }}
+                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
               .amount-game
                 .column
                   .amount {{ order.amountGame.split(' ')[0] }}
@@ -255,7 +255,7 @@ const champions = computed(() => {
         .last-row
           v-btn.edit-order-button
             .little-icon
-              v-img(src='@/assets/icons/own-order-detail.png')
+              v-img(src='@/assets/icons/edit-order.png')
             .edit-order-text EDIT ORDER
           v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black" eager persistent)
             v-form(ref="form")
