@@ -4,6 +4,7 @@ import TakeOrderButton from '@/components/order/TakeOrderButton'
 import DeleteOrderButton from '@/components/order/DeleteOrderButton'
 import ChatButton from '@/components/order/ChatButton'
 import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
+import { findStateColor } from '@/functions/get-colors'
 import { useOrders } from '@/store/orders'
 import { useAccount } from '@/store/account'
 import { useRouter} from 'vue-router'
@@ -26,10 +27,10 @@ const champions = computed(() => {
 </script>
 
 <template lang="pug">
-.order
+.order(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
   .row
-    .isSolo(v-if="useAccountStore.isBooster()") {{ order.isSolo ? 'Solo' : 'Duo' }}
-    .state(v-else) {{ order.state }}
+    .isSolo(v-if="useAccountStore.isBooster()" :style="{color: order.isSolo ?  '#BC2842' :  '#000000' }") {{ order.isSolo ? 'Solo'.toUpperCase() : 'Duo'.toUpperCase() }}
+    .state(v-else :style="{color: findStateColor(order.state), textShadow: `0 0 15px ${findStateColor(order.state)}` }") {{ order.state.toUpperCase() }}
     .id {{ '#' + order._id.substring(0,10) }}
   .orderType {{ order.orderType.toUpperCase() + ' BOOST ORDER' }}
   .place
@@ -37,7 +38,7 @@ const champions = computed(() => {
       .flex-column
         v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
         .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.currentRank.division).dominantColor) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
-      v-img.to-where(width="0.7rem" src='../../assets/to-where.png')
+      v-img.to-where(width="0.5rem" src='../../assets/to-where.png')
       .flex-column
         v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`')
         .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.desiredRank.division).dominantColor) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
@@ -57,24 +58,53 @@ const champions = computed(() => {
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
     .challenge-order(v-else-if='order.orderType == "challenge"')
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
-  .row.padding-top-medium.padding-horizontal-medium
+  .order-informations(v-if="useAccountStore.isBooster()")
     .server {{ order.server.toUpperCase() }}
-    .pay(v-if="useAccountStore.isBooster()") (%65)
-  .row.padding-horizontal-medium
+    .pay (%65)
     .lane JUNGLE
     .price 170.30€
-  .row.padding-horizontal-medium
-    .champions
-      v-img.champion(v-for="champion in champions" :src='`../../src/assets/squares/league-of-legends/${champion}.png`')
+    .champions(v-if="champions.length > 0")
+      .champion(v-for="champion in champions" :key="champion")
+        v-img(:src='`../../src/assets/squares/league-of-legends/${champion}.png`')
+    .any-champion(v-else)
+      .any-hero Any Hero
     .buttons.row
       .edit-and-release(v-if="order.state == 'paid'" @click='router.push(`/panel/own-order-detail/${order._id}`)') EDIT AND RELEASE
       .more(v-else @click='router.push(`/panel/order-detail/${order._id}`)')
         v-img(src='../../assets/icons/menu.png')
       .take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)")
         v-img(src='../../assets/icons/checkmark.png')
+  .order-informations(v-else)
+    .lane JUNGLE
+    .server {{ order.server.toUpperCase() }}
+    .price 170.30€
+    .buttons.row
+      .more(@click='router.push(`/panel/order-detail/${order._id}`)')
+        v-img(src='../../assets/icons/menu.png')
+
 </template>
 
 <style scoped>
+.state {
+  text-shadow: 0 0 15px rgba(0, 160, 64, 0.35);
+  font-size: 16px;
+  font-weight: 600;
+}
+.order-informations {
+  display:flex;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  align-items: center;
+}
+.order-informations > * {
+  width: 50%;
+}
+.order-informations > :nth-child(2),
+.order-informations > :nth-child(4),
+.order-informations > :nth-child(6) {
+  display:flex;
+  justify-content: flex-end;
+}
 .order {
   height: 18.75rem;
   width: 18.75rem;
@@ -82,8 +112,11 @@ const champions = computed(() => {
   padding: 15px 12px 35px 20px;
   border-radius: 4px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-  border: solid 1px #bc2842;
   background-color: #fff;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 }
 .row {
   display: flex;
@@ -99,7 +132,6 @@ const champions = computed(() => {
 .isSolo {
   font-size: 12px;
   font-weight: 800;
-  color: #000;
 }
 .id {
   font-size: 13px;
@@ -111,17 +143,14 @@ const champions = computed(() => {
   font-weight: bold;
   color: #000;
   text-align: center;
-  padding-top: 0.4rem;
 }
 .place {
   height: 7rem;
-  margin: 0 auto;
   margin-top: -0.7rem;
 }
 .division-order {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 .division-image {
   width: 5.875rem;
@@ -130,6 +159,7 @@ const champions = computed(() => {
 .division-name {
   font-size: 15px;
   font-weight: bold;
+  padding-top: 0.3rem;
 }
 .amount-game {
   font-size: 20px;
@@ -173,15 +203,22 @@ const champions = computed(() => {
   font-weight: bold;
   color: #222;
 }
+.any-hero {
+  font-size: 24px;
+  font-weight: bold;
+  color: #222;
+}
 .champions {
   display: flex;
 }
 .champion {
-  width: 30px;
   height: 30px;
-  border-radius: 48px;
+  width: 30px;
+  margin-left: -10px;
+}
+.champion > .v-img {
   border: solid 0.5px #000;
-  margin-left: -10px
+  border-radius: 50%;
 }
 .champions .champion:first-child {
   margin-left: 0px;
@@ -217,5 +254,6 @@ const champions = computed(() => {
 }
 .buttons {
   gap: 4.5px;
+  justify-content: end;
 }
 </style>
