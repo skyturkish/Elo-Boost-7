@@ -13,8 +13,8 @@ const OrderSchema = new mongoose.Schema(
         },
         state: {
             type: String,
-            enum: ['payed', 'active', 'reserved', 'ongoing', 'unavailable', 'canceled', 'completed'],
-            default: 'payed'
+            enum: ['paid', 'active', 'pending', 'assigned', 'paused', 'done', 'canceled'],
+            default: 'paid'
         },
         gameType: {
             type: String,

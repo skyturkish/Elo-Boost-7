@@ -57,7 +57,7 @@ const routes = [
                 component: () => import('@/components/panel/Hub.vue')
             },
             {
-                path: 'edit-order/:orderId',
+                path: 'own-order-detail/:orderId',
                 component: () => import('@/components/panel/EditOrder.vue')
             },
             {

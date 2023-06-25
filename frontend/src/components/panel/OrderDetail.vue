@@ -44,7 +44,7 @@ const champions = computed(() => {
 
 async function takeOrderAndRoute(orderId) {
   await useOrdersStore.takeOrder(orderId)
-  router.push(`/panel/edit-order/${orderId}`)
+  router.push(`/panel/own-order-detail/${orderId}`)
 }
 </script>
 

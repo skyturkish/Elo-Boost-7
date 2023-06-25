@@ -247,7 +247,7 @@ const champions = computed(() => {
           .information-row
             .normal-black-text {{ b }}
             .grey-text {{ a }}
-        .only-payed(v-if="order.state == 'payed'")
+        .only-paid(v-if="order.state == 'paid'")
           .please-edit-order(v-if="!isReadyToPublish") PLEASE EDIT YOUR ORDER AND ADD LOGIN INFO
           v-btn.publish-button(v-else :loading="loading" @click="publish" ) PUBLIsH
         .active(v-else)
@@ -255,7 +255,7 @@ const champions = computed(() => {
         .last-row
           v-btn.edit-order-button
             .little-icon
-              v-img(src='@/assets/icons/edit-order.png')
+              v-img(src='@/assets/icons/own-order-detail.png')
             .edit-order-text EDIT ORDER
           v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black" eager persistent)
             v-form(ref="form")
