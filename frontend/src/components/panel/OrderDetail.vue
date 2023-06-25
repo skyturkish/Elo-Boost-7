@@ -1,11 +1,8 @@
 <script setup>
 import axios from 'axios'
 import { ref ,computed, onMounted } from 'vue'
-
 import { useRoute, useRouter } from 'vue-router';
-
 import { findDominantColorByDivisionName } from '@/constants/league-of-legends-constants'
-
 import { useAccount } from '@/store/account'
 import { useOrders } from '@/store/orders'
 
