@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import { useAccount } from '@/store/account'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute  } from 'vue-router'
 
+const route = useRoute()
 const router = useRouter()
 const useAccountStore = useAccount()
 const menu = ref(false)
@@ -27,6 +28,11 @@ const links = [
 ]
 
 async function logout() {
+  const rootPathName = route.fullPath.split('/')[1]
+
+  if (rootPathName == 'panel' || rootPathName == 'edit-profile') {
+    await router.push('/')
+  }
   await useAccountStore.logout()
 }
 </script>
