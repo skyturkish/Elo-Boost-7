@@ -19,7 +19,7 @@ async function takeOrder(){
   await axios.patch('/order', {
     orderId: orderId.value,
     object: {
-      state: 'taken',
+      state: 'assigned',
       booster: useAccountStore.user._id || 'will handle no user',
     }
   })

@@ -58,7 +58,7 @@ router.patch('/', async (req, res) => {
     const { orderId, object } = req.body
     const order = await orderService.update(orderId, object)
 
-    if (object.state == 'taken') {
+    if (object.state == 'assigned') {
         const chat = await chatService.findOneBy('order', orderId)
         chat.participants.push(object.booster)
         await chat.save()

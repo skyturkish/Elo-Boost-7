@@ -26,7 +26,7 @@ export const useOrders = defineStore('useOrders', {
             const order = await axios.patch('/order', {
                 orderId,
                 object: {
-                    state: 'taken',
+                    state: 'assigned',
                     booster: userId
                 }
             })
