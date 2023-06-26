@@ -1,9 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import TakeOrderButton from '@/components/order/TakeOrderButton'
-import DeleteOrderButton from '@/components/order/DeleteOrderButton'
-import ChatButton from '@/components/order/ChatButton'
-import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
+import { findDominantColorByDivisionName } from '@/constants/league-of-legends-constants'
 import { findStateColor } from '@/functions/get-colors'
 import { useOrders } from '@/store/orders'
 import { useAccount } from '@/store/account'
@@ -53,20 +50,20 @@ const champions = computed(() => {
     .division-order(v-if='order.orderType == "division"')
       .flex-column
         v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
-        .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.currentRank.division).dominantColor) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
+        .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
       v-img.to-where(width="0.5rem" src='../../assets/to-where.png')
       .flex-column
         v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`')
-        .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.desiredRank.division).dominantColor) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
+        .division-name(:style="{color: findDominantColorByDivisionName(order.desiredRank.division) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
     .win-order(v-else-if='order.orderType == "win"')
       .flex-column
         v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
-        .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.currentRank.division).dominantColor) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
+        .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
         .amount-game {{ order.amountGame.split(' ')[0] }}
     .placements-order(v-else-if='order.orderType == "placements"')
       .flex-column
         v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
-        .division-name(:style="{color: (LeagueOfLegendsDivisions.find(rank => rank.name === order.currentRank.division).dominantColor) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
+        .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
         .amount-game {{ order.amountGame.split(' ')[0] }}
     .normal-order(v-else-if='order.orderType == "normal-game"')
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
