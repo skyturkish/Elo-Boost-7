@@ -1,5 +1,5 @@
 <script setup>
-import ClientAreaButton from '@/components/ClientAreaButton'
+import LoginButton from '@/components/LoginButton'
 import SettingsButton from '@/components/main/appbar-components/SettingsButton'
 import { useRouter } from 'vue-router'
 
@@ -15,7 +15,7 @@ const router = useRouter()
       .navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
       .navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
     .buttons
-      ClientAreaButton
+      LoginButton
       SettingsButton
 </template>
 
