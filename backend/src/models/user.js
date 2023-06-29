@@ -12,6 +12,10 @@ const User = new mongoose.Schema(
             minlength: 2,
             maxlength: 64
         },
+        email: {
+            type: String,
+            select: false
+        },
         balance: {
             type: Number,
             default: 0
