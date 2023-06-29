@@ -234,6 +234,10 @@ const routes = [
             {
                 path: 'users',
                 component: () => import('@/components/admin/Users.vue')
+            },
+            {
+                path: 'user/:userId',
+                component: () => import('@/components/admin/User.vue')
             }
         ]
     },
