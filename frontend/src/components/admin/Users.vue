@@ -7,7 +7,7 @@ const router = useRouter()
 const users = ref(null)
 
 onMounted(() => {
-  axios.get('/user/role/customer').then(res => {
+  axios.get('/user').then(res => {
     users.value = res.data
   })
 })
@@ -18,8 +18,10 @@ onMounted(() => {
 .users(v-else)
   .user(v-for="user in users")
     v-img(:src='user.photo' width="50px")
-    .user__name(v-text="user.name")
-    .user__id(v-text="user._id")
+    .user__name name: {{ user.name }}
+    .user__id id: {{ user._id }}
+    .user__role role: {{ user.role }}
+
     v-btn(@click="router.push(`/admin/user/${user._id}`)") Edit User
 </template>
 
@@ -27,6 +29,10 @@ onMounted(() => {
 .users {
   display:flex;
   flex-wrap: wrap;
+  gap: 3rem;
+  padding: 3rem;
+  justify-content: space-around;
+  width: 1440px;
 }
 .user {
   width: 400px;
