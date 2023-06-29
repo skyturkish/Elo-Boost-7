@@ -18,12 +18,13 @@ const User = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ['customer', 'booster', 'stuff', 'admin'],
-            default: 'booster'
+            enum: ['customer', 'booster', 'admin'],
+            default: 'customer'
         },
         mainGame: {
             type: String,
-            required: true
+            required: true,
+            default: 'league-of-legends'
         },
         onlineState: {
             type: String,
@@ -37,24 +38,19 @@ const User = new mongoose.Schema(
             type: String
         },
         mainLanes: {
-            type: [String],
-            default: ['top', 'jungle']
+            type: [String]
         },
         mainChampions: {
-            type: [String],
-            default: ['viego', 'yasuo', 'zac', 'gwen']
+            type: [String]
         },
         mainServers: {
-            type: [String],
-            default: ['EUW', 'TR', 'EUNE']
+            type: [String]
         },
         languages: {
-            type: [String],
-            default: ['English', 'Turkish']
+            type: [String]
         },
         mainAgents: {
-            type: [String],
-            default: ['jett', 'sage', 'brimstone']
+            type: [String]
         },
         maxRank: {
             type: String
@@ -68,16 +64,10 @@ const User = new mongoose.Schema(
         },
         permissions: {
             type: [String],
-            default: ['coach', 'booster', 'seller']
+            default: ['customer']
         },
         personalInformation: {
-            type: PersonalInformation,
-            default: {
-                name: 'Ahmet',
-                surname: 'Yildirim',
-                country: 'China',
-                birthDate: '25-08-2001'
-            }
+            type: PersonalInformation
         },
         themePreference: {
             type: Object,
