@@ -128,13 +128,13 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
       v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
     v-divider.divider()
     .colors
-      v-btn.color(
-        v-for="division in limitedDivisions"
-        :flat="division.name == desiredOrder.name ? false : true"
-        icon
-        :size="division.name == desiredOrder.name ? '2rem' : '1.5rem'"
-        :color="division.buttonColor"
-        @click="changeDesiredDivision(division)")
+      .color-background(v-for="division in limitedDivisions")
+        v-btn.color(
+          :flat="division.name == desiredOrder.name ? false : true"
+          icon
+          :size="division.name == desiredOrder.name ? '2rem' : '1.5rem'"
+          :color="division.buttonColor"
+          @click="changeDesiredDivision(division)")
     .desired-mile-stones
       div.mile-stone(
       v-for="milestone in limitedMilestones"
@@ -206,6 +206,13 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
   justify-content: center;
   align-items: center;
   gap: 0.90rem;
+}
+.color-background {
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .divider {
   margin-top: 2rem;
