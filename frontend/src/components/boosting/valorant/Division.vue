@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed  } from 'vue'
+import { ref, computed, onMounted  } from 'vue'
 import CurrentRank from '@/components/boosting/valorant/CurrentRank'
 import Checkout from '@/components/Checkout'
 import CheckoutSelection from '@/components/CheckoutSelection'
@@ -15,12 +15,7 @@ import BonusWin from '@/components/boosting/valorant/BonusWin'
 import Premium from '@/components/boosting/valorant/Premium'
 import HighMmrAndSoloOnly from '@/components/boosting/valorant/HighMmrAndSoloOnly'
 import UntrackableOrStream from '@/components/boosting/valorant/UntrackableOrStream'
-
-
-
 import CustomSwitch from '@/components/CustomSwitch'
-
-
 
 const currentValorantOrder = useValorantOrder()
 
@@ -29,6 +24,15 @@ const milestones = valorantMilestones
 
 const selectedDivisionIndex = ref(4)
 const selectedMilestoneIndex = ref(3)
+
+const checkedColors = ref(false)
+
+onMounted(() => {
+  if(currentValorantOrder.selectedDivisionIndex > 6) {
+    currentValorantOrder.selectedDivisionIndex = 6
+  }
+  checkedColors.value = true
+})
 
 const addCount = computed(() => {
   return milestones.indexOf(currentValorantOrder.milestone) ===  2 ? 1 :0
@@ -97,10 +101,10 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-CurrentRank(title="CURRENT RANK" divisionLimit="7")
+CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
   SelectCurrentRR
   SelectGainRR
-.desired-rank
+.desired-rank(v-if="checkedColors")
   v-img(src='@/assets/valorant-player-card.png' width="23rem")
     .content
       .title DESIRED RANK

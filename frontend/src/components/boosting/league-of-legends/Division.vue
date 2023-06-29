@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import CheckoutSelection from '@/components/CheckoutSelection'
 import CurrentRank from '@/components/boosting/league-of-legends/CurrentRank'
 import CurrentMilestones from '@/components/boosting/league-of-legends/CurrentMilestones'
@@ -25,6 +25,16 @@ const milestones = LeagueOfLegendsMilestones
 
 const selectedDivisionIndex = ref(4)
 const selectedMilestoneIndex = ref(3)
+const checkedColors = ref(false)
+
+
+onMounted(() => {
+  if(currentLeagueOfLegendsOrder.selectedDivisionIndex > 5) {
+    currentLeagueOfLegendsOrder.selectedDivisionIndex = 5
+  }
+  checkedColors.value = true
+})
+
 
 const addCount = computed(() => {
   return milestones.indexOf(currentLeagueOfLegendsOrder.milestone) === 3 ? 1 :0
@@ -92,7 +102,6 @@ const trimUrls = import.meta.glob('../../../assets/trims/*.png', {
   eager: true
 })
 
-
 async function createOrder() {
   await currentLeagueOfLegendsOrder.createDivisionOrder({
     division: desiredOrder.value.name,
@@ -102,12 +111,12 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-CurrentRank(divisionLimit = 6 title = "CURRENT RANK")
+CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
   CurrentMilestones
   .selections
     SelectCurrentLP
     SelectGainLP
-.desired-rank
+.desired-rank(v-if="checkedColors")
   .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
     .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
     .select-division
