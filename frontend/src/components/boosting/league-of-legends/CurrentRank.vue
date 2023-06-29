@@ -44,14 +44,32 @@ const currentDivisionName = computed(() => {
         .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentLeagueOfLegendsOrder.milestone }}
       v-icon(size='large' icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
-    .colors
-      v-btn.color(
-        v-for="division in divisions"
-        :flat="division.name == currentLeagueOfLegendsOrder.colors.name ? false : true"
-        icon
-        :size="division.name == currentLeagueOfLegendsOrder.colors.name ? '2rem' : '1.5rem'"
-        :color="division.buttonColor"
-        @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
+    .colors-exception(v-if="props.divisionLimit == 6")
+      .exception-colors
+        .color-background(v-for="division in divisions")
+          v-btn.color(
+            :flat="division.name == currentLeagueOfLegendsOrder.colors.name ? false : true"
+            icon
+            :size="division.name == currentLeagueOfLegendsOrder.colors.name ? '2rem' : '1.5rem'"
+            :color="division.buttonColor"
+            @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
+    .colors(v-else)
+      .first-colors
+        .color-background(v-for="division in divisions.slice(0,4)")
+          v-btn.color(
+            :flat="division.name == currentLeagueOfLegendsOrder.colors.name ? false : true"
+            icon
+            :size="division.name == currentLeagueOfLegendsOrder.colors.name ? '2rem' : '1.5rem'"
+            :color="division.buttonColor"
+            @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
+      .second-colors
+        .color-background(v-for="division in divisions.slice(4,props.divisionLimit)")
+          v-btn.color(
+            :flat="division.name == currentLeagueOfLegendsOrder.colors.name ? false : true"
+            icon
+            :size="division.name == currentLeagueOfLegendsOrder.colors.name ? '2rem' : '1.5rem'"
+            :color="division.buttonColor"
+            @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
     .dynamic-view
       slot
   v-img.trim(src="../../../assets/union.png" width="23.5rem")
@@ -103,11 +121,34 @@ const currentDivisionName = computed(() => {
   margin-top: 2rem;
 }
 .colors {
-  display: flex;
+  margin-top: 1.75rem;
+}
+.exception-colors {
   margin-top: 3rem;
+  padding-bottom: 1rem;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.90rem;
+  flex-wrap: wrap;
+}
+.second-colors,
+.first-colors {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.90rem;
+  flex-wrap: wrap;
+}
+.second-colors {
+  margin-top: 0.75rem;
+}
+.color-background {
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .dynamic-view {
   padding-top: 1rem;
