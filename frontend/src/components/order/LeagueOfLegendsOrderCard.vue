@@ -42,7 +42,7 @@ const champions = computed(() => {
 <template lang="pug">
 .order(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
   .row
-    .isSolo(v-if="useAccountStore.isBooster()" :style="{color: order.isSolo ?  '#BC2842' :  '#000000' }") {{ order.isSolo ? 'Solo'.toUpperCase() : 'Duo'.toUpperCase() }}
+    .isSolo(v-if="useAccountStore.isBooster()" :style="{color: order.isSolo ?  useAccountStore.user.themePreference.color :  '#000000' }") {{ order.isSolo ? 'Solo'.toUpperCase() : 'Duo'.toUpperCase() }}
     .state(v-else :style="{color: findStateColor(order.state), textShadow: `0 0 15px ${findStateColor(order.state)}` }") {{ order.state.toUpperCase() }}
     .id {{ '#' + order._id.substring(0,10) }}
   .orderType {{ order.orderType.toUpperCase() + ' BOOST ORDER' }}
