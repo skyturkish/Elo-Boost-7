@@ -228,6 +228,16 @@ const routes = [
         ]
     },
     {
+        path: '/admin',
+        component: () => import('@/views/Admin.vue'),
+        children: [
+            {
+                path: 'users',
+                component: () => import('@/components/admin/Users.vue')
+            }
+        ]
+    },
+    {
         path: '/edit-profile',
         component: () => import('@/views/EditProfile.vue')
     }
@@ -240,10 +250,13 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const rootPathName = to.fullPath.split('/')[1]
+    await useAccount().fetchSession()
 
     if (rootPathName == 'panel' || rootPathName == 'edit-profile') {
-        await useAccount().fetchSession()
         if (!useAccount().user) return next('/')
+        return next()
+    } else if (rootPathName == 'admin') {
+        if (!(useAccount().user?.role == 'admin')) return next('/')
         return next()
     }
 
