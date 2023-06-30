@@ -150,7 +150,7 @@ function continueAsGuest() {
 <template lang="pug">
 v-form(ref="form")
   .account-login(v-show="authType === 'login'")
-    v-img.left-image(cover src="../../assets/auth-dialog-image.png")
+    img.left-image(src="../../assets/auth-dialog-image.png")
     .background
       .title ACCOUNT LOGIN
       .subtitle-text-fields
@@ -166,7 +166,7 @@ v-form(ref="form")
       .logos
       v-btn.grey-button(@click="authType = 'register'") CREATE ACCOUNT
   .create-account(v-show="authType === 'register'")
-    v-img.left-image(cover src="../../assets/auth-dialog-image.png")
+    img.left-image(src="../../assets/auth-dialog-image.png")
     .background
       .title CREATE ACCOUNT
       .subtitle-text-fields
@@ -182,7 +182,7 @@ v-form(ref="form")
         .connect-text CONNECT
       v-btn.grey-button(@click="authType = 'login'") LOGIN
   .continue-as-guest(v-show="authType === 'guest'")
-    v-img.left-image(cover src="../../assets/auth-dialog-image.png")
+    img.left-image(src="../../assets/auth-dialog-image.png")
     .background(v-bind:style="{height: '43.875rem'}")
       .title CONTINUE AS GUEST
       .subtitle-text-fields

@@ -3,18 +3,12 @@ import { lanes } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
-
-const lanesUrls = import.meta.glob('../../../assets/lanes/*.png', {
-  import: 'default',
-  eager: true
-})
-
 </script>
 
 <template lang="pug">
 .select-lanes
   .background(v-for="lane in lanes" :key="lane" v-bind:class="currentLeagueOfLegendsOrder.isLaneSelected(lane) ? 'selected-background' : ' '")
-    v-img.lane(:src='lanesUrls[`../../../assets/lanes/${lane}.png`]' width="3rem" @click="currentLeagueOfLegendsOrder.addOrRemoveLane(lane)")
+    img.lane(:src='`../../src/assets/lanes/${lane}.png`' @click="currentLeagueOfLegendsOrder.addOrRemoveLane(lane)")
 </template>
 
 <style scoped>
@@ -32,6 +26,7 @@ const lanesUrls = import.meta.glob('../../../assets/lanes/*.png', {
   cursor: pointer;
 }
 .lane {
+  width: 3rem;
   position: absolute;
   top: 50%;
   left: 50%;

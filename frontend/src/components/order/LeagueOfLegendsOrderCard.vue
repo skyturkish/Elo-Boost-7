@@ -49,20 +49,20 @@ const champions = computed(() => {
   .place
     .division-order(v-if='order.orderType == "division"')
       .flex-column
-        v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
+        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
         .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
-      v-img.to-where(width="0.5rem" src='../../assets/to-where.png')
+      img.to-where(src='../../assets/to-where.png')
       .flex-column
-        v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`')
+        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`')
         .division-name(:style="{color: findDominantColorByDivisionName(order.desiredRank.division) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
     .win-order(v-else-if='order.orderType == "win"')
       .flex-column
-        v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
+        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
         .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
         .amount-game {{ order.amountGame.split(' ')[0] }}
     .placements-order(v-else-if='order.orderType == "placements"')
       .flex-column
-        v-img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
+        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
         .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
         .amount-game {{ order.amountGame.split(' ')[0] }}
     .normal-order(v-else-if='order.orderType == "normal-game"')
@@ -77,24 +77,19 @@ const champions = computed(() => {
     .lane JUNGLE
     .price 170.30€
     .champions(v-if="champions.length > 0")
-      .champion(v-for="champion in champions" :key="champion")
-        v-img(:src='`../../src/assets/squares/league-of-legends/${champion}.png`')
+      img.champion(v-for="champion in champions" :key="champion" :src='`../../src/assets/squares/league-of-legends/${champion}.png`')
     .any-champion(v-else)
       .any-hero Any Hero
     .buttons.row
       .edit-and-release(v-if="order.state == 'paid'" @click='router.push(`/panel/own-order-detail/${order._id}`)') EDIT AND RELEASE
-      .more(v-else @click='goToOrderDetailPage(order)')
-        v-img(src='../../assets/icons/menu.png')
-      .take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)")
-        v-img(src='../../assets/icons/checkmark.png')
+      img.more(v-else @click='goToOrderDetailPage(order)' src='../../assets/icons/menu.png')
+      img.take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)" src='../../assets/icons/checkmark.png')
   .order-informations(v-else)
     .lane JUNGLE
     .server {{ order.server.toUpperCase() }}
     .price 170.30€
     .buttons.row
-      .more(@click='goToOrderDetailPage(order)')
-        v-img(src='../../assets/icons/menu.png')
-
+      img.more(@click='goToOrderDetailPage(order)' src='../../assets/icons/menu.png')
 </template>
 
 <style scoped>
@@ -194,7 +189,6 @@ const champions = computed(() => {
 }
 .to-where {
   width: 1rem;
-  height: 1rem;
 }
 .server {
   font-size: 12px;
@@ -228,8 +222,6 @@ const champions = computed(() => {
   height: 30px;
   width: 30px;
   margin-left: -10px;
-}
-.champion > .v-img {
   border: solid 0.5px #000;
   border-radius: 50%;
 }

@@ -55,8 +55,7 @@ async function takeOrderAndRoute(orderId) {
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .row
-        .game-background
-          v-img(:src='`../../../src/assets/icons/${order.gameType}.png`')
+        img.game-background(:src='`../../../src/assets/icons/${order.gameType}.png`')
         .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
         .order-id # {{ order._id.substring(0,10) }}
       .order-process
@@ -64,20 +63,17 @@ async function takeOrderAndRoute(orderId) {
           .column
             .process-row
               .current-rank
-                .rank-image
-                  v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
+                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
                 .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
               .desired-rank
-                .rank-image
-                  v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`")
+                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`")
                 .rank-name(:style="{color: (findDominantColorByDivisionName(order.desiredRank.division))}") {{ order.desiredRank.division.toUpperCase() }} {{ order.desiredRank.milestone }}
             .process-bar
         .wind-and-placement-process(v-if="order.orderType === 'win' || order.orderType === 'placements' ")
           .column
             .process-row
               .current-rank
-                .rank-image
-                  v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
+                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
                 .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division }} {{ order.currentRank.milestone }}
               .amount-game
                 .column
@@ -94,21 +90,19 @@ async function takeOrderAndRoute(orderId) {
             .percentage-price (%65)
           .row
             v-btn.edit-order-button(v-if="!order.note == null && !order.note == ''")
-              .little-icon
-                v-img(src='@/assets/icons/read-note.png')
+              img.little-icon(src='@/assets/icons/read-note.png')
               .edit-order-text READ NOTE
             v-btn.accep-order-button(@click="useOrdersStore.takeOrder(order._id)")
-              .little-icon
-                v-img(src='@/assets/icons/checkmark.png')
+              img.little-icon(src='@/assets/icons/checkmark.png')
         .last-row(v-if="useAccountStore.user.role == 'customer'")
       .champions-text-and-select-lane
         .champions-text CHAMPİONS
         .lanes(v-if="order.lanes.length > 0")
-          v-img.lane(v-for="lane in order.lanes" :src="`../../../src/assets/lanes/${lane}.png`")
+          img.lane(v-for="lane in order.lanes" :src="`../../../src/assets/lanes/${lane}.png`")
         div.any-lane-text(v-else) Any Lane
       v-divider
       .champions(v-if="champions.length > 0")
-        v-img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
+        img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
       div.any-champion-text(v-else) Any Champion
 </template>
 

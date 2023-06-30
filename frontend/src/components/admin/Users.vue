@@ -17,7 +17,7 @@ onMounted(() => {
 .loading(v-if="users == null") Loading
 .users(v-else)
   .user(v-for="user in users")
-    v-img(:src='user.photo' width="50px")
+    img.avatar(:src='user.photo')
     .user__name name: {{ user.name }}
     .user__id id: {{ user._id }}
     .user__role role: {{ user.role }}
@@ -26,6 +26,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.avatar {
+  width: 50px;
+}
 .users {
   display:flex;
   flex-wrap: wrap;

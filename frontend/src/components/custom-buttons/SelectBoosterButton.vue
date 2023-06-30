@@ -4,11 +4,13 @@
 
 <template lang="pug">
 button
-  .icon
-    v-img(src='@/assets/icons/checkmark.png' width="40px")
+  img.icon(src='@/assets/icons/checkmark.png')
 </template>
 
 <style scoped>
+.icon {
+       width: 40px;
+}
 button {
   width: 140px;
   height: 51px;

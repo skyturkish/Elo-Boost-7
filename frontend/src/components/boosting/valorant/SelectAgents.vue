@@ -17,31 +17,29 @@ const filteredAgents = computed(() => {
 
 <template lang="pug">
 CheckoutSelection(toolTipText="You can set your agents which ones you wanted to play by boosters" title="AGENTS")
-  v-img.logo(v-if="!currentValorantOrder.isAnyAgentSelected()" src='@/assets/icons/plus.png' width="50px")
-  v-img.logo(v-else src='@/assets/squares/valorant/sage.png' width="50px")
+  img.logo(v-if="!currentValorantOrder.isAnyAgentSelected()" src='@/assets/icons/plus.png')
+  img.logo(v-else src='@/assets/squares/valorant/sage.png')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
         .title(@click="selamla") SELECT AGENTS
         v-tooltip(location="right" text='You can your agents bla bla bla ' )
           template(v-slot:activator='{ props }')
-            .question-mark
-              v-img(src="@/assets/icons/question-mark.png" v-bind='props')
+            img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
       .filters
         v-text-field.search(label="Search for agents" v-model="searchName")
       .champions-background
         .champions
-          .champion(v-for="agent in filteredAgents")
-            v-img(:src='`../../../src/assets/squares/valorant/${agent}.png`' @click="currentValorantOrder.addAgent(agent)")
+          img.champion(v-for="agent in filteredAgents" :src='`../../../src/assets/squares/valorant/${agent}.png`' @click="currentValorantOrder.addAgent(agent)")
       v-divider
       .last-row
-        .champion(v-for="agent in currentValorantOrder.agents")
-          v-img(:src='`../../../src/assets/squares/valorant/${agent}.png`')
+        img.champion(v-for="agent in currentValorantOrder.agents" :src='`../../../src/assets/squares/valorant/${agent}.png`')
 </template>
 
 <style scoped>
 .logo {
   cursor: pointer;
+  width: 50px;
 }
 .row {
   display: flex;

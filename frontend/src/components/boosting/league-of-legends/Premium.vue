@@ -9,10 +9,12 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 <template lang="pug">
 CheckoutSelection(toolTipText="premium işte abartmaya gerek yok" title="PREMIUM")
-  v-img.logo(src='@/assets/icons/premium.png' width="50px")
+  img.logo(src='@/assets/icons/premium.png')
   CustomSwitch(v-model="currentLeagueOfLegendsOrder.premium")
 </template>
 
 <style scoped>
-
+.logo {
+  width: 50px;
+}
 </style>

@@ -19,15 +19,10 @@ const props = defineProps({
     default: '#101922'
   }
 })
-
-const imgUrls = import.meta.glob('../assets/banners/*.png', {
-  import: 'default',
-  eager: true
-})
 </script>
 
 <template lang="pug">
-v-img.image(cover :src='imgUrls[`../assets/banners/${splashArtPath}.png`]')
+.background(:style="{ backgroundImage: `url(/src/assets/banners/${splashArtPath}.png)` }")
   .content
     AppBar
     .TRUST-PILOT-5-STAR-REVIEW ** TRUST PILOT 5 STAR REVIEW **
@@ -38,9 +33,8 @@ v-img.image(cover :src='imgUrls[`../assets/banners/${splashArtPath}.png`]')
 </template>
 
 <style scoped>
-.image {
-  max-height: 540px;
-  margin: 0 auto;
+.background {
+  background-size: cover;
 }
 .content {
   display:flex;

@@ -86,7 +86,7 @@ export const mapColors = {
         shadowColor: '#F9FBF8',
         buttonColor: '#1DA411',
         borderColor: '#0F6F00',
-        width: '23.25rem'
+        width: '23.2rem'
     },
     aram: {
         name: 'aram',
@@ -94,7 +94,7 @@ export const mapColors = {
         shadowColor: '#F8F8FB',
         buttonColor: '#476CC4',
         borderColor: '#7DB1FF',
-        width: '25.64rem'
+        width: '25.55rem'
     }
 }
 export const clash = {

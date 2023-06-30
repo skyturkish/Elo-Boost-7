@@ -19,8 +19,7 @@ const props = defineProps({
   .row
     v-tooltip(location="left" :text='toolTipText' )
       template(v-slot:activator='{ props }')
-        .question-mark
-          v-img(src="@/assets/icons/question-mark.png" v-bind='props')
+        img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
     .title {{ title }}
     .empty
   .slot

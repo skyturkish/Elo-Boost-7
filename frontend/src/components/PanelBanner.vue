@@ -7,15 +7,14 @@ const useAccountStore = useAccount()
 </script>
 
 <template lang="pug">
-v-img.image(cover :src='`../../src/assets/banners/${useAccountStore.user.themePreference.path}.png`')
+.background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)` }")
   .content
     AppBar
 </template>
 
 <style scoped>
-.image {
-  max-height: 540px;
-  margin: 0 auto;
+.background {
+  background-size: cover;
 }
 .content {
   display:flex;
@@ -24,5 +23,6 @@ v-img.image(cover :src='`../../src/assets/banners/${useAccountStore.user.themePr
   min-width: 960px;
   margin: 0 auto;
   padding: 42px 40px 30px 45px;
+  height: 542px;
 }
 </style>

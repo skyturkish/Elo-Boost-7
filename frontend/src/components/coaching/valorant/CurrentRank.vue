@@ -21,12 +21,15 @@ const currentDivisionName = computed(() => {
 
 <template lang="pug">
 .valorant-card
-  v-img(src='@/assets/valorant-coaching-card.png')
+  img.player-card(src='@/assets/valorant-coaching-card.png')
+  div
     .content
       .title YOUR RANK
-      v-img.act-rank(src='@/assets/act-rank-level2.png'  width="12rem")
-        v-img.rank-background(:src='`../../src/assets/rank-background/${currentValorantOrder.currentRank.division}.png`' width="9rem")
-          v-img.rank-icon(:src='`../../src/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`' width="4.2rem")
+      img.act-rank(src='@/assets/act-rank-level2.png')
+      div
+        img.rank-background(:src='`../../src/assets/rank-background/${currentValorantOrder.currentRank.division}.png`')
+        div.ddd
+          img.rank-icon(:src='`../../src/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`')
       .division-name {{ currentDivisionName }}
       .dynamic-view
         slot
@@ -38,15 +41,30 @@ const currentDivisionName = computed(() => {
             :size="currentValorantOrder.isSelectedDivision(division) ? '2rem' : '1.5rem'"
             :color="division.color"
             @click="currentValorantOrder.changeCurrentDivision(division)")
-      v-img.last-rank-icon(:src='`../../src/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`' width="4.2rem")
+      img.last-rank-icon(:src='`../../src/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`')
 </template>
 
 <style scoped>
+.last-rank-icon {
+  width: 4.2rem;
+  margin-top: 6rem;
+}
+.rank-icon {
+  width: 4.2rem;
+}
+.ddd {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
 .valorant-card {
   width: 23rem;
 }
+.player-card {
+  width: 23rem;
+  margin-bottom: -49.8rem;
+}
 .content {
-  padding-top: 3.6rem;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -63,18 +81,19 @@ const currentDivisionName = computed(() => {
   font-size: 32px;
   font-weight: 600;
   color: #fff;
+  padding-top: 2.5rem;
 }
 .act-rank {
   display: flex;
   align-items: center;
+  width: 12rem;
+  margin-bottom: -9.5rem;
 }
 .rank-background {
-  margin: 0 auto
+  width: 9rem;
+  margin-bottom: -4.8rem;
 }
-.rank-icon {
-  margin: 0 auto;
-  margin-top: 31%;
-}
+
 .colors {
   padding-top: 2rem;
   padding-bottom: 1.7rem;

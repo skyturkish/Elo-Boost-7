@@ -9,10 +9,12 @@ const currentValorantOrder = useValorantOrder()
 
 <template lang="pug">
 CheckoutSelection(toolTipText="Bonus wini seçersen var ya ..... neler neler oluyor, aramızda kalsın ama ... KAZANIYORUZZZ" title="BONUS WIN")
-  v-img.logo(src='@/assets/icons/bonus-win.png' width="50px")
+  img.logo(src='@/assets/icons/bonus-win.png')
   CustomSwitch(v-model="currentValorantOrder.bonusWin")
 </template>
 
 <style scoped>
-
+.logo {
+  width: 50px;
+}
 </style>

@@ -5,12 +5,6 @@ const games = [
     'TeamFightTactics',
     'LeagueOfLegendsWildRift',
 ]
-
-const imgUrls = import.meta.glob('../../assets/games/splashScreens/*.png', {
-  import: 'default',
-  eager: true
-})
-
 const services = [
     'ELOBOOST',
     'COACHING',
@@ -28,7 +22,7 @@ const services = [
         :alt=game
         aspect-ratio='5/3'
         cover=''
-        :src="imgUrls[`../../assets/games/splashScreens/${game}SplashScreen.png`]")
+        :src="`../src/assets/games/splashScreens/${game}SplashScreen.png`")
         .services
             v-btn.service(
                 v-for="service in services"

@@ -46,13 +46,12 @@ const gameName = computed(() => {
         | 730
         span.smalltext ,35
       .purchase-button.elevation-8(@click="createOrder()" v-bind:class="!isGameLeagueOfLegends ? 'valorant-button' : 'league-of-legends-button'")
-        .logo
-          v-img(:src="`../../src/assets/icons/${gameName}-money.png`")
+        img.logo(:src="`../../src/assets/icons/${gameName}-money.png`")
         .purchase.text PURCHASE
   .custom-divider
   .receipt-and-barkod
     .receipt-text RECEIPT
-    v-img(src='@/assets/barkod.png' width="11.5rem")
+    img(src='@/assets/barkod.png' width="11.5rem")
   .custom-divider
 </template>
 

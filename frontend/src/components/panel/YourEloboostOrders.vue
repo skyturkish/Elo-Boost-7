@@ -16,8 +16,7 @@ onMounted(async () =>   {
   .horizontal-padding
     .first-place
       .first-row
-        .game-icon
-          v-img(src='../../assets/icons/league-of-legends.png')
+        img.game-icon(src='../../assets/icons/league-of-legends.png')
         .offer-title YOUR ELOBOOST ORDERS
       v-icon.settings-icon(icon='mdi-cog' size="33px")
   .place-order

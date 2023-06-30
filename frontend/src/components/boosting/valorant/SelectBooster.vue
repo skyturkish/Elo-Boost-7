@@ -42,50 +42,50 @@ function setBoosterAndCloseDialog(booster) {
 
 <template lang="pug">
 CheckoutSelection(toolTipText="You can choose your favorite booster" title="BOOSTER")
-  v-img.logo(v-if="currentValorantOrder.booster == null" src='@/assets/icons/plus.png' width="50px")
-  v-img.logo.booster-photo(v-else :src='currentValorantOrder.booster.photo' width="50px")
+  img.logo(v-if="currentValorantOrder.booster == null" src='@/assets/icons/plus.png')
+  img.logo.booster-photo(v-else :src='currentValorantOrder.booster.photo')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
         .title SELECT BOOSTER
         v-tooltip(location="right" text='You can choose booster you like, under page bla bla bla bla bla' )
           template(v-slot:activator='{ props }')
-            .question-mark
-              v-img(src="@/assets/icons/question-mark.png" v-bind='props')
+            img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
       .filters
         v-text-field.search(label="Search for booster" v-model="searchName")
       .boosters(v-if="filteredBoosters.length > 0")
         BoosterCard(v-for="booster in filteredBoosters" :key="booster")
           .rate
-            .star
-              v-img(src='@/assets/star.png' width="50px")
+            img.star(src='@/assets/star.png')
             .rate-text {{booster.rate}}
           .profile-and-rank
             .dd
               Online(v-if="booster.onlineState == 'online' ")
               Offline(v-if="booster.onlineState == 'offline' ")
               DontDistrub(v-if="booster.onlineState == 'dont-distrub' ")
-              .profile-photo
-                v-img(cover :src="booster.photo")
-            .rank-image
-              v-img(cover :src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.png`')
+              img.profile-photo(:src="booster.photo")
+            img.rank-image(cover :src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.png`')
           .booster-name {{booster.name}}
           .buttons
             SelectBoosterButton(v-if="booster.onlineState != 'dont-distrub' " @click="setBoosterAndCloseDialog(booster)")
             NotAllowed(v-else)
             v-btn.booster-detail-button
-              .icon
-                v-img(src='@/assets/icons/menu.png' width="40px")
+              img.icon(src='@/assets/icons/menu.png')
       h1 There is no booster like what you want
 </template>
 
 <style scoped>
+.icon {
+  width: 2.2rem;
+  padding-top: 0.25rem
+}
 .dd {
   display: flex;
   flex-direction: column;
 }
 .logo {
   cursor: pointer;
+  width: 50px;
 }
 .booster-photo {
   border-radius: 25px;
@@ -221,9 +221,5 @@ CheckoutSelection(toolTipText="You can choose your favorite booster" title="BOOS
   color: #222;
   padding-top: 1.4rem;
 }
-.icon {
-  height: 2.2rem;
-  width: 2.2rem;
-  padding-top: 0.25rem
-}
+
 </style>

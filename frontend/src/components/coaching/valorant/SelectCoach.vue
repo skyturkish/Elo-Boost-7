@@ -42,40 +42,35 @@ function setBoosterAndCloseDialog(coach) {
 
 <template lang="pug">
 CheckoutSelection(toolTipText="You can choose your favorite coach" title="COACH")
-  v-img.logo(v-if="currentValorantOrder.coach == null" src='@/assets/icons/plus.png' width="50px")
-  v-img.logo.booster-photo(v-else :src='currentValorantOrder.coach.photo' width="50px")
+  img.logo(v-if="currentValorantOrder.coach == null" src='@/assets/icons/plus.png')
+  img.logo.booster-photo(v-else :src='currentValorantOrder.coach.photo')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
         .title SELECT COACH
         v-tooltip(location="right" text='You can choose booster you like, under page bla bla bla bla bla' )
           template(v-slot:activator='{ props }')
-            .question-mark
-              v-img(src="@/assets/icons/question-mark.png" v-bind='props')
+            img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
       .filters
         v-text-field.search(label="Search for booster" v-model="searchName")
       .boosters(v-if="filteredBoosters.length > 0")
         BoosterCard(v-for="booster in filteredBoosters" :key="booster")
           .rate
-            .star
-              v-img(src='@/assets/star.png' width="50px")
+            img.star(src='@/assets/star.png')
             .rate-text {{booster.rate}}
           .profile-and-rank
             .dd
               Online(v-if="booster.onlineState == 'online' ")
               Offline(v-if="booster.onlineState == 'offline' ")
               DontDistrub(v-if="booster.onlineState == 'dont-distrub' ")
-              .profile-photo
-                v-img(cover :src="booster.photo")
-            .rank-image
-              v-img(cover :src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.png`')
+              img.profile-photo(cover :src="booster.photo")
+            img.rank-image(cover :src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.png`')
           .booster-name {{booster.name}}
           .buttons
             SelectBoosterButton(v-if="booster.onlineState != 'dont-distrub' " @click="setBoosterAndCloseDialog(booster)")
             NotAllowed(v-else)
             v-btn.booster-detail-button
-              .icon
-                v-img(src='@/assets/icons/menu.png' width="40px")
+              img.icon(src='@/assets/icons/menu.png')
 </template>
 
 <style scoped>
@@ -85,6 +80,7 @@ CheckoutSelection(toolTipText="You can choose your favorite coach" title="COACH"
 }
 .logo {
   cursor: pointer;
+  width: 50px;
 }
 .booster-photo {
   border-radius: 25px;

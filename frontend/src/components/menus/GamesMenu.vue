@@ -40,10 +40,6 @@ const games = [
     imagePath: 'wild-rift',
   },
 ]
-const imgUrls = import.meta.glob('../../assets/icons/*.png', {
-  import: 'default',
-  eager: true
-})
 
 function replacePage(game){
   router.push({path: game.url})
@@ -54,19 +50,21 @@ function replacePage(game){
 v-menu(max-width='100px')
   template(v-slot:activator='{ props }')
     div.select-games(@click='' v-bind='props')
-      .game-image
-        v-img(:src='imgUrls[`../../assets/icons/${gameImagePath}.png`]')
+      img.game-image(:src='`/src/assets/icons/${gameImagePath}.png`')
       .a ●
       .game-name {{ gameName }}
       v-icon(icon="mdi-menu-down")
   v-list
     v-list-item(v-for='game in games' :key='game.name' @click='replacePage(game)')
       template(v-slot:prepend='')
-        v-img(:src='imgUrls[`../../assets/icons/${game.imagePath}.png`]' width='30' height='30')
+        img.aa(:src='`/src/assets/icons/${game.imagePath}.png`')
       v-list-item-title(v-text='game.name')
 </template>
 
 <style scoped>
+.aa {
+  width: 30px;
+}
 
 .circle {
   width: 5px;

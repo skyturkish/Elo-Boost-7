@@ -9,13 +9,15 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 <template lang="pug">
 CheckoutSelection(v-if="currentLeagueOfLegendsOrder.isSolo" toolTipText="High MMR go brrrr" title="HIGH MMR")
-  v-img.logo(src='@/assets/icons/high-mmr.png' width="50px")
+  img.logo(src='@/assets/icons/high-mmr.png')
   CustomSwitch(v-model="currentLeagueOfLegendsOrder.highMMR")
 CheckoutSelection(v-else toolTipText="sadece solo oyna lütfen" title="SOLO ONLY")
-  v-img.logo(src='@/assets/icons/solo.png' width="50px")
+  img.logo(src='@/assets/icons/solo.png')
   CustomSwitch(v-model="currentLeagueOfLegendsOrder.soloOnly")
 </template>
 
 <style scoped>
-
+.logo {
+  width: 50px;
+}
 </style>

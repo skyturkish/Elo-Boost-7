@@ -8,21 +8,16 @@ import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 const maps = currentLeagueOfLegendsOrder.maps
-
-const crownUrls = import.meta.glob('../../../assets/crowns/*.png', {
-  import: 'default',
-  eager: true
-})
 </script>
 
 <template lang="pug">
-.a
+.selamlar
   .crown-background
-    v-img.crown(:src="crownUrls['../../../assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '.png']" :width="currentLeagueOfLegendsOrder.selectedMap.width")
+    img.crown(:src="'../../src/assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '.png'" v-bind:style="{width: currentLeagueOfLegendsOrder.selectedMap.width}")
   .normal-game-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.selectedMap.borderColor}`")
     .change-logo-and-logo
       v-icon.left-(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
-      v-img.logo(:src="crownUrls['../../../assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '-logo.png']" width="11.625rem")
+      img.logo(:src="'../../src/assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '-logo.png'")
       v-icon.right-(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
     .game-name(:style="{color: currentLeagueOfLegendsOrder.selectedMap.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.selectedMap.shadowColor}") {{ currentLeagueOfLegendsOrder.selectedMap.name.toUpperCase() }}
     .colors
@@ -40,13 +35,15 @@ const crownUrls = import.meta.glob('../../../assets/crowns/*.png', {
 </template>
 
 <style scoped>
-.crown{
-  margin: 0 auto;
-  margin-bottom: -4rem;
-  height: 7rem;
-}
 .crown-background {
-  width: 26rem;
+  width: 25rem;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.crown{
+  height: 7rem;
+  margin-bottom: -4rem;
 }
 .normal-game-card {
   width: 22.5rem;
@@ -68,6 +65,7 @@ const crownUrls = import.meta.glob('../../../assets/crowns/*.png', {
 .logo {
   height: 15.625rem;
   width: 15.625rem;
+  margin: 0 auto;
 }
 .right- {
   margin-left: -2.5rem;

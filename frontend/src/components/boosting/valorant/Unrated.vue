@@ -29,17 +29,17 @@ async function createOrder() {
 
 <template lang="pug">
 .unrated-match-card
-  v-img(src='@/assets/valorant-player-card.png' width="23rem")
+  img.player-card(src='@/assets/valorant-player-card.png')
+  div
     .content
       .title GAME TYPE
-      v-img.selected-game-type(:src='`../../../src/assets/valorant-game-Types/${selectedGameType}.png`' width="12rem")
+      img.selected-game-type(:src='`../../../src/assets/valorant-game-Types/${selectedGameType}.png`')
       .selected-game-name {{ selectedGameType.toUpperCase() }}
       .selections
         SelectServer
         SelectAmountUnratedMatchGames
       .game-types
-        .game-type(v-for="gameType in gameTypes" v-bind:class="selectedGameType == gameType ? 'selected-game' : 'unselected-game' " @click="selectedGameType = gameType")
-          v-img(:src='`../../../src/assets/valorant-game-Types/${gameType}.png`' width="12rem")
+        img.game-type(v-for="gameType in gameTypes" v-bind:class="selectedGameType == gameType ? 'selected-game' : 'unselected-game' " @click="selectedGameType = gameType" :src='`../../../src/assets/valorant-game-Types/${gameType}.png`')
 Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
   template(v-slot:switchs)
     .custom-switch-two-options
@@ -55,11 +55,14 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
 </template>
 
 <style scoped>
+.player-card {
+  width: 23rem;
+  margin-bottom: -49.5rem;
+}
 .unrated-match-card {
   margin: 0 auto
 }
 .content {
-  padding-top: 3.6rem;
   display:flex;
   flex-direction: column;
   align-items: center;

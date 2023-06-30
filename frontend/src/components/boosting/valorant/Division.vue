@@ -82,16 +82,6 @@ function isSelectedMilestone(milestone) {
   return desiredMilestone.value === milestone
 }
 
-const imgUrls = import.meta.glob('../../../assets/ranks/valorant/*.png', {
-  import: 'default',
-  eager: true
-})
-
-const rankBackgrounds = import.meta.glob('../../../assets/rank-background/*.png', {
-  import: 'default',
-  eager: true
-})
-
 async function createOrder() {
   await currentValorantOrder.createDivisionOrder({
     division: desiredOrder.value.name,
@@ -105,12 +95,15 @@ CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
   SelectCurrentRR
   SelectGainRR
 .desired-rank(v-if="checkedColors")
-  v-img(src='@/assets/valorant-player-card.png' width="23rem")
+  img.player-card(src='@/assets/valorant-player-card.png')
+  div
     .content
       .title DESIRED RANK
-      v-img.act-rank(src='@/assets/act-rank-level3.png' width="12rem")
-        v-img.rank-background(:src='rankBackgrounds[`../../../assets/rank-background/${desiredOrder.name}.png`]' width="9rem")
-          v-img.rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
+      img.act-rank(src='@/assets/act-rank-level3.png')
+      div
+        img.rank-background(:src='`../../src/assets/rank-background/${desiredOrder.name}.png`')
+        div.ddd
+          img.rank-icon(:src='`../../src/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`')
       .division-name {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
       SelectServer.selectServer
       .colors
@@ -127,7 +120,7 @@ CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
           :style="{backgroundColor: isSelectedMilestone(milestone) ? desiredOrder.color : '#fff'}"
           @click="changeMileStone(milestone)"
           ) {{ milestone }}
-  v-img.last-rank-icon(:src='imgUrls[`../../../assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`]' width="4.2rem")
+  img.last-rank-icon(:src='`../../src/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`')
 Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
   template(v-slot:switchs)
     .custom-switch-two-options
@@ -144,6 +137,23 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
 </template>
 
 <style scoped>
+.rank-icon {
+  width: 4.2rem;
+}
+.ddd {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -7.8rem;
+}
+.rank-background {
+  width: 9rem;
+  margin-bottom: -4.8rem;
+}
+.player-card {
+  width: 23rem;
+  margin-bottom: -49.5rem;
+}
 .selectServer {
   padding-top: 2.5rem;
 }
@@ -151,7 +161,6 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
   margin: 0 auto
 }
 .content {
-  padding-top: 3.6rem;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -168,10 +177,14 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
   font-size: 32px;
   font-weight: 600;
   color: #fff;
+  padding-top: 2.5rem;
+
 }
 .act-rank {
   display: flex;
   align-items: center;
+  width: 12rem;
+  margin-bottom: -9.5rem;
 }
 .rank-background {
   margin: 0 auto
@@ -226,6 +239,7 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
 }
 .last-rank-icon {
   margin: 0 auto;
-  margin-top: -8.7rem;
+  margin-top: 5.7rem;
+  width: 4.2rem;
 }
 </style>

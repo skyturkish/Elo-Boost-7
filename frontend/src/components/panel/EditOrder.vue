@@ -197,39 +197,33 @@ const champions = computed(() => {
       .arrow.center-child(@click="router.go(-1)")
         v-icon(icon="mdi-arrow-left-thick" size="50px")
       .need-help.row.center-child
-        .need-help-icon
-          v-img(src='@/assets/icons/need-help.png')
+        img.need-help-icon(src='@/assets/icons/need-help.png')
         .black-text NEED HELP
     .state.center-child {{ order.state }}
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .row
-        .game-background
-          v-img(:src='`../../../src/assets/icons/${order.gameType}.png`')
+        img.game-background(:src='`../../../src/assets/icons/${order.gameType}.png`')
         .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
       .order-process
         .division-process(v-if="order.orderType === 'division'")
           .column
             .process-row
               .previous-rank
-                .rank-image
-                  v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
+                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
                 .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
               .current-rank
-                .rank-image
-                  v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
+                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
                 .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
               .desired-rank
-                .rank-image
-                  v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`")
+                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`")
                 .rank-name(:style="{color: (findDominantColorByDivisionName(order.desiredRank.division))}") {{ order.desiredRank.division.toUpperCase() }} {{ order.desiredRank.milestone }}
             .process-bar
         .wind-and-placement-process(v-if="order.orderType === 'win' || order.orderType === 'placements' ")
           .column
             .process-row
               .current-rank
-                .rank-image
-                  v-img(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
+                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
                 .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
               .amount-game
                 .column
@@ -254,8 +248,7 @@ const champions = computed(() => {
           .active-button ACTIVE
         .last-row
           v-btn.edit-order-button
-            .little-icon
-              v-img(src='@/assets/icons/edit-order.png')
+            img.little-icon(src='@/assets/icons/edit-order.png')
             .edit-order-text EDIT ORDER
           v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black" eager persistent)
             v-form(ref="form")
@@ -280,11 +273,11 @@ const champions = computed(() => {
       .champions-text-and-select-lane
         .champions-text CHAMPİONS
         .lanes(v-if="order.lanes.length > 0")
-          v-img.lane(v-for="lane in order.lanes" :src="`../../../src/assets/lanes/${lane}.png`")
+          img.lane(v-for="lane in order.lanes" :src="`../../../src/assets/lanes/${lane}.png`")
         div.any-lane-text(v-else) Any Lane
       v-divider
       .champions(v-if="champions.length > 0")
-        v-img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
+        img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
       div.any-champion-text(v-else) Any Champion
 </template>
 

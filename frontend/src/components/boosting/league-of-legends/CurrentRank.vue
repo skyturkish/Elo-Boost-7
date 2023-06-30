@@ -17,16 +17,6 @@ const divisions = LeagueOfLegendsDivisions.slice(0, props.divisionLimit)
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
-const divisionUrls = import.meta.glob('../../../assets/ranks/league-of-legends/*.png', {
-  import: 'default',
-  eager: true
-})
-
-const trimUrls = import.meta.glob('../../../assets/trims/*.png', {
-  import: 'default',
-  eager: true
-})
-
 const currentDivisionName = computed(() => {
   return currentLeagueOfLegendsOrder.colors.name.toUpperCase()
 });
@@ -40,7 +30,7 @@ const currentDivisionName = computed(() => {
       v-icon(size='large' icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name
         .rank-icon-box
-          v-img.rank-icon(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png']")
+          img.rank-icon(:src="'../../src/assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png'")
         .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentLeagueOfLegendsOrder.milestone }}
       v-icon(size='large' icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
@@ -72,11 +62,15 @@ const currentDivisionName = computed(() => {
             @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
     .dynamic-view
       slot
-  v-img.trim(src="../../../assets/union.png" width="23.5rem")
-    v-img(:src="trimUrls['../../../assets/trims/' + currentLeagueOfLegendsOrder.colors.name + '-trim.png']" )
+  img.trim(:src="'../../src/assets/trims/' + currentLeagueOfLegendsOrder.colors.name + '-trim.png'" )
 </template>
 
 <style scoped>
+.trim {
+  width: 22.5rem;
+  margin-top: -2rem;
+  background: url("../../src/assets/union.png") no-repeat center center;
+}
 .current-rank {
   width: 22.5rem;
   border-radius: 15px;
@@ -109,6 +103,11 @@ const currentDivisionName = computed(() => {
   width: 15.625rem;
 }
 .rank-icon {
+  height: 250px;
+  width: 250px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
   padding-bottom: -5rem;
 }
 .name {
@@ -177,7 +176,7 @@ const currentDivisionName = computed(() => {
   display: flex;
   margin-top: 2.15rem;
 }
-.trim {
+.union {
   margin-top: -2rem;
 }
 </style>

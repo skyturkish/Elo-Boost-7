@@ -52,62 +52,56 @@ function setBoosterAndCloseDialog(booster) {
     console.log(booster)
 }
 
-const lanesUrls = import.meta.glob('../../../assets/lanes/*.png', {
-  import: 'default',
-  eager: true
-})
-
 </script>
 
 <template lang="pug">
 CheckoutSelection(toolTipText="You can choose your favorite booster)" title="BOOSTER")
-  v-img.logo(v-if="currentLeagueOfLegendsOrder.booster == null" src='@/assets/icons/plus.png' width="50px")
-  v-img.logo.booster-photo(v-else :src='currentLeagueOfLegendsOrder.booster.photo' width="50px")
+  img.logo(v-if="currentLeagueOfLegendsOrder.booster == null" src='@/assets/icons/plus.png')
+  img.logo.booster-photo(v-else :src='currentLeagueOfLegendsOrder.booster.photo')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
         .title SELECT BOOSTER
         v-tooltip(location="right" text='You can choose booster you like, under page bla bla bla bla bla' )
           template(v-slot:activator='{ props }')
-            .question-mark
-              v-img(src="@/assets/icons/question-mark.png" v-bind='props')
+            img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
       .filters
         v-text-field.search(label="Search for booster" v-model="searchName")
         .lanes
-          v-img.lane(v-for="lane in lanes" :key="lane" :src='lanesUrls[`../../../assets/lanes/${lane}.png`]' width="3rem" @click="addOrRemoveLane(lane)"  v-bind:class="isLaneSelected(lane) ? 'selected-background' : ' '")
+          img.lane(v-for="lane in lanes" :key="lane" :src='`../../src/assets/lanes/${lane}.png`' @click="addOrRemoveLane(lane)"  v-bind:class="isLaneSelected(lane) ? 'selected-background' : ' '")
       .boosters(v-if="filteredBoosters.length > 0")
         BoosterCard(v-for="booster in filteredBoosters" :key="booster")
           .rate
-            .star
-              v-img(src='@/assets/star.png' width="50px")
+            img.star(src='@/assets/star.png')
             .rate-text {{booster.rate}}
           .profile-and-rank
             .dd
               Online(v-if="booster.onlineState == 'online' ")
               Offline(v-if="booster.onlineState == 'offline' ")
               DontDistrub(v-if="booster.onlineState == 'dont-distrub' ")
-              .profile-photo
-                v-img(cover :src="booster.photo")
-            .rank-image
-              v-img(cover :src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.png`')
+              img.profile-photo(:src="booster.photo")
+            img.rank-image(:src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.png`')
           .booster-name {{booster.name}}
           .booster-lanes
-            v-img.booster-lane(v-for="lane in booster.mainLanes" :key="lane" :src='lanesUrls[`../../../assets/lanes/${lane}.png`]' width="3rem")
+            img.booster-lane(v-for="lane in booster.mainLanes" :key="lane" :src='`../../src/assets/lanes/${lane}.png`')
           .buttons
             SelectBoosterButton(v-if="booster.onlineState != 'dont-distrub' " @click="setBoosterAndCloseDialog(booster)")
             NotAllowed(v-else)
             v-btn.booster-detail-button
-              .icon
-                v-img(src='@/assets/icons/menu.png' width="40px")
+              img.icon(src='@/assets/icons/menu.png')
 </template>
 
 <style scoped>
+.lane {
+  width: 3rem;
+}
 .dd {
   display: flex;
   flex-direction: column;
 }
 .logo {
   cursor: pointer;
+  width: 50px;
 }
 .booster-photo {
   border-radius: 25px;
@@ -208,7 +202,6 @@ CheckoutSelection(toolTipText="You can choose your favorite booster)" title="BOO
 }
 .star {
   width: 28px;
-  height: 28px;
 }
 .rate {
   display: flex;
@@ -253,6 +246,8 @@ CheckoutSelection(toolTipText="You can choose your favorite booster)" title="BOO
 .booster-lanes {
   display: flex;
   padding-top: 0.8rem;
+  width: 2rem;
+  height: 50px;
 }
 .booster-lane {
   height: 50px;

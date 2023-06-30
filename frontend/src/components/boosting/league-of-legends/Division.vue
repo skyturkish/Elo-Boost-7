@@ -92,16 +92,6 @@ function isSelectedMilestone(milestone) {
   return desiredMilestone.value === milestone
 }
 
-const divisionUrls = import.meta.glob('../../../assets/ranks/league-of-legends/*.png', {
-  import: 'default',
-  eager: true
-})
-
-const trimUrls = import.meta.glob('../../../assets/trims/*.png', {
-  import: 'default',
-  eager: true
-})
-
 async function createOrder() {
   await currentLeagueOfLegendsOrder.createDivisionOrder({
     division: desiredOrder.value.name,
@@ -122,8 +112,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
     .select-division
       v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
       .division-name
-        .rank-icon-box
-          v-img(:src="divisionUrls['../../../assets/ranks/league-of-legends/' + desiredOrder.name + '.png']" width="16rem" )
+        img.rank(:src="'../../src/assets/ranks/league-of-legends/' + desiredOrder.name + '.png'")
         .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
       v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
     v-divider.divider()
@@ -144,8 +133,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
     .desired-selections
       SelectServer
       SelectQueue
-  v-img.trim(src="../../../assets/union.png")
-    v-img(:src="trimUrls['../../../assets/trims/' + desiredOrder.name + '-trim.png']" )
+  img.trim(:src="'../../src/assets/trims/' + desiredOrder.name + '-trim.png'" )
 Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
   template(v-slot:options)
     SelectBooster
@@ -163,6 +151,11 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
 </template>
 
 <style scoped>
+.trim {
+  width: 22.5rem;
+  margin-top: -2rem;
+  background: url("../../src/assets/union.png") no-repeat center center;
+}
 .desired-rank {
   width: 360px;
   border-radius: 15px;
@@ -190,8 +183,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
 .division-name {
   margin-top: -2rem;
 }
-.rank-icon-box {
-  height: 15.625rem;
+.rank {
   width: 15.625rem;
 }
 .name {
@@ -241,7 +233,5 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
   display: flex;
   padding-top: 1.43rem;
 }
-.trim {
-  margin-top: -2rem;
-}
+
 </style>

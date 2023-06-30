@@ -34,46 +34,32 @@ function isLaneSelected(lane) {
   return selectedLane.value === lane
 }
 
-const lanesUrls = import.meta.glob('../../../assets/lanes/*.png', {
-  import: 'default',
-  eager: true
-})
-
-const championsUrls = import.meta.glob('../../../assets/squares/league-of-legends/*.png', {
-  import: 'default',
-  eager: true
-})
 </script>
 
 <template lang="pug">
 CheckoutSelection(toolTipText="You can set your champions which ones you wanted to play by boosters" title="CHAMPIONS")
-  v-img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyChampionSelected()" src='@/assets/icons/plus.png' width="50px")
-  v-img.logo(v-else src='@/assets/squares/league-of-legends/aatrox.png' width="50px")
+  img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyChampionSelected()" src='@/assets/icons/plus.png')
+  img.logo(v-else src='@/assets/squares/league-of-legends/aatrox.png')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
         .title(@click="selamla") SELECT CHAMPIONS
         v-tooltip(location="right" text='You can your champions bla bla bla ' )
           template(v-slot:activator='{ props }')
-            .question-mark
-              v-img(src="@/assets/icons/question-mark.png" v-bind='props')
+            img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
       .filters
         v-text-field.search(label="Search for booster" v-model="searchName")
         .lanes(v-if="currentLeagueOfLegendsOrder.lanes.length > 0")
-          v-img.lane(v-for="lane in currentLeagueOfLegendsOrder.lanes" :key="lane" :src='lanesUrls[`../../../assets/lanes/${lane}.png`]' width="3rem" @click="changeSelectedLane(lane)" v-bind:class="isLaneSelected(lane) ? 'selected-background' : ' '")
+          img.lane(v-for="lane in currentLeagueOfLegendsOrder.lanes" :key="lane" :src='`../../src/assets/lanes/${lane}.png`' @click="changeSelectedLane(lane)" v-bind:class="isLaneSelected(lane) ? 'selected-background' : ' '")
         .please-select-lane(v-else) at least please select 1 lane to choose champions
       .champions-background
         .champions
-          .champion(v-for="champion in filteredChampions")
-            v-img(:src='championsUrls[`../../../assets/squares/league-of-legends/${champion}.png`]' @click="addChampions(champion)")
+          img.champion(v-for="champion in filteredChampions" :src='`../../src/assets/squares/league-of-legends/${champion}.png`' @click="addChampions(champion)")
       v-divider
       .last-row
-        .selected-lane
-          v-img(v-if="selectedLane != ''" :src='lanesUrls[`../../../assets/lanes/${selectedLane}.png`]')
-        .champion(v-for="champion in currentLeagueOfLegendsOrder.champions[selectedLane]")
-          v-img( :src='championsUrls[`../../../assets/squares/league-of-legends/${champion}.png`]')
-        .champion(v-if="currentLeagueOfLegendsOrder.champions[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.champions[selectedLane]?.length || 0")
-          v-img(:src='championsUrls[`../../../assets/squares/league-of-legends/champion.png`]')
+        img.selected-lane(v-if="selectedLane != ''" :src='`../../src/assets/lanes/${selectedLane}.png`')
+        img.champion(v-for="champion in currentLeagueOfLegendsOrder.champions[selectedLane]" :src='`../../src/assets/squares/league-of-legends/${champion}.png`')
+        img.champion(v-if="currentLeagueOfLegendsOrder.champions[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.champions[selectedLane]?.length || 0" :src='`../../src/assets/squares/league-of-legends/champion.png`')
         v-btn.price-calculation
           .calculation-text(v-if="currentLeagueOfLegendsOrder.champions[selectedLane]?.length < 3 ") +%10
           .calculation-text(v-if="currentLeagueOfLegendsOrder.champions[selectedLane]?.length >= 3 ") FREE
@@ -81,9 +67,12 @@ CheckoutSelection(toolTipText="You can set your champions which ones you wanted 
 </template>
 
 <style scoped>
-
 .logo {
   cursor: pointer;
+  width: 50px;
+}
+.lane {
+  width: 3rem;
 }
 .row {
   display: flex;

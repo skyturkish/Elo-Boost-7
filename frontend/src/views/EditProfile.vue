@@ -17,8 +17,9 @@ async function changeBannerAndCloseDialog(banner) {
 </script>
 
 <template lang="pug">
-v-img.image(cover :src='`../../src/assets/banners/${useAccountStore.user.themePreference.path}.png`')
-  .save-and-leave(@click="router.back()") SAVE AND LEAVE
+.background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)` }")
+  .content
+    .save-and-leave(@click="router.back()") SAVE AND LEAVE
 v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAccountStore.user.themePreference.color }")
 .informations
   .first-row
@@ -30,14 +31,14 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
         .birthday {{ useAccountStore.user.personalInformation?.birthDate|| 'No birthday' }}
     .first-second-row.row
       .theme
-        v-img.change-theme-and-banner.center-child(cover :src='`../../src/assets/banners/${useAccountStore.user.themePreference.path}.png`')
-          | CHANGE THEME AND BANNER
+        .theme-background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)`}")
+          .text CHANGE THEME AND BANNER
         v-dialog(v-model='themeDialog' activator='parent' width='auto')
           v-card.row
-            v-img.change-theme-and-banner(v-for="banner in banners" cover :src='`../../src/assets/banners/${banner.path}.png`' @click="changeBannerAndCloseDialog(banner)")
+            .theme-background(v-for="banner in banners" :style="{ backgroundImage: `url(../../src/assets/banners/${banner.path}.png)`}" @click="changeBannerAndCloseDialog(banner)")
       .profile
-        v-img.change-avatar.center-child(cover :src='useAccountStore.user.photo')
-          | CHANGE AVATAR
+        .background-avatar(:style="{ backgroundImage: `url(${useAccountStore.user.photo})`}")
+          .text CHANGE AVATAR
         v-dialog(v-model='avatarDialog' activator='parent' width='auto')
           v-card.row
             h1 this is avatar
@@ -50,8 +51,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
     .games-information(v-if="useAccountStore.isBooster()")
       .black-title GAMES
       .game-and-information.row
-        .game-logo.row
-          v-img(src='../../src/assets/icons/league-of-legends.png')
+        img.game-logo.row(src='../../src/assets/icons/league-of-legends.png')
         .informations
           .game-name LEAGUE OF LEGENDS
           .other-informations
@@ -70,8 +70,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
       .champions-
         .champions-title CHAMPIONS
         .champions
-          .champion(v-for="champion in useAccountStore.user.mainChampions")
-            v-img(:src='`../src/assets/champions/splash-arts/${champion}.jpg`')
+          img.champion(v-for="champion in useAccountStore.user.mainChampions" :src='`../src/assets/champions/splash-arts/${champion}.jpg`')
           v-btn.action-grey-button.center-child EDIT
       .roles-and-serves.row
         .roles.column-and-middle-gap
@@ -109,6 +108,15 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 </template>
 
 <style scoped>
+.background {
+  padding-top: 270px;
+  padding-bottom: 270px;
+  background-size: cover;
+}
+.content {
+  padding: 1.5rem;
+  margin-top: -17rem;
+}
 .center-child {
   display: flex;
   align-items: center;
@@ -131,11 +139,6 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 .column {
   display:flex;
   flex-direction: column;
-}
-.image {
-  max-height: 540px;
-  margin: 0 auto;
-  padding: 1.5rem;
 }
 .save-and-leave {
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -174,19 +177,36 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 .first-second-row.row {
   gap: 4rem;
 }
-.change-avatar,
-.change-theme-and-banner {
+
+.background-avatar {
   border-radius: 15px;
   cursor: pointer;
   color: #fff;
   font-weight: bold;
   font-size: 16px;
-}
-.change-theme-and-banner {
-  width: 418px;
-  height: 150px;
+  width: 177px;
+  padding-top: 75px;
+  padding-bottom: 75px;
   border: solid 1px #905939;
   text-shadow: 0 0 10px #000;
+  background-size: cover;
+  display:flex;
+  justify-content: center;
+}
+.theme-background {
+  border-radius: 15px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  width: 418px;
+  padding-top: 75px;
+  padding-bottom: 75px;
+  border: solid 1px #905939;
+  text-shadow: 0 0 10px #000;
+  background-size: cover;
+  display:flex;
+  justify-content: center;
 }
 .change-avatar {
   width: 150px;

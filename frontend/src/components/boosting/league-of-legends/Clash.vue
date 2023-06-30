@@ -15,10 +15,9 @@ async function createOrder() {
 
 <template lang="pug">
 .a
-  .crown-background
-    v-img.crown(src="../../../assets/crowns/clash.png")
+  img.crown(src="../../../assets/crowns/clash.png")
   .normal-game-card
-    v-img.logo(src="../../../assets/crowns/clash-logo.png")
+    img.logo(src="../../../assets/crowns/clash-logo.png")
     .game-name CLASH
     .selections
       SelectServer
@@ -29,16 +28,13 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
 </template>
 
 <style scoped>
-.crown{
+
+.crown {
   margin: 0 auto;
   margin-bottom: -4rem;
   height: 7rem;
-}
-.crown-background {
-  width: 26.7rem;
-}
-.crown {
   margin-top: -1rem;
+  width: 26.7rem;
 }
 .normal-game-card {
   width: 22.5rem;
@@ -51,7 +47,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
 .logo {
   height: 15.625rem;
   width: 15.625rem;
-  margin: 0 auto;
+  margin-left: 16.5%;
   margin-top: 4rem;
 }
 .game-name {
