@@ -8,6 +8,7 @@ import { useOrders } from '@/store/orders'
 import CustomSwitch from '@/components/CustomSwitch'
 import SelectBooster from '@/components/boosting/league-of-legends/SelectBooster'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
+import { findStateColor } from '@/functions/get-colors'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const router = useRouter()
@@ -47,7 +48,7 @@ const validationRules = {
             return 'Password must be less than 32 characters.'
           },
       ],
-      "yourNote": [
+      "note": [
           value => {
             if (value?.length < 250) return true
 
@@ -59,7 +60,7 @@ const dialog = ref(false)
 
 const userName = ref('')
 const password = ref('')
-const yourNote = ref('')
+const note = ref('')
 
 const form =  ref(false)
 const loading = ref(false)
@@ -142,13 +143,14 @@ async function publish() {
     await axios.patch(`/order`, {
       orderId: order.value._id,
       object:{
-        yourNote: yourNote.value,
+        note: note.value,
         flash: flash.value,
         state: 'active',
         autoPublish: autoPublish.value,
         booster: currentLeagueOfLegendsOrder.booster?._id || null
      }
     })
+    // booster'I handle et
 
     dialog.value = false
     order.value.state = 'active'
@@ -199,7 +201,7 @@ const champions = computed(() => {
       .need-help.row.center-child
         img.need-help-icon(src='@/assets/icons/need-help.png')
         .black-text NEED HELP
-    .state.center-child {{ order.state }}
+    .state.center-child(:style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .row
@@ -256,7 +258,7 @@ const champions = computed(() => {
                 .title EDIT ORDER
                 v-text-field(v-model="userName" :rules="validationRules.userName" label="UserName" variant="outlined" required append-inner-icon='mdi-pencil')
                 v-text-field(v-model="password" :rules="validationRules.password" label="password" variant="outlined" required append-inner-icon='mdi-pencil')
-                v-text-field.your-note(v-model="yourNote" :rules="validationRules.yourNote" label="your note" variant="outlined" required)
+                v-text-field.your-note(v-model="note" :rules="validationRules.note" label="your note" variant="outlined" required)
                 .flash
                   .title FLASH
                   .flash-buttons
@@ -420,7 +422,6 @@ const champions = computed(() => {
   height: 50px;
   border-radius: 5px;
   box-shadow: 0 4px 4px 0 rgba(160, 83, 12, 0.25);
-  background-color: #12e24c;
   font-size: 20px;
   font-weight: bold;
   color: #fff;

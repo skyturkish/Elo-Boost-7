@@ -37,6 +37,10 @@ export const valorantDivisions = [
     }
 ]
 
+export const findColorByDivisionName = (name) => {
+    return valorantDivisions.find((rank) => rank.name === name).color
+}
+
 export const valorantMilestones = ['I', 'II', 'III']
 
 export const agents = [
