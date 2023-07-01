@@ -1,5 +1,5 @@
 <script setup>
-import LeagueOfLegendsOrderCard from '../order/LeagueOfLegendsOrderCard.vue'
+import OrderCard from '../order/OrderCard.vue'
 import { useOrders } from '@/store/orders'
 import { onMounted } from 'vue'
 import FilterTitle from '../panel/FilterTitle.vue'
@@ -19,7 +19,7 @@ onMounted(() => {
   .place-order
     .orders
       .order(v-if="useOrdersStore.availableCoachingOrders.length != 0" v-for='order in useOrdersStore.availableCoachingOrders' :key='order')
-        LeagueOfLegendsOrderCard(:order='order')
+        OrderCard(:order='order')
       div(v-else)
        h1 There is no available {{  useOrdersStore.filteredGame }} order right now,
 </template>

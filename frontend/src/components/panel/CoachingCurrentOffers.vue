@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, computed  } from 'vue'
 import { useOrders } from '@/store/orders'
-import LeagueOfLegendsOrderCard from '../order/LeagueOfLegendsOrderCard.vue'
+import OrderCard from '../order/OrderCard.vue'
 import FilterTitle from '../panel/FilterTitle.vue'
 
 const useOrdersStore = useOrders()
@@ -23,7 +23,7 @@ const filteredOrders = computed(() => {
   .place-order
     .orders
       .order(v-if="filteredOrders.length != 0" v-for='order in filteredOrders' :key='order')
-        LeagueOfLegendsOrderCard(:order='order')
+        OrderCard(:order='order')
       .a(v-else)
         h1 There is no {{ useOrdersStore.filteredGame }} order right now, just take one
 </template>

@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { findDominantColorByDivisionName } from '@/constants/league-of-legends-constants'
+import { findColorByDivisionName } from '@/constants/valorant-constants'
 import { findStateColor } from '@/functions/get-colors'
 import { useOrders } from '@/store/orders'
 import { useAccount } from '@/store/account'
@@ -14,6 +15,33 @@ const props = defineProps({
   order: {
     type: Object,
     required: true
+  }
+})
+
+
+function findColor(division) {
+  if(props.order.game == 'league-of-legends') {
+    return findDominantColorByDivisionName(division)
+  } else if (props.order.game == 'valorant') {
+    return findColorByDivisionName(division)
+  }
+
+}
+
+const currentDivisionUrl = computed(() => {
+  if (props.order.game == 'league-of-legends') {
+    return `../../src/assets/ranks/${props.order.game}/${props.order.currentRank.division}.png`
+  } else if (props.order.game == 'valorant') {
+    return `../../src/assets/ranks/${props.order.game}/${props.order.currentRank.division}-${props.order.currentRank.milestone}.png`
+  }
+})
+
+const desiredDivisionUrl = computed(() => {
+  if (!props.order.desiredRank) return ''
+  if (props.order.game == 'league-of-legends') {
+    return `../../src/assets/ranks/${props.order.game}/${props.order.desiredRank.division}.png`
+  } else if (props.order.game == 'valorant') {
+    return `../../src/assets/ranks/${props.order.game}/${props.order.desiredRank.division}-${props.order.desiredRank.milestone}.png`
   }
 })
 
@@ -47,14 +75,14 @@ const champions = computed(() => {
     .id {{ '#' + order._id.substring(0,10) }}
   .orderType {{ order.orderType.toUpperCase() + ' BOOST ORDER' }}
   .place
-    .division-order(v-if='order.orderType == "division"')
+    .division-order(v-if='order.orderType == "division"' :style="{paddingTop: order.game == 'valorant' ?  '1rem' : ''}")
       .flex-column
-        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
-        .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
+        img.division-image(:src="currentDivisionUrl")
+        .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
       img.to-where(src='../../assets/to-where.png')
       .flex-column
-        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`')
-        .division-name(:style="{color: findDominantColorByDivisionName(order.desiredRank.division) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
+        img.division-image(:src="desiredDivisionUrl ")
+        .division-name(:style="{color: findColor(order.desiredRank.division) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
     .normal-order(v-else-if='order.orderType == "normal-game"')
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
     .clash-order(v-else-if='order.orderType == "clash"')
@@ -63,8 +91,8 @@ const champions = computed(() => {
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
     .else(v-else)
       .flex-column
-        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
-        .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
+        img.division-image(:src="currentDivisionUrl")
+        .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
         .amount-game(v-if="order.orderType == 'lesson'") {{ order.hours.split(' ')[0] }}
         .amount-game(v-else) {{ order.amountGame.split(' ')[0] }}
   .order-informations(v-if="useAccountStore.isBooster()")
@@ -153,10 +181,13 @@ const champions = computed(() => {
 .place {
   height: 7rem;
   margin-top: -0.7rem;
+
 }
 .division-order {
   display: flex;
   align-items: center;
+  justify-content: space-around;
+
 }
 .division-image {
   width: 5.875rem;
