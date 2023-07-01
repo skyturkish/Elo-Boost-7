@@ -184,10 +184,6 @@ const gameName = computed(() => {
   width: 30px;
   height: 30px;
 }
-.purchase-icon {
-  /* purchase-icon styles if needed */
-}
-
 .custom-divider {
   border-top: 3px dotted #bbb;
 }

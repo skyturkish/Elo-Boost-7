@@ -29,7 +29,6 @@ router.get('/:orderId', async (req, res) => {
 router.get('/is-exist/:orderId', async (req, res) => {
     const { orderId } = req.params
     try {
-        console.log('bu account informatinin order idsi: ' + orderId)
         const accountInformation = await accountInformationService.findBy('order', orderId)
 
         res.send(true)
@@ -42,8 +41,6 @@ router.get('/is-exist/:orderId', async (req, res) => {
 router.patch('/:accountInformationId', async (req, res) => {
     const { object } = req.body
     const { accountInformationId } = req.params
-
-    console.log('güncelleniyor')
 
     const accountInformation = await accountInformationService.update(accountInformationId, object)
 
