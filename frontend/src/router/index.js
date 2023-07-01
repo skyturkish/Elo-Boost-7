@@ -56,7 +56,7 @@ const routes = [
             },
             {
                 path: 'own-order-detail/:orderId',
-                component: () => import('@/components/panel/EditOrder.vue')
+                component: () => import('@/components/panel/OwnOrderDetail.vue')
             },
             {
                 path: 'order-detail/:orderId',
