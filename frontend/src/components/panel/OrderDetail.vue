@@ -156,39 +156,6 @@ async function takeOrderAndRoute(orderId) {
   font-weight: bold;
   color: #000000;
 }
-
-.publish-button {
-  width: 300px;
-  height: 50px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  font-size: 24px;
-  font-weight: 600;
-  background-color: green;
-  margin: 0 auto;
-  margin-left: 35%
-}
-.active-button {
-  width: 300px;
-  height: 50px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  font-size: 24px;
-  font-weight: 600;
-  background-color: rgb(45, 128, 151);
-  margin: 0 auto;
-  margin-left: 35%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: rgb(189, 177, 177);
-}
-.your-note {
-  height: 300px;
-  margin-bottom: -130px;
-}
 .champions-text-and-select-lane {
   margin: 55px -3rem 46px -3rem;
   padding: 6px 22px 7px 39px;
@@ -222,15 +189,6 @@ async function takeOrderAndRoute(orderId) {
   width: 27px;
   height: 21px;
   margin-right: 20px;
-}
-.plus-icon {
-  width: 50px;
-  height: 50px;
-}
-.column-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 .default-border {
   border-radius: 10px;
@@ -273,26 +231,6 @@ async function takeOrderAndRoute(orderId) {
   border-radius: 9px;
   border: solid 1px #eee;
   background-color: #fff;
-}
-.need-help {
-  width: 200px;
-  height: 50px;
-  border-radius: 5px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  border: solid 1px #eee;
-  background-color: #fff;
-  justify-content: space-around;
-  margin-left:25px;
-
-}
-.need-help-icon {
-  height: 30px;
-  width: 30px;
-}
-.black-text {
-  font-size: 20px;
-  font-weight: 600;
-  color: #222;
 }
 .normal-black-text {
   font-size: 32px;
@@ -405,24 +343,6 @@ async function takeOrderAndRoute(orderId) {
   font-weight: 600;
   color: #222;
 }
-.big-black-text {
-
-  font-size: 32px;
-  font-weight: 600;
-  color: #222;
-}
-.black-id-text {
-  font-size: 40px;
-  font-weight: bold;
-  color: #555;
-}
-.please-edit-order {
-  font-size: 20px;
-  font-weight: 600;
-  text-align: center;
-  color: #f66;
-}
-
 .edit-order-button {
   width: 200px;
   height: 50px;
@@ -469,41 +389,9 @@ async function takeOrderAndRoute(orderId) {
   height: 50px;
   width: 50px;
 }
-
 .account-information {
   width: 900;
   height: 700;
   background-color: #FFFFFF;
-}
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  padding-left: 1.5rem;
-}
-.v-text-field {
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
-}
-.flash {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 1.5rem;
-}
-.d,
-.f {
-  height: 45px;
-  width: 45px;
-  font-size: 32px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 15px;
-}
-.flash-buttons {
-  display: flex;
-  gap: 13px;
 }
 </style>
