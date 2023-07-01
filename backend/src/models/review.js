@@ -17,7 +17,7 @@ const ReviewSchema = new mongoose.Schema(
             min: 1,
             max: 5
         },
-        gameType: {
+        game: {
             type: String,
             required: true
         },

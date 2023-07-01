@@ -8,7 +8,9 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/init', async (req, res) => {
-    const orders = await orderService.findBy('state', 'active')
+    const orders = await orderService.query({
+        state: 'active'
+    })
 
     res.send(orders)
 })
@@ -19,7 +21,7 @@ router.post('/', async (req, res, next) => {
 
         await chatService.insert({
             order: order._id,
-            gameType: req.body.gameType,
+            game: req.body.game,
             participants: [req.body.customer]
         })
 
@@ -27,11 +29,6 @@ router.post('/', async (req, res, next) => {
     } catch (e) {
         next(e)
     }
-    const orders = await orderService.findBy('state', 'active')
-
-    // console.log(orders.filter((order) => order.state == 'active'))
-    // burada oyuna göre bildirim yolla
-    socketServer().to('orders').emit('orders updated', orders)
 })
 
 router.get('/:orderId', async (req, res) => {
@@ -64,9 +61,9 @@ router.patch('/', async (req, res) => {
         await chat.save()
     }
 
-    const orders = await orderService.findBy('state', 'active')
+    const updatedOrder = await orderService.find(orderId)
 
-    socketServer().to('orders').emit('orders updated', orders)
+    socketServer().to('orders').emit('orders updated', updatedOrder)
 
     res.send(order)
 })

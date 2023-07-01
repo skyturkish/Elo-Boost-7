@@ -16,6 +16,7 @@ export const useOrders = defineStore('useOrders', {
         myOrders: [],
         availableOrders: [],
         listeningOrders: false,
+        filteredGame: 'league-of-legends'
     }),
     actions: {
         async fetchMyOrdersIfNotFetched() {
@@ -25,6 +26,11 @@ export const useOrders = defineStore('useOrders', {
                 )
                 this.myOrders = orders.data || null
             }
+        },
+        updateMyOrders() {
+            axios.get(`/order/by-role/${role}/${userId}`).then((res) => {
+                this.myOrders = res.data || null
+            })
         },
         async takeOrder(orderId) {
             const order = await axios.patch('/order', {
@@ -36,10 +42,8 @@ export const useOrders = defineStore('useOrders', {
             })
             return order
         },
-        startListeningToOrders() {
-            console.log('dinleyecek miyim acaba')
+        startListeningOrders() {
             if (this.listeningOrders) return
-            console.log('dinlemeye başladım omruk')
 
             socket.emit('join-orders')
 
@@ -48,12 +52,43 @@ export const useOrders = defineStore('useOrders', {
             })
 
             socket.on('orders updated', (arg) => {
-                console.log('orderslar tetiklendi')
-                this.availableOrders = arg
+                console.log('orderlar güncellendi')
+                const index = this.availableOrders.findIndex(
+                    (item) => item._id == arg._id
+                )
+
+                if (index !== -1) {
+                    this.availableOrders[index] = arg
+                } else {
+                    this.availableOrders.push(arg)
+                }
+                console.log(this.availableOrders)
             })
 
             this.listeningOrders = true
+        }
+    },
+    getters: {
+        availableFilteredGameOrders(state) {
+            return state.availableOrders.filter(
+                (order) =>
+                    order.state == 'active' && order.game == state.filteredGame
+            )
         },
+        availableBoostingOrders() {
+            return this.availableFilteredGameOrders.filter(
+                (order) => order.category == 'boosting'
+            )
+        },
+        availableCoachingOrders() {
+            return this.availableFilteredGameOrders.filter(
+                (order) => order.category == 'coaching'
+            )
+        },
+        filteredGameMyOrders(state) {
+            return state.myOrders.filter(
+                (order) => order.game == state.filteredGame
+            )
         }
     }
 })

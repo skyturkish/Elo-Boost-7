@@ -10,10 +10,10 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res, next) => {
-    const { order, gameType, customerId } = req.body
+    const { order, game, customerId } = req.body
 
     try {
-        const chat = await chatService.insert({ order, gameType, participants: [customerId] })
+        const chat = await chatService.insert({ order, game, participants: [customerId] })
 
         res.send(chat)
     } catch (e) {

@@ -11,14 +11,18 @@ const OrderSchema = new mongoose.Schema(
             type: mongoose.ObjectId,
             ref: 'User'
         },
+        game: {
+            type: String,
+            required: true
+        },
+        category: {
+            type: String,
+            enum: ['coaching', 'boosting', 'account']
+        },
         state: {
             type: String,
             enum: ['paid', 'active', 'pending', 'assigned', 'paused', 'done', 'canceled'],
             default: 'paid'
-        },
-        gameType: {
-            type: String,
-            required: true
         },
         orderType: {
             type: String,
@@ -48,6 +52,6 @@ const OrderSchema = new mongoose.Schema(
 
 OrderSchema.plugin(autopopulate)
 
-OrderSchema.index({ gameType: 1, state: 1, booster: 1 })
+OrderSchema.index({ category: 1, game: 1, state: 1, booster: 1 })
 
 module.exports = mongoose.model('Order', OrderSchema)

@@ -55,7 +55,7 @@ async function takeOrderAndRoute(orderId) {
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .row
-        img.game-background(:src='`../../../src/assets/icons/${order.gameType}.png`')
+        img.game-background(:src='`../../../src/assets/icons/${order.game}.png`')
         .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
         .order-id # {{ order._id.substring(0,10) }}
       .order-process

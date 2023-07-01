@@ -55,24 +55,21 @@ const champions = computed(() => {
       .flex-column
         img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`')
         .division-name(:style="{color: findDominantColorByDivisionName(order.desiredRank.division) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
-    .win-order(v-else-if='order.orderType == "win"')
-      .flex-column
-        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
-        .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
-        .amount-game {{ order.amountGame.split(' ')[0] }}
-    .placements-order(v-else-if='order.orderType == "placements"')
-      .flex-column
-        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
-        .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
-        .amount-game {{ order.amountGame.split(' ')[0] }}
     .normal-order(v-else-if='order.orderType == "normal-game"')
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
     .clash-order(v-else-if='order.orderType == "clash"')
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
     .challenge-order(v-else-if='order.orderType == "challenge"')
       img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
+    .else(v-else)
+      .flex-column
+        img.division-image(:src='`../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`')
+        .division-name(:style="{color: findDominantColorByDivisionName(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
+        .amount-game(v-if="order.orderType == 'lesson'") {{ order.hours.split(' ')[0] }}
+        .amount-game(v-else) {{ order.amountGame.split(' ')[0] }}
   .order-informations(v-if="useAccountStore.isBooster()")
-    .server {{ order.server.toUpperCase() }}
+    .server(v-if="order.category == 'boosting'") {{ order.server.toUpperCase() }}
+    .server(v-else) {{ order.languages[0].toUpperCase() }}
     .pay (%65)
     .lane JUNGLE
     .price 170.30€
@@ -86,7 +83,8 @@ const champions = computed(() => {
       img.take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)" src='../../assets/icons/checkmark.png')
   .order-informations(v-else)
     .lane JUNGLE
-    .server {{ order.server.toUpperCase() }}
+    .server(v-if="order.category == 'boosting'") {{ order.server.toUpperCase() }}
+    .server(v-else) {{ order.languages[0].toUpperCase() }}
     .price 170.30€
     .buttons.row
       img.more(@click='goToOrderDetailPage(order)' src='../../assets/icons/menu.png')

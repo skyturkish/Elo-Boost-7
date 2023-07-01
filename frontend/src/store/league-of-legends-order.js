@@ -119,7 +119,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             await axios.post('/order', {
                 customer: customerId,
                 booster: this.booster?._id,
-                gameType: 'league-of-legends',
+                category: 'boosting',
+                game: 'league-of-legends',
                 orderType: 'division',
                 currentRank: this.currentRank,
                 desiredRank: desiredRank,
@@ -139,7 +140,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             await axios.post('/order', {
                 customer: customerId,
                 booster: this.booster?._id,
-                gameType: 'league-of-legends',
+                category: 'boosting',
+                game: 'league-of-legends',
                 orderType: 'win',
                 currentRank: this.currentRank,
                 server: this.server,
@@ -158,7 +160,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             await axios.post('/order', {
                 customer: customerId,
                 booster: this.booster?._id,
-                gameType: 'league-of-legends',
+                category: 'boosting',
+                game: 'league-of-legends',
                 orderType: 'placements',
                 currentRank: this.currentRank,
                 server: this.server,
@@ -176,7 +179,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             await axios.post('/order', {
                 customer: customerId,
                 booster: this.booster?._id,
-                gameType: 'league-of-legends',
+                category: 'boosting',
+                game: 'league-of-legends',
                 orderType: 'normal-game',
                 map: this.map,
                 server: this.server,
@@ -193,7 +197,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         async createClashOrder() {
             await axios.post('/order', {
                 customer: customerId,
-                gameType: 'league-of-legends',
+                category: 'boosting',
+                game: 'league-of-legends',
                 orderType: 'clash',
                 server: this.server,
                 clashTier: this.clashTier,
@@ -208,11 +213,12 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         },
 
         async createLessonOrder() {
-            await axios.post('/coaching', {
+            await axios.post('/order', {
                 customer: customerId,
-                coach: this.coach?._id,
-                gameType: 'league-of-legends',
-                coachingType: 'lesson',
+                booster: this.coach?._id,
+                category: 'coaching',
+                game: 'league-of-legends',
+                orderType: 'lesson',
                 currentRank: this.currentRank,
                 hours: this.coachingHours,
                 languages: this.languages,
@@ -222,11 +228,13 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             })
         },
         async createGameReplayOrder() {
-            await axios.post('/coaching', {
+            console.log('game replay order oluşturuluyor')
+            await axios.post('/order', {
                 customer: customerId,
-                coach: this.coach?._id,
-                gameType: 'league-of-legends',
-                coachingType: 'game-replay',
+                booster: this.coach?._id,
+                category: 'coaching',
+                game: 'league-of-legends',
+                orderType: 'game-replay',
                 currentRank: this.currentRank,
                 amountGame: this.amountCoachingGame,
                 languages: this.languages,
@@ -236,11 +244,12 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             })
         },
         async createLiveGameOrder() {
-            await axios.post('/coaching', {
+            await axios.post('/order', {
                 customer: customerId,
-                coach: this.coach?._id,
-                gameType: 'league-of-legends',
-                coachingType: 'game-replay',
+                booster: this.coach?._id,
+                category: 'coaching',
+                game: 'league-of-legends',
+                orderType: 'game-replay',
                 currentRank: this.currentRank,
                 amountGame: this.amountCoachingGame,
                 languages: this.languages,
@@ -250,11 +259,12 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             })
         },
         async createPlayTogetherOrder() {
-            await axios.post('/coaching', {
+            await axios.post('/order', {
                 customer: customerId,
-                coach: this.coach?._id,
-                gameType: 'league-of-legends',
-                coachingType: 'game-replay',
+                booster: this.coach?._id,
+                category: 'coaching',
+                game: 'league-of-legends',
+                orderType: 'game-replay',
                 currentRank: this.currentRank,
                 amountGame: this.amountCoachingGame,
                 languages: this.languages,

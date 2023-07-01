@@ -24,7 +24,7 @@ const routes = [
             {
                 path: 'boosting-current-offers',
                 component: () =>
-                    import('@/components/panel/YourEloboostOrders.vue')
+                    import('@/components/panel/BoostingCurrentOffers.vue')
             },
             {
                 path: 'your-eloboost-orders',

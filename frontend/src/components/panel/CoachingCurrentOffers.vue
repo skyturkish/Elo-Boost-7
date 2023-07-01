@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted  } from 'vue'
+import { onMounted, computed  } from 'vue'
 import { useOrders } from '@/store/orders'
+import LeagueOfLegendsOrderCard from '../order/LeagueOfLegendsOrderCard.vue'
+import FilterTitle from '../panel/FilterTitle.vue'
 
 const useOrdersStore = useOrders()
 
@@ -8,22 +10,22 @@ onMounted(async () =>   {
   await useOrdersStore.fetchMyOrdersIfNotFetched()
 })
 
+const filteredOrders = computed(() => {
+  return useOrdersStore.filteredGameMyOrders.filter(order => order.state === 'assigned').filter(order => order.category === 'coaching')
+})
+
 </script>
 
 <template lang="pug">
 .current-offers
   .horizontal-padding
-    .first-place
-      .first-row
-        img.game-icon(src='../../assets/icons/league-of-legends.png')
-        .offer-title YOUR COACHİNG ORDERS
-      v-icon.settings-icon(icon='mdi-cog' size="33px")
+    FilterTitle
   .place-order
     .orders
-      .order(v-if="orders.length != 0" v-for='order in useOrdersStore.myOrders' :key='order')
-        h1 {{order}}
+      .order(v-if="filteredOrders.length != 0" v-for='order in filteredOrders' :key='order')
+        LeagueOfLegendsOrderCard(:order='order')
       .a(v-else)
-        h1 You have no orders
+        h1 There is no {{ useOrdersStore.filteredGame }} order right now, just take one
 </template>
 
 <style scoped>
@@ -34,40 +36,6 @@ onMounted(async () =>   {
   font-family: Inter;
   padding-top: 2.2rem;
   min-width: 1440px;
-}
-.first-place {
-  margin: 0 auto;
-  height: 100px;
-  max-width: 1100px;
-  border-radius: 7px;
-  border: solid 1px #eee;
-  background-color: #fff;
-  display:flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 33px 15px 12px;
-}
-.first-row {
-  display: flex;
-  width: 580px;
-  align-items: center;
-  justify-content: space-between;
-}
-.game-icon {
-  width: 4.6875rem;
-  height: 4.6875rem;
-  border-radius: 9px;
-  border: solid 1px #eee;
-}
-.offer-title {
-  font-size: 32px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #222;
 }
 .place-order  {
   padding: 2.625rem;

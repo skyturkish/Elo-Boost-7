@@ -64,6 +64,6 @@ const LeagueOfLegendsAccountSchema = new mongoose.Schema(
 
 LeagueOfLegendsAccountSchema.plugin(autopopulate)
 
-LeagueOfLegendsAccountSchema.index({ gameType: 1, state: 1, booster: 1 })
+LeagueOfLegendsAccountSchema.index({ game: 1, state: 1, booster: 1 })
 
 module.exports = mongoose.model('LeagueOfLegendsAccount', LeagueOfLegendsAccountSchema)

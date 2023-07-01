@@ -203,7 +203,7 @@ const champions = computed(() => {
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .row
-        img.game-background(:src='`../../../src/assets/icons/${order.gameType}.png`')
+        img.game-background(:src='`../../../src/assets/icons/${order.game}.png`')
         .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
       .order-process
         .division-process(v-if="order.orderType === 'division'")

@@ -9,7 +9,7 @@ const ChatSchema = new mongoose.Schema(
             autopopulate: { maxDepth: 1 },
             required: true
         },
-        gameType: {
+        game: {
             type: String,
             required: true
         },
@@ -37,6 +37,6 @@ const ChatSchema = new mongoose.Schema(
 
 ChatSchema.plugin(autopopulate)
 
-ChatSchema.index({ gameType: 1, state: 1 })
+ChatSchema.index({ game: 1, state: 1 })
 
 module.exports = mongoose.model('Chat', ChatSchema)

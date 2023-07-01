@@ -13,23 +13,21 @@ module.exports = (app, server) => {
     // this is where to determine what chat is
     socketServer.on('connection', (socket) => {
         socket.on('join-orders', () => {
-            console.log('orderslara katıldım')
             socket.join('orders')
         })
 
         socket.on('leave-orders', () => {
-            console.log('orderslardan çıktın')
             socket.leave('orders')
         })
-        socket.on('join-room', (orderId) => {
-            console.log('odaya katılındı ve orderId: ', orderId)
-            socket.join(orderId)
-        })
+        // socket.on('join-room', (orderId) => {
+        //     console.log('odaya katılındı ve orderId: ', orderId)
+        //     socket.join(orderId)
+        // })
 
-        socket.on('leave-room', (orderId) => {
-            console.log('odaya ayrıldı ve orderId: ', orderId)
-            socket.leave(orderId)
-        })
+        // socket.on('leave-room', (orderId) => {
+        //     console.log('odaya ayrıldı ve orderId: ', orderId)
+        //     socket.leave(orderId)
+        // })
     })
 
     return socketServer

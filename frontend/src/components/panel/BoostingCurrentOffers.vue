@@ -1,45 +1,31 @@
 <script setup>
-import { ref, onMounted, computed  } from 'vue'
-import axios from 'axios'
-import LeagueOfLegendsOrderCard from '@/components/order/LeagueOfLegendsOrderCard'
-import { useAccount } from '@/store/account'
+import { onMounted, computed  } from 'vue'
+import { useOrders } from '@/store/orders'
+import FilterTitle from '../panel/FilterTitle.vue'
+import LeagueOfLegendsOrderCard from '../order/LeagueOfLegendsOrderCard.vue'
 
-const useAccountStore = useAccount()
-const orders = ref([])
+const useOrdersStore = useOrders()
 
 onMounted(async () =>   {
-  const currentOrders = await axios.get(`/order/${useAccountStore.user.role}/${useAccountStore.user._id}`)
-  orders.value = currentOrders.data
+  await useOrdersStore.fetchMyOrdersIfNotFetched()
 })
-let selectedOrder = ref('league-of-legends')
 
 const filteredOrders = computed(() => {
-  return orders.value.filter(order => order.gameType === selectedOrder.value)
+  return useOrdersStore.filteredGameMyOrders.filter(order => order.state === 'assigned').filter(order => order.category === 'boosting')
 })
-
-const selamlar = () => {
-  selectedOrder.value = 'valorant'
-}
 
 </script>
 
 <template lang="pug">
 .current-offers
   .horizontal-padding
-    .first-place
-      .first-row
-        .game-icon
-          v-img(src='../../assets/icons/league-of-legends.png')
-            v-menu(activator='parent')
-              v-img.game-icon(src='../../assets/icons/valorant.png' @click="selamlar")
-        .offer-title YOUR ELOBOOST ORDERS
-      v-icon.settings-icon(icon='mdi-cog' size="33px")
+    FilterTitle
   .place-order
     .orders
-      .order(v-if="orders.length != 0" v-for='order in filteredOrders' :key='order')
+      .order(v-if="filteredOrders.length != 0" v-for='order in filteredOrders' :key='order')
         LeagueOfLegendsOrderCard(:order='order')
       .a(v-else)
-        h1 You have no orders
+        h1 There is no {{ useOrdersStore.filteredGame }} order right now, just take one
 </template>
 
 <style scoped>
@@ -50,40 +36,6 @@ const selamlar = () => {
   font-family: Inter;
   padding-top: 2.2rem;
   min-width: 1440px;
-}
-.first-place {
-  margin: 0 auto;
-  height: 100px;
-  max-width: 1840px;
-  border-radius: 7px;
-  border: solid 1px #eee;
-  background-color: #fff;
-  display:flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 33px 15px 12px;
-}
-.first-row {
-  display: flex;
-  width: 580px;
-  align-items: center;
-  justify-content: space-between;
-}
-.game-icon {
-  width: 4.6875rem;
-  height: 4.6875rem;
-  border-radius: 9px;
-  border: solid 1px #eee;
-}
-.offer-title {
-  font-size: 32px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #222;
 }
 .place-order  {
   padding: 2.625rem;
