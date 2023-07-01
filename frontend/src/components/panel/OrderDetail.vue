@@ -62,10 +62,12 @@ async function takeOrderAndRoute(orderId) {
     .state.center-child(:style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
-      .row
-        img.game-background(:src='`../../../src/assets/icons/${order.game}.png`')
-        .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
-        .order-id # {{ order._id.substring(0,10) }}
+      .title-row
+        div.row
+          img.game-background(:src='`../../../src/assets/icons/${order.game}.png`')
+          .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
+        div
+          .order-id # {{ order._id.substring(0,10) }}
       .order-process
         .division-process(v-if="order.orderType === 'division'")
           .column
@@ -84,7 +86,7 @@ async function takeOrderAndRoute(orderId) {
               .current-rank
                 img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
                 .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division }} {{ order.currentRank.milestone }}
-              .amount-game
+              .amount-game(:style="{ border: 'solid 2px ' + findDominantColorByDivisionName(order.currentRank.division) , boxShadow: '0 0 8px 0' + findDominantColorByDivisionName(order.currentRank.division)}")
                 .column
                   .amount(v-if="order.orderType == 'lesson'") {{ order.hours.split(' ')[0] }}
                   .amount(v-else) {{ order.amountGame.split(' ')[0] }}
@@ -99,9 +101,11 @@ async function takeOrderAndRoute(orderId) {
             .raw-price 170.30€
             .percentage-price (%65)
           .row
-            v-btn.edit-order-button(v-if="order.note")
-              img.little-icon(src='@/assets/icons/read-note.png')
-              .edit-order-text READ NOTE
+            v-tooltip(location="left" :text='order.note' )
+              template(v-slot:activator='{ props }')
+                v-btn.edit-order-button(v-if="order.note" v-bind='props')
+                  img.medium-icon(src='@/assets/icons/read-note.png')
+                  .edit-order-text READ NOTE
             v-btn.accep-order-button(@click="useOrdersStore.takeOrder(order._id)")
               img.little-icon(src='@/assets/icons/checkmark.png')
         .last-row(v-if="useAccountStore.user.role == 'customer'")
@@ -116,6 +120,11 @@ async function takeOrderAndRoute(orderId) {
 </template>
 
 <style scoped>
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .edit-order{
   font-family: Inter;
 }
@@ -204,9 +213,14 @@ async function takeOrderAndRoute(orderId) {
   display: flex;
   justify-content: space-between;
 }
+.medium-icon {
+  width: 26.25px;
+  height: 26.25px;
+  margin-right: 20px;
+}
 .little-icon {
-  width: 30px;
-  height: 30px;
+  width: 27px;
+  height: 21px;
   margin-right: 20px;
 }
 .plus-icon {
@@ -331,7 +345,6 @@ async function takeOrderAndRoute(orderId) {
   font-size: 38px;
   font-weight: bold;
   color: #555555;
-  padding-left: 1.5rem;
 }
 .process-row {
   display: flex;
@@ -359,8 +372,8 @@ async function takeOrderAndRoute(orderId) {
 .amount-game {
   width: 100px;
   height: 100px;
-  box-shadow: 0 0 8px 0 rgba(255, 168, 0, 0.5);
-  border: solid 2px #eeaf0c;
+  /* box-shadow: 0 0 8px 0 rgba(255, 168, 0, 0.5); */
+  /* border: solid 2px #eeaf0c; */
   border-radius:60px;
   margin-top: 1.5rem;
   margin-left: -20rem;
