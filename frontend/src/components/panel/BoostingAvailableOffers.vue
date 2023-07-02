@@ -41,9 +41,9 @@ onMounted(() => {
     border: solid 1px #eee;
     background-color: #fff;
     padding: 3rem;
+    max-width: 1880px;
     display: flex;
     gap: 2.5rem;
-    max-width: 1840px;
     flex-wrap: wrap;
     justify-content: center;
     min-height: 40.625rem;

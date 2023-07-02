@@ -24,7 +24,7 @@ const filteredOrders = computed(() => {
     .orders
       .order(v-if="filteredOrders.length != 0" v-for='order in filteredOrders' :key='order')
         OrderCard(:order='order')
-      .a(v-else)
+      div(v-else)
         h1 There is no {{ useOrdersStore.filteredGame }} order right now, just take one
 </template>
 
@@ -45,9 +45,9 @@ const filteredOrders = computed(() => {
     border: solid 1px #eee;
     background-color: #fff;
     padding: 3rem;
+  max-width: 1880px;
     display: flex;
     gap: 2.5rem;
-    max-width: 1840px;
     flex-wrap: wrap;
     justify-content: center;
     min-height: 40.625rem;

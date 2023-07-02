@@ -11,6 +11,7 @@ const otherGames = computed(() => {
 
 function changeFilteredGame(game) {
   useOrdersStore.filteredGame = game
+  console.log(  useOrdersStore.filteredGame)
 }
 
 </script>
@@ -31,7 +32,6 @@ function changeFilteredGame(game) {
 .first-place {
   margin: 0 auto;
   height: 100px;
-  max-width: 1100px;
   border-radius: 7px;
   border: solid 1px #eee;
   background-color: #fff;
