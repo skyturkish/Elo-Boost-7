@@ -15,9 +15,10 @@ const route = useRoute()
 const orderId = route.params.orderId
 const order = ref(null)
 
-onMounted(async () => {
-  const adana = await axios.get(`order/${orderId}`)
-  order.value = adana.data
+onMounted(() => {
+  axios.get(`order/${orderId}`).then((res) => {
+    order.value = res.data
+  })
 })
 
 const orderInformations = computed(() => {
@@ -34,18 +35,29 @@ const orderInformations = computed(() => {
   'SOLO ONLY': order.value.isSolo ? 'TRUE' : 'FALSE',
   'PREMIUM': order.value.premium ? 'TRUE' : 'FALSE',
   'FLASH': order.value.flash,
-  'ACCOUNT INFO': 'UNVERIFIED',
   }
 
   return Object.fromEntries(
         Object.entries(informations).filter(([key, value]) => value != null)
     );
-
 })
+
+
+const selectedLane = ref('support')
 
 const champions = computed(() => {
-  return Object.values(order.value.champions).flat().slice(0, 3)
+  if (order.value == null) return []
+
+  return order.value.champions[selectedLane.value]
 })
+
+function changeSelectedLane(lane) {
+  selectedLane.value = lane
+}
+
+function isLaneSelected(lane) {
+  return selectedLane.value === lane
+}
 
 async function takeOrderAndRoute(orderId) {
   await useOrdersStore.takeOrder(orderId)
@@ -55,10 +67,10 @@ async function takeOrderAndRoute(orderId) {
 
 <template lang="pug">
 .edit-order(v-if="order != null" )
-  .row.first-row
+  .first-row
     .row
       .arrow.center-child(@click="router.go(-1)")
-        v-icon(icon="mdi-arrow-left-thick" size="50px")
+        img.arrow-image(src="../../../src/assets/icons/arrow-left.png")
     .state.center-child(:style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
@@ -106,13 +118,15 @@ async function takeOrderAndRoute(orderId) {
                 v-btn.edit-order-button(v-if="order.note" v-bind='props')
                   img.medium-icon(src='@/assets/icons/read-note.png')
                   .edit-order-text READ NOTE
-            v-btn.accep-order-button(@click="useOrdersStore.takeOrder(order._id)")
+            v-btn.accep-order-button(v-if="order.state == 'active'" @click="useOrdersStore.takeOrder(order._id)")
               img.little-icon(src='@/assets/icons/checkmark.png')
         .last-row(v-if="useAccountStore.user.role == 'customer'")
       .champions-text-and-select-lane
-        .champions-text CHAMPİONS
+        .champions-text CHAMPIONS
         .lanes(v-if="order.lanes.length > 0")
-          img.lane(v-for="lane in order.lanes" :src="`../../../src/assets/lanes/${lane}.png`")
+          div.lane-background(v-for="lane in order.lanes" )
+            img.selected-lane-background(v-show="isLaneSelected(lane)" src='../../../src/assets/icons/selected-lane.png')
+            img.lane(:src="`../../../src/assets/lanes/${lane}.png`" @click="changeSelectedLane(lane)")
         div.any-lane-text(v-else) Any Lane
       .champions(v-if="champions.length > 0")
         img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
@@ -120,6 +134,32 @@ async function takeOrderAndRoute(orderId) {
 </template>
 
 <style scoped>
+.arrow-image {
+  width: 26px;
+  height: 25px;
+}
+.lanes {
+  display:flex;
+  align-items: center;
+}
+.lane-background {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.lane {
+  height: 63px;
+  width: 63px;
+  margin-top: 8px;
+}
+.selected-lane-background {
+  width: 72px;
+  height: 78px;
+  margin-bottom: -78px;
+}
 .title-row {
   display: flex;
   align-items: center;
@@ -127,6 +167,9 @@ async function takeOrderAndRoute(orderId) {
 }
 .edit-order{
   font-family: Inter;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 .arrow{
   cursor: pointer;
@@ -212,14 +255,33 @@ async function takeOrderAndRoute(orderId) {
   align-items: center;
 }
 .first-row {
-  max-width: 2200px;
-  margin:  0 auto;
-  height: 126px;
   box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #f9f9f9;
   padding: 20px 50px 30px 20px;
+  display: flex;
+  align-items: center;
   align-items:center;
   justify-content: space-between;
+  width: 100vw;
+}
+.background-template {
+  border-radius: 7px;
+  border: solid 1px #eee;
+  background-color: #fff;
+  padding: 42px 50px 48px 39px;
+  margin: 42px 50px 70px 39px;
+  margin-right: 20rem;
+
+}
+.state {
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px 0 rgba(160, 83, 12, 0.25);
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 15rem;
+  color: #fff;
 }
 .row {
   display: flex;
@@ -237,30 +299,10 @@ async function takeOrderAndRoute(orderId) {
   font-weight: 600;
   color: #222;
 }
-.state {
-  width: 200px;
-  height: 50px;
-  border-radius: 5px;
-  box-shadow: 0 4px 4px 0 rgba(160, 83, 12, 0.25);
-  font-size: 20px;
-  font-weight: bold;
-  color: #fff;
-}
-.background-template {
-  display: flex;
-  max-width: 2243px;
-  border-radius: 7px;
-  border: solid 1px #eee;
-  background-color: #fff;
-  flex-wrap: wrap;
-  padding: 42px 50px 0 39px;
-  margin: 42px 50px 70px 39px;
-  gap: 4rem;
-}
 .order-and-chat,
 .order-detail {
   width: 1000px;
-  height: 1500px;
+  height: 1400px;
   border-radius: 4px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #fff;
@@ -374,20 +416,15 @@ async function takeOrderAndRoute(orderId) {
   margin-left: auto;
   cursor: pointer;
 }
-.lanes {
-  display: flex;
-}
-.lane {
-  height: 50px;
-  width: 50px;
-}
+
 .champions {
   display: flex;
-  justify-content: flex-start;
+  gap: 1.1rem;
 }
 .champion {
-  height: 50px;
-  width: 50px;
+  width: 74px;
+  height: 73.6px;
+  border-radius: 50%;
 }
 .account-information {
   width: 900;
