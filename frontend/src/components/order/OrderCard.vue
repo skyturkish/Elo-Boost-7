@@ -119,6 +119,10 @@ const champions = computed(() => {
 </template>
 
 <style scoped>
+.order:hover {
+  transform: rotateY(5deg) rotateX(0deg) scale(1.01);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
 .state {
   text-shadow: 0 0 15px rgba(0, 160, 64, 0.35);
   font-size: 16px;
