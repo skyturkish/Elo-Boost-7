@@ -2,13 +2,14 @@
 import axios from 'axios'
 import { ref ,computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
-import { findDominantColorByDivisionName } from '@/constants/league-of-legends-constants'
 import { useAccount } from '@/store/account'
 import { useOrders } from '@/store/orders'
 import CustomSwitch from '@/components/CustomSwitch'
 import SelectBooster from '@/components/boosting/league-of-legends/SelectBooster'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import { findStateColor } from '@/functions/get-colors'
+import PreviewOrder from '@/components/panel/PreviewOrder.vue'
+import ChampionsOrAgents from '@/components/panel/ChampionsOrAgents.vue'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const router = useRouter()
@@ -197,43 +198,23 @@ const champions = computed(() => {
   .row.first-row
     .row
       .arrow.center-child(@click="router.go(-1)")
-        v-icon(icon="mdi-arrow-left-thick" size="50px")
-      .need-help.row.center-child
+        img.arrow-image(src="../../../src/assets/icons/arrow-left.png")
+      .need-help.row.center-child(v-if="!useAccountStore.isBooster()")
         img.need-help-icon(src='@/assets/icons/need-help.png')
         .black-text NEED HELP
-    .state.center-child(:style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
+    .buttons-or-state
+      .state.center-child(v-if="!useAccountStore.isBooster()" :style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
+      .first-row-buttons(v-else)
+        .abandon-button ABANDON
+        .complete-button COMPETE
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .row
         img.game-background(:src='`../../../src/assets/icons/${order.game}.png`')
         .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
-      .order-process
-        .division-process(v-if="order.orderType === 'division'")
-          .column
-            .process-row
-              .previous-rank
-                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
-              .current-rank
-                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
-              .desired-rank
-                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.desiredRank.division))}") {{ order.desiredRank.division.toUpperCase() }} {{ order.desiredRank.milestone }}
-            .process-bar
-        .wind-and-placement-process(v-if="order.orderType === 'win' || order.orderType === 'placements' ")
-          .column
-            .process-row
-              .current-rank
-                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
-              .amount-game
-                .column
-                  .amount {{ order.amountGame.split(' ')[0] }}
-                  .games GAMES
-            .process-bar
       .chat
         //- OrderChat(orderId=order._id)
+      PreviewOrder(:order='order')
     .order-detail(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .information-row
          .big-black-text ORDER DETAILS
@@ -262,7 +243,7 @@ const champions = computed(() => {
                 .flash
                   .title FLASH
                   .flash-buttons
-                    .d( v-bind:style="isSelectedFlash('D') ? `border: solid 1px #444444` : `border: 1px solid #DDDDDD`  " @click="flash = 'D'") D
+                    .d(v-bind:style="isSelectedFlash('D') ? `border: solid 1px #444444` : `border: 1px solid #DDDDDD`  " @click="flash = 'D'") D
                     .f(v-bind:style="isSelectedFlash('F') ? 'border: solid 1px #444444'  : 'border: 1px solid #DDDDDD'  " @click="flash = 'F'") F
                 .flash
                   .title AUTO PUBLİSH
@@ -271,25 +252,49 @@ const champions = computed(() => {
                   .save-button(@click="dialog = false") CANCEL
                   .save-button(@click="save()") SAVE
           SelectBooster
-      v-divider
-      .champions-text-and-select-lane
-        .champions-text CHAMPİONS
-        .lanes(v-if="order.lanes.length > 0")
-          img.lane(v-for="lane in order.lanes" :src="`../../../src/assets/lanes/${lane}.png`")
-        div.any-lane-text(v-else) Any Lane
-      v-divider
-      .champions(v-if="champions.length > 0")
-        img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
-      div.any-champion-text(v-else) Any Champion
+      ChampionsOrAgents(:order='order')
 </template>
 
 <style scoped>
+.first-row-buttons {
+  display: flex;
+  margin-right: 15rem;
+  gap: 2rem;
+}
+.abandon-button,
+.complete-button {
+  width: 200px;
+  height: 68px;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.abandon-button:hover,
+.complete-button:hover,
+.need-help:hover {
+  transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.complete-button {
+  background-color: #54bf00;
+}
+.abandon-button {
+  background-color: #e52900;
+}
+.arrow-image {
+  width: 26px;
+  height: 25px;
+}
 .buttons {
   display: flex;
   gap: 1rem;
   margin-left: 700px;
 }
-
 .publish-button {
   width: 300px;
   height: 50px;
@@ -337,7 +342,6 @@ const champions = computed(() => {
   font-size: 24px;
   font-weight: 600;
   color: #222;
-
 }
 .last-row {
   display: flex;
@@ -347,15 +351,6 @@ const champions = computed(() => {
   width: 30px;
   height: 30px;
   margin-right: 20px;
-}
-.plus-icon {
-  width: 50px;
-  height: 50px;
-}
-.column-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 .default-border {
   border-radius: 10px;
@@ -371,7 +366,6 @@ const champions = computed(() => {
   align-items: center;
 }
 .first-row {
-  max-width: 2200px;
   margin:  0 auto;
   height: 126px;
   box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.25);
@@ -379,6 +373,8 @@ const champions = computed(() => {
   padding: 20px 50px 30px 20px;
   align-items:center;
   justify-content: space-between;
+  width: 100vw;
+
 }
 .row {
   display: flex;
@@ -400,7 +396,6 @@ const champions = computed(() => {
   background-color: #fff;
   justify-content: space-around;
   margin-left:25px;
-
 }
 .need-help-icon {
   height: 30px;
@@ -425,6 +420,7 @@ const champions = computed(() => {
   font-size: 20px;
   font-weight: bold;
   color: #fff;
+  margin-right: 15rem;
 }
 .background-template {
   display: flex;
@@ -436,6 +432,7 @@ const champions = computed(() => {
   padding: 42px 50px 0 39px;
   margin: 42px 50px 70px 39px;
   gap: 4rem;
+  margin-right: 20rem;
 }
 .order-and-chat,
 .order-detail {
@@ -459,44 +456,6 @@ const champions = computed(() => {
   font-weight: bold;
   color: #222;
   padding-left: 2rem;
-}
-.process-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.process-row > * {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.rank-image {
-  height: 150px;
-  width: 150px;
-}
-.rank-name {
-  font-family: Inter;
-  font-size: 24px;
-  font-weight: bold;
-}
-.amount-game {
-  width: 100px;
-  height: 100px;
-  box-shadow: 0 0 8px 0 rgba(255, 168, 0, 0.5);
-  border: solid 2px #eeaf0c;
-  border-radius:60px;
-}
-.amount {
-  font-size: 36px;
-  font-weight: 600;
-  text-align: center;
-  color: #51341e;
-}
-.games {
-  font-size: 16px;
-  font-weight: 500;
-  text-align: center;
-  color: #a98b3e;
 }
 .information-row {
   display: flex;
@@ -531,6 +490,12 @@ const champions = computed(() => {
   text-align: center;
   color: #f66;
 }
+.edit-order {
+  font-family: Inter;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .edit-order-button {
   width: 200px;
@@ -552,22 +517,6 @@ const champions = computed(() => {
   align-items: center;
   cursor: pointer;
 }
-.lanes {
-  display: flex;
-}
-.lane {
-  height: 50px;
-  width: 50px;
-}
-.champions {
-  display: flex;
-  justify-content: flex-start;
-}
-.champion {
-  height: 50px;
-  width: 50px;
-}
-
 .account-information {
   height: 580px;
   background-color: #FFFFFF;

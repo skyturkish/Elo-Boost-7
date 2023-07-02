@@ -6,6 +6,8 @@ import { findDominantColorByDivisionName } from '@/constants/league-of-legends-c
 import { useAccount } from '@/store/account'
 import { useOrders } from '@/store/orders'
 import { findStateColor } from '@/functions/get-colors'
+import PreviewOrder from '@/components/panel/PreviewOrder.vue'
+import ChampionsOrAgents from '@/components/panel/ChampionsOrAgents.vue'
 
 const useAccountStore = useAccount()
 const useOrdersStore = useOrders()
@@ -14,12 +16,10 @@ const router = useRouter()
 const route = useRoute()
 const orderId = route.params.orderId
 const order = ref(null)
-const selectedLane = ref(null)
 
 onMounted(() => {
   axios.get(`order/${orderId}`).then((res) => {
     order.value = res.data
-    selectedLane.value = order.value.lanes[0]
   })
 })
 
@@ -44,19 +44,6 @@ const orderInformations = computed(() => {
     );
 })
 
-const champions = computed(() => {
-  if (order.value == null) return []
-
-  return order.value.champions[selectedLane.value]
-})
-
-function changeSelectedLane(lane) {
-  selectedLane.value = lane
-}
-
-function isLaneSelected(lane) {
-  return selectedLane.value === lane
-}
 
 async function takeOrderAndRoute(orderId) {
   await useOrdersStore.takeOrder(orderId)
@@ -79,29 +66,7 @@ async function takeOrderAndRoute(orderId) {
           .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
         div
           .order-id # {{ order._id.substring(0,10) }}
-      .order-process
-        .division-process(v-if="order.orderType === 'division'")
-          .column
-            .process-row
-              .current-rank
-                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
-              img.to-where(src='../../assets/to-where.png')
-              .desired-rank
-                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.desiredRank.division))}") {{ order.desiredRank.division.toUpperCase() }} {{ order.desiredRank.milestone }}
-            .process-bar
-        .wind-and-placement-process(v-else)
-          .column
-            .process-row
-              .current-rank
-                img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
-                .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division }} {{ order.currentRank.milestone }}
-              .amount-game(:style="{ border: 'solid 2px ' + findDominantColorByDivisionName(order.currentRank.division) , boxShadow: '0 0 8px 0' + findDominantColorByDivisionName(order.currentRank.division)}")
-                .column
-                  .amount(v-if="order.orderType == 'lesson'") {{ order.hours.split(' ')[0] }}
-                  .amount(v-else) {{ order.amountGame.split(' ')[0] }}
-                  .games GAMES
+      PreviewOrder(:order='order')
       .default-border.rows
         .order-informations
           .information-row(v-for="(a,b) in orderInformations")
@@ -120,44 +85,13 @@ async function takeOrderAndRoute(orderId) {
             v-btn.accep-order-button(v-if="order.state == 'active'" @click="useOrdersStore.takeOrder(order._id)")
               img.little-icon(src='@/assets/icons/checkmark.png')
         .last-row(v-if="useAccountStore.user.role == 'customer'")
-      .champions-text-and-select-lane
-        .champions-text CHAMPIONS
-        .lanes(v-if="order.lanes.length > 0")
-          div.lane-background(v-for="lane in order.lanes" )
-            img.selected-lane-background(v-show="isLaneSelected(lane)" src='../../../src/assets/icons/selected-lane.png')
-            img.lane(:src="`../../../src/assets/lanes/${lane}.png`" @click="changeSelectedLane(lane)")
-        div.any-lane-text(v-else) Any Lane
-      .champions(v-if="champions.length > 0")
-        img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
-      div.any-champion-text(v-else) Any Champion
+      ChampionsOrAgents(:order="order")
 </template>
 
 <style scoped>
 .arrow-image {
   width: 26px;
   height: 25px;
-}
-.lanes {
-  display:flex;
-  align-items: center;
-}
-.lane-background {
-  height: 100px;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.lane {
-  height: 63px;
-  width: 63px;
-  margin-top: 8px;
-}
-.selected-lane-background {
-  width: 72px;
-  height: 78px;
-  margin-bottom: -78px;
 }
 .title-row {
   display: flex;
@@ -198,26 +132,6 @@ async function takeOrderAndRoute(orderId) {
   font-weight: bold;
   color: #000000;
 }
-.champions-text-and-select-lane {
-  margin: 55px -3rem 46px -3rem;
-  padding: 6px 22px 7px 39px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: solid 1px #eee;
-}
-.champions-text {
-  font-size: 32px;
-  font-weight: 600;
-  color: #222;
-}
-.any-lane-text,
-.any-champion-text{
-  font-size: 24px;
-  font-weight: 600;
-  color: #222;
-
-}
 .last-row {
   display: flex;
   justify-content: space-between;
@@ -239,14 +153,6 @@ async function takeOrderAndRoute(orderId) {
   height: 600px;
   margin: 0 auto;
   padding: 2rem;
-}
-.order-process {
-  border-radius: 10px;
-  border: solid 1px #eee;
-  margin: 0 auto;
-  padding: 0.5rem 0 2rem 0 ;
-  margin-bottom: 3rem;
-  margin-top: 1.7rem;
 }
 .center-child {
   display: flex;
@@ -325,50 +231,6 @@ async function takeOrderAndRoute(orderId) {
   font-weight: bold;
   color: #555555;
 }
-.process-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 5rem;
-}
-.to-where {
-  margin-top: 1rem;
-}
-.process-row > * {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-.rank-image {
-  height: 150px;
-  width: 150px;
-}
-.rank-name {
-  font-size: 24px;
-  font-weight: bold;
-}
-.amount-game {
-  width: 100px;
-  height: 100px;
-  /* box-shadow: 0 0 8px 0 rgba(255, 168, 0, 0.5); */
-  /* border: solid 2px #eeaf0c; */
-  border-radius:60px;
-  margin-top: 1.5rem;
-  margin-left: -20rem;
-}
-.amount {
-  font-size: 36px;
-  font-weight: 600;
-  text-align: center;
-  color: #51341e;
-}
-.games {
-  font-size: 16px;
-  font-weight: 500;
-  text-align: center;
-  color: #a98b3e;
-}
 .information-row {
   display: flex;
   justify-content: space-between;
@@ -414,16 +276,6 @@ async function takeOrderAndRoute(orderId) {
   align-items: center;
   margin-left: auto;
   cursor: pointer;
-}
-
-.champions {
-  display: flex;
-  gap: 1.1rem;
-}
-.champion {
-  width: 74px;
-  height: 73.6px;
-  border-radius: 50%;
 }
 .account-information {
   width: 900;
