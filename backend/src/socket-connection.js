@@ -19,15 +19,14 @@ module.exports = (app, server) => {
         socket.on('leave-orders', () => {
             socket.leave('orders')
         })
-        // socket.on('join-room', (orderId) => {
-        //     console.log('odaya katılındı ve orderId: ', orderId)
-        //     socket.join(orderId)
-        // })
-
-        // socket.on('leave-room', (orderId) => {
-        //     console.log('odaya ayrıldı ve orderId: ', orderId)
-        //     socket.leave(orderId)
-        // })
+        socket.on('join-chat-room', (orderId) => {
+            console.log('odaya katılındı ve orderId: ', orderId)
+            socket.join('chat-room' + orderId)
+        })
+        socket.on('leave-chat-room', (orderId) => {
+            console.log('odaya ayrıldı ve orderId: ', orderId)
+            socket.leave('chat-room' + orderId)
+        })
     })
 
     return socketServer

@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 const MessageSchema = new mongoose.Schema(
     {
-        chat: {
+        order: {
             type: mongoose.ObjectId,
-            ref: 'Chat',
+            ref: 'Order',
             required: true
         },
         sender: {
@@ -26,6 +26,6 @@ const MessageSchema = new mongoose.Schema(
 
 MessageSchema.plugin(autopopulate)
 
-MessageSchema.index({ chat: 1 })
+MessageSchema.index({ order: 1 })
 
 module.exports = mongoose.model('Message', MessageSchema)

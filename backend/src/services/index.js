@@ -1,7 +1,6 @@
 const userService = require('./user-service')
 const orderService = require('./order-service')
-const chatService = require('./chat-service')
 const messageService = require('./message-service')
 const accountInformationService = require('./account-information-service')
 
-module.exports = { userService, orderService, chatService, messageService, accountInformationService }
+module.exports = { userService, orderService, messageService, accountInformationService }

@@ -10,6 +10,7 @@ import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import { findStateColor } from '@/functions/get-colors'
 import PreviewOrder from '@/components/panel/PreviewOrder.vue'
 import ChampionsOrAgents from '@/components/panel/ChampionsOrAgents.vue'
+import Chat from '@/components/panel/Chat.vue'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const router = useRouter()
@@ -212,9 +213,8 @@ const champions = computed(() => {
       .row
         img.game-background(:src='`../../../src/assets/icons/${order.game}.png`')
         .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
-      .chat
-        //- OrderChat(orderId=order._id)
       PreviewOrder(:order='order')
+      Chat(:order='order')
     .order-detail(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .information-row
          .big-black-text ORDER DETAILS

@@ -66,6 +66,14 @@ export const useOrders = defineStore('useOrders', {
             })
 
             this.listeningOrders = true
+        },
+        joinChat(orderId) {
+            console.log('odaya katılındı ' + orderId)
+            socket.emit('join-chat-room', orderId)
+        },
+        leaveChat(orderId) {
+            console.log('odadan çıkıldı ' + orderId)
+            socket.emit('leave-chat-room', orderId)
         }
     },
     getters: {
@@ -89,6 +97,9 @@ export const useOrders = defineStore('useOrders', {
             return state.myOrders.filter(
                 (order) => order.game == state.filteredGame
             )
+        },
+        getSocket() {
+            return socket
         }
     }
 })

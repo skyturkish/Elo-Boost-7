@@ -1,5 +1,5 @@
 const socketServer = require('../socket-connection')
-const { orderService, chatService } = require('../services')
+const { orderService } = require('../services')
 const router = require('express').Router()
 
 router.get('/', async (req, res) => {
@@ -53,13 +53,8 @@ router.get('/by-role/:role/:roleId', async (req, res) => {
 
 router.patch('/', async (req, res) => {
     const { orderId, object } = req.body
-    const order = await orderService.update(orderId, object)
 
-    if (object.state == 'assigned') {
-        const chat = await chatService.findOneBy('order', orderId)
-        chat.participants.push(object.booster)
-        await chat.save()
-    }
+    const order = await orderService.update(orderId, object)
 
     const updatedOrder = await orderService.find(orderId)
 
