@@ -14,10 +14,12 @@ const router = useRouter()
 const route = useRoute()
 const orderId = route.params.orderId
 const order = ref(null)
+const selectedLane = ref(null)
 
 onMounted(() => {
   axios.get(`order/${orderId}`).then((res) => {
     order.value = res.data
+    selectedLane.value = order.value.lanes[0]
   })
 })
 
@@ -41,9 +43,6 @@ const orderInformations = computed(() => {
         Object.entries(informations).filter(([key, value]) => value != null)
     );
 })
-
-
-const selectedLane = ref('support')
 
 const champions = computed(() => {
   if (order.value == null) return []
