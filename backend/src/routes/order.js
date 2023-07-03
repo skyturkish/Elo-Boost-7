@@ -19,12 +19,6 @@ router.post('/', async (req, res, next) => {
     try {
         const order = await orderService.insert(req.body)
 
-        await chatService.insert({
-            order: order._id,
-            game: req.body.game,
-            participants: [req.body.customer]
-        })
-
         res.send(order)
     } catch (e) {
         next(e)
