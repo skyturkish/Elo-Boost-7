@@ -11,7 +11,7 @@ const props = defineProps({
 const selectedLane = ref(props.order.lanes[0])
 
 const champions = computed(() => {
-  if (props.order == null || Object.values(props.order.champions).flat()) return []
+  if (props.order == null || Object.values(props.order.champions).flat().length == 0) return []
 
   return props.order.champions[selectedLane.value]
 })
