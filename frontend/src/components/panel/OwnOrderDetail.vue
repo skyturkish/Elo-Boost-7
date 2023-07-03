@@ -10,6 +10,7 @@ import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import { findStateColor } from '@/functions/get-colors'
 import PreviewOrder from '@/components/panel/PreviewOrder.vue'
 import ChampionsOrAgents from '@/components/panel/ChampionsOrAgents.vue'
+import OrderInformations from '@/components/panel/OrderInformations.vue'
 import Chat from '@/components/panel/Chat.vue'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
@@ -23,9 +24,9 @@ const validationRules = {
           return 'User-name is requred.'
         },
         value => {
-          if (value?.length > 2) return true
+          if (value?.length >= 6) return true
 
-          return 'Name must be at least 3 characters.'
+          return 'Name must be at least 6 characters.'
         },
         value => {
           if (value?.length < 64) return true
@@ -62,6 +63,7 @@ const dialog = ref(false)
 
 const userName = ref('')
 const password = ref('')
+
 const note = ref('')
 
 const form =  ref(false)
@@ -84,7 +86,7 @@ const accountInformation = ref(null)
 const autoPublish = ref(true)
 
 const isReadyToPublish = computed(() => {
-  return userName.value != '' && password.value != ''
+  return userName.value.length > 6 && password.value.length > 6
 })
 
 function isSelectedFlash(flashName) {
@@ -100,11 +102,6 @@ async function fetchAccountInformation() {
 async function validate()   {
   const { valid } = await form.value.validate()
   return await valid
-}
-
-async function isAccountInformationExists() {
-  const adana = await axios.get(`/account-information/is-exist/${order.value._id}`)
-  return adana.data
 }
 
 async function save() {
@@ -126,23 +123,21 @@ async function publish() {
   try {
     loading.value = true
 
-    const isExist = await isAccountInformationExists()
+    const newAccountInformation = await axios.patch(`/account-information/${order.value._id}`, {
+        object: {
+          order: order._id,
+          userName: userName.value,
+          password: password.value,
+        }
+      }
+    )
+    console.log(newAccountInformation)
 
-    if (isExist) {
-      await axios.patch(`/account-information/${order.value._id}`, {
-        userName: userName.value,
-        password: password.value,
-      })
+    accountInformation.value = newAccountInformation.data
+    userName.value = newAccountInformation.data.userName
+    password.value = newAccountInformation.data.password
 
-    }else {
-      await axios.post(`/account-information`, {
-        order: order.value._id,
-        userName: userName.value,
-        password: password.value,
-      })
-    }
-
-    await axios.patch(`/order`, {
+    const updatedOrder = await axios.patch(`/order`, {
       orderId: order.value._id,
       object:{
         note: note.value,
@@ -152,10 +147,15 @@ async function publish() {
         booster: currentLeagueOfLegendsOrder.booster?._id || null
      }
     })
-    // booster'I handle et
 
-    dialog.value = false
-    order.value.state = 'active'
+
+    // boosterin seçilip seçilmemesine göre patch at handle et
+
+    order.value = updatedOrder.data
+
+    userName.value = ''
+    password.value = ''
+
     backendSuccess.value = 'you successfully saved your account information'
   } catch (error) {
     console.log(error)
@@ -170,6 +170,10 @@ onMounted(async () => {
   const adana = await axios.get(`order/${orderId}`)
   order.value = adana.data
   currentLeagueOfLegendsOrder.booster = null
+
+  const bursa = await axios.get(`/account-information/${order.value._id}`)
+
+  accountInformation.value = bursa.data
 })
 
 const orderInformations = computed(() => {
@@ -220,42 +224,92 @@ const champions = computed(() => {
          .big-black-text ORDER DETAILS
          .black-id-text {{ '#' + order._id.substring(0,10) }}
       .default-border
-        .order-informations(v-for="(a,b) in orderInformations")
-          .information-row
-            .normal-black-text {{ b }}
-            .grey-text {{ a }}
-        .only-paid(v-if="order.state == 'paid'")
-          .please-edit-order(v-if="!isReadyToPublish") PLEASE EDIT YOUR ORDER AND ADD LOGIN INFO
-          v-btn.publish-button(v-else :loading="loading" @click="publish" ) PUBLIsH
-        .active(v-else)
-          .active-button ACTIVE
+        OrderInformations(:order='order')
+        .publish-state
+          .only-paid(v-if="order.state == 'paid' && !isReadyToPublish")
+            div.please-edit-order(v-if="!isReadyToPublish")
+              p PLEASE EDIT YOUR ORDER AND ADD LOGIN INFO
+                br
+                | AS SOON AS POSSIBLE
+          .active(v-else-if="isReadyToPublish && accountInformation != null  && (order.state == 'active' || order.state == 'pending' || order.state == 'assigned' || order.state == 'paused')" @click="publish")
+            v-btn.active-button EDIT INFORMATIONS
+          .active(v-else-if="!isReadyToPublish && accountInformation != null")
+            v-btn.active-button PUBLISHED
+          v-btn.publish-button(v-else-if="isReadyToPublish" :loading="loading" @click="publish" ) PUBLIsH
         .last-row
-          v-btn.edit-order-button
+          v-btn.edit-order-button(v-if="!useAccountStore.isBooster()")
             img.little-icon(src='@/assets/icons/edit-order.png')
             .edit-order-text EDIT ORDER
-          v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black" eager persistent)
-            v-form(ref="form")
-              .account-information
-                .title EDIT ORDER
-                v-text-field(v-model="userName" :rules="validationRules.userName" label="UserName" variant="outlined" required append-inner-icon='mdi-pencil')
-                v-text-field(v-model="password" :rules="validationRules.password" label="password" variant="outlined" required append-inner-icon='mdi-pencil')
-                v-text-field.your-note(v-model="note" :rules="validationRules.note" label="your note" variant="outlined" required)
-                .flash
-                  .title FLASH
-                  .flash-buttons
-                    .d(v-bind:style="isSelectedFlash('D') ? `border: solid 1px #444444` : `border: 1px solid #DDDDDD`  " @click="flash = 'D'") D
-                    .f(v-bind:style="isSelectedFlash('F') ? 'border: solid 1px #444444'  : 'border: 1px solid #DDDDDD'  " @click="flash = 'F'") F
-                .flash
-                  .title AUTO PUBLİSH
-                  CustomSwitch(v-model="autoPublish")
-                .buttons
-                  .save-button(@click="dialog = false") CANCEL
-                  .save-button(@click="save()") SAVE
-          SelectBooster
+            v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black" eager persistent)
+              v-form(ref="form")
+                .account-information
+                  .title EDIT ORDER
+                  v-text-field(v-model="userName" :rules="validationRules.userName" label="UserName" variant="outlined" required append-inner-icon='mdi-pencil')
+                  v-text-field(v-model="password" :rules="validationRules.password" label="password" variant="outlined" required append-inner-icon='mdi-pencil')
+                  v-text-field.your-note(v-model="note" :rules="validationRules.note" label="your note" variant="outlined" required)
+                  .flash
+                    .title FLASH
+                    .flash-buttons
+                      .d(v-bind:style="isSelectedFlash('D') ? `border: solid 1px #444444` : `border: 1px solid #DDDDDD`  " @click="flash = 'D'") D
+                      .f(v-bind:style="isSelectedFlash('F') ? 'border: solid 1px #444444'  : 'border: 1px solid #DDDDDD'  " @click="flash = 'F'") F
+                  .flash
+                    .title AUTO PUBLİSH
+                    CustomSwitch(v-model="autoPublish")
+                  .buttons
+                    v-btn.save-button(@click="dialog = false") CANCEL
+                    v-btn.save-button(@click="save()") SAVE
+          .price(v-else)
+            .price-text 170.30€
+            .percentage-text (%65)
+          SelectBooster(v-if="!useAccountStore.isBooster()")
+          v-tooltip(v-else location="left" :text='order.note' )
+            template(v-slot:activator='{ props }')
+              v-btn.edit-order-button(v-if="order.note" v-bind='props')
+                img.medium-icon(src='@/assets/icons/read-note.png')
+                .edit-order-text READ NOTE
       ChampionsOrAgents(:order='order')
+      .little-divider
+      div(v-if="accountInformation != null")
+        div.account-text ID: {{ accountInformation.userName }}
+        div.account-text PW: {{ accountInformation.password }}
+
+      //- AccountInformation(v-if="order.booster != null" :order='order')
 </template>
 
 <style scoped>
+.little-divider {
+  height: 1px;
+  background-color: #eee;
+  margin: 0 -3rem;
+}
+.account-text {
+  font-size: 32px;
+  font-weight: 500;
+  color: #bbb;
+}
+.medium-icon {
+  width: 26.25px;
+  height: 26.25px;
+  margin-right: 20px;
+}
+.price {
+  display: flex;
+  align-items: center;
+  gap: px;
+}
+.price-text {
+  font-size: 48px;
+  font-weight: bold;
+  color: #222;
+}
+.percentage-text {
+  font-size: 36px;
+  font-weight: bold;
+  color: #444;
+}
+.publish-state {
+  align-self: center;
+}
 .first-row-buttons {
   display: flex;
   margin-right: 15rem;
@@ -298,26 +352,18 @@ const champions = computed(() => {
 .publish-button {
   width: 300px;
   height: 50px;
-  margin-top: 20px;
-  margin-bottom: 20px;
   border-radius: 10px;
   font-size: 24px;
   font-weight: 600;
   background-color: green;
-  margin: 0 auto;
-  margin-left: 35%
 }
 .active-button {
   width: 300px;
   height: 50px;
-  margin-top: 20px;
-  margin-bottom: 20px;
   border-radius: 10px;
   font-size: 24px;
   font-weight: 600;
   background-color: rgb(45, 128, 151);
-  margin: 0 auto;
-  margin-left: 35%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -346,6 +392,7 @@ const champions = computed(() => {
 .last-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .little-icon {
   width: 30px;
@@ -355,10 +402,10 @@ const champions = computed(() => {
 .default-border {
   border-radius: 10px;
   border: solid 1px #eee;
-  width: 850px;
-  height: 700px;
-  margin: 0 auto;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 .center-child {
   display: flex;
@@ -374,7 +421,6 @@ const champions = computed(() => {
   align-items:center;
   justify-content: space-between;
   width: 100vw;
-
 }
 .row {
   display: flex;
@@ -386,6 +432,11 @@ const champions = computed(() => {
   border-radius: 9px;
   border: solid 1px #eee;
   background-color: #fff;
+  cursor: pointer;
+}
+.arrow:hover {
+  transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 .need-help {
   width: 200px;
@@ -396,6 +447,7 @@ const champions = computed(() => {
   background-color: #fff;
   justify-content: space-around;
   margin-left:25px;
+  cursor: pointer;
 }
 .need-help-icon {
   height: 30px;
@@ -437,7 +489,6 @@ const champions = computed(() => {
 .order-and-chat,
 .order-detail {
   width: 950px;
-  height: 1546px;
   border-radius: 4px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #fff;
@@ -461,6 +512,7 @@ const champions = computed(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 2rem;
 }
 .grey-text {
   font-size: 20px;
@@ -473,13 +525,12 @@ const champions = computed(() => {
   color: #222;
 }
 .big-black-text {
-
   font-size: 32px;
   font-weight: 600;
   color: #222;
 }
 .black-id-text {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: bold;
   color: #555;
 }

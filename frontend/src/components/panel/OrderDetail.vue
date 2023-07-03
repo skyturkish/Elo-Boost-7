@@ -8,6 +8,7 @@ import { useOrders } from '@/store/orders'
 import { findStateColor } from '@/functions/get-colors'
 import PreviewOrder from '@/components/panel/PreviewOrder.vue'
 import ChampionsOrAgents from '@/components/panel/ChampionsOrAgents.vue'
+import OrderInformations from '@/components/panel/OrderInformations.vue'
 
 const useAccountStore = useAccount()
 const useOrdersStore = useOrders()
@@ -22,28 +23,6 @@ onMounted(() => {
     order.value = res.data
   })
 })
-
-const orderInformations = computed(() => {
-  if (order.value == null) return null
-
-  const informations = {
-  'TYPE': order.value.orderType,
-  'CURRENT DIVISION': `${order.value.currentRank.division} ${order.value.currentRank.milestone} (${order.value.currentRank.currentLP})`,
-  'DESIRED DIVISIOIN': !order.value.desiredRank ? null :`${order.value.desiredRank.division} ${order.value.desiredRank.milestone}`,
-  'QUEUE': order.value.queue,
-  'SERVER': order.value.server,
-  'BONUS WIN': order.value.bonusWin ? 'TRUE' : 'FALSE',
-  'DUO':  order.value.isSolo ? 'TRUE' : 'FALSE',
-  'SOLO ONLY': order.value.isSolo ? 'TRUE' : 'FALSE',
-  'PREMIUM': order.value.premium ? 'TRUE' : 'FALSE',
-  'FLASH': order.value.flash,
-  }
-
-  return Object.fromEntries(
-        Object.entries(informations).filter(([key, value]) => value != null)
-    );
-})
-
 
 async function takeOrderAndRoute(orderId) {
   await useOrdersStore.takeOrder(orderId)
@@ -68,10 +47,7 @@ async function takeOrderAndRoute(orderId) {
           .order-id # {{ order._id.substring(0,10) }}
       PreviewOrder(:order='order')
       .default-border.rows
-        .order-informations
-          .information-row(v-for="(a,b) in orderInformations")
-            .normal-black-text {{ b }}
-            .grey-text {{ a.toUpperCase() }}
+        OrderInformations(:order='order')
         .last-row(v-if="useAccountStore.user.role == 'booster'")
           .price
             .raw-price 170.30€
@@ -149,9 +125,6 @@ async function takeOrderAndRoute(orderId) {
 .default-border {
   border-radius: 10px;
   border: solid 1px #eee;
-  width: 900px;
-  height: 600px;
-  margin: 0 auto;
   padding: 2rem;
 }
 .center-child {
@@ -162,7 +135,7 @@ async function takeOrderAndRoute(orderId) {
 .first-row {
   box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #f9f9f9;
-  padding: 20px 50px 30px 20px;
+  padding: 1.3rem;
   display: flex;
   align-items: center;
   align-items:center;
@@ -199,11 +172,6 @@ async function takeOrderAndRoute(orderId) {
   border: solid 1px #eee;
   background-color: #fff;
 }
-.normal-black-text {
-  font-size: 32px;
-  font-weight: 600;
-  color: #222;
-}
 .order-and-chat,
 .order-detail {
   width: 1000px;
@@ -231,21 +199,7 @@ async function takeOrderAndRoute(orderId) {
   font-weight: bold;
   color: #555555;
 }
-.information-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.grey-text {
-  font-size: 20px;
-  font-weight: 600;
-  color: #bbb;
-}
-.normal-black-text {
-  font-size: 20px;
-  font-weight: 600;
-  color: #222;
-}
+
 .edit-order-button {
   width: 200px;
   height: 50px;

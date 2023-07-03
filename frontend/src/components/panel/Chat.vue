@@ -9,11 +9,12 @@ const props = defineProps({
     type: Object,
     required: true
   }
-
 })
+
 const useAccountStore = useAccount()
 const useOrdersStore = useOrders()
 const booster = ref(null)
+const loading = ref(false)
 const user = ref(null)
 const newMessage = ref('')
 const messages = ref([])
@@ -21,7 +22,7 @@ const socket = useOrdersStore.getSocket
 
 socket.on('chat updated' + props.order._id, (arg) => {
     if(arg.sender._id === useAccountStore.user._id ) return
-    messages.value.push(arg)
+    messages.value.unshift(arg)
 })
 
 onMounted(() => {
@@ -29,15 +30,19 @@ onMounted(() => {
     user.value = res.data
   })
 
-  axios.get(`/user/${props.order.booster}`).then((res) => {
-    booster.value = res.data
-  })
+  if(!(props.order.booster === null)) {
+    axios.get(`/user/${props.order.booster}`).then((res) => {
+      booster.value = res.data
+    })
+  }
 
   useOrdersStore.joinChat(props.order._id)
 
   axios.get(`/message/chat/${props.order._id}`).then((res) => {
     messages.value = res.data
+    loading.value = true
   })
+
 })
 
 onBeforeUnmount(() => {
@@ -51,7 +56,7 @@ function sendMessage() {
       sender: useAccountStore.user._id,
       message: newMessage.value
     }).then((res) => {
-      messages.value.push({
+      messages.value.unshift({
         order: props.order._id,
         sender: useAccountStore.user,
         message: newMessage.value
@@ -65,7 +70,7 @@ function sendMessage() {
 </script>
 
 <template lang="pug">
-.chat(v-if="booster")
+.chat(v-if="loading")
   .chat-informations(v-if="useAccountStore.isBooster()" )
     .row
       img.profile-photo(:src="user.photo")
@@ -131,7 +136,7 @@ function sendMessage() {
 
 .messages {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   height: 770px;
   padding: 2rem;
   overflow-y: auto;
@@ -154,6 +159,7 @@ function sendMessage() {
   background-color: #f5f5f5;
   min-width: 170px;
   max-width: 350px;
+  word-break: break-all;
 }
 /*
 .messages::-webkit-scrollbar {

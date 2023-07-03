@@ -15,7 +15,10 @@ class BaseDataBase {
         return this.model.deleteOne({ [property]: value })
     }
     async update(id, object) {
-        return this.model.findByIdAndUpdate(id, object)
+        return this.model.findByIdAndUpdate(id, object, { returnOriginal: false })
+    }
+    async updateBy(property, value, object) {
+        return this.model.findOneAndUpdate({ [property]: value }, object, { upsert: true, returnOriginal: false })
     }
     async find(id) {
         return this.model.findById(id)
@@ -25,6 +28,9 @@ class BaseDataBase {
     }
     async findBy(property, value) {
         return this.model.find({ [property]: value }).sort({ createdAt: -1 })
+    }
+    async findByOne(property, value) {
+        return this.model.findOne({ [property]: value })
     }
 }
 
