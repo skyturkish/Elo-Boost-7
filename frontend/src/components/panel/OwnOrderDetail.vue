@@ -280,7 +280,7 @@ const champions = computed(() => {
 .little-divider {
   height: 1px;
   background-color: #eee;
-  margin: 0 -3rem;
+  margin: 2rem -3rem 1rem -3rem;
 }
 .account-text {
   font-size: 32px;
