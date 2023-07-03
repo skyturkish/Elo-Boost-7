@@ -15,7 +15,7 @@ onMounted(() => {
 <template lang="pug">
 .current-offers
   .horizontal-padding
-    FilterTitle
+    FilterTitle(title="COACHING AVAILABLE OFFERS")
   .place-order
     .orders
       .order(v-if="useOrdersStore.availableCoachingOrders.length != 0" v-for='order in useOrdersStore.availableCoachingOrders' :key='order')

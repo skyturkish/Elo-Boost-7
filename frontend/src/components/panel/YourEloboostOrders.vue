@@ -20,7 +20,7 @@ const filteredOrders = computed(() => {
 <template lang="pug">
 .current-offers
   .horizontal-padding
-    FilterTitle
+    FilterTitle(title="YOUR ELOBOOST ORDERS")
   .place-order
     .orders
       .order(v-if="filteredOrders.length != 0" v-for='order in filteredOrders' :key='order')
