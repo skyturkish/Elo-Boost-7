@@ -43,9 +43,9 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
     .vertical-divider
     .games-information(v-if="useAccountStore.isBooster()")
       .black-title GAMES
-      .game-and-information.row
+      .game-and-information
         img.game-logo.row(:src='selectedGamePhoto')
-        .informations
+        .game-informations
           .game-name {{ selectedGame.split('-').join(' ').toUpperCase() }}
           .other-informations
             span.rank-
@@ -68,13 +68,13 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
       .roles-and-serves.row
         .roles.column-and-middle-gap
           .roles-title.grey-text ROLES
-          .row-and-middle-gap
-            .grey-button.center-child(v-for="role in useAccountStore.user.mainLanes") {{ role.toUpperCase() }}
+          .row-and-middle-gap(v-if="selectedGame === 'league-of-legends'")
+            .grey-button.center-child(v-for="role in useAccountStore.userNotifications[useAccountStore.userJobs[0]].games[selectedGame].roles") {{ role.toUpperCase() }}
             v-btn.action-grey-button.center-child EDIT
         .serves.column-and-middle-gap
           .servers-title.grey-text SERVERS
           .row-and-middle-gap
-            .grey-button.center-child(v-for="server in useAccountStore.user.mainServers") {{ server }}
+            .grey-button.center-child(v-for="server in useAccountStore.userNotifications[useAccountStore.userJobs[0]].games[selectedGame].servers") {{ server }}
             v-btn.action-grey-button.center-child EDIT
       .range.grey-text RANGE
   v-divider
@@ -86,10 +86,10 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
         .feature
         .feature
         .feature
-    .column-and-middle-gap
+    .column-and-middle-gap(v-if="useAccountStore.userJobs.includes('coach')")
       .grey-text LANGUGES
       .row-and-middle-gap
-        .grey-button.center-child(v-for="language in useAccountStore.user.languages") {{ language }}
+        .grey-button.center-child(v-for="language in useAccountStore.userNotifications['coach'][selectedGame].languages") {{ language }}
         v-btn.action-grey-button.center-child EDIT
   .reset-password
     .black-title RESET PASSWORD
@@ -101,10 +101,17 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 </template>
 
 <style scoped>
+.informations {
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: Inter;
+}
+.game-and-information {
+  display:flex
+}
 .champion-name {
   background-color: #221d1d;
   color: #fff;
-  font-family: Inter;
   font-size: 14px;
 }
 .vertical-divider {
@@ -146,21 +153,15 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 }
 .save-and-leave {
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: Inter;
   font-size: 24px;
   font-weight: bold;
   color: #fff;
   text-align: right;
   cursor: pointer;
 }
-.informations  {
-  max-width: 1440px;
-  margin: 0 auto;
-  font-family: Inter;
-}
 .first-row {
   height: 276px;
-  padding: 2.5rem 3rem 0 2.5rem;
+  padding: 2.5rem;
   display:flex;
   justify-content: space-between;
 }
@@ -191,7 +192,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 .game-logo {
   width: 75px;
@@ -243,7 +244,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
   padding-top: 0.5rem;
   display: flex;
   align-items:center;
-  gap: 2px;
+  gap: 5px;
 }
 .roles,
 .servers {
@@ -252,6 +253,12 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 .champion {
   height: 118px;
   width: 108px;
+  opacity: 0.95;
+  border-radius: 5px;
+}
+.champion:hover {
+  transform: scale(1.05);
+  opacity: 1;
 }
 .action-grey-button  {
   width: 90px;
@@ -279,6 +286,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
   font-size: 20px;
   font-weight: 500;
   color: #ccc;
+  box-shadow: #ccc 0px 0px 0px 1.5px inset;
 }
 .grey-text {
   font-size: 20px;
