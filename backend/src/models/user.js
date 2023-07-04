@@ -22,18 +22,16 @@ const User = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ['customer', 'booster', 'admin'],
+            enum: ['customer', 'employee', 'admin'],
             default: 'customer'
-        },
-        mainGame: {
-            type: String,
-            required: true,
-            default: 'league-of-legends'
         },
         onlineState: {
             type: String,
             enum: ['online', 'offline', 'dont-disturb'],
             default: 'offline'
+        },
+        maxRank: {
+            type: String
         },
         discord: {
             type: String
@@ -41,23 +39,8 @@ const User = new mongoose.Schema(
         phoneNumber: {
             type: String
         },
-        mainLanes: {
-            type: [String]
-        },
-        mainChampions: {
-            type: [String]
-        },
-        mainServers: {
-            type: [String]
-        },
         languages: {
             type: [String]
-        },
-        mainAgents: {
-            type: [String]
-        },
-        maxRank: {
-            type: String
         },
         rate: {
             type: Number
@@ -67,8 +50,45 @@ const User = new mongoose.Schema(
             default: randomPhoto
         },
         permissions: {
-            type: [String],
-            default: ['customer']
+            type: Object
+            // default: {
+            //     customer: 'premium-customer',
+            //     booster: {
+            //         grade: 'divine-booster',
+            //         games: {
+            //             'league-of-legends': {
+            //                 maxRank: 'diamond-1',
+            //                 limits: {
+            //                     soloLimit: 3,
+            //                     duoLimit: 3
+            //                 }
+            //             },
+            //             valorant: {
+            //                 maxRank: 'diamond-3',
+            //                 limits: {
+            //                     soloLimit: 2,
+            //                     duoLimit: 2
+            //                 }
+            //             }
+            //         }
+            //     },
+            //     coach: {
+            //         grade: 'elite-coach',
+            //         games: {
+            //             'league-of-legends': {
+            //                 maxRank: 'diamond-1'
+            //             },
+            //             valorant: {
+            //                 maxRank: 'ascendant-3'
+            //             }
+            //         }
+            //     },
+            //     seller: 'elite-seller'
+            // }
+        },
+        notifications: {
+            type: Object,
+            default: {}
         },
         personalInformation: {
             type: PersonalInformation

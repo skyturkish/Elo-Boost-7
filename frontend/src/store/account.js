@@ -43,7 +43,40 @@ export const useAccount = defineStore('useAccount', {
             await this.fetchSession()
         },
         isBooster() {
-            return this.user.role === 'booster'
+            return this.user.role === 'employee'
+        }
+    },
+    getters: {
+        userPermissions: (state) => state.user.permissions,
+        userNotifications: (state) => state.user.notifications,
+        userJobs() {
+            let jobList = []
+
+            for (let key in this.userPermissions) {
+                jobList.push(key)
+            }
+            return jobList
+        },
+        userGames() {
+            let gamesSet = new Set()
+
+            for (let key in this.userPermissions) {
+                for (let game in this.userPermissions[key].games) {
+                    gamesSet.add(game) // Oyunları bir Set'e ekleyin
+                }
+            }
+            return Array.from(gamesSet)
+        },
+        userGrades() {
+            let gradeList = []
+
+            for (let key in this.userPermissions) {
+                gradeList.push(this.userPermissions[key].grade)
+            }
+            return gradeList
+        },
+        userTags() {
+            return this.userGrades.concat(this.userGames)
         }
     }
 })

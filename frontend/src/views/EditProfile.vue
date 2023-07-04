@@ -1,19 +1,23 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useAccount } from '@/store/account'
-import { banners } from '@/constants/banners'
 import { useRouter } from 'vue-router';
-const router = useRouter();
+import UserTags from '@/components/edit-profile/UserTags.vue'
+import ChangeThemeAndBanner from '@/components/edit-profile/ChangeThemeAndBanner.vue'
+import ChangeAvatar from '@/components/edit-profile/ChangeAvatar.vue'
 
+const router = useRouter();
 const useAccountStore = useAccount()
 
-const themeDialog = ref(false)
-const avatarDialog = ref(false)
+const selectedGame = ref('')
 
-async function changeBannerAndCloseDialog(banner) {
-  await useAccountStore.updateThemePreference(banner)
-  themeDialog.value = false
-}
+const selectedGamePhoto = computed(() => {
+  if(selectedGame.value === '') {
+    selectedGame.value = useAccountStore.userGames[0]
+  }
+  return `../../src/assets/icons/${selectedGame.value}.png`
+})
+
 </script>
 
 <template lang="pug">
@@ -26,48 +30,35 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
     .first-column.column
       .name {{ useAccountStore.user.name || 'No name' }}
       .other-information(v-if="useAccountStore.isBooster()")
-        .real-name {{ useAccountStore.user.personalInformation?.name || 'No real name' }}
+        .real-name {{ useAccountStore.user.personalInformation?.name.toUpperCase() || 'No real name' }}  {{ useAccountStore.user.personalInformation?.surName.toUpperCase() || 'No real surname' }}
         .country {{ useAccountStore.user.personalInformation?.country || 'No country' }}
         .birthday {{ useAccountStore.user.personalInformation?.birthDate|| 'No birthday' }}
     .first-second-row.row
-      .theme
-        .theme-background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)`}")
-          .text CHANGE THEME AND BANNER
-        v-dialog(v-model='themeDialog' activator='parent' width='auto')
-          v-card.row
-            .theme-background(v-for="banner in banners" :style="{ backgroundImage: `url(../../src/assets/banners/${banner.path}.png)`}" @click="changeBannerAndCloseDialog(banner)")
-      .profile
-        .background-avatar(:style="{ backgroundImage: `url(${useAccountStore.user.photo})`}")
-          .text CHANGE AVATAR
-        v-dialog(v-model='avatarDialog' activator='parent' width='auto')
-          v-card.row
-            h1 this is avatar
+      ChangeThemeAndBanner
+      ChangeAvatar
   v-divider
   .row
     .second-first-column
-      .tags-title.center-child TAGS
-      .tags
-        .tag.center-child(v-for="tag in useAccountStore.user.permissions") {{ tag }}
+      UserTags
+    .vertical-divider
     .games-information(v-if="useAccountStore.isBooster()")
       .black-title GAMES
       .game-and-information.row
-        img.game-logo.row(src='../../src/assets/icons/league-of-legends.png')
+        img.game-logo.row(:src='selectedGamePhoto')
         .informations
-          .game-name LEAGUE OF LEGENDS
+          .game-name {{ selectedGame.split('-').join(' ').toUpperCase() }}
           .other-informations
             span.rank-
               span.rank RANK:
-              |   GRANDMASTER
+              |   {{ useAccountStore.user.maxRank || 'belirtilmedi' }}
             span.limit-
               span.limit LIMIT:
-              |   DIAMOND III
+              |   {{ useAccountStore.userPermissions[useAccountStore.userJobs[0]].games[selectedGame].maxRank }}
             .grade-template.row
               .grade GRADE:
               .grades
-                .a DIVINE BOOSTER
-                .a COACH
-                .a SELLER
-      .champions-
+                div(v-for="grade in useAccountStore.userGrades") {{ grade }}
+      .champion-select
         .champions-title CHAMPIONS
         .champions
           img.champion(v-for="champion in useAccountStore.user.mainChampions" :src='`../src/assets/champions/splash-arts/${champion}.jpg`')
@@ -108,6 +99,11 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 </template>
 
 <style scoped>
+.vertical-divider {
+  width: 1px;
+  height: 716.8px;
+  background-color: #ddd;
+}
 .background {
   padding-top: 270px;
   padding-bottom: 270px;
@@ -177,90 +173,27 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 .first-second-row.row {
   gap: 4rem;
 }
-
-.background-avatar {
-  border-radius: 15px;
-  cursor: pointer;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  width: 177px;
-  padding-top: 75px;
-  padding-bottom: 75px;
-  border: solid 1px #905939;
-  text-shadow: 0 0 10px #000;
-  background-size: cover;
-  display:flex;
-  justify-content: center;
-}
-.theme-background {
-  border-radius: 15px;
-  cursor: pointer;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  width: 418px;
-  padding-top: 75px;
-  padding-bottom: 75px;
-  border: solid 1px #905939;
-  text-shadow: 0 0 10px #000;
-  background-size: cover;
-  display:flex;
-  justify-content: center;
-}
-.change-avatar {
-  width: 150px;
-  height: 150px;
-  box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.25);
-  border: solid 2px #171120;
-}
 .v-card {
   width: 68.75rem;
 }
 .second-row {
   max-height: 720px;
 }
-.tags-title {
-  width: 333px;
-  height: 55px;
-  background-color: #ddd;
-  font-size: 32px;
-  font-weight: bold;
-  color: #fff;
-}
-.tags {
-  width: 333px;
-  gap: 1.2rem;
-  padding-top: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.tag {
-  width: 250px;
-  height: 40px;
-  border-radius: 4px;
-  background-color: #fafafa;
-  font-size: 20px;
-  font-weight: 500;
-  color: #ccc;
-}
 .games-information {
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 .game-logo {
   width: 75px;
   height: 75px;
   border-radius: 9px;
-  border: solid 1px #ddd;
 }
 .black-title {
   font-size: 32px;
   font-weight: 500;
   color: #333;
-}
-.game-and-information {
-  padding-top: 1.75rem;
 }
 .game-name {
   font-size: 24px;

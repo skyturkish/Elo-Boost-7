@@ -48,7 +48,7 @@ async function takeOrderAndRoute(orderId) {
       PreviewOrder(:order='order')
       .default-border.rows
         OrderInformations(:order='order')
-        .last-row(v-if="useAccountStore.user.role == 'booster'")
+        .last-row(v-if="useAccountStore.isBooster()")
           .price
             .raw-price 170.30€
             .percentage-price (%65)
