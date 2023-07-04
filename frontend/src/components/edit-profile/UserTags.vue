@@ -76,4 +76,7 @@ const colors = {
   justify-content: center;
   text-align: center;
 }
+.tag:hover {
+  transform: scale(1.05);
+}
 </style>
