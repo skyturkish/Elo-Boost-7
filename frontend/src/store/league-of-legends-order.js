@@ -19,7 +19,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         booster: null,
         coach: null,
         lanes: [],
-        champions: {
+        heroes: {
             top: [],
             jungle: [],
             mid: [],
@@ -95,25 +95,25 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 this.lanes.push(lane)
             }
         },
-        addChampion(lane, champion) {
-            const champions = this.champions[lane]
+        addHero(lane, hero) {
+            const heroes = this.heroes[lane]
 
-            if (champions.includes(champion)) {
-                const index = champions.findIndex((item) => item === champion)
+            if (heroes.includes(hero)) {
+                const index = heroes.findIndex((item) => item === hero)
 
                 if (index !== -1) {
-                    champions.splice(index, 1)
+                    heroes.splice(index, 1)
                 }
             } else {
                 console.log('burada mu ???')
-                champions.push(champion)
+                heroes.push(hero)
             }
         },
         isLaneSelected(lane) {
             return this.lanes.includes(lane)
         },
-        isAnyChampionSelected() {
-            return Object.values(this.champions).some((list) => list.length > 0)
+        isAnyHeroSelected() {
+            return Object.values(this.heroes).some((list) => list.length > 0)
         },
         async createDivisionOrder(desiredRank) {
             await axios.post('/order', {
@@ -130,7 +130,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 isSolo: this.isSolo,
                 lanes: this.lanes,
                 booster: this.booster,
-                champions: this.champions,
+                heroes: this.heroes,
                 ...this.getDynamicOptions,
                 bonusWin: this.bonuwWin,
                 premium: this.premium
@@ -151,7 +151,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 isSolo: this.isSolo,
                 gameOrNetWin: this.gameOrNetWin,
                 lanes: this.lanes,
-                champions: this.champions,
+                heroes: this.heroes,
                 ...this.getDynamicOptions,
                 premium: this.premium
             })
@@ -169,7 +169,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 amountGame: this.amountPlacementsGame,
                 isSolo: this.isSolo,
                 lanes: this.lanes,
-                champions: this.champions,
+                heroes: this.heroes,
                 ...this.getDynamicOptions,
                 premium: this.premium,
                 bonusWin: this.bonuwWin
@@ -188,7 +188,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 amountGame: this.amountNormalGame,
                 isSolo: this.isSolo,
                 lanes: this.lanes,
-                champions: this.champions,
+                heroes: this.heroes,
                 stier: this.stier,
                 premium: this.premium,
                 ...this.getDynamicOptions
@@ -207,7 +207,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 isSolo: this.isSolo,
                 lanes: this.lanes,
                 booster: this.booster,
-                champions: this.champions,
+                heroes: this.heroes,
                 options: this.options
             })
         },
@@ -223,7 +223,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 hours: this.coachingHours,
                 languages: this.languages,
                 lanes: this.lanes,
-                champions: this.champions,
+                heroes: this.heroes,
                 premium: this.premium
             })
         },
@@ -239,7 +239,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 amountGame: this.amountCoachingGame,
                 languages: this.languages,
                 lanes: this.lanes,
-                champions: this.champions,
+                heroes: this.heroes,
                 premium: this.premium
             })
         },
@@ -254,7 +254,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 amountGame: this.amountCoachingGame,
                 languages: this.languages,
                 lanes: this.lanes,
-                champions: this.champions,
+                heroes: this.heroes,
                 premium: this.premium
             })
         },
@@ -269,7 +269,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 amountGame: this.amountCoachingGame,
                 languages: this.languages,
                 lanes: this.lanes,
-                champions: this.champions,
+                heroes: this.heroes,
                 premium: this.premium
             })
         }

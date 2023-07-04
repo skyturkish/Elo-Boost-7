@@ -15,7 +15,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         gainRR: '+25 GAIN',
         server: 'Turkey',
         booster: null,
-        agents: [],
+        heroes: [],
 
         isSolo: false,
         bonusWin: false,
@@ -61,21 +61,22 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         isSelectedMilestone(milestone) {
             return this.milestone === milestone
         },
-        addAgent(agent) {
-            if (this.agents.includes(agent)) {
-                const index = this.agents.findIndex((item) => item === agent)
+        addHero(hero) {
+            if (this.heroes.includes(hero)) {
+                const index = this.heroes.findIndex((item) => item === hero)
 
                 if (index !== -1) {
-                    this.agents.splice(index, 1)
+                    this.heroes.splice(index, 1)
                 }
             } else {
-                this.agents.push(agent)
+                this.heroes.push(hero)
             }
         },
-        isAnyAgentSelected() {
-            return this.agents.length > 0
+        isAnyHeroSelected() {
+            return this.heroes.length > 0
         },
         async createDivisionOrder(desiredRank) {
+            console.log(' buraya girdi')
             await axios.post('/order', {
                 customer: customerId,
                 booster: this.booster?._id,
@@ -87,7 +88,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 gainRR: this.gainRR,
                 server: this.server,
                 isSolo: this.isSolo,
-                agents: this.agents,
+                heroes: this.heroes,
                 ...this.getDynamicOptions,
                 bonusWin: this.bonuwWin,
                 premium: this.premium
@@ -103,7 +104,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 currentRank: this.currentRank,
                 server: this.server,
                 isSolo: this.isSolo,
-                agents: this.agents,
+                heroes: this.heroes,
                 ...this.getDynamicOptions,
                 premium: this.premium,
                 amountGame: this.amountWinGame
@@ -119,7 +120,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 currentRank: this.currentRank,
                 server: this.server,
                 isSolo: this.isSolo,
-                agents: this.agents,
+                heroes: this.heroes,
                 ...this.getDynamicOptions,
                 premium: this.premium,
                 amountGame: this.amountPlacementsGame
@@ -135,7 +136,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 selectedGameType: selectedGameType,
                 server: this.server,
                 isSolo: this.isSolo,
-                agents: this.agents,
+                heroes: this.heroes,
                 ...this.getDynamicOptions,
                 premium: this.premium,
                 amountGame: this.amountUnratedMatchGame
@@ -151,7 +152,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 currentRank: this.currentRank,
                 hours: this.coachingHours,
                 languages: this.languages,
-                agents: this.agents,
+                heroes: this.heroes,
                 premium: this.premium
             })
         },
@@ -165,7 +166,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 currentRank: this.currentRank,
                 amountGame: this.amountCoachingGame,
                 languages: this.languages,
-                agents: this.agents,
+                heroes: this.heroes,
                 premium: this.premium
             })
         },
@@ -179,7 +180,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 currentRank: this.currentRank,
                 amountGame: this.amountCoachingGame,
                 languages: this.languages,
-                agents: this.agents,
+                heroes: this.heroes,
                 premium: this.premium
             })
         }

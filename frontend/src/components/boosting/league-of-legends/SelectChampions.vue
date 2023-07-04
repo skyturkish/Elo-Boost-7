@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import CheckoutSelection from '@/components/CheckoutSelection'
 
-import { champions } from '@/constants/league-of-legends-constants'
+import { heroes } from '@/constants/league-of-legends-constants'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const dialog = ref(false)
@@ -12,17 +12,13 @@ const searchName = ref('')
 
 const selectedLane = ref('')
 
-function addChampions(champion) {
-  currentLeagueOfLegendsOrder.addChampion(selectedLane.value, champion)
-}
-
-const filteredChampions = computed(() => {
+const filteredHeroes = computed(() => {
   if (!currentLeagueOfLegendsOrder.lanes.includes(selectedLane.value)) {
     selectedLane.value = currentLeagueOfLegendsOrder.lanes[0]
   }
   if (!selectedLane.value) return []
-  return champions[selectedLane.value].filter((champion) => {
-    return champion.toLowerCase().includes(searchName.value.toLowerCase())
+  return heroes[selectedLane.value].filter((hero) => {
+    return hero.toLowerCase().includes(searchName.value.toLowerCase())
   })
 })
 
@@ -38,7 +34,7 @@ function isLaneSelected(lane) {
 
 <template lang="pug">
 CheckoutSelection(toolTipText="You can set your champions which ones you wanted to play by boosters" title="CHAMPIONS")
-  img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyChampionSelected()" src='@/assets/icons/plus.png')
+  img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyHeroSelected()" src='@/assets/icons/plus.png')
   img.logo(v-else src='@/assets/squares/league-of-legends/aatrox.png')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
@@ -54,15 +50,15 @@ CheckoutSelection(toolTipText="You can set your champions which ones you wanted 
         .please-select-lane(v-else) at least please select 1 lane to choose champions
       .champions-background
         .champions
-          img.champion(v-for="champion in filteredChampions" :src='`../../src/assets/squares/league-of-legends/${champion}.png`' @click="addChampions(champion)")
+          img.champion(v-for="hero in filteredHeroes" :src='`../../src/assets/squares/league-of-legends/${hero}.png`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)")
       v-divider
       .last-row
         img.selected-lane(v-if="selectedLane != ''" :src='`../../src/assets/lanes/${selectedLane}.png`')
-        img.champion(v-for="champion in currentLeagueOfLegendsOrder.champions[selectedLane]" :src='`../../src/assets/squares/league-of-legends/${champion}.png`')
-        img.champion(v-if="currentLeagueOfLegendsOrder.champions[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.champions[selectedLane]?.length || 0" :src='`../../src/assets/squares/league-of-legends/champion.png`')
+        img.champion(v-for="hero in currentLeagueOfLegendsOrder.heroes[selectedLane]" :src='`../../src/assets/squares/league-of-legends/${hero}.png`')
+        img.champion(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.heroes[selectedLane]?.length || 0" :src='`../../src/assets/squares/league-of-legends/champion.png`')
         v-btn.price-calculation
-          .calculation-text(v-if="currentLeagueOfLegendsOrder.champions[selectedLane]?.length < 3 ") +%10
-          .calculation-text(v-if="currentLeagueOfLegendsOrder.champions[selectedLane]?.length >= 3 ") FREE
+          .calculation-text(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 ") +%10
+          .calculation-text(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length >= 3 ") FREE
 
 </template>
 

@@ -10,10 +10,10 @@ const props = defineProps({
 
 const selectedLane = ref(props.order.lanes[0])
 
-const champions = computed(() => {
-  if (props.order == null || Object.values(props.order.champions).flat().length == 0) return []
+const heroes = computed(() => {
+  if (props.order == null || Object.values(props.order.heroes).flat().length == 0) return []
 
-  return props.order.champions[selectedLane.value]
+  return props.order.heroes[selectedLane.value]
 })
 
 function changeSelectedLane(lane) {
@@ -34,8 +34,8 @@ function isLaneSelected(lane) {
       img.selected-lane-background(v-show="isLaneSelected(lane)" src='../../../src/assets/icons/selected-lane.png')
       img.lane(:src="`../../../src/assets/lanes/${lane}.png`" @click="changeSelectedLane(lane)")
   div.any-lane-text(v-else) Any Lane
-.champions(v-if="champions.length > 0")
-  img.champion(v-for="champion in champions" :src="`../../../src/assets/squares/league-of-legends/${champion}.png`")
+.champions(v-if="heroes.length > 0")
+  img.champion(v-for="hero in heroes" :src="`../../../src/assets/squares/league-of-legends/${hero}.png`")
 div.any-champion-text(v-else) Any Champion
 </template>
 

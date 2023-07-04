@@ -192,10 +192,6 @@ const orderInformations = computed(() => {
   }
 })
 
-const champions = computed(() => {
-  return Object.values(order.value.champions).flat().slice(0, 3)
-})
-
 </script>
 
 <template lang="pug">

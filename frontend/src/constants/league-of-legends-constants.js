@@ -108,7 +108,7 @@ export const clash = {
 
 export const lanes = ['top', 'jungle', 'mid', 'adc', 'support']
 
-export const champions = {
+export const heroes = {
     top: [
         'aatrox',
         'akali',

@@ -43,7 +43,7 @@ export const findColorByDivisionName = (name) => {
 
 export const valorantMilestones = ['I', 'II', 'III']
 
-export const agents = [
+export const heroes = [
     'astra',
     'breach',
     'brimstone',

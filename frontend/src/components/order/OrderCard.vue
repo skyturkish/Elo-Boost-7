@@ -7,6 +7,19 @@ import { useOrders } from '@/store/orders'
 import { useAccount } from '@/store/account'
 import { useRouter} from 'vue-router'
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+
+
+
+
+function timeDifference(time) {
+    let now = dayjs();
+    let past = dayjs(time);
+    return past.from(now); // geçmiş zamanı şimdiki zamana göre ne kadar önce olduğunu döndürür
+}
+
 const router = useRouter()
 const useAccountStore = useAccount()
 const useOrdersStore = useOrders()
@@ -61,8 +74,8 @@ const goToOrderDetailPage = (order) => {
   }
 }
 
-const champions = computed(() => {
-  return Object.values(props.order.champions).flat().slice(0, 3)
+const heroes = computed(() => {
+  return Object.values(props.order.heroes).flat().slice(0, 3)
 })
 
 </script>
@@ -72,6 +85,7 @@ const champions = computed(() => {
   .row
     .isSolo(v-if="useAccountStore.isBooster()" :style="{color: order.isSolo ?  useAccountStore.user.themePreference.color :  '#000000' }") {{ order.isSolo ? 'Solo'.toUpperCase() : 'Duo'.toUpperCase() }}
     .state(v-else :style="{color: findStateColor(order.state), textShadow: `0 0 15px ${findStateColor(order.state)}` }") {{ order.state.toUpperCase() }}
+    .isSolo {{  timeDifference(order.createdAt) }}
     .id {{ '#' + order._id.substring(0,10) }}
   .orderType {{ order.orderType.toUpperCase() + ' BOOST ORDER' }}
   .place
@@ -101,8 +115,8 @@ const champions = computed(() => {
     .pay (%65)
     .lane JUNGLE
     .price 170.30€
-    .champions(v-if="champions.length > 0")
-      img.champion(v-for="champion in champions" :key="champion" :src='`../../src/assets/squares/league-of-legends/${champion}.png`')
+    .champions(v-if="heroes.length > 0")
+      img.champion(v-for="hero in heroes" :key="hero" :src='`../../src/assets/squares/league-of-legends/${hero}.png`')
     .any-champion(v-else)
       .any-hero Any Hero
     .buttons.row

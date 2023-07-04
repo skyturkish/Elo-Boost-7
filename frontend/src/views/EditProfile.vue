@@ -61,7 +61,9 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
       .champion-select
         .champions-title CHAMPIONS
         .champions
-          img.champion(v-for="champion in useAccountStore.user.mainChampions" :src='`../src/assets/champions/splash-arts/${champion}.jpg`')
+          div(v-for="hero in useAccountStore.userNotifications[useAccountStore.userJobs[0]].games[selectedGame].heroes" )
+            img.champion(:src='`../src/assets/champions/league-of-legends/${hero}.jpg`')
+            div.champion-name {{ hero }}
           v-btn.action-grey-button.center-child EDIT
       .roles-and-serves.row
         .roles.column-and-middle-gap
@@ -99,6 +101,12 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 </template>
 
 <style scoped>
+.champion-name {
+  background-color: #221d1d;
+  color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+}
 .vertical-divider {
   width: 1px;
   height: 716.8px;
@@ -243,7 +251,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 }
 .champion {
   height: 118px;
-  width: 105px;
+  width: 108px;
 }
 .action-grey-button  {
   width: 90px;

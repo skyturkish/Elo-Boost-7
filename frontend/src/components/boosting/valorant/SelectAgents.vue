@@ -2,22 +2,22 @@
 import { ref, computed } from 'vue'
 import { useValorantOrder } from '@/store/valorant-order'
 import CheckoutSelection from '@/components/CheckoutSelection'
-import { agents } from '@/constants/valorant-constants'
+import { heroes } from '@/constants/valorant-constants'
 
 const currentValorantOrder = useValorantOrder()
 const dialog = ref(false)
 const searchName = ref('')
 
-const filteredAgents = computed(() => {
-    return agents.filter((agent) => {
-        return agent.toLowerCase().includes(searchName.value.toLowerCase())
+const filteredHeroes = computed(() => {
+    return heroes.filter((hero) => {
+        return hero.toLowerCase().includes(searchName.value.toLowerCase())
     })
 })
 </script>
 
 <template lang="pug">
 CheckoutSelection(toolTipText="You can set your agents which ones you wanted to play by boosters" title="AGENTS")
-  img.logo(v-if="!currentValorantOrder.isAnyAgentSelected()" src='@/assets/icons/plus.png')
+  img.logo(v-if="!currentValorantOrder.isAnyHeroSelected()" src='@/assets/icons/plus.png')
   img.logo(v-else src='@/assets/squares/valorant/sage.png')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
@@ -30,10 +30,10 @@ CheckoutSelection(toolTipText="You can set your agents which ones you wanted to 
         v-text-field.search(label="Search for agents" v-model="searchName")
       .champions-background
         .champions
-          img.champion(v-for="agent in filteredAgents" :src='`../../../src/assets/squares/valorant/${agent}.png`' @click="currentValorantOrder.addAgent(agent)")
+          img.champion(v-for="hero in filteredHeroes" :src='`../../../src/assets/squares/valorant/${hero}.png`' @click="currentValorantOrder.addHero(hero)")
       v-divider
       .last-row
-        img.champion(v-for="agent in currentValorantOrder.agents" :src='`../../../src/assets/squares/valorant/${agent}.png`')
+        img.champion(v-for="hero in currentValorantOrder.heroes" :src='`../../../src/assets/squares/valorant/${hero}.png`')
 </template>
 
 <style scoped>
