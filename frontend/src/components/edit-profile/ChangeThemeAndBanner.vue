@@ -30,9 +30,7 @@ async function changeBannerAndCloseDialog(banner) {
   color: #fff;
   font-weight: bold;
   font-size: 16px;
-  width: 418px;
-  padding-top: 75px;
-  padding-bottom: 75px;
+  padding: 75px 75px;
   border: solid 1px #905939;
   text-shadow: 0 0 10px #000;
   background-size: cover;
