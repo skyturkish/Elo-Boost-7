@@ -161,7 +161,7 @@ const orders = [
 }
 .traffic-light {
   height: 36px;
-  margin-top: 37px;
+  margin-top: 34px;
   margin-bottom: -6px
 }
 .list-container {
