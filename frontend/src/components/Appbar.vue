@@ -1,6 +1,5 @@
 <script setup>
 import LoginButton from '@/components/LoginButton'
-import SettingsButton from '@/components/main/appbar-components/SettingsButton'
 import { useRouter } from 'vue-router'
 import Online from '@/components/indicators/Online'
 
@@ -22,7 +21,8 @@ const router = useRouter()
       .navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
     .buttons
       LoginButton
-      SettingsButton
+      .settings
+        v-icon(icon="mdi-cog" color="#444")
 </template>
 
 <style scoped>
@@ -90,5 +90,17 @@ const router = useRouter()
   .navigation-text {
     font-size: 24px;
   }
+}
+.settings {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    background-color: #e4e6e7;
+    cursor: pointer;
+}
+.v-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

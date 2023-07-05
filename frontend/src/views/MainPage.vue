@@ -1,5 +1,7 @@
 <script setup>
 import Banner from '@/components/Banner'
+import BoostingOrdersFlow from '@/components/main/BoostingOrdersFlow'
+import CoachingOrdersFlow from '@/components/main/CoachingOrdersFlow'
 
 const games = ['league-of-legends','valorant']
 const services = [
@@ -22,191 +24,11 @@ const services = [
 ]
 
 const informations = {
-  boosting: ['Select your desired rank with best prices on the market.','Make your prefences with extra options','Choose your own booster.', 'Track the progress.'],
-  coaching: ['Select your in game-rank, type your expectations', 'Edit your order with prefences','Choose your own coach','Book hours your own coach'],
+  boosting: ['Select your desired rank with best prices on the market.','Make your prefences with extra options.','Choose your own booster.', 'Track the progress.'],
+  coaching: ['Select your in game-rank, type your expectations.', 'Edit your order with prefences.','Choose your own coach.','Book hours your own coach.'],
   shop: ['Buy and Sell Accounts in Market', 'Smurf Accounts','Cashflow','Daily refreshed goods', 'Win Prizes'],
   hub: ['Watch our content and learn macro, icro and gameknowledge','Check out the Leaderboard both for players like you and the boosters ','Search for your favorite champions in Rank #1 OTP Guides']
 }
-
-const orders = [
-{
-    hero: 'fiora',
-    firstSpell: 'flash',
-    secondSpell: 'teleport',
-    score: '13/2/5',
-    rank: 'Challenger I',
-    lp: '275 LP',
-},
-{
-    hero: 'thresh',
-    firstSpell: 'flash',
-    secondSpell: 'ignite',
-    score: '1/3/21',
-    rank: 'Master I',
-    lp: '132 LP',
-},
-{
-    hero: 'kaisa',
-    firstSpell: 'flash',
-    secondSpell: 'heal',
-    score: '17/4/8',
-    rank: 'Grandmaster',
-    lp: '401 LP',
-},
-{
-    hero: 'leeSin',
-    firstSpell: 'flash',
-    secondSpell: 'smite',
-    score: '12/5/15',
-    rank: 'Master I',
-    lp: '195 LP',
-},
-{
-    hero: 'yasuo',
-    firstSpell: 'flash',
-    secondSpell: 'ignite',
-    score: '16/3/12',
-    rank: 'Challenger I',
-    lp: '255 LP',
-},
-{
-    hero: 'jinx',
-    firstSpell: 'flash',
-    secondSpell: 'heal',
-    score: '15/2/10',
-    rank: 'Grandmaster',
-    lp: '385 LP',
-},
-{
-    hero: 'nautilus',
-    firstSpell: 'flash',
-    secondSpell: 'ignite',
-    score: '3/7/20',
-    rank: 'Master I',
-    lp: '182 LP',
-},
-{
-    hero: 'graves',
-    firstSpell: 'flash',
-    secondSpell: 'smite',
-    score: '13/2/8',
-    rank: 'Challenger I',
-    lp: '302 LP',
-},
-{
-    hero: 'irelia',
-    firstSpell: 'flash',
-    secondSpell: 'teleport',
-    score: '12/1/7',
-    rank: 'Challenger I',
-    lp: '325 LP',
-},
-{
-    hero: 'pyke',
-    firstSpell: 'flash',
-    secondSpell: 'ignite',
-    score: '8/4/14',
-    rank: 'Grandmaster',
-    lp: '392 LP',
-},
-  {
-    hero: 'akali',
-    firstSpell: 'flash',
-    secondSpell: 'ignite',
-    score: '15/3/7',
-    rank: 'Platinum II',
-    lp: '42 LP',
-  },
-  {
-    hero: 'yasuo',
-    firstSpell: 'teleport',
-    secondSpell: 'exhaust',
-    score: '24/5/12',
-    rank: 'Gold I',
-    lp: '78 LP',
-  },
-  {
-    hero: 'zed',
-    firstSpell: 'ignite',
-    secondSpell: 'flash',
-    score: '8/4/10',
-    rank: 'Diamond V',
-    lp: '60 LP',
-  },
-  {
-    hero: 'garen',
-    firstSpell: 'teleport',
-    secondSpell: 'flash',
-    score: '17/7/8',
-    rank: 'Silver II',
-    lp: '95 LP',
-  },
-  {
-    hero: 'camille',
-    firstSpell: 'flash',
-    secondSpell: 'teleport',
-    score: '10/5/15',
-    rank: 'Gold III',
-    lp: '55 LP',
-  },
-  {
-    hero: 'malzahar',
-    firstSpell: 'ignite',
-    secondSpell: 'flash',
-    score: '13/10/11',
-    rank: 'Platinum IV',
-    lp: '70 LP',
-  },
-  {
-    hero: 'brand',
-    firstSpell: 'flash',
-    secondSpell: 'exhaust',
-    score: '11/7/12',
-    rank: 'Silver I',
-    lp: '89 LP',
-  },
-  {
-    hero: 'senna',
-    firstSpell: 'heal',
-    secondSpell: 'flash',
-    score: '9/3/16',
-    rank: 'Gold IV',
-    lp: '30 LP',
-  },
-  {
-    hero: 'teemo',
-    firstSpell: 'ignite',
-    secondSpell: 'flash',
-    score: '18/8/6',
-    rank: 'Bronze I',
-    lp: '98 LP',
-  },
-  {
-    hero: 'yuumi',
-    firstSpell: 'flash',
-    secondSpell: 'teleport',
-    score: '2/6/22',
-    rank: 'Silver III',
-    lp: '60 LP',
-  },
-  {
-    hero: 'darius',
-    firstSpell: 'ghost',
-    secondSpell: 'flash',
-    score: '21/9/3',
-    rank: 'Diamond IV',
-    lp: '40 LP',
-  },
-  {
-    hero: 'ezreal',
-    firstSpell: 'flash',
-    secondSpell: 'heal',
-    score: '14/7/11',
-    rank: 'Platinum III',
-    lp: '50 LP',
-  }
-]
-
 </script>
 
 <template lang="pug">
@@ -233,7 +55,7 @@ v-divider.border-opacity-100(thickness="1rem")
       .title.boosting-title BOOSTING
       .sub-title Looking carries on your favorite games?
       div.list-informations
-        .ad-bulamadim(v-for="information in informations.boosting") {{ information }}
+        .ad-bulamadim(v-for="information in informations.boosting")  {{ information }}
       .buttons
         v-btn.select-game
           img(src="@/assets/icons/league-of-legends.png" alt="Select Game")
@@ -244,38 +66,49 @@ v-divider.border-opacity-100(thickness="1rem")
     .logos
       img.sage(src="@/assets/icons/sage.png" alt="sage")
       img.challenger(src="@/assets/icons/challenger.png" alt="challenger")
-    .live-orders
-      img.genji(src="@/assets/icons/genji.png" alt="genji")
-      img.traffic-light(src="@/assets/icons/traffic-light.png" alt="genji")
-      .list-container
-        .orders
-          .order(v-for="order in orders")
-            .vertical-divider
-            img.champion-photo(:src="`../../src/assets/squares/league-of-legends/${order.hero}.png`" :alt="order.hero")
-            .spells
-              img.spell(:src="`../../src/assets/summoner-spells/${order.firstSpell}.png`")
-              img.spell(:src="`../../src/assets/summoner-spells/${order.secondSpell}.png`")
-            .score {{ order.score }}
-            .rank-information
-              .rank  {{ order.rank }}
-              .lp {{ order.lp }}
-            img.rank-photo(:src="`../../src/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.png`" :alt="order.rank")
-        .orders
-          .order(v-for="order in orders")
-            .vertical-divider
-            img.champion-photo(:src="`../../src/assets/squares/league-of-legends/${order.hero}.png`" :alt="order.hero")
-            .spells
-              img.spell(:src="`../../src/assets/summoner-spells/${order.firstSpell}.png`")
-              img.spell(:src="`../../src/assets/summoner-spells/${order.secondSpell}.png`")
-            .score {{ order.score }}
-            .rank-information
-              .rank  {{ order.rank }}
-              .lp {{ order.lp }}
-            img.rank-photo(:src="`../../src/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.png`" :alt="order.rank")
+    BoostingOrdersFlow
+  .coaching
+    CoachingOrdersFlow
+    img.briston(src="@/assets/icons/bristo-profile.png" alt="briston")
+    .coaching-informations
+      .title.coaching-title COACHING
+      .sub-title Need a pro that can coach you in-voice?
+      div.list-informations
+        .ad-bulamadim(v-for="information in informations.coaching")  {{ information }}
+      .a
+        .empty
+        .buttons
+          v-btn.third-purchase-eloboosting
+            span PURCHASE
+              br
+              | COACHING
+          v-btn.select-game
+            img.valorant(src="@/assets/icons/valorant.png" alt="Select Game")
 
 </template>
 
 <style scoped>
+.a {
+  display:flex;
+  justify-content: space-between;
+}
+.valorant {
+  height: 54px;
+}
+.coaching-informations {
+  align-self: flex-start;
+  display:flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: right;
+  padding: 7.5rem;
+}
+.briston {
+  height: 490px;
+  width: 360px;
+  margin-right: -13rem;
+  margin-top: 5rem;
+}
 .select-game {
   width: 80.012px;
   height: 80.882px;
@@ -291,27 +124,14 @@ v-divider.border-opacity-100(thickness="1rem")
   font-size: 20px;
   font-weight: 700;
 }
-
-.rank,
-.lp {
-  text-align: center;
+.third-purchase-eloboosting {
+  border-radius: 20px;
+  background: #FF7A00;
+  width: 200.9px;
+  height: 80.882px;
+  color: #FFF;
   font-size: 20px;
-  font-weight: 500;
-  line-height: normal;
-}
-.rank-information {
-  width: 140px;
-}
-.rank-photo {
-  width: 66px;
-  height: 66px;
-}
-.score {
-  width: 90px;
-  text-align: center;
-  color: #888;
-  font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
 }
 .list-informations {
   display: flex;
@@ -331,78 +151,6 @@ v-divider.border-opacity-100(thickness="1rem")
   flex-direction: column;
   gap: 1.5rem;
 }
-.champion-photo {
-  height: 69px;
-  width: 69px;
-  border-radius: 5px;
-}
-.spells {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  gap: 7px;
-  margin-left: -6px;
-}
-.spell {
-  height: 32px;
-  width: 32px;
-}
-.live-orders {
-  width: 523px;
-}
-.orders {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-  overflow-y: auto;
-  border: 1px #EEEEEE solid;
-  padding: 1rem;
-}
-.list-container {
-  height: 750px;
-  overflow: hidden;
-}
-/* .list-container {
-  overflow: hidden;
-}
-
-#orders {
-  animation: scroll 5s linear infinite;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  height: 500px;
-}
-
-@keyframes scroll {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-300px); }
-} */
-
-
-.order {
-  display:flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-left: -2rem;
-  animation: slide 36s linear infinite;
-}
-
-@keyframes slide {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, -1600px , 0); /* The image width */
-  }
-}
-
-.traffic-light {
-  height: 36px;
-  margin-top: 37px;
-  margin-bottom: -6px
-}
 .sage {
   height: 170px;
   width: 170px;
@@ -415,27 +163,26 @@ v-divider.border-opacity-100(thickness="1rem")
   margin-top: 6rem;
   margin-left: -16rem;
 }
-.genji {
-  position: absolute;
-  width: 171px;
-  height: 194px;
-  margin-top: -117px;
-  margin-left: 390px;
-  z-index: 3;
-}
 .our-features {
   background-color: #ffffff;
   max-width: 1440px;
   margin: 0 auto;
 }
+.coaching,
 .boosting {
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
   justify-content: space-between;
 }
+.coaching {
+  align-items: center
+}
 .boosting-title {
   color: #0083FF;
+}
+.coaching-title {
+  color: #FF7A00
 }
 .title {
   font-size: 64px;
@@ -551,5 +298,4 @@ v-divider.border-opacity-100(thickness="1rem")
   font-size: 64px;
   font-weight: bold;
 }
-
 </style>
