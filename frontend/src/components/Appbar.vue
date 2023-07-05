@@ -2,15 +2,21 @@
 import LoginButton from '@/components/LoginButton'
 import SettingsButton from '@/components/main/appbar-components/SettingsButton'
 import { useRouter } from 'vue-router'
+import Online from '@/components/indicators/Online'
 
 const router = useRouter()
+
 </script>
 
 <template lang="pug">
 .appbar
-  v-btn.logo(variant="tonal" @click="router.push('/')")
+  img.logo(src="@/assets/icons/logo.png"  @click="router.push('/')")
   .navigation-and-buttons
     .navigations
+      div.row
+        .online
+          Online
+        .navigation-text ONLINE
       .navigation-text(variant="text" @click="router.push('/boosting/league-of-legends/division')") BOOSTING
       .navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
       .navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
@@ -20,16 +26,28 @@ const router = useRouter()
 </template>
 
 <style scoped>
+.online {
+  padding-top: 0.5rem;
+}
+.row {
+  display: flex;
+  gap: 1rem;
+  height: min-content;
+}
 .appbar {
   display: flex;
   justify-content: space-between;
   font-family: Inter;
 }
 .logo {
-    width: 9.25rem;
-    height: 9.25rem;
-    border-radius: 1.6rem;
-    background-color: #d9d9d9;
+  height: 93px;
+  width: 220px;
+  cursor: pointer;
+  opacity: 0.9;
+  margin-bottom: 5rem;
+}
+.logo:hover {
+  opacity: 1;
 }
 .navigation-and-buttons {
   display: flex;

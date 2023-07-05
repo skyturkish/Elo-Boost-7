@@ -25,7 +25,7 @@ const props = defineProps({
 .background(:style="{ backgroundImage: `url(/src/assets/banners/${splashArtPath}.png)` }")
   .content
     AppBar
-    .TRUST-PILOT-5-STAR-REVIEW ** TRUST PILOT 5 STAR REVIEW **
+    .TRUST-PILOT-5-STAR-REVIEW ‏‏‏‏‏‏‏‏
     .title {{ title }}
     .subtitle {{ subtitle }}
     .dynamic

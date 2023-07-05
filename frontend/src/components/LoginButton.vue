@@ -18,24 +18,20 @@ function closeDialog() {
 
 <template lang="pug">
 AuthMenu(v-if="useAccountStore.user")
-v-btn.client-area(v-else) Login
-  v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black")
-    AuthDialog(v-on:close-dialog="closeDialog")
+img.login-button(v-else src="@/assets/icons/login-button.png" )
+v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black")
+  AuthDialog(v-on:close-dialog="closeDialog")
 </template>
 
 <style scoped>
-.client-area {
-  width: 135px;
+.login-button {
+  width: 140px;
   height: 50px;
-  border-radius: 15px;
-  box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.5);
-  background-color: #174e82;
+  cursor: pointer;
+}
 
-
-  font-family: Inter;
-  font-size: 24px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: normal;
+.login-button:hover {
+  transform: scale(1.05);
+  transition: transform 0.5s;
 }
 </style>
