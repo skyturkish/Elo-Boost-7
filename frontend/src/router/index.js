@@ -1,8 +1,6 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
 
-import { useAccount } from '@/store/account'
-
 const routes = [
     {
         path: '/',
@@ -254,10 +252,6 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const rootPathName = to.fullPath.split('/')[1]
-
-    const userStore = useAccount()
-
-    await userStore.fetchSession()
 
     if (rootPathName == 'panel' || rootPathName == 'edit-profile') {
         if (!userStore.user) return next('/')
