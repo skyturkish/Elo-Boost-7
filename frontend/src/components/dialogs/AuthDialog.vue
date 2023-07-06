@@ -78,10 +78,6 @@ const validationRules = {
       ]
 }
 
-async function fetchUser() {
-  await useAccountStore.fetchSession()
-}
-
 async function validate()   {
   const { valid } = await form.value.validate()
   return await valid
@@ -133,7 +129,7 @@ async function login() {
     })
     form.value.reset()
     backendSuccess.value = null
-    await fetchUser()
+    await useAccountStore.fetchSession()
     console.log('everthing is fine')
   } catch (error) {
     console.log('a error appeared', error)

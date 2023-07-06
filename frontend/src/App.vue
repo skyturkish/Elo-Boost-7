@@ -1,12 +1,8 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useAccount } from '@/store/account'
 import Footer from '@/components/Footer'
 
-const useAccountStore = useAccount()
-
 onMounted(async () => {
-  await useAccountStore.fetchSession()
   window.addEventListener('beforeunload', () => {
     useAccountStore.changeUserOnlineState('offline')
   });

@@ -254,13 +254,16 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const rootPathName = to.fullPath.split('/')[1]
-    await useAccount().fetchSession()
+
+    const userStore = useAccount()
+
+    await userStore.fetchSession()
 
     if (rootPathName == 'panel' || rootPathName == 'edit-profile') {
-        if (!useAccount().user) return next('/')
+        if (!userStore.user) return next('/')
         return next()
     } else if (rootPathName == 'admin') {
-        if (!(useAccount().user?.role == 'admin')) return next('/')
+        if (!(userStore.user?.role == 'admin')) return next('/')
         return next()
     }
 
