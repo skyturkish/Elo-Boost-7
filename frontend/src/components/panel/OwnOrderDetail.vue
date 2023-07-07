@@ -165,31 +165,14 @@ async function publish() {
   }
 }
 
-
 onMounted(async () => {
-  const adana = await axios.get(`order/${orderId}`)
-  order.value = adana.data
+  const orderInfo = await axios.get(`order/${orderId}`)
+  order.value = orderInfo.data
   currentLeagueOfLegendsOrder.booster = null
 
-  const bursa = await axios.get(`/account-information/${order.value._id}`)
+  const accountInfo = await axios.get(`/account-information/${order.value._id}`)
 
-  accountInformation.value = bursa.data
-})
-
-const orderInformations = computed(() => {
-  if (order.value == null) return null
-  return {
-  'TYPE': order.value.orderType,
-  'CURRENT DIVISION': `${order.value.currentRank.division} ${order.value.currentRank.milestone} ${order.value.currentRank.currentLP}`,
-  'DESIRED DIVISIOIN': !order.value.desiredRank ? null :`${order.value.desiredRank.division} ${order.value.desiredRank.milestone}`,
-  'QUEUE': order.value.queue,
-  'SERVER': order.value.server,
-  'DUO':  order.value.isSolo ? 'TRUE' : 'FALSE',
-  'SOLO ONLY': order.value.isSolo ? 'TRUE' : 'FALSE',
-  'PREMIUM': order.value.premium,
-  'FLASH': 'DEFAULT',
-  'ACCOUNT INFO': 'UNVERIFIED'
-  }
+  accountInformation.value = accountInfo.data
 })
 
 </script>
