@@ -14,7 +14,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
     state: () => ({
         milestone: 'I',
         currentLP: '0-20LP',
-        server: 'Turkey',
+        server: 'EUW',
         gainLP: '25-20LP',
         booster: null,
         coach: null,

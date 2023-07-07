@@ -13,7 +13,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         currentRR: '0-20 RR',
         currentGainRR: '25-20 RR',
         gainRR: '+25 GAIN',
-        server: 'Turkey',
+        server: 'Europe',
         booster: null,
         heroes: [],
 

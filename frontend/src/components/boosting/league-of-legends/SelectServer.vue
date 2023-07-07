@@ -5,7 +5,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 </script>
 
 <template lang="pug">
-v-select(:items="['Turkey','China']" v-model="currentLeagueOfLegendsOrder.server")
+v-select(:items="['EUW','EUNE','NA','RU','TR']" v-model="currentLeagueOfLegendsOrder.server")
 </template>
 
 <style scoped>
