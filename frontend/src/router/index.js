@@ -256,8 +256,12 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+    console.log('beforeEach triggered')
     const rootPathName = to.fullPath.split('/')[1]
     const useAccountStore = useAccount()
+    if (useAccountStore.fetchSessionLoading == false) {
+        await useAccountStore.fetchSession()
+    }
 
     if (rootPathName == 'panel' || rootPathName == 'edit-profile') {
         if (!useAccountStore.user) return next('/')
