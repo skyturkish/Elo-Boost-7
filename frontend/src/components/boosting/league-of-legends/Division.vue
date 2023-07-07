@@ -17,24 +17,25 @@ import SelectQueue from '@/components/boosting/league-of-legends/SelectQueue'
 import CustomSwitch from '@/components/CustomSwitch'
 import { LeagueOfLegendsDivisions, LeagueOfLegendsMilestones } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 const divisions = LeagueOfLegendsDivisions.slice(0,7)
 const milestones = LeagueOfLegendsMilestones
 
-const selectedDivisionIndex = ref(4)
-const selectedMilestoneIndex = ref(3)
 const checkedColors = ref(false)
 
 
 onMounted(() => {
+  console.log('ilk kez kuruluyor')
   if(currentLeagueOfLegendsOrder.selectedDivisionIndex > 5) {
     currentLeagueOfLegendsOrder.selectedDivisionIndex = 5
   }
   checkedColors.value = true
 })
-
 
 const addCount = computed(() => {
   return milestones.indexOf(currentLeagueOfLegendsOrder.milestone) === 3 ? 1 :0
@@ -45,47 +46,52 @@ const limitedDivisions = computed(() => {
 })
 
 const limitedMilestones = computed(() => {
-  if (currentLeagueOfLegendsOrder.selectedDivisionIndex === selectedDivisionIndex.value) {
+  if (currentLeagueOfLegendsOrder.selectedDivisionIndex === currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex) {
     return milestones.slice(milestones.indexOf(currentLeagueOfLegendsOrder.milestone) + 1)
   }
   return milestones
 })
 
 const desiredOrder = computed(() => {
-  if(!limitedDivisions.value.includes(divisions[selectedDivisionIndex.value])) {
-    selectedDivisionIndex.value = divisions.indexOf(limitedDivisions.value[0])
+  if(!limitedDivisions.value.includes(divisions[currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex])) {
+    currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex = divisions.indexOf(limitedDivisions.value[0])
   }
 
-  return divisions[selectedDivisionIndex.value]
+  const division = divisions[currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex]
+
+  currentLeagueOfLegendsOrder.desiredDivision = division.name
+
+  return division
 })
 
 const desiredMilestone = computed(() => {
-  if(!limitedMilestones.value.includes(milestones[selectedMilestoneIndex.value])) {
-    selectedMilestoneIndex.value = milestones.indexOf(limitedMilestones.value[0])
+  if(!limitedMilestones.value.includes(milestones[currentLeagueOfLegendsOrder.desiredMilestone])) {
+    currentLeagueOfLegendsOrder.desiredMilestone = milestones.indexOf(limitedMilestones.value[0])
   }
 
-  return milestones[selectedMilestoneIndex.value]
+  return milestones[currentLeagueOfLegendsOrder.desiredMilestone]
 })
 
 function increment() {
-  selectedDivisionIndex.value++
-  selectedDivisionIndex.value = selectedDivisionIndex.value % divisions.length
+  currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex++
+  currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex = currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex % divisions.length
 }
 
 function decrement() {
-  selectedDivisionIndex.value -= 1
+  currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex -= 1
 
-  if(!limitedMilestones.value.includes(milestones[selectedMilestoneIndex.value])) {
-    selectedDivisionIndex.value = divisions.length - 1
+  if(!limitedMilestones.value.includes(milestones[currentLeagueOfLegendsOrder.desiredMilestone])) {
+    currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex = divisions.length - 1
   }
 }
 
 function changeDesiredDivision(division) {
-  selectedDivisionIndex.value = divisions.indexOf(division)
+  currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex = divisions.indexOf(division)
 }
 
 function changeMileStone(milestone) {
-  selectedMilestoneIndex.value = milestones.indexOf(milestone)
+  currentLeagueOfLegendsOrder.desiredMilestone = milestones.indexOf(milestone)
+
 }
 
 function isSelectedMilestone(milestone) {
@@ -93,9 +99,9 @@ function isSelectedMilestone(milestone) {
 }
 
 async function createOrder() {
-  await currentLeagueOfLegendsOrder.createDivisionOrder({
-    division: desiredOrder.value.name,
-    milestone: desiredMilestone.value
+  console.log(currentLeagueOfLegendsOrder.divisionOrder)
+  router.push({
+    path: `/complete-payment/league-of-legends/division`,
   })
 }
 </script>
