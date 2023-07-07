@@ -9,11 +9,15 @@ import Premium from '@/components/boosting/league-of-legends/Premium'
 import HighMmrAndSoloOnly from '@/components/boosting/league-of-legends/HighMmrAndSoloOnly'
 import UntrackableOrStream from '@/components/boosting/league-of-legends/UntrackableOrStream'
 import CustomSwitch from '@/components/CustomSwitch'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 async function createOrder() {
-  await currentLeagueOfLegendsOrder.createNormalGamesOrder()
+  router.push({
+    path: `/complete-payment/league-of-legends/normal-game`,
+  })
 }
 </script>
 

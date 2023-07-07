@@ -14,14 +14,18 @@ import UntrackableOrStream from '@/components/boosting/league-of-legends/Untrack
 import Premium from '@/components/boosting/league-of-legends/Premium'
 import HighMmrAndSoloOnly from '@/components/boosting/league-of-legends/HighMmrAndSoloOnly'
 import CustomSwitch from '@/components/CustomSwitch'
-
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 async function createOrder() {
-  await currentLeagueOfLegendsOrder.createWinOrder()
+  router.push({
+    path: `/complete-payment/league-of-legends/win`,
+  })
 }
+
 </script>
 
 <template lang="pug">

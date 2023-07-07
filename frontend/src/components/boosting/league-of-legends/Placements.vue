@@ -14,11 +14,15 @@ import SelectBooster from '@/components/boosting/league-of-legends/SelectBooster
 import SelectChampions from '@/components/boosting/league-of-legends/SelectChampions'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 async function createOrder() {
-  await currentLeagueOfLegendsOrder.createPlacementsOrder()
+  router.push({
+    path: `/complete-payment/league-of-legends/placements`,
+  })
 }
 </script>
 

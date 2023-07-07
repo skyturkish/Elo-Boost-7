@@ -54,7 +54,10 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         clashAmountGame: '5 GAMES',
         clashAmountBooster: '5 BOOSTER',
 
-        selectedDivisionIndex: 3
+        selectedDivisionIndex: 3,
+
+        selectedDesiredDivisionIndex: 4,
+        desiredMilestone: 3
     }),
     actions: {
         incrementDivision(limit) {
@@ -115,166 +118,138 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         isAnyHeroSelected() {
             return Object.values(this.heroes).some((list) => list.length > 0)
         },
-        async createDivisionOrder(desiredRank) {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.booster?._id,
-                category: 'boosting',
-                game: 'league-of-legends',
-                orderType: 'division',
-                currentRank: this.currentRank,
-                desiredRank: desiredRank,
-                server: this.server,
-                queue: this.queue,
-                gainLP: this.gainLP,
-                isSolo: this.isSolo,
-                lanes: this.lanes,
-                booster: this.booster,
-                heroes: this.heroes,
-                ...this.getDynamicOptions,
-                bonusWin: this.bonuwWin,
-                premium: this.premium
-            })
+        async createDivisionOrder() {
+            await axios.post('/order', this.divisionOrder)
         },
         async createWinOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.booster?._id,
-                category: 'boosting',
-                game: 'league-of-legends',
-                orderType: 'win',
-                currentRank: this.currentRank,
-                server: this.server,
-                queue: this.queue,
-                amountGame: this.amountWinGame,
-                gainLP: this.gainLP,
-                isSolo: this.isSolo,
-                gameOrNetWin: this.gameOrNetWin,
-                lanes: this.lanes,
-                heroes: this.heroes,
-                ...this.getDynamicOptions,
-                premium: this.premium
-            })
+            await axios.post('/order', this.winOrder)
         },
         async createPlacementsOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.booster?._id,
-                category: 'boosting',
-                game: 'league-of-legends',
-                orderType: 'placements',
-                currentRank: this.currentRank,
-                server: this.server,
-                queue: this.queue,
-                amountGame: this.amountPlacementsGame,
-                isSolo: this.isSolo,
-                lanes: this.lanes,
-                heroes: this.heroes,
-                ...this.getDynamicOptions,
-                premium: this.premium,
-                bonusWin: this.bonuwWin
-            })
+            await axios.post('/order', this.placementsOrder)
         },
         async createNormalGamesOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.booster?._id,
-                category: 'boosting',
-                game: 'league-of-legends',
-                orderType: 'normal-game',
-                map: this.map,
-                server: this.server,
-                queue: this.queue,
-                amountGame: this.amountNormalGame,
-                isSolo: this.isSolo,
-                lanes: this.lanes,
-                heroes: this.heroes,
-                stier: this.stier,
-                premium: this.premium,
-                ...this.getDynamicOptions
-            })
+            await axios.post('/order', this.normalGameOrder)
         },
-        async createClashOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                category: 'boosting',
-                game: 'league-of-legends',
-                orderType: 'clash',
-                server: this.server,
-                clashTier: this.clashTier,
-                clashAmountBooster: this.clashAmountBooster,
-                amountGame: this.clashAmountGame,
-                isSolo: this.isSolo,
-                lanes: this.lanes,
-                booster: this.booster,
-                heroes: this.heroes,
-                options: this.options
-            })
-        },
-
+        // async createClashOrder() {
+        //     await axios.post('/order', {
+        //         orderType: 'clash',
+        //         clashTier: this.clashTier,
+        //         clashAmountBooster: this.clashAmountBooster,
+        //         amountGame: this.clashAmountGame,
+        //         options: this.options
+        //     })
+        // },
         async createLessonOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.coach?._id,
-                category: 'coaching',
-                game: 'league-of-legends',
-                orderType: 'lesson',
-                currentRank: this.currentRank,
-                hours: this.coachingHours,
-                languages: this.languages,
-                lanes: this.lanes,
-                heroes: this.heroes,
-                premium: this.premium
-            })
+            await axios.post('/order', this.lessonOrder)
         },
         async createGameReplayOrder() {
-            console.log('game replay order oluşturuluyor')
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.coach?._id,
-                category: 'coaching',
-                game: 'league-of-legends',
-                orderType: 'game-replay',
-                currentRank: this.currentRank,
-                amountGame: this.amountCoachingGame,
-                languages: this.languages,
-                lanes: this.lanes,
-                heroes: this.heroes,
-                premium: this.premium
-            })
+            await axios.post('/order', this.gameReplayOrder)
         },
         async createLiveGameOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.coach?._id,
-                category: 'coaching',
-                game: 'league-of-legends',
-                orderType: 'game-replay',
-                currentRank: this.currentRank,
-                amountGame: this.amountCoachingGame,
-                languages: this.languages,
-                lanes: this.lanes,
-                heroes: this.heroes,
-                premium: this.premium
-            })
+            await axios.post('/order', this.liveGameOrder)
         },
         async createPlayTogetherOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.coach?._id,
-                category: 'coaching',
-                game: 'league-of-legends',
-                orderType: 'game-replay',
-                currentRank: this.currentRank,
-                amountGame: this.amountCoachingGame,
-                languages: this.languages,
-                lanes: this.lanes,
-                heroes: this.heroes,
-                premium: this.premium
-            })
+            await axios.post('/order', this.playTogetherOrder)
         }
     },
     getters: {
+        boostingBaseOrder() {
+            return {
+                customer: customerId,
+                booster: this.booster?._id,
+                category: 'boosting',
+                game: 'league-of-legends',
+                ...this.getDynamicOptions,
+                server: this.server,
+                isSolo: this.isSolo,
+                lanes: this.lanes,
+                heroes: this.heroes,
+                premium: this.premium,
+                queue: this.queue
+            }
+        },
+        coachingBaseOrder() {
+            return {
+                customer: customerId,
+                booster: this.coach?._id,
+                category: 'coaching',
+                game: 'league-of-legends',
+                lanes: this.lanes,
+                heroes: this.heroes,
+                premium: this.premium,
+                languages: this.languages,
+                currentRank: this.currentRank
+            }
+        },
+        divisionOrder() {
+            return {
+                ...this.boostingBaseOrder,
+                orderType: 'division',
+                currentRank: this.currentRank,
+                desiredRank: {
+                    division: this.desiredColors.name,
+                    milestone: ['IV', 'III', 'II', 'I'][this.desiredMilestone]
+                },
+                gainLP: this.gainLP,
+                bonusWin: this.bonuwWin
+            }
+        },
+        winOrder() {
+            return {
+                ...this.boostingBaseOrder,
+                orderType: 'win',
+                currentRank: this.currentRank,
+                amountGame: this.amountWinGame,
+                gainLP: this.gainLP,
+                gameOrNetWin: this.gameOrNetWin
+            }
+        },
+        placementsOrder() {
+            return {
+                ...this.boostingBaseOrder,
+                orderType: 'placements',
+                currentRank: this.currentRank,
+                amountGame: this.amountPlacementsGame,
+                bonusWin: this.bonuwWin
+            }
+        },
+        normalGameOrder() {
+            return {
+                ...this.boostingBaseOrder,
+                orderType: 'normal-game',
+                map: this.map,
+                amountGame: this.amountNormalGame,
+                stier: this.stier
+            }
+        },
+        lessonOrder() {
+            return {
+                ...this.coachingBaseOrder,
+                orderType: 'lesson',
+                hours: this.coachingHours
+            }
+        },
+        gameReplayOrder() {
+            return {
+                ...this.coachingBaseOrder,
+                orderType: 'game-replay',
+                amountGame: this.amountCoachingGame
+            }
+        },
+        liveGameOrder() {
+            return {
+                ...this.coachingBaseOrder,
+                orderType: 'live-game',
+                amountGame: this.amountCoachingGame
+            }
+        },
+        playTogetherOrder() {
+            return {
+                ...this.coachingBaseOrder,
+                orderType: 'play-together',
+                amountGame: this.amountCoachingGame
+            }
+        },
         colors: (state) =>
             LeagueOfLegendsDivisions[state.selectedDivisionIndex],
         currentRank: (state) => {
@@ -284,6 +259,8 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 currentLP: state.currentLP
             }
         },
+        desiredColors: (state) =>
+            LeagueOfLegendsDivisions[state.selectedDesiredDivisionIndex],
         maps: (state) => mapColors,
         selectedMap: (state) => mapColors[state.map],
         getDynamicOptions: (state) => {

@@ -5,15 +5,19 @@ import SelectHours from '@/components/coaching/league-of-legends/SelectHours'
 import SelectCoach from '@/components/coaching/league-of-legends/SelectCoach'
 import SelectChampions from '@/components/boosting/league-of-legends/SelectChampions'
 import Premium from '@/components/boosting/league-of-legends/Premium'
-
 import Checkout from '@/components/Checkout'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 async function createOrder() {
-  await currentLeagueOfLegendsOrder.createLessonOrder()
+  router.push({
+    path: `/complete-payment/league-of-legends/lesson`,
+  })
 }
+
 </script>
 
 <template lang="pug">
