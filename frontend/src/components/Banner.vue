@@ -14,10 +14,6 @@ const props = defineProps({
     type: String,
     required: true
   },
-  backgroundColor: {
-    type: String,
-    default: '#101922'
-  }
 })
 </script>
 

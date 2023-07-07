@@ -37,7 +37,6 @@ const router = useRouter()
 .appbar {
   display: flex;
   justify-content: space-between;
-  font-family: Inter;
 }
 .logo {
   height: 93px;
