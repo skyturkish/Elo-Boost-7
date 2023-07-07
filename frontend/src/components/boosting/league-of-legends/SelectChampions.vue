@@ -54,12 +54,11 @@ CheckoutSelection(toolTipText="You can set your champions which ones you wanted 
       v-divider
       .last-row
         img.selected-lane(v-if="selectedLane != ''" :src='`../../src/assets/lanes/${selectedLane}.png`')
-        img.champion(v-for="hero in currentLeagueOfLegendsOrder.heroes[selectedLane]" :src='`../../src/assets/squares/league-of-legends/${hero}.png`')
+        img.champion(v-for="hero in currentLeagueOfLegendsOrder.heroes[selectedLane]" :src='`../../src/assets/squares/league-of-legends/${hero}.png`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)")
         img.champion(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.heroes[selectedLane]?.length || 0" :src='`../../src/assets/squares/league-of-legends/champion.png`')
         v-btn.price-calculation
           .calculation-text(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 ") +%10
           .calculation-text(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length >= 3 ") FREE
-
 </template>
 
 <style scoped>
@@ -124,12 +123,15 @@ CheckoutSelection(toolTipText="You can set your champions which ones you wanted 
   height: min-content;
   display: flex;
   flex-wrap: wrap;
-  padding: 1rem 2rem;
-  gap: 1rem;
+  padding: 2rem;
+  gap: 0.6rem;
+  justify-content: center;
 }
 .champion {
   height: 4rem;
   width: 4rem;
+  border-radius: 45px;
+  border: 3px solid #000;
 }
 .selected-lane {
   width: 4rem;
