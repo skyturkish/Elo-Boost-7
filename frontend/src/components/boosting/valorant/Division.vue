@@ -4,7 +4,6 @@ import CurrentRank from '@/components/boosting/valorant/CurrentRank'
 import Checkout from '@/components/Checkout'
 import CheckoutSelection from '@/components/CheckoutSelection'
 import { valorantDivisions, valorantMilestones  } from '@/constants/valorant-constants'
-import { useValorantOrder } from '@/store/valorant-order'
 import { useAccount } from '@/store/account'
 import SelectCurrentRR from '@/components/boosting/valorant/SelectCurrentRR'
 import SelectGainRR from '@/components/boosting/valorant/SelectGainRR'
@@ -16,14 +15,15 @@ import Premium from '@/components/boosting/valorant/Premium'
 import HighMmrAndSoloOnly from '@/components/boosting/valorant/HighMmrAndSoloOnly'
 import UntrackableOrStream from '@/components/boosting/valorant/UntrackableOrStream'
 import CustomSwitch from '@/components/CustomSwitch'
+import { useValorantOrder } from '@/store/valorant-order'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const currentValorantOrder = useValorantOrder()
 
 const divisions = valorantDivisions.slice(0,8)
 const milestones = valorantMilestones
-
-const selectedDivisionIndex = ref(4)
-const selectedMilestoneIndex = ref(3)
 
 const checkedColors = ref(false)
 
@@ -43,30 +43,30 @@ const limitedDivisions = computed(() => {
 })
 
 const limitedMilestones = computed(() => {
-  if (currentValorantOrder.selectedDivisionIndex === selectedDivisionIndex.value) {
+  if (currentValorantOrder.selectedDivisionIndex === currentValorantOrder.selectedDesiredDivisionIndex) {
     return milestones.slice(milestones.indexOf(currentValorantOrder.milestone) + 1)
   }
   return milestones
 })
 
 const desiredOrder = computed(() => {
-  if(!limitedDivisions.value.includes(divisions[selectedDivisionIndex.value])) {
-    selectedDivisionIndex.value = divisions.indexOf(limitedDivisions.value[0])
+  if(!limitedDivisions.value.includes(divisions[currentValorantOrder.selectedDesiredDivisionIndex])) {
+    currentValorantOrder.selectedDesiredDivisionIndex = divisions.indexOf(limitedDivisions.value[0])
   }
 
-  return divisions[selectedDivisionIndex.value]
+  return divisions[currentValorantOrder.selectedDesiredDivisionIndex]
 })
 
 const desiredMilestone = computed(() => {
-  if(!limitedMilestones.value.includes(milestones[selectedMilestoneIndex.value])) {
-    selectedMilestoneIndex.value = milestones.indexOf(limitedMilestones.value[0])
+  if(!limitedMilestones.value.includes(milestones[currentValorantOrder.desiredMilestone])) {
+    currentValorantOrder.desiredMilestone = milestones.indexOf(limitedMilestones.value[0])
   }
 
-  return milestones[selectedMilestoneIndex.value]
+  return milestones[currentValorantOrder.desiredMilestone]
 })
 
 function changeDesiredDivision(division) {
-  selectedDivisionIndex.value = divisions.indexOf(division)
+  currentValorantOrder.selectedDesiredDivisionIndex = divisions.indexOf(division)
 }
 
 function isDesiredDivision(division) {
@@ -75,7 +75,7 @@ function isDesiredDivision(division) {
 
 
 function changeMileStone(milestone) {
-  selectedMilestoneIndex.value = milestones.indexOf(milestone)
+  currentValorantOrder.desiredMilestone = milestones.indexOf(milestone)
 }
 
 function isSelectedMilestone(milestone) {
@@ -83,11 +83,11 @@ function isSelectedMilestone(milestone) {
 }
 
 async function createOrder() {
-  await currentValorantOrder.createDivisionOrder({
-    division: desiredOrder.value.name,
-    milestone: desiredMilestone.value
+  router.push({
+    path: `/complete-payment/valorant/division`,
   })
 }
+
 </script>
 
 <template lang="pug">

@@ -6,13 +6,14 @@ import SelectCoachAmountGame from '@/components/coaching/valorant/SelectCoachAmo
 import SelectCoach from '@/components/coaching/valorant/SelectCoach'
 import SelectAgents from '@/components/boosting/valorant/SelectAgents'
 import Premium from '@/components/boosting/valorant/Premium'
+import { useRouter } from 'vue-router'
 
-import { useValorantOrder } from '@/store/valorant-order'
-
-const currentValorantOrder = useValorantOrder()
+const router = useRouter()
 
 async function createOrder() {
-  await currentValorantOrder.createLiveGameOrder()
+  router.push({
+    path: `/complete-payment/valorant/live-game`,
+  })
 }
 </script>
 

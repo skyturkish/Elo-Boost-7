@@ -1,5 +1,5 @@
 <script setup>
-import { useValorantOrder } from '@/store/valorant'
+import { useValorantOrder } from '@/store/valorant-order'
 
 </script>
 

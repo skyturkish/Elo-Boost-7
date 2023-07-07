@@ -2,28 +2,25 @@
 import { ref } from 'vue'
 import CurrentRank from '@/components/boosting/valorant/CurrentRank'
 import Checkout from '@/components/Checkout'
-
 import SelectServer from '@/components/boosting/valorant/SelectServer'
 import SelectAmountUnratedMatchGames from '@/components/boosting/valorant/SelectAmountUnratedMatchGames'
-
 import SelectBooster from '@/components/boosting/valorant/SelectBooster'
 import SelectAgents from '@/components/boosting/valorant/SelectAgents'
 import Premium from '@/components/boosting/valorant/Premium'
 import HighMmrAndSoloOnly from '@/components/boosting/valorant/HighMmrAndSoloOnly'
 import UntrackableOrStream from '@/components/boosting/valorant/UntrackableOrStream'
-
 import CustomSwitch from '@/components/CustomSwitch'
-
 import { useValorantOrder } from '@/store/valorant-order'
-
-const currentValorantOrder = useValorantOrder()
+import { useRouter } from 'vue-router'
 
 const gameTypes = ['unrated','swift','spike-rush','deathmatch','escalation']
-
-const selectedGameType = ref('unrated')
+const currentValorantOrder = useValorantOrder()
+const router = useRouter()
 
 async function createOrder() {
-  await currentValorantOrder.createUnratedMatch(selectedGameType.value)
+  router.push({
+    path: `/complete-payment/valorant/unrated`,
+  })
 }
 </script>
 
@@ -33,13 +30,13 @@ async function createOrder() {
   div
     .content
       .title GAME TYPE
-      img.selected-game-type(:src='`../../../src/assets/valorant-game-Types/${selectedGameType}.png`')
-      .selected-game-name {{ selectedGameType.toUpperCase() }}
+      img.selected-game-type(:src='`../../../src/assets/valorant-game-Types/${currentValorantOrder.selectedGameType}.png`')
+      .selected-game-name {{ currentValorantOrder.selectedGameType.toUpperCase() }}
       .selections
         SelectServer
         SelectAmountUnratedMatchGames
       .game-types
-        img.game-type(v-for="gameType in gameTypes" v-bind:class="selectedGameType == gameType ? 'selected-game' : 'unselected-game' " @click="selectedGameType = gameType" :src='`../../../src/assets/valorant-game-Types/${gameType}.png`')
+        img.game-type(v-for="gameType in gameTypes" v-bind:class="currentValorantOrder.selectedGameType == gameType ? 'selected-game' : 'unselected-game' " @click="currentValorantOrder.selectedGameType = gameType" :src='`../../../src/assets/valorant-game-Types/${gameType}.png`')
 Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
   template(v-slot:switchs)
     .custom-switch-two-options

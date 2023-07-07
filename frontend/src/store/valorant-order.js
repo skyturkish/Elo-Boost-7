@@ -34,7 +34,10 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         amountCoachingGame: '3 GAMES',
         coachingHours: '2 HOURS',
         amountUnratedMatchGame: '5 GAMES',
-        selectedDivisionIndex: 3
+        selectedDivisionIndex: 3,
+        selectedGameType: 'unrated',
+        selectedDesiredDivisionIndex: 4,
+        desiredMilestone: 3
     }),
     actions: {
         incrementDivision(limit) {
@@ -75,117 +78,124 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         isAnyHeroSelected() {
             return this.heroes.length > 0
         },
-        async createDivisionOrder(desiredRank) {
-            console.log(' buraya girdi')
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.booster?._id,
-                category: 'boosting',
-                game: 'valorant',
-                orderType: 'division',
-                currentRank: this.currentRank,
-                desiredRank: desiredRank,
-                gainRR: this.gainRR,
-                server: this.server,
-                isSolo: this.isSolo,
-                heroes: this.heroes,
-                ...this.getDynamicOptions,
-                bonusWin: this.bonuwWin,
-                premium: this.premium
-            })
+        async createDivisionOrder() {
+            await axios.post('/order', this.divisionOrder)
         },
         async createWinOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.booster?._id,
-                category: 'boosting',
-                game: 'valorant',
-                orderType: 'win',
-                currentRank: this.currentRank,
-                server: this.server,
-                isSolo: this.isSolo,
-                heroes: this.heroes,
-                ...this.getDynamicOptions,
-                premium: this.premium,
-                amountGame: this.amountWinGame
-            })
+            await axios.post('/order', this.winOrder)
         },
         async createPlacementsOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.booster?._id,
-                category: 'boosting',
-                game: 'valorant',
-                orderType: 'placements',
-                currentRank: this.currentRank,
-                server: this.server,
-                isSolo: this.isSolo,
-                heroes: this.heroes,
-                ...this.getDynamicOptions,
-                premium: this.premium,
-                amountGame: this.amountPlacementsGame
-            })
+            await axios.post('/order', this.placementsOrder)
         },
-        async createUnratedMatch(selectedGameType) {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.booster?._id,
-                category: 'boosting',
-                game: 'valorant',
-                orderType: 'unrated',
-                selectedGameType: selectedGameType,
-                server: this.server,
-                isSolo: this.isSolo,
-                heroes: this.heroes,
-                ...this.getDynamicOptions,
-                premium: this.premium,
-                amountGame: this.amountUnratedMatchGame
-            })
+        async createUnratedMatch() {
+            await axios.post('/order', this.unratedOrder)
         },
         async createLessonOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.coach._id,
-                category: 'coaching',
-                game: 'valorant',
-                orderType: 'lesson',
-                currentRank: this.currentRank,
-                hours: this.coachingHours,
-                languages: this.languages,
-                heroes: this.heroes,
-                premium: this.premium
-            })
+            await axios.post('/order', this.lessonOrder)
         },
         async createLiveGameOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.coach._id,
-                category: 'coaching',
-                game: 'valorant',
-                orderType: 'lesson',
-                currentRank: this.currentRank,
-                amountGame: this.amountCoachingGame,
-                languages: this.languages,
-                heroes: this.heroes,
-                premium: this.premium
-            })
+            await axios.post('/order', this.liveGameOrder)
         },
         async createPlayTogetherOrder() {
-            await axios.post('/order', {
-                customer: customerId,
-                booster: this.coach._id,
-                category: 'coaching',
-                game: 'valorant',
-                orderType: 'lesson',
-                currentRank: this.currentRank,
-                amountGame: this.amountCoachingGame,
-                languages: this.languages,
-                heroes: this.heroes,
-                premium: this.premium
-            })
+            await axios.post('/order', this.playTogetherOrder)
         }
     },
     getters: {
+        boostingBaseOrder() {
+            return {
+                customer: customerId,
+                booster: this.booster?._id,
+                category: 'boosting',
+                game: 'valorant',
+                ...this.getDynamicOptions,
+                server: this.server,
+                heroes: this.heroes,
+                queue: this.queue,
+                premium: this.premium
+            }
+        },
+        coachingBaseOrder() {
+            return {
+                customer: customerId,
+                booster: this.coach?._id,
+                category: 'coaching',
+                game: 'valorant',
+                heroes: this.heroes,
+                languages: this.languages,
+                currentRank: this.currentRank,
+                premium: this.premium
+            }
+        },
+        divisionOrder() {
+            return {
+                ...this.boostingBaseOrder,
+                orderType: 'division',
+                currentRank: this.currentRank,
+                desiredRank: {
+                    division: this.desiredColors.name,
+                    milestone: ['I', 'II', 'III'][this.desiredMilestone]
+                },
+                isSolo: this.isSolo,
+                gainRR: this.gainRR,
+                bonusWin: this.bonuwWin
+            }
+        },
+        winOrder() {
+            return {
+                ...this.boostingBaseOrder,
+                orderType: 'win',
+                currentRank: this.currentRank,
+                isSolo: this.isSolo,
+                amountGame: this.amountWinGame,
+                gainRR: this.gainRR,
+                gameOrNetWin: this.gameOrNetWin
+            }
+        },
+        placementsOrder() {
+            return {
+                ...this.boostingBaseOrder,
+                orderType: 'placements',
+                currentRank: this.currentRank,
+                isSolo: this.isSolo,
+                amountGame: this.amountPlacementsGame,
+                bonusWin: this.bonuwWin
+            }
+        },
+        unratedOrder() {
+            return {
+                ...this.boostingBaseOrder,
+                orderType: 'unrated',
+                selectedGameType: this.selectedGameType,
+                server: this.server,
+                isSolo: this.isSolo,
+                heroes: this.heroes,
+                ...this.getDynamicOptions,
+                amountGame: this.amountUnratedMatchGame
+            }
+        },
+        lessonOrder() {
+            return {
+                ...this.coachingBaseOrder,
+                orderType: 'lesson',
+                hours: this.coachingHours
+            }
+        },
+        liveGameOrder() {
+            return {
+                ...this.coachingBaseOrder,
+                orderType: 'live-game',
+                amountGame: this.amountCoachingGame
+            }
+        },
+        playTogetherOrder() {
+            return {
+                ...this.coachingBaseOrder,
+                orderType: 'play-together',
+                amountGame: this.amountCoachingGame
+            }
+        },
+        desiredColors: (state) =>
+            valorantDivisions[state.selectedDesiredDivisionIndex],
         colors: (state) => valorantDivisions[state.selectedDivisionIndex],
         currentRank: (state) => {
             return {
