@@ -1,5 +1,4 @@
 <script setup>
-import Banner from "@/components/Banner.vue";
 import CoachingGamesMenu from "@/components/menus/CoachingGamesMenu.vue";
 
 const coachingTypes = [

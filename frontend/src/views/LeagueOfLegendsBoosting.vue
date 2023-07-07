@@ -1,5 +1,4 @@
 <script setup>
-import Banner from '@/components/Banner'
 import GamesMenu from '@/components/menus/GamesMenu'
 
 const boostTypes = [
@@ -31,7 +30,7 @@ const boostTypes = [
 </script>
 
 <template lang="pug">
-Banner(splashArtPath = 'league-of-legends' title= 'LEAGUE OF LEGENDS' subtitle= 'No time? Don’t worry. Let our team climb for you' backgroundColor='#212027')
+Banner(splashArtPath = 'league-of-legends' title= 'LEAGUE OF LEGENDS' subtitle= 'No time? Don’t worry. Let our team climb for you')
   GamesMenu(gameName='LEAGUE OF LEGENDS' gameImagePath='league-of-legends')
 v-divider.border-opacity-100(thickness="1rem")
 .boostType
