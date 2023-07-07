@@ -19,12 +19,14 @@ const props = defineProps({
         .current-rank
           img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.currentRank.division}.png`")
           .rank-name(:style="{color: (findDominantColorByDivisionName(order.currentRank.division))}") {{ order.currentRank.division.toUpperCase() }} {{ order.currentRank.milestone }}
-        img.to-where(src='../../assets/to-where.png')
+        svg(xmlns='http://www.w3.org/2000/svg' width='27' height='11' viewbox='0 0 27 11' fill='none')
+          path(d='M25.8014 4.67596C26.3794 5.07331 26.3794 5.92669 25.8014 6.32404L20.5665 9.92301C19.903 10.3792 19 9.90415 19 9.09897L19 1.90103C19 1.09585 19.903 0.620831 20.5665 1.07699L25.8014 4.67596Z' fill='#333333')
+          rect(y='4' width='21' height='3' rx='1' fill='#333333')
         .desired-rank
           img.rank-image(:src="`../../../src/assets/ranks/league-of-legends/${order.desiredRank.division}.png`")
           .rank-name(:style="{color: (findDominantColorByDivisionName(order.desiredRank.division))}") {{ order.desiredRank.division.toUpperCase() }} {{ order.desiredRank.milestone }}
       .process-bar
-  .wind-and-placement-process(v-else)
+  .wind-and-placement-process(v-else-if="order.orderType === 'win' || order.orderType === 'placements' " )
     .column
       .process-row
         .current-rank
@@ -35,16 +37,20 @@ const props = defineProps({
             .amount(v-if="order.orderType == 'lesson'") {{ order.hours.split(' ')[0] }}
             .amount(v-else) {{ order.amountGame.split(' ')[0] }}
             .games GAMES
+  .normal-game-process(v-else-if="order.orderType === 'normal-game'")
+    .column
+      .process-row
+        h1 normal
 </template>
 
 <style scoped>
 .order-process {
-  border-radius: 10px;
+  /* border-radius: 10px;
   border: solid 1px #eee;
   margin: 0 auto;
   padding: 0.5rem 0 2rem 0 ;
   margin-bottom: 3rem;
-  margin-top: 1.7rem;
+  margin-top: 1.7rem; */
 }
 .process-row {
   display: flex;

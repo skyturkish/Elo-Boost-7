@@ -13,19 +13,20 @@ const orderInformations = computed(() => {
 
   const informations = {
     'TYPE': props.order.orderType,
-    'CURRENT DIVISION': `${props.order.currentRank.division} ${props.order.currentRank.milestone} (${props.order.currentRank.currentLP})`,
+    'CURRENT DIVISION': `${props.order.currentRank?.division} ${props.order.currentRank?.milestone} (${props.order.currentRank?.currentLP})`,
     'DESIRED DIVISIOIN': !props.order.desiredRank ? null :`${props.order.desiredRank.division} ${props.order.desiredRank.milestone}`,
     'QUEUE': props.order.queue,
     'SERVER': props.order.server,
-    'BONUS WIN': props.order.bonusWin ? 'TRUE' : 'FALSE',
-    'DUO':  props.order.isSolo ? 'TRUE' : 'FALSE',
-    'SOLO ONLY': props.order.isSolo ? 'TRUE' : 'FALSE',
-    'PREMIUM': props.order.premium ? 'TRUE' : 'FALSE',
+    'BONUS WIN': props.order.bonusWin ,
+    'DUO':  props.order.isSolo ,
+    'SOLO ONLY': props.order.isSolo ,
+    'PREMIUM': props.order.premium ,
     'FLASH': props.order.flash,
   }
 
   return Object.fromEntries(
-        Object.entries(informations).filter(([key, value]) => value != null)
+        Object.entries(informations).filter(([key, value]) => value != null).
+        map(([key, value]) => [key, (typeof value === 'boolean' ? String(value) : value).toUpperCase()])
     );
 })
 
