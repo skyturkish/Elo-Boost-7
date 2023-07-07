@@ -10,8 +10,8 @@ axios.defaults.withCredentials = true
 
 const pinia = createPinia()
 
-const userStore = useAccount(pinia)
+const useStore = useAccount(pinia)
 
-userStore.fetchSession()
+useStore.fetchSession()
 
 export default pinia

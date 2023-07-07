@@ -1,10 +1,11 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAccount } from '@/store/account'
 
 const routes = [
     {
         path: '/',
-        component: () => import('@/views/MainPage.vue')
+        component: () => import('@/views/Main.vue')
     },
     {
         path: '/panel',
@@ -242,6 +243,10 @@ const routes = [
     {
         path: '/edit-profile',
         component: () => import('@/views/EditProfile.vue')
+    },
+    {
+        path: '/complete-payment/:game/:type',
+        component: () => import('@/views/CompletePayment.vue')
     }
 ]
 
@@ -252,12 +257,13 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const rootPathName = to.fullPath.split('/')[1]
+    const useAccountStore = useAccount()
 
     if (rootPathName == 'panel' || rootPathName == 'edit-profile') {
-        if (!userStore.user) return next('/')
+        if (!useAccountStore.user) return next('/')
         return next()
     } else if (rootPathName == 'admin') {
-        if (!(userStore.user?.role == 'admin')) return next('/')
+        if (!(useAccountStore.user?.role == 'admin')) return next('/')
         return next()
     }
 
