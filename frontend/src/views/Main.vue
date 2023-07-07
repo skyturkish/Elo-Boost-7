@@ -1,5 +1,4 @@
 <script setup>
-import Banner from '@/components/Banner'
 import BoostingOrdersFlow from '@/components/main/BoostingOrdersFlow'
 import CoachingOrdersFlow from '@/components/main/CoachingOrdersFlow'
 import ShopOrdersFlow from '@/components/main/ShopOrdersFlow'
@@ -402,7 +401,6 @@ v-divider.border-opacity-100(thickness="1rem")
   margin-left: -16rem;
 }
 .our-features {
-  background-color: #ffffff;
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
