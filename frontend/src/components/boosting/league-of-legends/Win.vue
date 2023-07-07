@@ -51,7 +51,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
       .choice NET WIN
     .custom-switch-two-options
       .choice SOLO
-      CustomSwitch(v-model="currentLeagueOfLegendsOrder.isSolo")
+      CustomSwitch(v-model="currentLeagueOfLegendsOrder.isDuo")
       .choice DUO
 
 </template>

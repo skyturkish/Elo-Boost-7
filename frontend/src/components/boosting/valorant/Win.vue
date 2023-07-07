@@ -30,7 +30,7 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
   template(v-slot:switchs)
     .custom-switch-two-options
       .choice SOLO
-      CustomSwitch(v-model="currentValorantOrder.isSolo")
+      CustomSwitch(v-model="currentValorantOrder.isDuo")
       .choice DUO
   template(v-slot:options)
     SelectBooster

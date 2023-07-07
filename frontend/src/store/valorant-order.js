@@ -17,7 +17,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         booster: null,
         heroes: [],
 
-        isSolo: false,
+        isDuo: false,
         bonusWin: false,
         premium: true,
         highMMR: false,
@@ -77,27 +77,6 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         },
         isAnyHeroSelected() {
             return this.heroes.length > 0
-        },
-        async createDivisionOrder() {
-            await axios.post('/order', this.divisionOrder)
-        },
-        async createWinOrder() {
-            await axios.post('/order', this.winOrder)
-        },
-        async createPlacementsOrder() {
-            await axios.post('/order', this.placementsOrder)
-        },
-        async createUnratedMatch() {
-            await axios.post('/order', this.unratedOrder)
-        },
-        async createLessonOrder() {
-            await axios.post('/order', this.lessonOrder)
-        },
-        async createLiveGameOrder() {
-            await axios.post('/order', this.liveGameOrder)
-        },
-        async createPlayTogetherOrder() {
-            await axios.post('/order', this.playTogetherOrder)
         }
     },
     getters: {
@@ -107,11 +86,9 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 booster: this.booster?._id,
                 category: 'boosting',
                 game: 'valorant',
-                ...this.getDynamicOptions,
                 server: this.server,
                 heroes: this.heroes,
-                queue: this.queue,
-                premium: this.premium
+                queue: this.queue
             }
         },
         coachingBaseOrder() {
@@ -122,8 +99,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 game: 'valorant',
                 heroes: this.heroes,
                 languages: this.languages,
-                currentRank: this.currentRank,
-                premium: this.premium
+                currentRank: this.currentRank
             }
         },
         divisionOrder() {
@@ -135,9 +111,13 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                     division: this.desiredColors.name,
                     milestone: ['I', 'II', 'III'][this.desiredMilestone]
                 },
-                isSolo: this.isSolo,
-                gainRR: this.gainRR,
-                bonusWin: this.bonuwWin
+                options: {
+                    ...this.getDynamicOptions,
+                    premium: this.premium,
+                    isDuo: this.isDuo,
+                    bonusWin: this.bonuwWin
+                },
+                gainRR: this.gainRR
             }
         },
         winOrder() {
@@ -145,10 +125,14 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 ...this.boostingBaseOrder,
                 orderType: 'win',
                 currentRank: this.currentRank,
-                isSolo: this.isSolo,
+                options: {
+                    ...this.getDynamicOptions,
+                    premium: this.premium,
+                    isDuo: this.isDuo,
+                    gameOrNetWin: this.gameOrNetWin
+                },
                 amountGame: this.amountWinGame,
-                gainRR: this.gainRR,
-                gameOrNetWin: this.gameOrNetWin
+                gainRR: this.gainRR
             }
         },
         placementsOrder() {
@@ -156,9 +140,13 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 ...this.boostingBaseOrder,
                 orderType: 'placements',
                 currentRank: this.currentRank,
-                isSolo: this.isSolo,
-                amountGame: this.amountPlacementsGame,
-                bonusWin: this.bonuwWin
+                options: {
+                    ...this.getDynamicOptions,
+                    premium: this.premium,
+                    isDuo: this.isDuo,
+                    bonusWin: this.bonuwWin
+                },
+                amountGame: this.amountPlacementsGame
             }
         },
         unratedOrder() {
@@ -167,9 +155,12 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                 orderType: 'unrated',
                 selectedGameType: this.selectedGameType,
                 server: this.server,
-                isSolo: this.isSolo,
+                options: {
+                    ...this.getDynamicOptions,
+                    premium: this.premium,
+                    isDuo: this.isDuo
+                },
                 heroes: this.heroes,
-                ...this.getDynamicOptions,
                 amountGame: this.amountUnratedMatchGame
             }
         },
@@ -177,6 +168,9 @@ export const useValorantOrder = defineStore('ValorantOrder', {
             return {
                 ...this.coachingBaseOrder,
                 orderType: 'lesson',
+                options: {
+                    premium: this.premium
+                },
                 hours: this.coachingHours
             }
         },
@@ -184,6 +178,9 @@ export const useValorantOrder = defineStore('ValorantOrder', {
             return {
                 ...this.coachingBaseOrder,
                 orderType: 'live-game',
+                options: {
+                    premium: this.premium
+                },
                 amountGame: this.amountCoachingGame
             }
         },
@@ -191,6 +188,9 @@ export const useValorantOrder = defineStore('ValorantOrder', {
             return {
                 ...this.coachingBaseOrder,
                 orderType: 'play-together',
+                options: {
+                    premium: this.premium
+                },
                 amountGame: this.amountCoachingGame
             }
         },
@@ -205,7 +205,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
             }
         },
         getDynamicOptions: (state) => {
-            if (state.isSolo) {
+            if (state.isDuo) {
                 return {
                     highMMR: state.highMMR,
                     untrackable: state.untrackable

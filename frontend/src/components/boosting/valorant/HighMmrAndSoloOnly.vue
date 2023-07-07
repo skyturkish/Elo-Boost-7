@@ -8,7 +8,7 @@ const currentValorantOrder = useValorantOrder()
 </script>
 
 <template lang="pug">
-CheckoutSelection(v-if="currentValorantOrder.isSolo" toolTipText="High MMR go brrrr" title="HIGH MMR")
+CheckoutSelection(v-if="currentValorantOrder.isDuo" toolTipText="High MMR go brrrr" title="HIGH MMR")
   img.logo(src='@/assets/icons/high-mmr.png')
   CustomSwitch(v-model="useValorantOrder.highMMR")
 CheckoutSelection(v-else toolTipText="sadece solo oyna lütfen" title="SOLO ONLY")

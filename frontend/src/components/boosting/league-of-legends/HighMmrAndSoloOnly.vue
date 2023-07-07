@@ -8,7 +8,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 </script>
 
 <template lang="pug">
-CheckoutSelection(v-if="currentLeagueOfLegendsOrder.isSolo" toolTipText="High MMR go brrrr" title="HIGH MMR")
+CheckoutSelection(v-if="currentLeagueOfLegendsOrder.isDuo" toolTipText="High MMR go brrrr" title="HIGH MMR")
   img.logo(src='@/assets/icons/high-mmr.png')
   CustomSwitch(v-model="currentLeagueOfLegendsOrder.highMMR")
 CheckoutSelection(v-else toolTipText="sadece solo oyna lütfen" title="SOLO ONLY")
