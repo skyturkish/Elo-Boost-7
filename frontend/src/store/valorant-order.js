@@ -129,7 +129,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                     ...this.getDynamicOptions,
                     premium: this.premium,
                     isDuo: this.isDuo,
-                    gameOrNetWin: this.gameOrNetWin
+                    isNotGame: this.isNotGame
                 },
                 amountGame: this.amountWinGame,
                 gainRR: this.gainRR

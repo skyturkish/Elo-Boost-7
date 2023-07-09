@@ -12,10 +12,10 @@ const customerId = useAccount().user?._id || 'test'
 
 export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
     state: () => ({
-        milestone: 'I',
+        milestone: 'II',
         currentLP: '0-20LP',
         server: 'EUW',
-        gainLP: '25-20LP',
+        gainLP: '25-21LP',
         booster: null,
         coach: null,
         lanes: [],
@@ -26,8 +26,9 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
             adc: [],
             support: []
         },
-        isDuo: true,
-        gameOrNetWin: false,
+        isDuo: false,
+
+        isNotGame: true,
 
         bonuwWin: true,
         premium: false,
@@ -173,7 +174,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                     ...this.getDynamicOptions,
                     isDuo: this.isDuo,
                     premium: this.premium,
-                    gameOrNetWin: this.gameOrNetWin
+                    isNotNetWin: this.isNotNetWin
                 }
             }
         },
@@ -245,6 +246,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 }
             }
         },
+
         colors: (state) =>
             LeagueOfLegendsDivisions[state.selectedDivisionIndex],
         currentRank: (state) => {
@@ -270,6 +272,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                     stream: state.stream
                 }
             }
-        }
+        },
+        isNotNetWin: (state) => !state.isNotGame
     }
 })

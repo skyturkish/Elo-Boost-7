@@ -1,12 +1,13 @@
 <script setup>
-import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
-import { useValorantOrder } from '@/store/valorant-order'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
 import OrderInformations from '@/components/panel/OrderInformations.vue'
 import PreviewOrder from '@/components/panel/PreviewOrder.vue'
 import axios from 'axios'
+
+import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
+import { useValorantOrder } from '@/store/valorant-order'
 
 const router = useRouter();
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
@@ -60,7 +61,21 @@ const paymentMethod = ref('stripe')
 function selectPaymentMethod(newPaymentMethod) {
   paymentMethod.value = newPaymentMethod
 }
+
+
+function filterOptions(options) {
+    let result = {};
+    for (let key in options) {
+        if (options[key] === true) {
+            result[key] = true;
+        }
+    }
+    return result;
+}
+
 async function createOrder() {
+  order.value.options = filterOptions(order.value.options)
+
   await axios.post('/order', order.value)
 }
 

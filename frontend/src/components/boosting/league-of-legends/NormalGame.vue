@@ -23,7 +23,7 @@ async function createOrder() {
 
 <template lang="pug">
 NormalGameCard
-Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
+Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.normalGameOrder')
   template(v-slot:options)
     SelectBooster
     SelectChampions

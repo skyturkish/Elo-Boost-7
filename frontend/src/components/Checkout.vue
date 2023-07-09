@@ -2,6 +2,13 @@
 import { computed  } from 'vue'
 import { defineEmits } from 'vue';
 import SelectLanes from '@/components/boosting/league-of-legends/SelectLanes'
+import { calculatePrice } from '@/functions/calculation-league-of-legends-price'
+import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
+import { useValorantOrder } from '@/store/valorant-order'
+
+const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
+const currentValorantOrder = useValorantOrder()
+
 
 const props = defineProps({
   checkoutTextColor: {
@@ -11,8 +18,13 @@ const props = defineProps({
   game: {
     type: String,
     default: 'league-of-legends'
+  },
+  order: {
+    type: Object,
+    required: true
   }
 })
+
 
 const emit = defineEmits(['create-order'])
 
@@ -25,6 +37,10 @@ const isGameLeagueOfLegends = computed(() => {
 
 const gameName = computed(() => {
   return props.game == 'valorant' ? 'valorant' : 'league-of-legends'
+})
+
+const adana = computed(()=> {
+  return calculatePrice(props.order)
 })
 
 </script>
@@ -43,8 +59,8 @@ const gameName = computed(() => {
     .discounted-price.without-discount 1204,40€
     .price-purchase-button
       .price
-        | 730
-        span.smalltext ,35
+        | {{ adana.total.toString().split('.')[0] }}
+        span.smalltext ,{{ adana.total.toFixed(2).toString().split('.')[1] }}
       .purchase-button.elevation-8(@click="createOrder()" v-bind:class="!isGameLeagueOfLegends ? 'valorant-button' : 'league-of-legends-button'")
         img.logo(:src="`../../src/assets/icons/${gameName}-money.png`")
         .purchase.text PURCHASE
@@ -53,9 +69,65 @@ const gameName = computed(() => {
     .receipt-text RECEIPT
     img(src='@/assets/barkod.png' width="11.5rem")
   .custom-divider
+    .items
+      .item.first-item
+        .first-item-text Item
+        .first-item-amount Amount
+      .item(v-for="item in adana.texts")
+        .item-text {{item.text}}
+        .item-amount {{item.amount}}
+  .custom-divider
+  .item.last-row
+    .item-text  IN TOTAL
+    .item-amount {{ adana.total.toFixed(2) }}€
+
 </template>
 
 <style scoped>
+.last-row {
+  padding-top: 1rem;
+}
+.items {
+  height: 300px;
+}
+.first-item-text {
+  color: #444;
+  font-family: Brygada 1918;
+  font-size: 14px;
+  font-weight: 500;
+}
+.first-item-amount {
+  color: #444;
+  font-family: Brygada 1918;
+  font-size: 14px;
+  font-weight: 500;
+}
+.first-item {
+  margin-top: -1.5rem;
+  padding-bottom: 1rem;
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+}
+.item-text {
+  color: #555;
+  font-family: Brygada 1918;
+  font-size: 14px;
+  font-weight: 400;
+}
+.item-amount {
+  color: #000;
+  font-family: Brygada 1918;
+  font-size: 14px;
+  font-weight: 400;
+}
+.price {
+  font-family: Inter;
+  font-size: 64px;
+  color: #202020;
+  margin-top: -10px;
+}
 .price:after {
     content: '€';
     font-size:48px;
@@ -140,13 +212,6 @@ const gameName = computed(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.price {
-  font-family: Inter;
-  font-size: 64px;
-  color: #202020;
-  margin-top: -10px;
 }
 
 .smalltext{

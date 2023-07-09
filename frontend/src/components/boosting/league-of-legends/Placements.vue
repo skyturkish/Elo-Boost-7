@@ -16,6 +16,7 @@ import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+
 const router = useRouter()
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
@@ -32,7 +33,7 @@ CurrentRank(divisionLimit = 9 title = "LAST SEASON")
     SelectServer
     SelectQueue
     SelectPlacementsGamesAmount
-Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
+Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.placementsOrder')
   template(v-slot:options)
     SelectBooster
     SelectChampions

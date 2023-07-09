@@ -24,6 +24,7 @@ async function createOrder() {
   router.push({
     path: `/complete-payment/league-of-legends/win`,
   })
+
 }
 
 </script>
@@ -37,7 +38,7 @@ CurrentRank(divisionLimit = 9 title = "YOUR RANK")
     SelectAmountWinGames
     SelectCurrentLP
     SelectGainLP
-Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
+Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.winOrder')
   template(v-slot:options)
     SelectBooster
     SelectChampions
@@ -47,7 +48,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
   template(v-slot:switchs)
     .custom-switch-two-options
       .choice GAME
-      CustomSwitch(v-model="currentLeagueOfLegendsOrder.gameOrNetWin")
+      CustomSwitch(v-model="currentLeagueOfLegendsOrder.isNotGame")
       .choice NET WIN
     .custom-switch-two-options
       .choice SOLO
