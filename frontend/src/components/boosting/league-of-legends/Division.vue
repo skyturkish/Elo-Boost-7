@@ -45,11 +45,41 @@ const limitedDivisions = computed(() => {
   return divisions.slice(currentLeagueOfLegendsOrder.selectedDivisionIndex + addCount.value)
 })
 
+const desiredMilestone = computed(() => {
+  if(!extralimitedMilestones.value.includes(milestones[currentLeagueOfLegendsOrder.desiredMilestone])) {
+    currentLeagueOfLegendsOrder.desiredMilestone = milestones.indexOf(extralimitedMilestones.value[0])
+  }
+
+  return milestones[currentLeagueOfLegendsOrder.desiredMilestone]
+})
+
+
 const limitedMilestones = computed(() => {
   if (currentLeagueOfLegendsOrder.selectedDivisionIndex === currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex) {
     return milestones.slice(milestones.indexOf(currentLeagueOfLegendsOrder.milestone) + 1)
   }
   return milestones
+})
+
+const extralimitedMilestones = computed(() =>  {
+  if(currentLeagueOfLegendsOrder.gainLP === '41+' || currentLeagueOfLegendsOrder.gainLP === '40-36LP') {
+
+    if (currentLeagueOfLegendsOrder.selectedDivisionIndex === currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex) {
+      if(currentLeagueOfLegendsOrder.milestone === 'IV') {
+        return ['II','I']
+
+      }else if (currentLeagueOfLegendsOrder.milestone === 'III') {
+
+        return ['I']
+      }else if (currentLeagueOfLegendsOrder.milestone === 'II') {
+
+      return ['I']
+      }
+
+    }
+    return ['IV', 'II','I']
+  }
+  return limitedMilestones.value
 })
 
 const desiredOrder = computed(() => {
@@ -62,14 +92,6 @@ const desiredOrder = computed(() => {
   currentLeagueOfLegendsOrder.desiredDivision = division.name
 
   return division
-})
-
-const desiredMilestone = computed(() => {
-  if(!limitedMilestones.value.includes(milestones[currentLeagueOfLegendsOrder.desiredMilestone])) {
-    currentLeagueOfLegendsOrder.desiredMilestone = milestones.indexOf(limitedMilestones.value[0])
-  }
-
-  return milestones[currentLeagueOfLegendsOrder.desiredMilestone]
 })
 
 function increment() {
@@ -132,7 +154,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
           @click="changeDesiredDivision(division)")
     .desired-mile-stones
       div.mile-stone(
-      v-for="milestone in limitedMilestones"
+      v-for="milestone in extralimitedMilestones"
       :style="{color: isSelectedMilestone(milestone) ? desiredOrder.dominantColor : '#bbb',border: 'solid 1px ' + (isSelectedMilestone(milestone) ? desiredOrder.borderColor : '#bbb')}"
       @click="changeMileStone(milestone)"
       ) {{ milestone }}
@@ -140,7 +162,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
       SelectServer
       SelectQueue
   img.trim(:src="'../../src/assets/trims/' + desiredOrder.name + '-trim.png'" )
-Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder")
+Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.divisionOrder')
   template(v-slot:options)
     SelectBooster
     SelectChampions
