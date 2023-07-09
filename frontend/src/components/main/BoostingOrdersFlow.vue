@@ -5,16 +5,16 @@ const orders = [
     firstSpell: 'flash',
     secondSpell: 'teleport',
     score: '13/2/5',
-    rank: 'Challenger I',
-    lp: '275 LP',
-    win: false,
+    rank: 'Challenger',
+    lp: '1120 LP',
+    win: true,
 },
 {
     hero: 'thresh',
     firstSpell: 'flash',
     secondSpell: 'ignite',
     score: '1/3/21',
-    rank: 'Master I',
+    rank: 'Master',
     win: true,
     lp: '132 LP',
 },
@@ -25,14 +25,14 @@ const orders = [
     score: '17/4/8',
     rank: 'Grandmaster',
     win: false,
-    lp: '401 LP',
+    lp: '710LP',
 },
 {
     hero: 'leeSin',
     firstSpell: 'flash',
     secondSpell: 'smite',
     score: '12/5/15',
-    rank: 'Master I',
+    rank: 'Master',
     win: true,
     lp: '195 LP',
 },
@@ -41,8 +41,8 @@ const orders = [
     firstSpell: 'flash',
     secondSpell: 'ignite',
     score: '16/3/12',
-    rank: 'Challenger I',
-    lp: '255 LP',
+    rank: 'Challenger',
+    lp: '1288 LP',
     win: false,
 },
 {
@@ -52,14 +52,14 @@ const orders = [
     score: '15/2/10',
     rank: 'Grandmaster',
     win: true,
-    lp: '385 LP',
+    lp: '910 LP',
 },
 {
     hero: 'nautilus',
     firstSpell: 'flash',
     secondSpell: 'ignite',
     score: '3/7/20',
-    rank: 'Master I',
+    rank: 'Master',
     win: false,
     lp: '182 LP',
 },
@@ -68,18 +68,18 @@ const orders = [
     firstSpell: 'flash',
     secondSpell: 'smite',
     score: '13/2/8',
-    rank: 'Challenger I',
+    rank: 'Challenger',
     win: true,
-    lp: '302 LP',
+    lp: '980 LP',
 },
 {
     hero: 'irelia',
     firstSpell: 'flash',
     secondSpell: 'teleport',
     score: '12/1/7',
-    rank: 'Challenger I',
+    rank: 'Challenger',
     win: true,
-    lp: '325 LP',
+    lp: '1080 LP',
 },
 {
     hero: 'pyke',
@@ -88,7 +88,7 @@ const orders = [
     score: '8/4/14',
     win: true,
     rank: 'Grandmaster',
-    lp: '392 LP',
+    lp: '880 LP',
 },
   {
     hero: 'akali',
@@ -101,7 +101,7 @@ const orders = [
   },
   {
     hero: 'yasuo',
-    firstSpell: 'teleport',
+    firstSpell: 'flash',
     win: true,
     secondSpell: 'exhaust',
     score: '24/5/12',
@@ -173,8 +173,8 @@ const orders = [
   },
   {
     hero: 'yuumi',
-    firstSpell: 'flash',
-    secondSpell: 'teleport',
+    firstSpell: 'exhaust',
+    secondSpell: 'ignite',
     score: '2/6/22',
     win: true,
     rank: 'Silver III',
@@ -217,7 +217,7 @@ const orders = [
         .score {{ order.score }}
         .rank-information
           .rank  {{ order.rank }}
-          .lp {{ order.lp }}
+          .lp(:style="{color: order.win ? '#4285FF' : '#FF0000' }") {{ order.lp }}
         img.rank-photo(:src="`../../src/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.png`" :alt="order.rank")
 </template>
 
@@ -299,7 +299,14 @@ const orders = [
   width: 140px;
 }
 
-.rank,
+.rank {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  color: #888;
+
+}
 .lp {
   text-align: center;
   font-size: 20px;

@@ -97,7 +97,8 @@ const User = new mongoose.Schema(
             type: Object,
             default: {
                 path: 'viego',
-                color: '#08866B'
+                color: '#08866B',
+                backgroundPositionY: '27%'
             }
         }
     },

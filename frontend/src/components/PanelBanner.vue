@@ -7,7 +7,7 @@ const useAccountStore = useAccount()
 </script>
 
 <template lang="pug">
-.background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)` }")
+.background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)` , backgroundPositionY: useAccountStore.user.themePreference.backgroundPositionY }")
   .content
     AppBar
 </template>

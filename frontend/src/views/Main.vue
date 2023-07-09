@@ -2,26 +2,7 @@
 import BoostingOrdersFlow from '@/components/main/BoostingOrdersFlow'
 import CoachingOrdersFlow from '@/components/main/CoachingOrdersFlow'
 import ShopOrdersFlow from '@/components/main/ShopOrdersFlow'
-
-const games = ['league-of-legends','valorant']
-const services = [
-  {
-    name: 'ELOBOOST',
-    path: '/boosting'
-  },
-  {
-    name: 'COACHING',
-    path: '/coaching'
-  },
-  {
-    name: 'SHOP',
-    path: '/marketplace'
-  },
-  {
-    name: 'HUB',
-    path: '/hub'
-  },
-]
+import Games from '@/components/main/Games'
 
 const informations = {
   'our-features': ['24/7 Customer Support', 'Appear Offline & VPN Encryption', 'Track your Order', 'Chat with your booster'],
@@ -35,19 +16,15 @@ const informations = {
 <template lang="pug">
 Banner(splashArtPath = 'main' title = 'WE ARE THE ONES MAKING IT REAL' subtitle = 'We provide you everything that you need all in one place')
   .buttons
-    img.purchase-eloboosting(src="@/assets/icons/purchase-eloboosting.png" alt="Boosting")
+    v-btn.purchase-eloboosting()
+      span PURCHASE
+        br
+        | ELOBOOSTING
     v-btn.learn-more()
       span LEARN
         br
         | MORE
-.background
-  .games
-    .image-container(v-for="game in games")
-      v-img.game(:src="`../../src/assets/games/${game}.jpg`" :alt='game')
-        .services
-          v-btn.service(v-for="service in services") {{ service.name }}
-    v-img.process-game(cover src="../../src/assets/games/overwatch.jpg")
-    v-img.process-game(cover src="../../src/assets/games/team-fight-tactics.jpg")
+Games
 v-divider.border-opacity-100(thickness="1rem")
 .background
   .our-features
@@ -126,7 +103,6 @@ v-divider.border-opacity-100(thickness="1rem")
   .little-divider
   .shop
     .ceyiz-and-informations
-      img.ceyiz(src="@/assets/icons/ceyiz.png" alt="ceyiz")
       .shop-informations
         .title.shop-title SHOP
         .sub-title Looking for accounts?
@@ -183,23 +159,26 @@ v-divider.border-opacity-100(thickness="1rem")
   background-color: #F5EEFF;
   color: #CAA6FF;
   margin: 3.5rem 0 0 -3.5rem;
+  box-shadow:  0 0 12px 1px #DCC7FB;
 }
 .complete-payment {
   background-color: #EAFFF4;
   color: #46B87C;
   margin: 0 0 0 3.5rem;
+  box-shadow:  0 0 12px 1px #BEF6D8;
 }
 .fast-secure {
   background-color: #FFF8E4;
   color: #FFD976;
   margin: 3.5rem 0 0 -3.5rem;
+  box-shadow:  0 0 12px 1px #F8E5B3;
 }
 .boost-rank {
   background-color: #FFE3E3;
   color: #F98484;
   margin: 0 0 0 3.5rem;
+  box-shadow:  0 0 12px 1px #F6B9B9;
 }
-
 .row {
   display: flex;
   align-items: center;
@@ -235,7 +214,14 @@ v-divider.border-opacity-100(thickness="1rem")
 .hub {
   border-top: 1px #EEEEEE solid;
   border-bottom: 1px #EEEEEE solid;
+  padding-top: 10rem;
+
 }
+.shop {
+  padding-top: 10rem;
+
+}
+
 .shop-title {
   color: #FFB800;
 }
@@ -296,7 +282,6 @@ v-divider.border-opacity-100(thickness="1rem")
   justify-content: space-between;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 2.5rem;
   padding-right: 7rem;
 }
 .overwatch-images {
@@ -392,13 +377,13 @@ v-divider.border-opacity-100(thickness="1rem")
   height: 170px;
   width: 170px;
   margin-top: -1rem;
-  margin-left: -6.5rem;
+  margin-left: -5.5rem;
 }
 .challenger {
   width: 299px;
   height: 174px;
-  margin-top: 6rem;
-  margin-left: -16rem;
+  margin-top: 8rem;
+  margin-left: -13rem;
 }
 .our-features {
   max-width: 1440px;
@@ -451,23 +436,48 @@ v-divider.border-opacity-100(thickness="1rem")
   letter-spacing: 0em !important;
 }
 
-.process-game {
-  opacity: 0.95;
-  min-width: 360px;
-}
-.process-game:hover {
-  opacity: 1;
-}
 .purchase-eloboosting {
   /* padding: 115px 45px; */
   width: 231px;
   height: 93px;
-  cursor: pointer;
-  margin-bottom: 1rem;
+  color: #FFF;
+  font-size: 24px;
+  font-weight: 700;
+  background-color:#0066FF;
+  background-image:
+  radial-gradient(at 100% 0%, #58FF9B  1px, transparent 70%),
+  radial-gradient(at 0% 100%, #C7D3FF 0px, transparent 70%),
+  radial-gradient(at 50% 100%, #006B8D 0px, transparent 70%),
+  radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 70%),
+  radial-gradient(at 100% 50%, #58FF9B 0px, transparent 70%);
+  position: relative;
+  overflow: hidden;
+  transition: .3s;
+  z-index: 1;
 }
+.purchase-eloboosting::before {
+ content: '';
+ width: 0;
+ height: 300%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%) rotate(45deg);
+ transition: .5s ease;
+ display: block;
+ z-index: -1;
+ background-color:#FFF;
+}
+
+.purchase-eloboosting:hover:before {
+  width: 105%;
+}
+.purchase-eloboosting:hover {
+  color: #000000;
+}
+
 .learn-more:hover,
 .purchase-eloboosting:hover {
-  transform: scale(1.05);
   transition: transform 0.8s;
 }
 .learn-more {
@@ -475,7 +485,6 @@ v-divider.border-opacity-100(thickness="1rem")
   height: 93px;
   background-color:#fff;
   font-size: 20px;
-  border-radius: 10px;
   font-weight: bold;
   letter-spacing: normal;
   color: #2C2F32;
@@ -483,55 +492,11 @@ v-divider.border-opacity-100(thickness="1rem")
 .buttons {
   display: flex;
   gap: 1rem;;
+  padding-top: 1rem;
 }
-.games {
-  display:flex;
-  justify-content: center;
-  background-color: #0083FF;
-  max-width: 1440px;
-  margin: 0 auto;
-  letter-spacing: 0px;
-  z-index: 1;
-}
+
 .background {
   font-family: Inter;
-}
-.game {
-  height: 599px;
-  width: 360px;
-  /* height: 766px;
-  width:  460px; */
-  opacity: 0.98;
-  z-index: 1;
-}
-.game:hover {
-  transform: translateY(-10px);
-  transition: transform 0.8s;
-  border-radius: 1px;
-}
-.services {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    opacity: 0;
-}
-.services:hover {
-  transition: transform 0.8s;
-  opacity: 0.75;
-}
-.service {
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  height: 25%;
-  font-size: 48px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #000000;;
-}
-.service:hover {
-  opacity: 1;
 }
 .v-divider {
   border-color: #0083FF !important;

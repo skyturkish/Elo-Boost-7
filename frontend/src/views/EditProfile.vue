@@ -123,6 +123,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
   padding-top: 270px;
   padding-bottom: 270px;
   background-size: cover;
+  background-position-y: 25%;
 }
 .content {
   padding: 1.5rem;

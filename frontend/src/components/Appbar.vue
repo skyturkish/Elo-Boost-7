@@ -69,12 +69,15 @@ const router = useRouter()
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   color: #fff;
   height: min-content;
-}
-.navigation-text:hover {
   cursor: pointer;
-  text-shadow: 0 8px 4px rgba(0, 0, 0, 0.25);
-
+  transition: background-color 0.5s ease;
 }
+
+.navigation-text:hover {
+  text-shadow: 0 16px 4px rgba(0, 0, 0, 0.25);
+  margin-top: -2px;
+}
+
 @media (max-width: 959px) {
   .navigation-text {
     font-size: 16px;

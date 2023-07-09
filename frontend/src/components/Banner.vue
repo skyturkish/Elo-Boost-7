@@ -31,6 +31,7 @@ const props = defineProps({
 <style scoped>
 .background {
   background-size: cover;
+  background-position: 50%;
 }
 .content {
   display:flex;
