@@ -39,9 +39,24 @@ const gameName = computed(() => {
   return props.game == 'valorant' ? 'valorant' : 'league-of-legends'
 })
 
-const adana = computed(()=> {
+const price = computed(() => {
   return calculatePrice(props.order)
 })
+
+const priceTexts = computed(() => {
+    return price.value.texts.map((item) => {
+      if(item.amount == 'FREE') return {
+        text: item.text,
+        amount: 'FREE'
+      }
+      return {
+        text: item.text,
+        amount: item.amount.toFixed(2)
+      }
+    })
+})
+
+
 
 </script>
 
@@ -56,39 +71,37 @@ const adana = computed(()=> {
     slot(name="options")
   .total-price-background
     .total-price-text TOTAL PRICE
-    .discounted-price.without-discount 1204,40€
-    .price-purchase-button
+    .discounted-price.without-discount {{ (price.total * (130 / 100)).toFixed(2) }}
+    .price-proceed-button
       .price
-        | {{ adana.total.toString().split('.')[0] }}
-        span.smalltext ,{{ adana.total.toFixed(2).toString().split('.')[1] }}
-      .purchase-button.elevation-8(@click="createOrder()" v-bind:class="!isGameLeagueOfLegends ? 'valorant-button' : 'league-of-legends-button'")
-        img.logo(:src="`../../src/assets/icons/${gameName}-money.png`")
-        .purchase.text PURCHASE
+        | {{ price.total.toString().split('.')[0] }}
+        span.smalltext ,{{ price.total.toFixed(2).toString().split('.')[1] }}
+      v-btn.purchase-button.elevation-8(@click="createOrder()" v-bind:class="!isGameLeagueOfLegends ? 'valorant-button' : 'league-of-legends-button'")
+        .purchase.text PROCEED
   .custom-divider
   .receipt-and-barkod
     .receipt-text RECEIPT
-    img(src='@/assets/barkod.png' width="11.5rem")
+    img.barkod(src='@/assets/barkod.png')
   .custom-divider
     .items
       .item.first-item
         .first-item-text Item
         .first-item-amount Amount
-      .item(v-for="item in adana.texts")
+      .item(v-for="item in priceTexts")
         .item-text {{item.text}}
-        .item-amount {{item.amount}}
+        .item-amount {{ item.amount }}
   .custom-divider
   .item.last-row
     .item-text  IN TOTAL
-    .item-amount {{ adana.total.toFixed(2) }}€
-
+    .item-amount {{ price.total.toFixed(2) }}€
 </template>
 
 <style scoped>
-.last-row {
-  padding-top: 1rem;
-}
 .items {
   height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px
 }
 .first-item-text {
   color: #444;
@@ -103,12 +116,13 @@ const adana = computed(()=> {
   font-weight: 500;
 }
 .first-item {
-  margin-top: -1.5rem;
-  padding-bottom: 1rem;
+  margin-top: -1.8rem;
+  margin-bottom: 0.8rem;
 }
 .item {
   display: flex;
   justify-content: space-between;
+  padding: 0 1rem;
 }
 .item-text {
   color: #555;
@@ -127,6 +141,7 @@ const adana = computed(()=> {
   font-size: 64px;
   color: #202020;
   margin-top: -10px;
+  padding-left: 2.2rem;
 }
 .price:after {
     content: '€';
@@ -163,6 +178,7 @@ const adana = computed(()=> {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 1.5rem;
 }
 
 .total-price-background {
@@ -171,7 +187,7 @@ const adana = computed(()=> {
   padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
-  margin: -1rem;
+  margin: 1.5rem -1rem 0.6rem -1rem;
 }
 
 .total-price-text {
@@ -208,7 +224,7 @@ const adana = computed(()=> {
   padding-right: 1.25rem;
 }
 
-.price-purchase-button {
+.price-proceed-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -222,24 +238,16 @@ const adana = computed(()=> {
 }
 .purchase-button {
   margin-top: -3rem;
-  margin-right: -1rem;
   border-radius: 15px;
   width: 202px;
   height: 70px;
-  flex-grow: 0;
-  display:flex;
-  gap:1rem;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
   font-size: 20px;
   font-weight: bold;
   letter-spacing: normal;
 }
 .league-of-legends-button {
-  background-color: #DDDDDD ;
-  color: #444444;
+  background-color: #FFF ;
+  color: #444;
 }
 .valorant-button {
   background-color: #444444;
@@ -251,6 +259,7 @@ const adana = computed(()=> {
 }
 .custom-divider {
   border-top: 3px dotted #bbb;
+  margin: 0rem -1rem;
 }
 
 .receipt-and-barkod {
@@ -259,11 +268,18 @@ const adana = computed(()=> {
   align-items: center;
   padding:  1rem 0rem;
 }
+.barkod {
+  width: 180px;
+  height: 24px;
+}
 
 .receipt-text {
   font-family: Brygada1918;
   font-size: 20px;
   font-weight: 600;
   color: #444;
+}
+.last-row {
+  padding: 0.5rem 0  0 0
 }
 </style>

@@ -1,8 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
-import CheckoutSelection from '@/components/CheckoutSelection'
-
+import CheckoutSelectionColumn from '@/components/CheckoutSelectionColumn'
 import { heroes } from '@/constants/league-of-legends-constants'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
@@ -30,12 +29,21 @@ function isLaneSelected(lane) {
   return selectedLane.value === lane
 }
 
+const selectedHeroes = computed(() => {
+  console.log(Object.values(currentLeagueOfLegendsOrder.heroes).flat().slice(0, 3))
+  console.log('selamlar abi noluyor ?')
+  return Object.values(currentLeagueOfLegendsOrder.heroes).flat().slice(0, 3)
+})
+
 </script>
 
 <template lang="pug">
-CheckoutSelection(toolTipText="You can set your champions which ones you wanted to play by boosters" title="CHAMPIONS")
+CheckoutSelectionColumn(toolTipText="You can set your champions which ones you wanted to play by boosters" title="CHAMPIONS")
   img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyHeroSelected()" src='@/assets/icons/plus.png')
-  img.logo(v-else src='@/assets/squares/league-of-legends/aatrox.png')
+  div(v-else)
+    .selected-champions(v-if="selectedHeroes.length > 0")
+      img.logo(src='@/assets/icons/plus.png')
+      img.selected-champion(v-for="hero in selectedHeroes" :key="hero" :src='`../../src/assets/squares/league-of-legends/${hero}.png`')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
@@ -62,6 +70,17 @@ CheckoutSelection(toolTipText="You can set your champions which ones you wanted 
 </template>
 
 <style scoped>
+.selected-champions {
+  display: flex;
+  cursor: pointer;
+}
+.selected-champion {
+  height: 50px;
+  width: 50px;
+  margin-left: -22px;
+  border: solid 0.5px #000;
+  border-radius: 50%;
+}
 .logo {
   cursor: pointer;
   width: 50px;

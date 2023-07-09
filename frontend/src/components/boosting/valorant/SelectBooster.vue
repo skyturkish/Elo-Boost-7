@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useValorantOrder } from '@/store/valorant-order'
 
-import CheckoutSelection from '@/components/CheckoutSelection'
+import CheckoutSelectionColumn from '@/components/CheckoutSelectionColumn'
 
 import Online from '@/components/indicators/Online'
 import Offline from '@/components/indicators/Offline'
@@ -41,7 +41,7 @@ function setBoosterAndCloseDialog(booster) {
 </script>
 
 <template lang="pug">
-CheckoutSelection(toolTipText="You can choose your favorite booster" title="BOOSTER")
+CheckoutSelectionColumn(toolTipText="You can choose your favorite booster" title="BOOSTER")
   img.logo(v-if="currentValorantOrder.booster == null" src='@/assets/icons/plus.png')
   img.logo.booster-photo(v-else :src='currentValorantOrder.booster.photo')
   v-dialog(v-model='dialog' activator='parent' width='auto')

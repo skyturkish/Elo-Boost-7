@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useValorantOrder } from '@/store/valorant-order'
-import CheckoutSelection from '@/components/CheckoutSelection'
+import CheckoutSelectionColumn from '@/components/CheckoutSelectionColumn'
 import { heroes } from '@/constants/valorant-constants'
 
 const currentValorantOrder = useValorantOrder()
@@ -16,7 +16,7 @@ const filteredHeroes = computed(() => {
 </script>
 
 <template lang="pug">
-CheckoutSelection(toolTipText="You can set your agents which ones you wanted to play by boosters" title="AGENTS")
+CheckoutSelectionColumn(toolTipText="You can set your agents which ones you wanted to play by boosters" title="AGENTS")
   img.logo(v-if="!currentValorantOrder.isAnyHeroSelected()" src='@/assets/icons/plus.png')
   img.logo(v-else src='@/assets/squares/valorant/sage.png')
   v-dialog(v-model='dialog' activator='parent' width='auto')

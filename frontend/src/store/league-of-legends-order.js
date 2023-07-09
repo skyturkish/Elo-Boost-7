@@ -30,7 +30,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
 
         isNotGame: true,
 
-        bonuwWin: true,
+        bonusWin: true,
         premium: false,
         highMMR: false,
         untrackable: false,
@@ -44,7 +44,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
 
         coachingHours: '1 HOUR',
 
-        amountPlacementsGame: '10 GAMES',
+        amountPlacementsGame: '5 GAMES',
         amountNormalGame: '2 GAMES',
         amountCoachingGame: '2 GAMES',
         amountWinGame: '2 GAMES',
@@ -158,7 +158,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                     ...this.getDynamicOptions,
                     isDuo: this.isDuo,
                     premium: this.premium,
-                    bonusWin: this.bonuwWin
+                    bonusWin: this.bonusWin
                 },
                 gainLP: this.gainLP
             }
@@ -188,7 +188,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                     ...this.getDynamicOptions,
                     isDuo: this.isDuo,
                     premium: this.premium,
-                    bonusWin: this.bonuwWin
+                    bonusWin: this.bonusWin
                 }
             }
         },

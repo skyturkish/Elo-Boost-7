@@ -9,7 +9,6 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 <template lang="pug">
 CheckoutSelection(toolTipText="Bonus wini seçersen var ya ..... neler neler oluyor, aramızda kalsın ama ... KAZANIYORUZZZ" title="BONUS WIN")
-  img.logo(src='@/assets/icons/bonus-win.png')
   CustomSwitch(v-model="currentLeagueOfLegendsOrder.bonusWin")
 </template>
 

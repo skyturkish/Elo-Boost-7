@@ -16,28 +16,26 @@ const props = defineProps({
 
 <template lang="pug">
 .checkout-selection
-  div.row
-    v-tooltip(location="left" :text='toolTipText' )
-      template(v-slot:activator='{ props }')
-        img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
+  .row
+    .empty
     .title {{ title }}
+    .empty
   .slot
     slot()
 </template>
 
 <style scoped>
 .checkout-selection {
-  width: 100%;
+  width: 218px;
+  height: 100px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1.5rem;
+  flex-direction: column;
+  gap: 1rem;
 }
 .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 28px;
 }
 .question-mark {
   width: 1.2rem;
@@ -55,6 +53,5 @@ const props = defineProps({
   align-self: center;
   display:flex;
   align-items: center;
-  gap: 1rem
 }
 </style>

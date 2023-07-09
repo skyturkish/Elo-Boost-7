@@ -9,7 +9,6 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
 <template lang="pug">
 CheckoutSelection(toolTipText="S tier alacakki kutu falan ala, keke anladın ?" title="S TIER")
-  img.logo(src='@/assets/icons/s-tier.png')
   CustomSwitch(v-model="currentLeagueOfLegendsOrder.stier")
 </template>
 

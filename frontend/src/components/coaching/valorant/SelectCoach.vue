@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-import CheckoutSelection from '@/components/CheckoutSelection'
+import CheckoutSelectionColumn from '@/components/CheckoutSelectionColumn'
 import Online from '@/components/indicators/Online'
 import Offline from '@/components/indicators/Offline'
 import DontDistrub from '@/components/indicators/DontDistrub'
@@ -41,7 +41,7 @@ function setBoosterAndCloseDialog(coach) {
 </script>
 
 <template lang="pug">
-CheckoutSelection(toolTipText="You can choose your favorite coach" title="COACH")
+CheckoutSelectionColumn(toolTipText="You can choose your favorite coach" title="COACH")
   img.logo(v-if="currentValorantOrder.coach == null" src='@/assets/icons/plus.png')
   img.logo.booster-photo(v-else :src='currentValorantOrder.coach.photo')
   v-dialog(v-model='dialog' activator='parent' width='auto')

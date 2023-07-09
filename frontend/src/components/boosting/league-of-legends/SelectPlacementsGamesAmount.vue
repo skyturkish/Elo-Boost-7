@@ -5,7 +5,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 </script>
 
 <template lang="pug">
-v-select(:items="['2 GAMES','4 GAMES','6 GAMES','8 GAMES','10 GAMES']" v-model="currentLeagueOfLegendsOrder.amountPlacementsGame")
+v-select(:items="['1 GAMES','2 GAMES','3 GAMES','4 GAMES','5 GAMES']" v-model="currentLeagueOfLegendsOrder.amountPlacementsGame")
 </template>
 
 <style scoped>

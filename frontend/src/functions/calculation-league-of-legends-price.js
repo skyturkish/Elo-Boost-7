@@ -138,7 +138,17 @@ function placementsGame(order, discount) {
         }
     ]
 
+    console.log(order)
+
     total = total + rawPrice
+
+    if (order.options.bonusWin) {
+        texts.push({
+            text: 'Bonus Win',
+            amount: amountMultiple
+        })
+        total = total + amountMultiple
+    }
 
     for (let option in order.options) {
         const currentOption = optionValues[option]
@@ -365,6 +375,14 @@ function divisionOrder(order, discount) {
             total += currentOption.amount
             texts.push(currentOption)
         }
+    }
+
+    if (order.options.bonusWin) {
+        texts.push({
+            text: 'Bonus Win',
+            amount: Object.values(winRanks[nextMultipleIndex])[0]
+        })
+        total = total + Object.values(winRanks[nextMultipleIndex])[0]
     }
 
     total = total * (servers[order.server] / 100)

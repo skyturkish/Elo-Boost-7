@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import { lanes } from '@/constants/league-of-legends-constants'
-import CheckoutSelection from '@/components/CheckoutSelection'
+import CheckoutSelectionColumn from '@/components/CheckoutSelectionColumn'
 import Online from '@/components/indicators/Online'
 import Offline from '@/components/indicators/Offline'
 import DontDistrub from '@/components/indicators/DontDistrub'
@@ -55,7 +55,7 @@ function setBoosterAndCloseDialog(booster) {
 </script>
 
 <template lang="pug">
-CheckoutSelection(toolTipText="You can choose your favorite booster)" title="BOOSTER")
+CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" title="BOOSTER")
   img.logo(v-if="currentLeagueOfLegendsOrder.booster == null" src='@/assets/icons/plus.png')
   img.logo.booster-photo(v-else :src='currentLeagueOfLegendsOrder.booster.photo')
   v-dialog(v-model='dialog' activator='parent' width='auto')
