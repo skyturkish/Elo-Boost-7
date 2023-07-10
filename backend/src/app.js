@@ -29,7 +29,8 @@ app.use(helmet())
 const corsOptions = {
     origin: process.env.FRONTEND_BASE_PATH || 'http://localhost:5000',
     credentials: true, //access-control-allow-credentials:true
-    optionSuccessStatus: 200
+    optionSuccessStatus: 200,
+    methods: ['GET', 'POST', 'PATCH', 'DELETE']
 }
 
 app.set('trust proxy', 1)
