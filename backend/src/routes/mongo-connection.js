@@ -6,7 +6,8 @@ const connectionString = process.env.MONGODB_CONNECTION_STRING || 'mongodb://0.0
 
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 })
 
 var db = mongoose.connection
