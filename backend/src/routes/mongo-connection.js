@@ -4,11 +4,7 @@ mongoose.set('strictQuery', false)
 
 const connectionString = process.env.MONGODB_CONNECTION_STRING || 'mongodb://0.0.0.0:27017/game_elo_boost'
 
-mongoose.connect(connectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-})
+mongoose.connect(connectionString)
 
 var db = mongoose.connection
 
