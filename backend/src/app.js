@@ -8,6 +8,7 @@ const cors = require('cors')
 const passport = require('passport')
 const User = require('./models/user')
 const bodyParser = require('body-parser')
+const compression = require('compression')
 
 const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize')
@@ -25,6 +26,7 @@ require('./routes/mongo-connection')
 var app = express()
 
 app.use(helmet())
+app.use(compression())
 
 const corsOptions = {
     origin: process.env.FRONTEND_BASE_PATH || 'http://localhost:5000',
