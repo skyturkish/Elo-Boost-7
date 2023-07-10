@@ -1,6 +1,15 @@
 const socketServer = require('../socket-connection')
 const { orderService } = require('../services')
 const router = require('express').Router()
+const { celebrate, Joi, Segments } = require('celebrate')
+
+function ensureLogin(req, res, next) {
+    if (req.user) return next()
+
+    next(new Error('Unauthorized'))
+}
+
+router.use('/', ensureLogin)
 
 router.get('/', async (req, res) => {
     const orders = await orderService.load()
@@ -21,6 +30,7 @@ router.post('/', async (req, res, next) => {
 
         res.send(order)
     } catch (e) {
+        console.log('hata:' + e)
         next(e)
     }
 })
@@ -55,18 +65,6 @@ router.patch('/', async (req, res) => {
     socketServer().to('orders').emit('orders updated', updatedOrder)
 
     res.send(order)
-})
-
-router.delete('/:orderId', async (req, res) => {
-    const { orderId } = req.params
-
-    await orderService.removeBy('_id', orderId)
-
-    const orders = await orderService.load()
-
-    socketServer().to('orders').emit('orders updated', orders)
-
-    res.send('OK')
 })
 
 module.exports = router
