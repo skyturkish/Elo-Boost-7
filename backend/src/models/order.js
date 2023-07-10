@@ -13,7 +13,8 @@ const OrderSchema = new mongoose.Schema(
         },
         game: {
             type: String,
-            required: true
+            required: true,
+            enum: ['league-of-legends', 'valorant']
         },
         category: {
             type: String,
