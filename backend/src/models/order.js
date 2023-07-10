@@ -37,7 +37,8 @@ const OrderSchema = new mongoose.Schema(
             default: true
         },
         note: {
-            type: String
+            type: String,
+            maxlength: 250
         }
     },
     {

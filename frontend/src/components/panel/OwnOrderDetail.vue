@@ -24,14 +24,14 @@ const validationRules = {
           return 'User-name is requred.'
         },
         value => {
-          if (value?.length >= 6) return true
+          if (value?.length >= 4) return true
 
-          return 'Name must be at least 6 characters.'
+          return 'Name must be at least 4 characters.'
         },
         value => {
-          if (value?.length < 64) return true
+          if (value?.length < 25) return true
 
-          return 'Name must be less than 64 characters.'
+          return 'Name must be less than 25 characters.'
         },
       ],
       "password": [
@@ -41,14 +41,14 @@ const validationRules = {
             return 'Password is requred.'
           },
           value => {
-            if (value?.length >= 6) return true
+            if (value?.length >= 8) return true
 
-            return 'Password must be at least 6 characters.'
+            return 'Password must be at least 8 characters.'
           },
           value => {
-            if (value?.length < 32) return true
+            if (value?.length < 100) return true
 
-            return 'Password must be less than 32 characters.'
+            return 'Password must be less than 100 characters.'
           },
       ],
       "note": [
