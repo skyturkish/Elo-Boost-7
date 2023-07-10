@@ -2,18 +2,13 @@ const socketServer = require('../socket-connection')
 const { messageService } = require('../services')
 const router = require('express').Router()
 
-// router.get('/', async (req, res) => {
-//   const orders = await orderService.load()
-//   res.send(orders)
-// })
+function ensureLogin(req, res, next) {
+    if (req.user) return next()
 
-// router.get('/:orderId/init', async (req, res) => {
-//     const orders = await orderService.query({
-//         state: 'active'
-//     })
+    next(new Error('Unauthorized'))
+}
 
-//     res.send(orders)
-// })
+router.use('/', ensureLogin)
 
 router.post('/', async (req, res, next) => {
     const { order, sender, message } = req.body
