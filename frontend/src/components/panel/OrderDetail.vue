@@ -35,13 +35,13 @@ async function takeOrderAndRoute(orderId) {
   .first-row
     .row
       .arrow.center-child(@click="router.go(-1)")
-        img.arrow-image(src="../../../src/assets/icons/arrow-left.png")
+        img.arrow-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arrow-left.webp")
     .state.center-child(:style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .title-row
         div.row
-          img.game-background(:src='`../../../src/assets/icons/${order.game}.png`')
+          img.game-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${order.game}.webp`')
           .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
         div
           .order-id # {{ order._id.substring(0,10) }}
@@ -56,10 +56,10 @@ async function takeOrderAndRoute(orderId) {
             v-tooltip(location="left" :text='order.note' )
               template(v-slot:activator='{ props }')
                 v-btn.edit-order-button(v-if="order.note" v-bind='props')
-                  img.medium-icon(src='@/assets/icons/read-note.png')
+                  img.medium-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/read-note.webp')
                   .edit-order-text READ NOTE
             v-btn.accep-order-button(v-if="order.state == 'active'" @click="useOrdersStore.takeOrder(order._id)")
-              img.little-icon(src='@/assets/icons/checkmark.png')
+              img.little-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp')
         .last-row(v-if="useAccountStore.user.role == 'customer'")
       ChampionsOrAgents(:order="order")
 </template>
