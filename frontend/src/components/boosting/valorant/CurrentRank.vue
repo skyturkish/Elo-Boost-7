@@ -18,9 +18,6 @@ const divisions = valorantDivisions.slice(0, props.divisionLimit)
 
 const currentValorantOrder = useValorantOrder()
 
-const currentDivisionName = computed(() => {
-  return currentValorantOrder.currentRank.division.toUpperCase()
-});
 </script>
 
 <template lang="pug">
@@ -34,7 +31,7 @@ const currentDivisionName = computed(() => {
         img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${currentValorantOrder.currentRank.division}}.webp`')
         div.ddd
           img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`')
-      .division-name {{ currentDivisionName }} {{ currentValorantOrder.milestone }}
+      .division-name {{ currentValorantOrder.currentRank.division }} {{ currentValorantOrder.milestone }}
       .dynamic-view
         slot
       .colors
@@ -80,6 +77,7 @@ const currentDivisionName = computed(() => {
   font-weight: 600;
   color: #fff;
   padding-top: 2rem;
+  text-transform: uppercase;
 }
 .act-rank {
   display: flex;

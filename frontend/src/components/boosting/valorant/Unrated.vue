@@ -31,7 +31,7 @@ async function createOrder() {
     .content
       .title GAME TYPE
       img.selected-game-type(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-game-Types/${currentValorantOrder.selectedGameType}.webp`')
-      .selected-game-name {{ currentValorantOrder.selectedGameType.toUpperCase() }}
+      .selected-game-name {{ currentValorantOrder.selectedGameType}}
       .selections
         SelectServer
         SelectAmountUnratedMatchGames
@@ -82,6 +82,7 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
   font-weight: 600;
   color: #fff;
   padding-top: 3.5rem;
+  text-transform: uppercase;
 }
 .selections {
   display: flex;

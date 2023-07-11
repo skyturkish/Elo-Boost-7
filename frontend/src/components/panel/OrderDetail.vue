@@ -36,13 +36,13 @@ async function takeOrderAndRoute(orderId) {
     .row
       .arrow.center-child(@click="router.go(-1)")
         img.arrow-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arrow-left.webp")
-    .state.center-child(:style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
+    .state.center-child(:style="{backgroundColor: findStateColor(order.state)}") {{ order.state }}
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .title-row
         div.row
           img.game-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${order.game}.webp`')
-          .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
+          .order-name {{ order.orderType }} BOOST ORDER
         div
           .order-id # {{ order._id.substring(0,10) }}
       PreviewOrder(:order='order')
@@ -160,6 +160,7 @@ async function takeOrderAndRoute(orderId) {
   font-weight: bold;
   margin-right: 15rem;
   color: #fff;
+  text-transform: uppercase;
 }
 .row {
   display: flex;
@@ -193,6 +194,7 @@ async function takeOrderAndRoute(orderId) {
   font-weight: bold;
   color: #222;
   padding-left: 1.5rem;
+  text-transform: uppercase;
 }
 .order-id {
   font-size: 38px;

@@ -141,7 +141,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
       v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
       .division-name
         img.rank(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/' + desiredOrder.name + '.webp'")
-        .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
+        .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name }} {{ desiredMilestone }}
       v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
     v-divider.divider()
     .colors
@@ -219,6 +219,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
   font-size: 32px;
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
 }
 .colors {
   display: flex;

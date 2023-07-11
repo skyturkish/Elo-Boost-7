@@ -36,7 +36,7 @@ const colors = {
 <template lang="pug">
 .tags-title.center-child TAGS
 .tags
-  .tag.center-child(v-for="tag in useAccountStore.userTags" :style="colors[tag]") {{ tag.split('-').join(' ').toUpperCase() }}
+  .tag.center-child(v-for="tag in useAccountStore.userTags" :style="colors[tag]") {{ tag.split('-').join(' ') }}
 </template>
 
 <style scoped>
@@ -46,6 +46,7 @@ const colors = {
   align-items: center;
   justify-content: center;
   text-align: center;
+  text-transform: uppercase;
 }
 .tags-title {
   width: 333px;

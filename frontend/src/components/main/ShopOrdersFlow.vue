@@ -173,7 +173,7 @@ const orders = [
         .vertical-divider(:style="{backgroundColor: orders.indexOf(order) % 2 == 0 ? '#FFB800' : '#DF642B' }")
         .column
           img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0]}.webp`" :alt="order.rank")
-          .rank-text {{ order.rank.toUpperCase() }}
+          .rank-text {{ order.rank }}
           .rank-lp {{ order.lp }} LP
         .column
           .wr {{ order.wr }} WR
@@ -204,6 +204,7 @@ const orders = [
   color: #888;
   font-size: 20px;
   font-weight: 500;
+  text-transform: uppercase;
 }
 .wr,
 .gain-lp {

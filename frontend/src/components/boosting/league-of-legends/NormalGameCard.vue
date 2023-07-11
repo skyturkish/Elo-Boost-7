@@ -19,7 +19,7 @@ const maps = currentLeagueOfLegendsOrder.maps
       v-icon.left-(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
       img.logo(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '-logo.webp'")
       v-icon.right-(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
-    .game-name(:style="{color: currentLeagueOfLegendsOrder.selectedMap.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.selectedMap.shadowColor}") {{ currentLeagueOfLegendsOrder.selectedMap.name.toUpperCase() }}
+    .game-name(:style="{color: currentLeagueOfLegendsOrder.selectedMap.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.selectedMap.shadowColor}") {{ currentLeagueOfLegendsOrder.selectedMap.name }}
     .colors
       v-btn.color(
         v-for="map in maps"
@@ -76,6 +76,8 @@ const maps = currentLeagueOfLegendsOrder.maps
   text-align:center;
   font-size: 2rem;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  text-transform: uppercase;
+
 }
 .colors {
   display: flex;

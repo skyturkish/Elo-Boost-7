@@ -8,18 +8,18 @@ import { useAccount } from '@/store/account'
 import { useRouter} from 'vue-router'
 
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime);
+import duration from 'dayjs/plugin/duration';
 
+dayjs.extend(duration);
 
+function minutesAgo(timeString) {
+  let pastTime = dayjs(timeString);
+  let currentTime = dayjs();
 
+  let differenceInMinutes = dayjs.duration(currentTime.diff(pastTime)).asMinutes();
 
-function timeDifference(time) {
-    let now = dayjs();
-    let past = dayjs(time);
-    return past.from(now); // geçmiş zamanı şimdiki zamana göre ne kadar önce olduğunu döndürür
+  return Math.floor(differenceInMinutes);
 }
-
 const router = useRouter()
 const useAccountStore = useAccount()
 const useOrdersStore = useOrders()
@@ -83,20 +83,20 @@ const heroes = computed(() => {
 <template lang="pug">
 .order(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
   .row
-    .isSolo(v-if="useAccountStore.isBooster()" :style="{color: order.isSolo ?  useAccountStore.user.themePreference.color :  '#000000' }") {{ order.isSolo ? 'Solo'.toUpperCase() : 'Duo'.toUpperCase() }}
-    .state(v-else :style="{color: findStateColor(order.state), textShadow: `0 0 15px ${findStateColor(order.state)}` }") {{ order.state.toUpperCase() }}
-    .isSolo {{  timeDifference(order.createdAt) }}
+    .isSolo(v-if="useAccountStore.isBooster()" :style="{color: order.isSolo ?  useAccountStore.user.themePreference.color :  '#000000' }") {{ order.isSolo ? 'Solo' : 'Duo' }}
+    .state(v-else :style="{color: findStateColor(order.state), textShadow: `0 0 15px ${findStateColor(order.state)}` }") {{ order.state }}
+    .isSolo {{  minutesAgo(order.createdAt) }}
     .id {{ '#' + order._id.substring(0,10) }}
-  .orderType {{ order.orderType.toUpperCase() + ' BOOST ORDER' }}
+  .orderType {{ order.orderType + ' BOOST ORDER' }}
   .place
     .division-order(v-if='order.orderType == "division"' :style="{paddingTop: order.game == 'valorant' ?  '1rem' : ''}")
       .flex-column
         img.division-image(:src="currentDivisionUrl")
-        .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
+        .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division + ' ' + order.currentRank.milestone }}
       img.to-where(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/to-where.webp')
       .flex-column
         img.division-image(:src="desiredDivisionUrl ")
-        .division-name(:style="{color: findColor(order.desiredRank.division) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
+        .division-name(:style="{color: findColor(order.desiredRank.division) }") {{ order.desiredRank.division + ' ' + order.desiredRank.milestone }}
     .normal-order(v-else-if='order.orderType == "normal-game"')
       img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`')
     .clash-order(v-else-if='order.orderType == "clash"')
@@ -106,12 +106,12 @@ const heroes = computed(() => {
     .else(v-else)
       .flex-column
         img.division-image(:src="currentDivisionUrl")
-        .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
+        .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division + ' ' + order.currentRank.milestone }}
         .amount-game(v-if="order.orderType == 'lesson'") {{ order.hours.split(' ')[0] }}
         .amount-game(v-else) {{ order.amountGame.split(' ')[0] }}
   .order-informations(v-if="useAccountStore.isBooster()")
-    .server(v-if="order.category == 'boosting'") {{ order.server.toUpperCase() }}
-    .server(v-else) {{ order.languages[0].toUpperCase() }}
+    .server(v-if="order.category == 'boosting'") {{ order.server }}
+    .server(v-else) {{ order.languages[0] }}
     .pay (%65)
     .lane JUNGLE
     .price 170.30€
@@ -125,8 +125,8 @@ const heroes = computed(() => {
       img.take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp')
   .order-informations(v-else)
     .lane JUNGLE
-    .server(v-if="order.category == 'boosting'") {{ order.server.toUpperCase() }}
-    .server(v-else) {{ order.languages[0].toUpperCase() }}
+    .server(v-if="order.category == 'boosting'") {{ order.server }}
+    .server(v-else) {{ order.languages[0] }}
     .price 170.30€
     .buttons.row
       img.more(@click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp')
@@ -134,13 +134,14 @@ const heroes = computed(() => {
 
 <style scoped>
 .order:hover {
-  transform: rotateY(5deg) rotateX(0deg) scale(1.01);
+  transform: scale(1.02);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 .state {
   text-shadow: 0 0 15px rgba(0, 160, 64, 0.35);
   font-size: 16px;
   font-weight: 600;
+  text-transform: uppercase;
 }
 .order-informations {
   display:flex;
@@ -184,6 +185,7 @@ const heroes = computed(() => {
 .isSolo {
   font-size: 12px;
   font-weight: 800;
+  text-transform: uppercase;
 }
 .id {
   font-size: 13px;
@@ -195,6 +197,7 @@ const heroes = computed(() => {
   font-weight: bold;
   color: #000;
   text-align: center;
+  text-transform: uppercase;
 }
 .place {
   height: 7rem;
@@ -215,6 +218,7 @@ const heroes = computed(() => {
   font-size: 15px;
   font-weight: bold;
   padding-top: 0.3rem;
+  text-transform: uppercase;
 }
 .amount-game {
   font-size: 20px;
@@ -241,6 +245,7 @@ const heroes = computed(() => {
   font-size: 12px;
   font-weight: bold;
   color: #444;
+  text-transform: uppercase;
 }
 .pay {
   font-size: 12px;

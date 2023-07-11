@@ -30,7 +30,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
     .first-column.column
       .name {{ useAccountStore.user.name || 'No name' }}
       .other-information(v-if="useAccountStore.isBooster()")
-        .real-name {{ useAccountStore.user.personalInformation?.name.toUpperCase() || 'No real name' }}  {{ useAccountStore.user.personalInformation?.surName.toUpperCase() || 'No real surname' }}
+        .real-name {{ useAccountStore.user.personalInformation?.name || 'No real name' }}  {{ useAccountStore.user.personalInformation?.surName || 'No real surname' }}
         .country {{ useAccountStore.user.personalInformation?.country || 'No country' }}
         .birthday {{ useAccountStore.user.personalInformation?.birthDate|| 'No birthday' }}
     .first-second-row.row
@@ -46,7 +46,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
       .game-and-information
         img.game-logo.row(:src='selectedGamePhoto')
         .game-informations
-          .game-name {{ selectedGame.split('-').join(' ').toUpperCase() }}
+          .game-name {{ selectedGame.split('-').join(' ') }}
           .other-informations
             span.rank-
               span.rank RANK:
@@ -101,6 +101,9 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 </template>
 
 <style scoped>
+.real-name {
+  text-transform: uppercase;
+}
 .informations {
   max-width: 1440px;
   margin: 0 auto;
@@ -209,6 +212,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
   font-size: 24px;
   font-weight: 500;
   color: #555;
+  text-transform: uppercase;
 }
 .other-informations {
   display: flex;

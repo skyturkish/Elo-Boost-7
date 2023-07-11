@@ -17,9 +17,6 @@ const divisions = LeagueOfLegendsDivisions.slice(0, props.divisionLimit)
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
-const currentDivisionName = computed(() => {
-  return currentLeagueOfLegendsOrder.colors.name.toUpperCase()
-});
 </script>
 
 <template lang="pug">
@@ -31,7 +28,7 @@ const currentDivisionName = computed(() => {
       .division-name
         .rank-icon-box
           img.rank-icon(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.webp'")
-        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentLeagueOfLegendsOrder.milestone }}
+        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentLeagueOfLegendsOrder.colors.name }} {{ currentLeagueOfLegendsOrder.milestone }}
       v-icon(size='large' icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
     .colors-exception(v-if="props.divisionLimit == 6")
@@ -115,6 +112,7 @@ const currentDivisionName = computed(() => {
   font-size: 32px;
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
 }
 .divider {
   margin-top: 2rem;

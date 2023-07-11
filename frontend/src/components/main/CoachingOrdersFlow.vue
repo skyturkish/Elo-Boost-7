@@ -121,7 +121,7 @@ const orders = [
         div.row.information
           img.champion-photo(:src="order.photo" :alt="order.name")
           .booster-informations
-            .role  {{ order.role.toUpperCase() }}
+            .role  {{ order.role }}
             .name {{ order.name }}
         div.row.rank
           img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.webp`" :alt="order.rank")
@@ -144,6 +144,7 @@ const orders = [
   color: #888;
   font-size: 16px;
   font-weight: 500;
+  text-transform: uppercase;
 }
 .name {
   color: #555;

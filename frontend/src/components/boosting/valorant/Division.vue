@@ -104,7 +104,7 @@ CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
         img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${desiredOrder.name}.webp`')
         div.ddd
           img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.webp`')
-      .division-name {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
+      .division-name {{ desiredOrder.name }} {{ desiredMilestone }}
       SelectServer.selectServer
       .colors
         .color-background(v-for="division in limitedDivisions")
@@ -178,7 +178,7 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
   font-weight: 600;
   color: #fff;
   padding-top: 2.5rem;
-
+  text-transform: uppercase;
 }
 .act-rank {
   display: flex;

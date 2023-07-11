@@ -30,7 +30,7 @@ onMounted(() => {
     user.value = res.data
   })
 
-  if(!(props.order.booster === null)) {
+  if(props.order.booster) {
     axios.get(`/user/${props.order.booster}`).then((res) => {
       booster.value = res.data
     })
@@ -74,12 +74,12 @@ function sendMessage() {
   .chat-informations(v-if="useAccountStore.isBooster()" )
     .row
       img.profile-photo(:src="user.photo")
-      .name {{ user.name.toUpperCase() }}
+      .name {{ user.name }}
     img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp")
   .chat-informations(v-else-if="order.booster" )
     .row
       img.profile-photo(:src="booster.photo")
-      .name {{ booster.name.toUpperCase() }}
+      .name {{ booster.name }}
     img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp")
   .chat-informations(v-else)
     .row
@@ -124,6 +124,7 @@ function sendMessage() {
   font-size: 24px;
   font-weight: bold;
   color: #000;
+  text-transform: uppercase;
 }
 .chat-icon {
   width: 42px;
