@@ -50,6 +50,6 @@ const OrderSchema = new mongoose.Schema(
 
 OrderSchema.plugin(autopopulate)
 
-OrderSchema.index({ category: 1, game: 1, state: 1, booster: 1 })
+OrderSchema.index({ state: 1, category: 1, game: 1, booster: 1 })
 
 module.exports = mongoose.model('Order', OrderSchema)
