@@ -18,7 +18,7 @@ function closeDialog() {
 
 <template lang="pug">
 AuthMenu(v-if="useAccountStore.user")
-img.login-button(v-else src="@/assets/icons/login-button.png" )
+img.login-button(v-else src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/login-button.webp" )
 v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black")
   AuthDialog(v-on:close-dialog="closeDialog")
 </template>

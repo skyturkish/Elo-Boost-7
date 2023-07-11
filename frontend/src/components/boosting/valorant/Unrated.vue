@@ -26,17 +26,17 @@ async function createOrder() {
 
 <template lang="pug">
 .unrated-match-card
-  img.player-card(src='@/assets/valorant-player-card.png')
+  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp')
   div
     .content
       .title GAME TYPE
-      img.selected-game-type(:src='`../../../src/assets/valorant-game-Types/${currentValorantOrder.selectedGameType}.png`')
+      img.selected-game-type(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-game-Types/${currentValorantOrder.selectedGameType}.webp`')
       .selected-game-name {{ currentValorantOrder.selectedGameType.toUpperCase() }}
       .selections
         SelectServer
         SelectAmountUnratedMatchGames
       .game-types
-        img.game-type(v-for="gameType in gameTypes" v-bind:class="currentValorantOrder.selectedGameType == gameType ? 'selected-game' : 'unselected-game' " @click="currentValorantOrder.selectedGameType = gameType" :src='`../../../src/assets/valorant-game-Types/${gameType}.png`')
+        img.game-type(v-for="gameType in gameTypes" v-bind:class="currentValorantOrder.selectedGameType == gameType ? 'selected-game' : 'unselected-game' " @click="currentValorantOrder.selectedGameType = gameType" :src='`../../../src/assets/valorant-game-Types/${gameType}.webp`')
 Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
   template(v-slot:switchs)
     .custom-switch-two-options

@@ -81,7 +81,7 @@ const priceTexts = computed(() => {
   .custom-divider
   .receipt-and-barkod
     .receipt-text RECEIPT
-    img.barkod(src='@/assets/barkod.png')
+    img.barkod(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/barkod.webp')
   .custom-divider
     .items
       .item.first-item

@@ -114,7 +114,7 @@ const orders = [
 
 <template lang="pug">
 .live-orders
-  img.traffic-light(src="@/assets/icons/traffic-light-right.png" alt="genji")
+  img.traffic-light(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/traffic-light-right.webp" alt="genji")
   .list-container
     .orders
       .order(v-for="order in orders")
@@ -124,7 +124,7 @@ const orders = [
             .role  {{ order.role.toUpperCase() }}
             .name {{ order.name }}
         div.row.rank
-          img.rank-photo(:src="`../../src/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.png`" :alt="order.rank")
+          img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.webp`" :alt="order.rank")
           .vertical-divider(:style="{backgroundColor: orders.indexOf(order) % 2 == 0 ? '#FF7A00' : '#FEB36F' }")
 </template>
 

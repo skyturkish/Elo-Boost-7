@@ -8,7 +8,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 <template lang="pug">
 .select-lanes
   .background(v-for="lane in lanes" :key="lane" v-bind:class="currentLeagueOfLegendsOrder.isLaneSelected(lane) ? 'selected-background' : ' '")
-    img.lane(:src='`../../src/assets/lanes/${lane}.png`' @click="currentLeagueOfLegendsOrder.addOrRemoveLane(lane)")
+    img.lane(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`' @click="currentLeagueOfLegendsOrder.addOrRemoveLane(lane)")
 </template>
 
 <style scoped>

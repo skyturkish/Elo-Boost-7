@@ -166,13 +166,13 @@ const orders = [
 
 <template lang="pug">
 .live-orders
-  img.traffic-light(src="@/assets/icons/traffic-light.png" alt="genji")
+  img.traffic-light(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/traffic-light.webp" alt="genji")
   .list-container
     .orders
       .order(v-for="order in orders")
         .vertical-divider(:style="{backgroundColor: orders.indexOf(order) % 2 == 0 ? '#FFB800' : '#DF642B' }")
         .column
-          img.rank-photo(:src="`../../src/assets/ranks/league-of-legends/${order.rank.split(' ')[0]}.png`" :alt="order.rank")
+          img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0]}.webp`" :alt="order.rank")
           .rank-text {{ order.rank.toUpperCase() }}
           .rank-lp {{ order.lp }} LP
         .column

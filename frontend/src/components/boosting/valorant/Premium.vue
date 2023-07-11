@@ -9,7 +9,7 @@ const currentValorantOrder = useValorantOrder()
 
 <template lang="pug">
 CheckoutSelection(toolTipText="bunu seçerseniz aimimizin daha iyi bir booster veriyoruz, ve toxic falan da olmuyor ha, keke anladın" title="Premium")
-  img.logo(src='@/assets/icons/premium.png')
+  img.logo(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/premium.webp')
   CustomSwitch(v-model="currentValorantOrder.premium")
 </template>
 

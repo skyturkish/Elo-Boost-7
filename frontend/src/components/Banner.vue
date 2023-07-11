@@ -18,7 +18,7 @@ const props = defineProps({
 </script>
 
 <template lang="pug">
-.background(:style="{ backgroundImage: `url(/src/assets/banners/${splashArtPath}.png)` }")
+.background(:style="{ backgroundImage: `url(https://storage.googleapis.com/divine-boost-bucket/assets/assets/banners/${splashArtPath}.webp)` }")
   .content
     AppBar
     .TRUST-PILOT-5-STAR-REVIEW ‏‏‏‏‏‏‏‏

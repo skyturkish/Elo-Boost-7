@@ -204,21 +204,21 @@ const orders = [
 
 <template lang="pug">
 .live-orders
-  img.genji(src="@/assets/icons/genji.png" alt="genji")
-  img.traffic-light(src="@/assets/icons/traffic-light.png" alt="genji")
+  img.genji(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/genji.webp" alt="genji")
+  img.traffic-light(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/traffic-light.webp" alt="genji")
   .list-container
     .orders
       .order(v-for="order in orders")
         .vertical-divider(:style="{backgroundColor: order.win ? '#4285FF' : '#FF0000' }")
-        img.champion-photo(:src="`../../src/assets/squares/league-of-legends/${order.hero}.png`" :alt="order.hero")
+        img.champion-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${order.hero}.webp`" :alt="order.hero")
         .spells
-          img.spell(:src="`../../src/assets/summoner-spells/${order.firstSpell}.png`")
-          img.spell(:src="`../../src/assets/summoner-spells/${order.secondSpell}.png`")
+          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.firstSpell}.webp`")
+          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.secondSpell}.webp`")
         .score {{ order.score }}
         .rank-information
           .rank  {{ order.rank }}
           .lp(:style="{color: order.win ? '#4285FF' : '#FF0000' }") {{ order.lp }}
-        img.rank-photo(:src="`../../src/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.png`" :alt="order.rank")
+        img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.webp`" :alt="order.rank")
 </template>
 
 <style scoped>

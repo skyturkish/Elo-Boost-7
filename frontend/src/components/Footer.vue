@@ -74,9 +74,9 @@ const links = {
 .footer-background
   .content
     .socials
-      img.facebook-social(src="@/assets/icons/facebook.png" alt="facebook")
-      img.discord-social(src="@/assets/icons/discord.png" alt="discord")
-      img.instagram-social(src="@/assets/icons/instagram.png" alt="instagram")
+      img.facebook-social(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/facebook.webp" alt="facebook")
+      img.discord-social(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/discord.webp" alt="discord")
+      img.instagram-social(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/instagram.webp" alt="instagram")
     .titles
       .title(v-for="(sublinks,title) in links") {{ title }}
         .sub-title(v-for="sublink in sublinks" @click="router.push(sublink.path)") {{sublink.name}}

@@ -4,7 +4,7 @@
 
 <template lang="pug">
 button
-  img.icon(src='@/assets/icons/checkmark.png')
+  img.icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp')
 </template>
 
 <style scoped>

@@ -15,13 +15,13 @@ const selectedGamePhoto = computed(() => {
   if(selectedGame.value === '') {
     selectedGame.value = useAccountStore.userGames[0]
   }
-  return `../../src/assets/icons/${selectedGame.value}.png`
+  return `https://storage.googleapis.com/divine-boost-bucket/assets/assets//icons/${selectedGame.value}.webp`
 })
 
 </script>
 
 <template lang="pug">
-.background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)` }")
+.background(:style="{ backgroundImage: `url(https://storage.googleapis.com/divine-boost-bucket/assets/assets/banners/${useAccountStore.user.themePreference.path}.webp)` }")
   .content
     .save-and-leave(@click="router.back()") SAVE AND LEAVE
 v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAccountStore.user.themePreference.color }")

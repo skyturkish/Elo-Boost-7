@@ -25,15 +25,15 @@ const currentDivisionName = computed(() => {
 
 <template lang="pug">
 .valorant-card
-  img.player-card(src='@/assets/valorant-player-card.png')
+  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp')
   div
     .content
       .title {{ title}}
-      img.act-rank(src='@/assets/act-rank-level1.png')
+      img.act-rank(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/act-rank-level1.webp')
       div
-        img.rank-background(:src='`../../src/assets/rank-background/${currentValorantOrder.currentRank.division}.png`')
+        img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${currentValorantOrder.currentRank.division}}.webp`')
         div.ddd
-          img.rank-icon(:src='`../../src/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`')
+          img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`')
       .division-name {{ currentDivisionName }} {{ currentValorantOrder.milestone }}
       .dynamic-view
         slot
@@ -46,7 +46,7 @@ const currentDivisionName = computed(() => {
             :color="division.color"
             @click="currentValorantOrder.changeCurrentDivision(division)")
       CurrentMilestones
-      img.last-rank-icon(:src='`../../src/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.png`')
+      img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`')
 </template>
 
 <style scoped>

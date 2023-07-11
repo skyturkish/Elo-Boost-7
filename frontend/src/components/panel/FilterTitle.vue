@@ -29,10 +29,10 @@ function changeFilteredGame(game) {
   .first-row
     v-menu
       template(v-slot:activator='{ props }')
-        img.game-icon(:src='`../../src/assets/icons/${useOrdersStore.filteredGame}.png`' v-bind='props')
+        img.game-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${useOrdersStore.filteredGame}.webp`' v-bind='props')
       v-list
-        img.game-icon(v-for='game in otherGames' :key='game.name' :src='`../../src/assets/icons/${game}.png`' @click="changeFilteredGame(game)")
-    .offer-title {{ title }}
+        img.game-icon(v-for='game in otherGames' :key='game.name' :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${game}.webp`' @click="changeFilteredGame(game)")
+    h1.offer-title {{ title }}
   v-icon.settings-icon(icon='mdi-cog' size="33px")
 </template>
 

@@ -23,23 +23,23 @@ const services = [
 
 <template lang="pug">
 .games
-  v-img.process-game.aa(cover src="../../../src/assets/games/overwatch.jpg")
-  v-img.process-game.aa(cover src="../../../src/assets/games/team-fight-tactics.jpg")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp")
   .image-container(v-for="game in games")
-    v-img.game.aa(:src="`../../src/assets/games/${game}.jpg`" :alt='game')
+    v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
       .services
         v-btn.service(v-for="service in services") {{ service.name }}
-  v-img.process-game.aa(cover src="../../../src/assets/games/wild-rift.jpg")
-  v-img.process-game.aa(cover src="../../../src/assets/games/diablo.jpg")
-  v-img.process-game.aa(cover src="../../../src/assets/games/apex-legends.jpg")
-  v-img.process-game.aa(cover src="../../../src/assets/games/overwatch.jpg")
-  v-img.process-game.aa(cover src="../../../src/assets/games/team-fight-tactics.jpg")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/apex-legends.webp")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp")
   .image-container(v-for="game in games")
-    v-img.game.aa(:src="`../../src/assets/games/${game}.jpg`" :alt='game')
+    v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
       .services
         v-btn.service(v-for="service in services") {{ service.name }}
-  v-img.process-game.aa(cover src="../../../src/assets/games/wild-rift.jpg")
-  v-img.process-game.aa(cover src="../../../src/assets/games/diablo.jpg")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp")
 
 </template>
 

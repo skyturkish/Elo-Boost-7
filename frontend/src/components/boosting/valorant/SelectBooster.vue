@@ -42,7 +42,7 @@ function setBoosterAndCloseDialog(booster) {
 
 <template lang="pug">
 CheckoutSelectionColumn(toolTipText="You can choose your favorite booster" title="BOOSTER")
-  img.logo(v-if="currentValorantOrder.booster == null" src='@/assets/icons/plus.png')
+  img.logo(v-if="currentValorantOrder.booster == null" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp')
   img.logo.booster-photo(v-else :src='currentValorantOrder.booster.photo')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
@@ -50,13 +50,13 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster" title
         .title SELECT BOOSTER
         v-tooltip(location="right" text='You can choose booster you like, under page bla bla bla bla bla' )
           template(v-slot:activator='{ props }')
-            img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
+            img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/question-mark.webp" v-bind='props')
       .filters
         v-text-field.search(label="Search for booster" v-model="searchName")
       .boosters(v-if="filteredBoosters.length > 0")
         BoosterCard(v-for="booster in filteredBoosters" :key="booster")
           .rate
-            img.star(src='@/assets/star.png')
+            img.star(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/star.webp')
             .rate-text {{booster.rate}}
           .profile-and-rank
             .dd
@@ -64,13 +64,13 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster" title
               Offline(v-if="booster.onlineState == 'offline' ")
               DontDistrub(v-if="booster.onlineState == 'dont-distrub' ")
               img.profile-photo(:src="booster.photo")
-            img.rank-image(cover :src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.png`')
+            img.rank-image(cover :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/${booster.mainGame}/${booster.maxRank}.webp`')
           .booster-name {{booster.name}}
           .buttons
             SelectBoosterButton(v-if="booster.onlineState != 'dont-distrub' " @click="setBoosterAndCloseDialog(booster)")
             NotAllowed(v-else)
             v-btn.booster-detail-button
-              img.icon(src='@/assets/icons/menu.png')
+              img.icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp')
       h1 There is no booster like what you want
 </template>
 

@@ -34,7 +34,7 @@ v-divider.border-opacity-100(thickness="1rem")
       .sub-title Fast, safe, entertaining, professional.
       div.list-informations
         .ad-bulamadim(v-for="information in informations['our-features']")  {{ information }}
-      img.irelia(src="@/assets/icons/irelia.png" alt="irelia")
+      img.irelia(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/irelia.webp" alt="irelia")
     .features
       v-btn.select-service
         .row
@@ -42,28 +42,28 @@ v-divider.border-opacity-100(thickness="1rem")
             span SELECT
               br
               | SERVICE
-          img.button-image(src="@/assets/icons/select-service.png" alt="Select Game")
+          img.button-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/select-service.webp" alt="Select Game")
       v-btn.complete-payment
         .row
           div
             span COMPLETE
               br
               | PAYMENT
-          img.button-image(src="@/assets/icons/complete-payment.png" alt="Complete Payment")
+          img.button-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/complete-payment.webp" alt="Complete Payment")
       v-btn.fast-secure
         .row
           div
             span FAST
               br
               | VPN SECURE
-          img.button-image(src="@/assets/icons/fast-and-vpn-secure.png" alt="Fast & VPN Secure")
+          img.button-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/fast-and-vpn-secure.webp" alt="Fast & VPN Secure")
       v-btn.boost-rank
         .row
           div
             span BOOST
               br
               | RANK!
-          img.button-image(src="@/assets/icons/boost-rank.png" alt="Boost Rank!")
+          img.button-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/boost-rank.webp" alt="Boost Rank!")
   .little-divider
   .boosting
     .informations
@@ -73,19 +73,19 @@ v-divider.border-opacity-100(thickness="1rem")
         .ad-bulamadim(v-for="information in informations.boosting")  {{ information }}
       .buttons
         v-btn.select-game
-          img(src="@/assets/icons/league-of-legends.png" alt="Select Game")
+          img(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/league-of-legends.webp" alt="Select Game")
         v-btn.second-purchase-eloboosting
           span PURCHASE
             br
             | ELOBOOSTING
     .logos
-      img.sage(src="@/assets/icons/sage.png" alt="sage")
-      img.challenger(src="@/assets/icons/challenger.png" alt="challenger")
+      img.sage(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/sage.webp" alt="sage")
+      img.challenger(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/challenger.webp" alt="challenger")
     BoostingOrdersFlow
   .little-divider
   .coaching
     CoachingOrdersFlow
-    img.briston(src="@/assets/icons/bristo-profile.png" alt="briston")
+    img.briston(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/bristo-profile.webp" alt="briston")
     .coaching-informations
       .title.coaching-title COACHING
       .sub-title Need a pro that can coach you in-voice?
@@ -99,7 +99,7 @@ v-divider.border-opacity-100(thickness="1rem")
               br
               | COACHING
           v-btn.select-game
-            img.valorant(src="@/assets/icons/overwatch.png" alt="Select Game")
+            img.valorant(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/overwatch.webp" alt="Select Game")
   .little-divider
   .shop
     .ceyiz-and-informations
@@ -110,22 +110,22 @@ v-divider.border-opacity-100(thickness="1rem")
           .ad-bulamadim(v-for="information in informations.shop")  {{ information }}
         .buttons
           v-btn.select-game
-            img.valorant(src="@/assets/icons/valorant.png" alt="Select Game")
+            img.valorant(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/valorant.webp" alt="Select Game")
           v-btn.checkout-marketplace
             span CHECK OUT
               br
               | MARKETPLACE
     .overwatch-images
-      img.dva(src="@/assets/icons/dva.png" alt="dva")
-      img.tracer(src="@/assets/icons/tracer.png" alt="tracer")
+      img.dva(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/dva.webp" alt="dva")
+      img.tracer(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/tracer.webp" alt="tracer")
     ShopOrdersFlow
   .little-divider
   .hub
     .images
-      img.leaderboard(src="@/assets/icons/leaderboard.png" alt="leaderboard")
-      img.guides(src="@/assets/icons/guides.png" alt="guides")
-      img.lessons(src="@/assets/icons/lessons.png" alt="lessons")
-      img.hub-image(src="@/assets/icons/hub.png" alt="hub")
+      img.leaderboard(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/leaderboard.webp" alt="leaderboard")
+      img.guides(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/guides.webp" alt="guides")
+      img.lessons(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/lessons.webp" alt="lessons")
+      img.hub-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/hub.webp" alt="hub")
     .hub-informations
       .title.hub-title HUB
       .sub-title Haven't you seen our player hub yet?

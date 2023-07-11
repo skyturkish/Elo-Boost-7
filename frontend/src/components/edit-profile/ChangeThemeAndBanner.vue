@@ -16,11 +16,11 @@ async function changeBannerAndCloseDialog(banner) {
 
 <template lang="pug">
 .theme
-  .theme-background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)`}")
+  .theme-background(:style="{ backgroundImage: `url(https://storage.googleapis.com/divine-boost-bucket/assets/assets/banners/${useAccountStore.user.themePreference.path}.webp)`}")
     .text CHANGE THEME AND BANNER
   v-dialog(v-model='themeDialog' activator='parent' width='auto')
     v-card.row
-      .theme-background(v-for="banner in banners" :style="{ backgroundImage: `url(../../src/assets/banners/${banner.path}.png)`}" @click="changeBannerAndCloseDialog(banner)")
+      .theme-background(v-for="banner in banners" :style="{ backgroundImage: `url(https://storage.googleapis.com/divine-boost-bucket/assets/assets/banners/${banner.path}.webp)`}" @click="changeBannerAndCloseDialog(banner)")
 </template>
 
 <style scoped>

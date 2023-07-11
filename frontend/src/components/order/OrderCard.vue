@@ -43,18 +43,18 @@ function findColor(division) {
 
 const currentDivisionUrl = computed(() => {
   if (props.order.game == 'league-of-legends') {
-    return `../../src/assets/ranks/${props.order.game}/${props.order.currentRank.division}.png`
+    return `https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/${props.order.game}/${props.order.currentRank.division}.webp`
   } else if (props.order.game == 'valorant') {
-    return `../../src/assets/ranks/${props.order.game}/${props.order.currentRank.division}-${props.order.currentRank.milestone}.png`
+    return `https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/${props.order.game}/${props.order.currentRank.division}-${props.order.currentRank.milestone}.webp`
   }
 })
 
 const desiredDivisionUrl = computed(() => {
   if (!props.order.desiredRank) return ''
   if (props.order.game == 'league-of-legends') {
-    return `../../src/assets/ranks/${props.order.game}/${props.order.desiredRank.division}.png`
+    return `https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/${props.order.game}/${props.order.desiredRank.division}.webp`
   } else if (props.order.game == 'valorant') {
-    return `../../src/assets/ranks/${props.order.game}/${props.order.desiredRank.division}-${props.order.desiredRank.milestone}.png`
+    return `https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/${props.order.game}/${props.order.desiredRank.division}-${props.order.desiredRank.milestone}.webp`
   }
 })
 
@@ -93,16 +93,16 @@ const heroes = computed(() => {
       .flex-column
         img.division-image(:src="currentDivisionUrl")
         .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division.toUpperCase() + ' ' + order.currentRank.milestone }}
-      img.to-where(src='../../assets/to-where.png')
+      img.to-where(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/to-where.webp')
       .flex-column
         img.division-image(:src="desiredDivisionUrl ")
         .division-name(:style="{color: findColor(order.desiredRank.division) }") {{ order.desiredRank.division.toUpperCase() + ' ' + order.desiredRank.milestone }}
     .normal-order(v-else-if='order.orderType == "normal-game"')
-      img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
+      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`')
     .clash-order(v-else-if='order.orderType == "clash"')
-      img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
+      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`')
     .challenge-order(v-else-if='order.orderType == "challenge"')
-      img(:src='`../../src/assets/games/leagueOfLegends/divisions/${order.division}.png`')
+      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`')
     .else(v-else)
       .flex-column
         img.division-image(:src="currentDivisionUrl")
@@ -116,20 +116,20 @@ const heroes = computed(() => {
     .lane JUNGLE
     .price 170.30€
     .champions(v-if="heroes.length > 0")
-      img.champion(v-for="hero in heroes" :key="hero" :src='`../../src/assets/squares/league-of-legends/${hero}.png`')
+      img.champion(v-for="hero in heroes" :key="hero" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`')
     .any-champion(v-else)
       .any-hero Any Hero
     .buttons.row
       .edit-and-release(v-if="order.state == 'paid'" @click='router.push(`/panel/own-order-detail/${order._id}`)') EDIT AND RELEASE
-      img.more(v-else @click='goToOrderDetailPage(order)' src='../../assets/icons/menu.png')
-      img.take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)" src='../../assets/icons/checkmark.png')
+      img.more(v-else @click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp')
+      img.take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp')
   .order-informations(v-else)
     .lane JUNGLE
     .server(v-if="order.category == 'boosting'") {{ order.server.toUpperCase() }}
     .server(v-else) {{ order.languages[0].toUpperCase() }}
     .price 170.30€
     .buttons.row
-      img.more(@click='goToOrderDetailPage(order)' src='../../assets/icons/menu.png')
+      img.more(@click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp')
 </template>
 
 <style scoped>

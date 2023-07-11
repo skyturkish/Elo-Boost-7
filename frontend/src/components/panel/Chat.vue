@@ -75,17 +75,17 @@ function sendMessage() {
     .row
       img.profile-photo(:src="user.photo")
       .name {{ user.name.toUpperCase() }}
-    img.chat-icon(src="../../../src/assets/icons/chat.png")
+    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp")
   .chat-informations(v-else-if="order.booster" )
     .row
       img.profile-photo(:src="booster.photo")
       .name {{ booster.name.toUpperCase() }}
-    img.chat-icon(src="../../../src/assets/icons/chat.png")
+    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp")
   .chat-informations(v-else)
     .row
       img.profile-photo(src="https://repository-images.githubusercontent.com/423180394/51fb7f2b-0bb0-4c3e-a06c-840fa3a910eb")
       .name ARCHMAGE (BOT)
-    img.chat-icon(src="../../../src/assets/icons/chat.png")
+    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp")
   .little-divider
   .live-chat
     .messages

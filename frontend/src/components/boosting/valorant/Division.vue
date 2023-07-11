@@ -95,15 +95,15 @@ CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
   SelectCurrentRR
   SelectGainRR
 .desired-rank(v-if="checkedColors")
-  img.player-card(src='@/assets/valorant-player-card.png')
+  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp')
   div
     .content
       .title DESIRED RANK
-      img.act-rank(src='@/assets/act-rank-level3.png')
+      img.act-rank(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/act-rank-level3.webp')
       div
-        img.rank-background(:src='`../../src/assets/rank-background/${desiredOrder.name}.png`')
+        img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${desiredOrder.name}.webp`')
         div.ddd
-          img.rank-icon(:src='`../../src/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`')
+          img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.webp`')
       .division-name {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
       SelectServer.selectServer
       .colors
@@ -120,7 +120,7 @@ CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
           :style="{backgroundColor: isSelectedMilestone(milestone) ? desiredOrder.color : '#fff'}"
           @click="changeMileStone(milestone)"
           ) {{ milestone }}
-  img.last-rank-icon(:src='`../../src/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.png`')
+  img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.webp`')
 Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
   template(v-slot:switchs)
     .custom-switch-two-options

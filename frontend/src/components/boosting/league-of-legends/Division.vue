@@ -140,7 +140,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
     .select-division
       v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
       .division-name
-        img.rank(:src="'../../src/assets/ranks/league-of-legends/' + desiredOrder.name + '.png'")
+        img.rank(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/' + desiredOrder.name + '.webp'")
         .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name.toUpperCase() }} {{ desiredMilestone }}
       v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
     v-divider.divider()
@@ -161,7 +161,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
     .desired-selections
       SelectServer
       SelectQueue
-  img.trim(:src="'../../src/assets/trims/' + desiredOrder.name + '-trim.png'" )
+  img.trim(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/trims/' + desiredOrder.name + '-trim.webp'" )
 Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.divisionOrder')
   template(v-slot:options)
     SelectBooster
@@ -182,7 +182,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
 .trim {
   width: 22.5rem;
   margin-top: -2rem;
-  background: url("../../src/assets/union.png") no-repeat center center;
+  background: url("https://storage.googleapis.com/divine-boost-bucket/assets/assets/union.webp") no-repeat center center;
 }
 .desired-rank {
   width: 360px;

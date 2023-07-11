@@ -92,10 +92,10 @@ v-divider.border-opacity-100(thickness="1rem")
       .black-text SPECIFY THE ACCOUNT RECIPIENT
       .login-selects
         .login-select
-          img.register-an-account(src="@/assets/icons/register-an-account.png", alt="register-an-account")
+          img.register-an-account(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/register-an-account.webp", alt="register-an-account")
           .grey-text REGISTER AN ACCOUNT
         .login-select
-          img.continue-as-a-guest(src="@/assets/icons/continue-as-a-guest.png", alt="continue-as-a-guest")
+          img.continue-as-a-guest(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/continue-as-a-guest.webp", alt="continue-as-a-guest")
           .grey-text CONTINUE AS A GUEST
     .payment-method
       .black-text SELECT PAYMENT METHOD
@@ -104,23 +104,23 @@ v-divider.border-opacity-100(thickness="1rem")
           .checkbox
             svg.checkmark(v-if="paymentMethod == 'stripe'" xmlns='http://www.w3.org/2000/svg' width='33' height='32' viewbox='0 0 33 32' fill='none')
               path(d='M31.9688 4.62864L11.4616 27L2.0625 16.7465L4.47209 14.1178L11.4616 21.7241L29.5592 2L31.9688 4.62864Z' fill='#6262ED')
-          img.stripe(src="@/assets/icons/stripe.png")
+          img.stripe(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/stripe.webp")
         .payment-select(@click="selectPaymentMethod('coinbase')" :class="paymentMethod == 'coinbase' ? 'selected-payment-select' :  '' ")
           .checkbox
             svg.checkmark(v-if="paymentMethod == 'coinbase'" xmlns='http://www.w3.org/2000/svg' width='33' height='32' viewbox='0 0 33 32' fill='none')
               path(d='M31.9688 4.62864L11.4616 27L2.0625 16.7465L4.47209 14.1178L11.4616 21.7241L29.5592 2L31.9688 4.62864Z' fill='#6262ED')
-          img.coinbase(src="@/assets/icons/coinbase.png")
+          img.coinbase(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/coinbase.webp")
         .payment-select(@click="selectPaymentMethod('skrill')" :class="paymentMethod == 'skrill' ? 'selected-payment-select' :  '' ")
           .checkbox
             svg.checkmark(v-if="paymentMethod == 'skrill'" xmlns='http://www.w3.org/2000/svg' width='33' height='32' viewbox='0 0 33 32' fill='none')
               path(d='M31.9688 4.62864L11.4616 27L2.0625 16.7465L4.47209 14.1178L11.4616 21.7241L29.5592 2L31.9688 4.62864Z' fill='#6262ED')
-          img.skrill(src="@/assets/icons/skrill.png")
+          img.skrill(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/skrill.webp")
         .payment-select(@click="selectPaymentMethod('website-balance')" :class="paymentMethod == 'website-balance' ? 'selected-payment-select' :  '' ")
           .checkbox
             svg.checkmark(v-if="paymentMethod == 'website-balance'" xmlns='http://www.w3.org/2000/svg' width='33' height='32' viewbox='0 0 33 32' fill='none')
               path(d='M31.9688 4.62864L11.4616 27L2.0625 16.7465L4.47209 14.1178L11.4616 21.7241L29.5592 2L31.9688 4.62864Z' fill='#6262ED')
           .website-balance WEBSITE BALANCE
-    img.figures(src="@/assets/icons/complete-payment-figures.png")
+    img.figures(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/complete-payment-figures.webp")
   .order-summary
     div
       .black-text.summary-title ORDER SUMMARY

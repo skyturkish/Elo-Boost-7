@@ -7,7 +7,7 @@ const useAccountStore = useAccount()
 </script>
 
 <template lang="pug">
-.background(:style="{ backgroundImage: `url(../../src/assets/banners/${useAccountStore.user.themePreference.path}.png)` , backgroundPositionY: useAccountStore.user.themePreference.backgroundPositionY }")
+.background(:style="{ backgroundImage: `url(https://storage.googleapis.com/divine-boost-bucket/assets/assets/banners/${useAccountStore.user.themePreference.path}.webp)` , backgroundPositionY: useAccountStore.user.themePreference.backgroundPositionY }")
   .content
     AppBar
 </template>

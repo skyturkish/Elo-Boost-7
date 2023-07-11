@@ -36,14 +36,14 @@ function replacePage(game){
 v-menu(max-width='100px')
   template(v-slot:activator='{ props }')
     div.select-games(@click='' v-bind='props')
-      img.game-image(:src='`/src/assets/icons/${gameImagePath}.png`')
+      img.game-image(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${gameImagePath}.webp`')
       .circle ●
       .game-name {{ gameName }}
       v-icon(icon="mdi-menu-down")
   v-list
     v-list-item(v-for='game in games' :key='game.name' @click='replacePage(game)')
       template(v-slot:prepend='')
-        img.aa(:src='`/src/assets/icons/${game.imagePath}.png`')
+        img.aa(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${game.imagePath}.webp`')
       v-list-item-title(v-text='game.name')
 </template>
 

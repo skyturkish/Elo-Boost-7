@@ -30,7 +30,7 @@ const currentDivisionName = computed(() => {
       v-icon(size='large' icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.decrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
       .division-name
         .rank-icon-box
-          img.rank-icon(:src="'../../src/assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.png'")
+          img.rank-icon(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.webp'")
         .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentDivisionName }} {{ currentLeagueOfLegendsOrder.milestone }}
       v-icon(size='large' icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
@@ -61,15 +61,15 @@ const currentDivisionName = computed(() => {
             :color="division.buttonColor"
             @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
     .dynamic-view
-      slot
-  img.trim(:src="'../../src/assets/trims/' + currentLeagueOfLegendsOrder.colors.name + '-trim.png'" )
+      slot   bronze-trim.
+  img.trim(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/trims/' + currentLeagueOfLegendsOrder.colors.name + '-trim.webp'" )
 </template>
 
 <style scoped>
 .trim {
   width: 22.5rem;
   margin-top: -2rem;
-  background: url("../../src/assets/union.png") no-repeat center center;
+  background: url("https://storage.googleapis.com/divine-boost-bucket/assets/assets/union.webp") no-repeat center center;
 }
 .current-rank {
   width: 22.5rem;

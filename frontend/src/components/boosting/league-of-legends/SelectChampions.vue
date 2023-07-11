@@ -30,46 +30,62 @@ function isLaneSelected(lane) {
 }
 
 const selectedHeroes = computed(() => {
-  console.log(Object.values(currentLeagueOfLegendsOrder.heroes).flat().slice(0, 3))
-  console.log('selamlar abi noluyor ?')
-  return Object.values(currentLeagueOfLegendsOrder.heroes).flat().slice(0, 3)
+  return Object.values(currentLeagueOfLegendsOrder.getHeroes).flat().slice(0, 3)
 })
+
+function isSelectedHero(hero) {
+  return currentLeagueOfLegendsOrder.getHeroes[selectedLane.value].includes(hero)
+}
+
 
 </script>
 
 <template lang="pug">
-CheckoutSelectionColumn(toolTipText="You can set your champions which ones you wanted to play by boosters" title="CHAMPIONS")
-  img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyHeroSelected()" src='@/assets/icons/plus.png')
+CheckoutSelectionColumn(toolTipText="aaaaaaaaaa" title="CHAMPIONS")
+  img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyHeroSelected()" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp')
   div(v-else)
-    .selected-champions(v-if="selectedHeroes.length > 0")
-      img.logo(src='@/assets/icons/plus.png')
-      img.selected-champion(v-for="hero in selectedHeroes" :key="hero" :src='`../../src/assets/squares/league-of-legends/${hero}.png`')
+    div.row-
+      img.logo(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp')
+      .selected-champions(v-if="selectedHeroes.length > 0")
+        img.selected-champion(v-for="hero in selectedHeroes" :key="hero" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`')
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
-        .title(@click="selamla") SELECT CHAMPIONS
-        v-tooltip(location="right" text='You can your champions bla bla bla ' )
-          template(v-slot:activator='{ props }')
-            img.question-mark(src="@/assets/icons/question-mark.png" v-bind='props')
+        div.row--
+          .title(@click="selamla") SELECT CHAMPIONS
+          v-tooltip(max-width="500px" location="top" text='TO REQUEST AN OTP BOOSTER YOU CAN CHOOSE ONE OR TWO CHAMPIONS FOR EACH ROLE YOU HAVE SELECTED. \n (+%10) \n YOU MUST CHOOSE AT LEAST 3 CHAMPIONS FROM EVERY ROLE DESIRED TO HAVE A FREE CHAMP WISHLIST. \n (FREE)' )
+            template(v-slot:activator='{ props }')
+              img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/big-question-mark.webp" v-bind='props')
+        v-icon(icon='mdi-close' @click="dialog = false")
       .filters
-        v-text-field.search(label="Search for booster" v-model="searchName")
+        v-text-field.search(variant="underlined" prepend-icon="mdi-magnify" label="Search for champions" v-model="searchName")
         .lanes(v-if="currentLeagueOfLegendsOrder.lanes.length > 0")
-          img.lane(v-for="lane in currentLeagueOfLegendsOrder.lanes" :key="lane" :src='`../../src/assets/lanes/${lane}.png`' @click="changeSelectedLane(lane)" v-bind:class="isLaneSelected(lane) ? 'selected-background' : ' '")
-        .please-select-lane(v-else) at least please select 1 lane to choose champions
+          div.lane-background(v-for="lane in currentLeagueOfLegendsOrder.lanes")
+            img.lane(:key="lane" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`' @click="changeSelectedLane(lane)" )
+            img.selected-lane-background(v-show="isLaneSelected(lane)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/selected-lane.webp')
+        .please-select-lane(v-else) Please select desired lanes to see champion lists.
       .champions-background
         .champions
-          img.champion(v-for="hero in filteredHeroes" :src='`../../src/assets/squares/league-of-legends/${hero}.png`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)")
+          img.champion(v-for="hero in filteredHeroes" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)" :class="isSelectedHero(hero) ? 'selected-hero' : '' ")
       v-divider
       .last-row
-        img.selected-lane(v-if="selectedLane != ''" :src='`../../src/assets/lanes/${selectedLane}.png`')
-        img.champion(v-for="hero in currentLeagueOfLegendsOrder.heroes[selectedLane]" :src='`../../src/assets/squares/league-of-legends/${hero}.png`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)")
-        img.champion(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.heroes[selectedLane]?.length || 0" :src='`../../src/assets/squares/league-of-legends/champion.png`')
-        v-btn.price-calculation
-          .calculation-text(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 ") +%10
-          .calculation-text(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length >= 3 ") FREE
+        img.selected-lane(v-if="selectedLane != '' && currentLeagueOfLegendsOrder.lanes.length !== 0" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${selectedLane}.webp`')
+        img.champion(v-for="hero in currentLeagueOfLegendsOrder.heroes[selectedLane]" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)")
+        img.champion(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.heroes[selectedLane]?.length || 0" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/champion.webp`')
+        v-btn(v-if="currentLeagueOfLegendsOrder.lanes.length !== 0").price-calculation
+          .calculation-text(v-if="currentLeagueOfLegendsOrder.isPriced()") +%10
+          .calculation-text(else) FREE
 </template>
 
 <style scoped>
+.row-- {
+  display:flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.row- {
+  display:flex
+}
 .selected-champions {
   display: flex;
   cursor: pointer;
@@ -92,7 +108,7 @@ CheckoutSelectionColumn(toolTipText="You can set your champions which ones you w
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 3rem 1rem 3rem;
+  padding: 2.5rem 3rem 2.5rem 2.5rem;
 }
 .v-card {
   width: 900px;
@@ -108,8 +124,10 @@ CheckoutSelectionColumn(toolTipText="You can set your champions which ones you w
   color: #222;
 }
 .question-mark {
-  height: 3rem;
-  width: 3rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 45px;
+  box-shadow: 0px 1px 3px 0px #989898;
 }
 .filters {
   height: 120px;
@@ -117,13 +135,13 @@ CheckoutSelectionColumn(toolTipText="You can set your champions which ones you w
   padding: 2rem 2rem 2rem 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .search {
   width: 260px;
   height: 60px;
   flex-grow: 0;
   border-radius: 5px;
-  background-color: #fff;
 }
 .lanes {
   display: flex;
@@ -131,9 +149,6 @@ CheckoutSelectionColumn(toolTipText="You can set your champions which ones you w
 }
 .lane {
   cursor: pointer;
-}
-.selected-background {
-  background-color: #472020;
 }
 .champions-background {
   height: 36rem;
@@ -160,7 +175,7 @@ CheckoutSelectionColumn(toolTipText="You can set your champions which ones you w
   display: flex;
   gap: 1rem;
   margin: auto 0;
-  padding: 0 2rem;
+  padding: 1.5rem;
 }
 .champion-text {
   margin-left: auto;
@@ -184,4 +199,21 @@ CheckoutSelectionColumn(toolTipText="You can set your champions which ones you w
   letter-spacing: normal;
   color: #ffffff;
 }
+.please-select-lane {
+  font-size: 17px;
+  color: #ababab;
+}
+
+.selected-hero {
+  opacity: 0.4;
+}
+.selected-lane-background {
+  width: 73px;
+  height: 73px;
+  position: absolute;
+  transition: .5s ease;
+  font-size: 20px;
+  margin: -11px 0px 0px -60px;
+}
+
 </style>
