@@ -109,8 +109,12 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                     heroes.splice(index, 1)
                 }
             } else {
-                console.log('burada mu ???')
-                heroes.push(hero)
+                if (heroes.length > 5) {
+                    console.log('girdi')
+                    return
+                } else {
+                    heroes.push(hero)
+                }
             }
         },
         isLaneSelected(lane) {
@@ -273,6 +277,28 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 }
             }
         },
-        isNotNetWin: (state) => !state.isNotGame
+        isNotNetWin: (state) => !state.isNotGame,
+        getHeroes: (state) => {
+            let filteredHeroes = {}
+
+            state.lanes.forEach((lane) => {
+                if (state.heroes[lane]) {
+                    filteredHeroes[lane] = state.heroes[lane]
+                }
+            })
+
+            return filteredHeroes
+        },
+        heroesPriced() {
+            for (let key in this.getHeroes) {
+                if (
+                    this.getHeroes[key].length === 1 ||
+                    this.getHeroes[key].length === 2
+                ) {
+                    return true
+                }
+            }
+            return false
+        }
     }
 })

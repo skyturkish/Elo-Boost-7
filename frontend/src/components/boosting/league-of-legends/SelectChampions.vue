@@ -36,8 +36,6 @@ const selectedHeroes = computed(() => {
 function isSelectedHero(hero) {
   return currentLeagueOfLegendsOrder.getHeroes[selectedLane.value].includes(hero)
 }
-
-
 </script>
 
 <template lang="pug">
@@ -73,8 +71,8 @@ CheckoutSelectionColumn(toolTipText="aaaaaaaaaa" title="CHAMPIONS")
         img.champion(v-for="hero in currentLeagueOfLegendsOrder.heroes[selectedLane]" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)")
         img.champion(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.heroes[selectedLane]?.length || 0" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/champion.webp`')
         v-btn(v-if="currentLeagueOfLegendsOrder.lanes.length !== 0").price-calculation
-          .calculation-text(v-if="currentLeagueOfLegendsOrder.isPriced()") +%10
-          .calculation-text(else) FREE
+          .calculation-text(v-if="currentLeagueOfLegendsOrder.heroesPriced") +%10
+          .calculation-text(v-else) FREE
 </template>
 
 <style scoped>
