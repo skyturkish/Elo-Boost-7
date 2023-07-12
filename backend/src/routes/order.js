@@ -48,7 +48,7 @@ router.get('/by-role/:role/:roleId', async (req, res) => {
     const { role, roleId } = req.params
     if (!(role == 'employee' || role == 'customer')) return res.status(404).send('this role is not valid')
 
-    const orders = await orderService.findBy(role, roleId)
+    const orders = await orderService.findBy(role == 'employee' ? 'booster' : role, roleId)
 
     if (!orders) return res.status(404).send(`Cannot find ${role}'s orders`)
 
