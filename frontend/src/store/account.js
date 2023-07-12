@@ -49,10 +49,6 @@ export const useAccount = defineStore('useAccount', {
                 themePreference: preferences
             })
             await this.fetchSession()
-        },
-        isBooster() {
-            console.log('isBooster function triggered')
-            return this.user.role === 'employee'
         }
     },
     getters: {
@@ -86,6 +82,10 @@ export const useAccount = defineStore('useAccount', {
         },
         userTags() {
             return this.userGrades.concat(this.userGames)
+        },
+        isBooster: (state) => {
+            console.log('isBooster function triggered')
+            return state.user.role === 'employee'
         }
     }
 })
