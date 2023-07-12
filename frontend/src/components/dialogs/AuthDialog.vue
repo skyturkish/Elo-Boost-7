@@ -17,6 +17,13 @@ const loading = ref(false)
 const backendError = ref(null)
 const backendSuccess = ref(null)
 
+const emit = defineEmits(['close-dialog'])
+
+const closeDialog = function(){
+  emit('close-dialog')
+}
+
+
 const validationRules = {
       "name":  [
         value => {
@@ -131,6 +138,7 @@ async function login() {
     backendSuccess.value = null
     await useAccountStore.fetchSession()
     console.log('everthing is fine')
+    closeDialog()
   } catch (error) {
     console.log('a error appeared', error)
     backendError.value = error.response.data.message
@@ -146,7 +154,7 @@ function continueAsGuest() {
 <template lang="pug">
 v-form(ref="form")
   .account-login(v-show="authType === 'login'")
-    img.left-image(src="../../assets/auth-dialog-image.png")
+    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp")
     .background
       .title ACCOUNT LOGIN
       .subtitle-text-fields
@@ -162,7 +170,7 @@ v-form(ref="form")
       .logos
       v-btn.grey-button(@click="authType = 'register'") CREATE ACCOUNT
   .create-account(v-show="authType === 'register'")
-    img.left-image(src="../../assets/auth-dialog-image.png")
+    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp")
     .background
       .title CREATE ACCOUNT
       .subtitle-text-fields
@@ -178,7 +186,7 @@ v-form(ref="form")
         .connect-text CONNECT
       v-btn.grey-button(@click="authType = 'login'") LOGIN
   .continue-as-guest(v-show="authType === 'guest'")
-    img.left-image(src="../../assets/auth-dialog-image.png")
+    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp")
     .background(v-bind:style="{height: '43.875rem'}")
       .title CONTINUE AS GUEST
       .subtitle-text-fields
@@ -192,7 +200,7 @@ v-form(ref="form")
 
 <style scoped>
 .v-form {
-  font-family: Inter;
+
 }
 .account-login,
 .create-account,
