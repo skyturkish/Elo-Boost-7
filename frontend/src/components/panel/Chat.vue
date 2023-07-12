@@ -71,7 +71,7 @@ function sendMessage() {
 
 <template lang="pug">
 .chat(v-if="loading")
-  .chat-informations(v-if="useAccountStore.isBooster()" )
+  .chat-informations(v-if="useAccountStore.isBooster" )
     .row
       img.profile-photo(:src="user.photo")
       .name {{ user.name }}

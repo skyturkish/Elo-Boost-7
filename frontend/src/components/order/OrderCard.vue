@@ -83,7 +83,7 @@ const heroes = computed(() => {
 <template lang="pug">
 .order(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
   .row
-    .isSolo(v-if="useAccountStore.isBooster()" :style="{color: order.isSolo ?  useAccountStore.user.themePreference.color :  '#000000' }") {{ order.isSolo ? 'Solo' : 'Duo' }}
+    .isSolo(v-if="useAccountStore.isBooster" :style="{color: order.isSolo ?  useAccountStore.user.themePreference.color :  '#000000' }") {{ order.isSolo ? 'Solo' : 'Duo' }}
     .state(v-else :style="{color: findStateColor(order.state), textShadow: `0 0 15px ${findStateColor(order.state)}` }") {{ order.state }}
     .isSolo {{  minutesAgo(order.createdAt) }}
     .id {{ '#' + order._id.substring(0,10) }}
@@ -109,7 +109,7 @@ const heroes = computed(() => {
         .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division + ' ' + order.currentRank.milestone }}
         .amount-game(v-if="order.orderType == 'lesson'") {{ order.hours.split(' ')[0] }}
         .amount-game(v-else) {{ order.amountGame.split(' ')[0] }}
-  .order-informations(v-if="useAccountStore.isBooster()")
+  .order-informations(v-if="useAccountStore.isBooster")
     .server(v-if="order.category == 'boosting'") {{ order.server }}
     .server(v-else) {{ order.languages[0] }}
     .pay (%65)
@@ -122,7 +122,7 @@ const heroes = computed(() => {
     .buttons.row
       .edit-and-release(v-if="order.state == 'paid'" @click='router.push(`/panel/own-order-detail/${order._id}`)') EDIT AND RELEASE
       img.more(v-else @click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp')
-      img.take-order(v-if='order.state == "active" && useAccountStore.isBooster()' @click="useOrdersStore.takeOrder(order._id)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp')
+      img.take-order(v-if='order.state == "active" && useAccountStore.isBooster' @click="useOrdersStore.takeOrder(order._id)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp')
   .order-informations(v-else)
     .lane JUNGLE
     .server(v-if="order.category == 'boosting'") {{ order.server }}

@@ -15,7 +15,7 @@ const selectedGamePhoto = computed(() => {
   if(selectedGame.value === '') {
     selectedGame.value = useAccountStore.userGames[0]
   }
-  return `https://storage.googleapis.com/divine-boost-bucket/assets/assets//icons/${selectedGame.value}.webp`
+  return `https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${selectedGame.value}.webp`
 })
 
 </script>
@@ -29,7 +29,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
   .first-row
     .first-column.column
       .name {{ useAccountStore.user.name || 'No name' }}
-      .other-information(v-if="useAccountStore.isBooster()")
+      .other-information(v-if="useAccountStore.isBooster")
         .real-name {{ useAccountStore.user.personalInformation?.name || 'No real name' }}  {{ useAccountStore.user.personalInformation?.surName || 'No real surname' }}
         .country {{ useAccountStore.user.personalInformation?.country || 'No country' }}
         .birthday {{ useAccountStore.user.personalInformation?.birthDate|| 'No birthday' }}
@@ -41,7 +41,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
     .second-first-column
       UserTags
     .vertical-divider
-    .games-information(v-if="useAccountStore.isBooster()")
+    .games-information(v-if="useAccountStore.isBooster")
       .black-title GAMES
       .game-and-information
         img.game-logo.row(:src='selectedGamePhoto')
@@ -62,7 +62,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
         .champions-title CHAMPIONS
         .champions
           div(v-for="hero in useAccountStore.userNotifications[useAccountStore.userJobs[0]].games[selectedGame].heroes" )
-            img.champion(:src='`../src/assets/champions/league-of-legends/${hero}.jpg`')
+            img.champion(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/champions/league-of-legends/${hero}.webp`')
             div.champion-name {{ hero }}
           v-btn.action-grey-button.center-child EDIT
       .roles-and-serves.row
@@ -78,7 +78,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
             v-btn.action-grey-button.center-child EDIT
       .range.grey-text RANGE
   v-divider
-  .profile-setup(v-if="useAccountStore.isBooster()")
+  .profile-setup(v-if="useAccountStore.isBooster")
     .black-title PROFILE SETUP
     .text-fields
       .description

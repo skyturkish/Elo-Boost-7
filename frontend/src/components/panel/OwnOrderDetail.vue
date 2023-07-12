@@ -184,11 +184,11 @@ onMounted(async () => {
     .row
       .arrow.center-child(@click="router.go(-1)")
         img.arrow-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arrow-left.webp")
-      .need-help.row.center-child(v-if="!useAccountStore.isBooster()")
+      .need-help.row.center-child(v-if="!useAccountStore.isBooster")
         img.need-help-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/need-help.webp')
-        .black-text NEED HELP
+        h3.black-text NEED HELP
     .buttons-or-state
-      .state.center-child(v-if="!useAccountStore.isBooster()" :style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
+      .state.center-child(v-if="!useAccountStore.isBooster" :style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
       .first-row-buttons(v-else)
         .abandon-button ABANDON
         .complete-button COMPETE
@@ -217,7 +217,7 @@ onMounted(async () => {
             v-btn.active-button PUBLISHED
           v-btn.publish-button(v-else-if="isReadyToPublish" :loading="loading" @click="publish" ) PUBLIsH
         .last-row
-          v-btn.edit-order-button(v-if="!useAccountStore.isBooster()")
+          v-btn.edit-order-button(v-if="!useAccountStore.isBooster")
             img.little-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/edit-order.webp')
             .edit-order-text EDIT ORDER
             v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black" eager persistent)
@@ -241,7 +241,7 @@ onMounted(async () => {
           .price(v-else)
             .price-text 170.30€
             .percentage-text (%65)
-          SelectBooster(v-if="!useAccountStore.isBooster()")
+          SelectBooster(v-if="!useAccountStore.isBooster")
           v-tooltip(v-else location="left" :text='order.note' )
             template(v-slot:activator='{ props }')
               v-btn.edit-order-button(v-if="order.note" v-bind='props')
@@ -432,12 +432,6 @@ onMounted(async () => {
 .need-help-icon {
   height: 30px;
   width: 30px;
-}
-.black-text {
-
-  font-size: 20px;
-  font-weight: 600;
-  color: #222;
 }
 .normal-black-text {
   font-size: 32px;
