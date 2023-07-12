@@ -8,6 +8,10 @@ const routes = [
         component: () => import('@/views/Main.vue')
     },
     {
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/views/NotFound.vue')
+    },
+    {
         path: '/panel',
         component: () => import('@/views/Panel.vue'),
         children: [
