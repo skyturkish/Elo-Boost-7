@@ -28,7 +28,7 @@ const orders = [
     lp: '710LP',
 },
 {
-    hero: 'leeSin',
+    hero: 'leesin',
     firstSpell: 'flash',
     secondSpell: 'smite',
     score: '12/5/15',
