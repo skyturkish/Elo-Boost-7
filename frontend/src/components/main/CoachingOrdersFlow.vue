@@ -84,30 +84,6 @@ const orders = [
       name: 'Kira',
       rank: 'grandmaster',
   },
-  {
-      photo: "https://p4.wallpaperbetter.com/wallpaper/988/526/426/anime-noragami-yato-noragami-hd-wallpaper-preview.jpg",
-      role: 'coach',
-      name: 'Reve',
-      rank: 'challenger',
-  },
-  {
-      photo: "https://i.pinimg.com/564x/00/ff/c6/00ffc6288cdc3039d95c772b05a1ef97.jpg",
-      role: 'elite booster',
-      name: 'Kira',
-      rank: 'grandmaster',
-  },
-  {
-      photo: "https://p4.wallpaperbetter.com/wallpaper/988/526/426/anime-noragami-yato-noragami-hd-wallpaper-preview.jpg",
-      role: 'coach',
-      name: 'Reve',
-      rank: 'challenger',
-  },
-  {
-      photo: "https://i.pinimg.com/564x/00/ff/c6/00ffc6288cdc3039d95c772b05a1ef97.jpg",
-      role: 'elite booster',
-      name: 'Kira',
-      rank: 'grandmaster',
-  }
 ]
 
 </script>
@@ -115,8 +91,17 @@ const orders = [
 <template lang="pug">
 .live-orders
   img.traffic-light(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/traffic-light-right.webp" alt="genji")
-  .list-container
-    .orders
+  .loop-slider
+    .inner
+      .order(v-for="order in orders")
+        div.row.information
+          img.champion-photo(:src="order.photo" :alt="order.name")
+          .booster-informations
+            .role  {{ order.role }}
+            .name {{ order.name }}
+        div.row.rank
+          img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.webp`" :alt="order.rank")
+          .vertical-divider(:style="{backgroundColor: orders.indexOf(order) % 2 == 0 ? '#FF7A00' : '#FEB36F' }")
       .order(v-for="order in orders")
         div.row.information
           img.champion-photo(:src="order.photo" :alt="order.name")
@@ -129,6 +114,32 @@ const orders = [
 </template>
 
 <style scoped>
+.loop-slider {
+  height: 750px;
+  overflow: hidden;
+}
+.inner {
+  display: flex;
+  flex-direction: column;
+  animation-name: loop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 240s;
+  gap: 34px;
+  border: 1px #EEEEEE solid;
+  padding: 1rem;
+
+}
+
+@keyframes loop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
 .information {
   margin-left: -2rem;
 }
@@ -164,19 +175,6 @@ const orders = [
   height: 36px;
   margin-top: 34px;
   margin-bottom: -6px
-}
-.list-container {
-  height: 750px;
-  overflow: hidden;
-}
-.orders {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-  overflow-y: auto;
-  border: 1px #EEEEEE solid;
-  padding: 1rem;
 }
 .order {
   display:flex;

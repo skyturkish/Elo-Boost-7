@@ -167,8 +167,21 @@ const orders = [
 <template lang="pug">
 .live-orders
   img.traffic-light(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/traffic-light.webp" alt="genji")
-  .list-container
-    .orders
+  .loop-slider
+    .inner
+      .order(v-for="order in orders")
+        .vertical-divider(:style="{backgroundColor: orders.indexOf(order) % 2 == 0 ? '#FFB800' : '#DF642B' }")
+        .column
+          img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0]}.webp`" :alt="order.rank")
+          .rank-text {{ order.rank }}
+          .rank-lp {{ order.lp }} LP
+        .column
+          .wr {{ order.wr }} WR
+          .skin {{ order.skin }} SKIN
+          .hero {{ order.hero }} CHAMP
+        .column
+          .gain-lp +{{ order.gainLp }} LP
+          v-btn.buy-button(:style="{backgroundColor: orders.indexOf(order) % 2 == 0 ? '#FFB800' : '#DF642B' }") BUY
       .order(v-for="order in orders")
         .vertical-divider(:style="{backgroundColor: orders.indexOf(order) % 2 == 0 ? '#FFB800' : '#DF642B' }")
         .column
@@ -186,6 +199,33 @@ const orders = [
 </template>
 
 <style scoped>
+
+
+.loop-slider {
+  height: 750px;
+  overflow: hidden;
+}
+.inner {
+  display: flex;
+  flex-direction: column;
+  animation-name: loop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 480s;
+  gap: 34px;
+  border: 1px #EEEEEE solid;
+  padding: 1rem;
+
+}
+
+@keyframes loop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
 .buy-button {
   width: 95px;
   height: 41px;
@@ -193,9 +233,6 @@ const orders = [
   color: #FFF;
   font-size: 15px;
   font-weight: 700;
-}
-.live-orders {
-
 }
 .rank-text,
 .rank-lp,
@@ -225,19 +262,6 @@ const orders = [
   height: 36px;
   margin-top: 34px;
   margin-bottom: -6px
-}
-.list-container {
-  height: 750px;
-  overflow: hidden;
-}
-.orders {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-  overflow-y: auto;
-  border: 1px #EEEEEE solid;
-  padding: 1rem;
 }
 .order {
   display:flex;

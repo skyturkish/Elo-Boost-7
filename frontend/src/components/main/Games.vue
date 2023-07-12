@@ -22,42 +22,55 @@ const services = [
 </script>
 
 <template lang="pug">
-.games
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp" alt="overwatch")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp" alt="team-fight-tactics")
-  .image-container(v-for="game in games")
-    v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game' alt="league-of-legends")
-      .services
-        v-btn.service(v-for="service in services") {{ service.name }}
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp" alt="wild-rift")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp" alt="diablo")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/apex-legends.webp" alt="apex-legends")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp" alt="overwatch")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp" alt="team-fight-tactics")
-  .image-container(v-for="game in games")
-    v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
-      .services
-        v-btn.service(v-for="service in services") {{ service.name }}
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp" alt="wild-rift")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp" alt="diablo")
-
+.fade
+  .loop-slider
+    .inner
+      v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp" alt="overwatch")
+      v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp" alt="team-fight-tactics")
+      .image-container(v-for="game in games")
+        v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
+          .services
+            v-btn.service(v-for="service in services") {{ service.name }}
+      v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp" alt="wild-rift")
+      v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp" alt="diablo")
+      v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp" alt="overwatch")
+      v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp" alt="team-fight-tactics")
+      .image-container(v-for="game in games")
+        v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
+          .services
+            v-btn.service(v-for="service in services") {{ service.name }}
+      v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp" alt="wild-rift")
+      v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp" alt="diablo")
 </template>
 
 <style scoped>
-.primary,
-.second {
-  display: flex;
+.fade {
+  background: linear-gradient(90deg, #1e293b, transparent 30%, transparent 70%, #1e293b);
+  inset: 0;
 }
-.games {
-  display:flex;
-  justify-content: center;
-  max-width: 2600px;
+.loop-slider {
+  width: 1800px;
   margin: 0 auto;
-  letter-spacing: 0px;
-  z-index: 1;
+  overflow: hidden;
+}
+.inner {
+  display: flex;
+  width: fit-content;
+  animation-name: loop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: 50s;
+  animation-duration: 30s;
 
-  overflow-x: auto;
-  overflow-x: hidden;
+}
+
+@keyframes loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 .process-game {
   min-width: 360px;
@@ -102,8 +115,16 @@ const services = [
   opacity: 1;
 }
 
-.aa {
-  animation: slide 60s linear infinite;
+/* .aa {
+  animation: slide 10s linear infinite;
+} */
+
+.first-animation {
+  animation: slide 10s linear infinite;
+}
+.second-animation {
+  animation: slide 10s linear infinite;
+
 }
 
 
@@ -112,8 +133,11 @@ const services = [
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(2520px, 0, 0); /* The image width */
+    transform: translate3d(2160px, 0, 0); /* The image width */
   }
 }
+
+
+
 
 </style>

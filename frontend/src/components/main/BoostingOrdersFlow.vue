@@ -135,69 +135,6 @@ const orders = [
     rank: 'Gold III',
     lp: '55 LP',
   },
-  {
-    hero: 'malzahar',
-    firstSpell: 'ignite',
-    secondSpell: 'flash',
-    win: true,
-    score: '13/10/11',
-    rank: 'Platinum IV',
-    lp: '70 LP',
-  },
-  {
-    hero: 'brand',
-    firstSpell: 'flash',
-    win: false,
-    secondSpell: 'exhaust',
-    score: '11/7/12',
-    rank: 'Silver I',
-    lp: '89 LP',
-  },
-  {
-    hero: 'senna',
-    win: true,
-    firstSpell: 'heal',
-    secondSpell: 'flash',
-    score: '9/3/16',
-    rank: 'Gold IV',
-    lp: '30 LP',
-  },
-  {
-    hero: 'teemo',
-    firstSpell: 'ignite',
-    win: true,
-    secondSpell: 'flash',
-    score: '18/8/6',
-    rank: 'Bronze I',
-    lp: '98 LP',
-  },
-  {
-    hero: 'yuumi',
-    firstSpell: 'exhaust',
-    secondSpell: 'ignite',
-    score: '2/6/22',
-    win: true,
-    rank: 'Silver III',
-    lp: '60 LP',
-  },
-  {
-    hero: 'darius',
-    firstSpell: 'ghost',
-    secondSpell: 'flash',
-    score: '21/9/3',
-    rank: 'Diamond IV',
-    win: true,
-    lp: '40 LP',
-  },
-  {
-    hero: 'ezreal',
-    firstSpell: 'flash',
-    secondSpell: 'heal',
-    score: '14/7/11',
-    win: true,
-    rank: 'Platinum III',
-    lp: '50 LP',
-  }
 ]
 
 </script>
@@ -206,22 +143,58 @@ const orders = [
 .live-orders
   img.genji(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/genji.webp" alt="genji")
   img.traffic-light(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/traffic-light.webp" alt="genji")
-  .list-container
-    .orders
+  .loop-slider
+    .inner
       .order(v-for="order in orders")
         .vertical-divider(:style="{backgroundColor: order.win ? '#4285FF' : '#FF0000' }")
         img.champion-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${order.hero}.webp`" :alt="order.hero")
         .spells
-          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.firstSpell}.webp`" alt="first spell")
-          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.secondSpell}.webp`"  alt="second spell")
+          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.firstSpell}.webp`")
+          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.secondSpell}.webp`")
         .score {{ order.score }}
         .rank-information
           .rank  {{ order.rank }}
           .lp(:style="{color: order.win ? '#4285FF' : '#FF0000' }") {{ order.lp }}
         img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.webp`" :alt="order.rank")
+      .order(v-for="order in orders")
+        .vertical-divider(:style="{backgroundColor: order.win ? '#4285FF' : '#FF0000' }")
+        img.champion-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${order.hero}.webp`" :alt="order.hero")
+        .spells
+          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.firstSpell}.webp`")
+          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.secondSpell}.webp`")
+        .score {{ order.score }}
+        .rank-information
+          .rank  {{ order.rank }}
+          .lp(:style="{color: order.win ? '#4285FF' : '#FF0000' }") {{ order.lp }}
+        img.rank-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${order.rank.split(' ')[0].toLowerCase()}.webp`" :alt="order.rank")
+
 </template>
 
 <style scoped>
+.loop-slider {
+  height: 750px;
+  overflow: hidden;
+}
+.inner {
+  display: flex;
+  flex-direction: column;
+  animation-name: loop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 60s;
+  gap: 34px;
+  border: 1px #EEEEEE solid;
+  padding: 1rem;
+}
+
+@keyframes loop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
 .vertical-divider {
   width: 5px;
   height: 105px;
@@ -244,33 +217,11 @@ const orders = [
   margin-top: 34px;
   margin-bottom: -6px
 }
-.list-container {
-  height: 750px;
-  overflow: hidden;
-}
-.orders {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-  overflow-y: auto;
-  border: 1px #EEEEEE solid;
-  padding: 1rem;
-}
 .order {
   display:flex;
   align-items: center;
   justify-content: space-around;
   margin-left: -2rem;
-  animation: slide 36s linear infinite;
-}
-@keyframes slide {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, -1600px , 0);
-  }
 }
 .champion-photo {
   height: 69px;
