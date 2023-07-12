@@ -33,7 +33,7 @@ const filteredOrders = computed(() => {
   padding: 0 2.625rem;
 }
 .current-offers {
-  font-family: Inter;
+
   padding-top: 2.2rem;
   min-width: 1440px;
 }

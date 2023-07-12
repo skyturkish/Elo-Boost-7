@@ -50,7 +50,7 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 .v-list-item {
   height: 4.4rem;
-  font-family: Inter;
+
 }
 .v-list-item {
   font-size: 16px;

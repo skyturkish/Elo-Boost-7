@@ -53,7 +53,7 @@ CheckoutSelectionColumn(toolTipText="You can set your agents which ones you want
   max-height: 1700px;
   border-radius: 5px;
   background-color: #fff;
-  font-family: Inter;
+
 }
 .title {
   font-size: 40px;

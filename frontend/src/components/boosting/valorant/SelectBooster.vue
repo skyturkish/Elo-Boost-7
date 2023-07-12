@@ -96,7 +96,7 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster" title
   max-height: 1700px;
   border-radius: 5px;
   background-color: #fff;
-  font-family: Inter;
+
 }
 .row {
   display: flex;

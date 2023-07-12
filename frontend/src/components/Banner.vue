@@ -55,7 +55,7 @@ const props = defineProps({
 }
 .subtitle {
   padding-top: 0.5rem;
-  font-family: Inter;
+
   font-size: 32px;
   font-weight: 500;
   color: #fff;

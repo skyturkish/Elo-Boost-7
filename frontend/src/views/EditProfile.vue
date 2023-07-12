@@ -107,7 +107,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
 .informations {
   max-width: 1440px;
   margin: 0 auto;
-  font-family: Inter;
+
 }
 .game-and-information {
   display:flex

@@ -137,7 +137,7 @@ const priceTexts = computed(() => {
   font-weight: 400;
 }
 .price {
-  font-family: Inter;
+
   font-size: 64px;
   color: #202020;
   margin-top: -10px;
@@ -154,7 +154,7 @@ const priceTexts = computed(() => {
 }
 .checkout {
   width: 33.75rem;
-  font-family: Inter;
+
   padding: 1rem;
   border-left: 1px solid #C8AA6E;
   background-color: #FFFFFF;
@@ -191,7 +191,7 @@ const priceTexts = computed(() => {
 }
 
 .total-price-text {
-  font-family: Inter;
+
   font-size: 20px;
   font-weight: 600;
   color: #bababa;
@@ -215,7 +215,7 @@ const priceTexts = computed(() => {
 }
 
 .without-discount {
-  font-family: Inter;
+
   font-size: 20px;
   font-weight: 500;
   color: #999999;
@@ -231,7 +231,7 @@ const priceTexts = computed(() => {
 }
 
 .smalltext{
-  font-family: Inter;
+
   font-size: 40px;
   font-weight: 500;
   color: #444;

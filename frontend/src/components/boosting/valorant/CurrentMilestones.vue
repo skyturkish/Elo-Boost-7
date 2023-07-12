@@ -22,7 +22,7 @@ const milestones = valorantMilestones
   display: flex;
   gap: 0.5rem;
   justify-content: center;
-  font-family: Inter;
+
 }
 .milestone {
   width: 31px;

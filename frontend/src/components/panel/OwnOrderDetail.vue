@@ -86,7 +86,8 @@ const accountInformation = ref(null)
 const autoPublish = ref(true)
 
 const isReadyToPublish = computed(() => {
-  return userName.value.length > 6 && password.value.length > 6
+  console.log('is ready to publish function trigger')
+  return userName.value.length > 3 &&  userName.value.length < 25 && password.value.length > 7 && password.value.length < 100
 })
 
 function isSelectedFlash(flashName) {
@@ -433,7 +434,7 @@ onMounted(async () => {
   width: 30px;
 }
 .black-text {
-  font-family: Inter;
+
   font-size: 20px;
   font-weight: 600;
   color: #222;
@@ -481,7 +482,7 @@ onMounted(async () => {
   border: solid 1px #eee;
 }
 .order-name {
-  font-family: Inter;
+
   font-size: 40px;
   font-weight: bold;
   color: #222;
@@ -514,14 +515,14 @@ onMounted(async () => {
   color: #555;
 }
 .please-edit-order {
-  font-family: Inter;
+
   font-size: 20px;
   font-weight: 600;
   text-align: center;
   color: #f66;
 }
 .edit-order {
-  font-family: Inter;
+
   display:flex;
   flex-direction: column;
   align-items: center;

@@ -57,7 +57,7 @@ v-divider.border-opacity-100(thickness="1rem")
   flex-wrap: wrap;
 }
 .boost-type-button {
-  font-family: Inter;
+
   font-size: 20px;
   font-weight: 600;
   letter-spacing: normal;

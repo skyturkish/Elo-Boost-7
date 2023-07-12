@@ -496,7 +496,7 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 
 .background {
-  font-family: Inter;
+
 }
 .v-divider {
   border-color: #0083FF !important;

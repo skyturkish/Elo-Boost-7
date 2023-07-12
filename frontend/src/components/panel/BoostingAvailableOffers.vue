@@ -26,7 +26,7 @@ onMounted(() => {
 
 <style scoped>
 .current-offers {
-  font-family: Inter;
+
   padding-top: 2.2rem;
   min-width: 1440px;
 }

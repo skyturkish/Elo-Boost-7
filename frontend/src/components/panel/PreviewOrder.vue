@@ -67,7 +67,7 @@ const props = defineProps({
   width: 150px;
 }
 .rank-name {
-  font-family: Inter;
+
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;

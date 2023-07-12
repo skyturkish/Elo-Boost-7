@@ -102,7 +102,7 @@ const links = {
   cursor: pointer;
 }
 .footer-background {
-  font-family: Inter;
+
   background-color: #111111;
   padding-bottom: 100px;
 }

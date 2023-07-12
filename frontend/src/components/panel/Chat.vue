@@ -101,7 +101,7 @@ function sendMessage() {
   border-radius: 10px;
   padding: 25px 0 29px;
   border: solid 1px #eee;
-  font-family: Inter;
+
 }
 .row {
   display: flex;

@@ -36,7 +36,7 @@ v-divider.border-opacity-100(thickness="1rem" )
   background-color: #1c1920;
 }
 .buttons {
-  font-family: Inter;
+
   display: flex;
   max-width: 1440px;
   margin: 0 auto;

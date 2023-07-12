@@ -154,7 +154,7 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 .return {
   color: #FFF;
-  font-family: Inter;
+
   font-size: 24px;
   font-weight: 700;
   display: inline
@@ -168,7 +168,7 @@ v-divider.border-opacity-100(thickness="1rem")
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  font-family: Inter;
+
   gap: 65px;
 }
 .account-recipient  {
@@ -311,7 +311,7 @@ v-divider.border-opacity-100(thickness="1rem")
   font-weight: 600;
 }
 .price {
-  font-family: Inter;
+
   font-size: 64px;
   color: #202020;
   margin-top: -10px;
@@ -323,7 +323,7 @@ v-divider.border-opacity-100(thickness="1rem")
     top: -12px;
 }
 .smalltext{
-  font-family: Inter;
+
   font-size: 40px;
   font-weight: 500;
   color: #444;

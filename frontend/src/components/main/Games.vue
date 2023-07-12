@@ -55,7 +55,7 @@ const services = [
   margin: 0 auto;
   letter-spacing: 0px;
   z-index: 1;
-  font-family: Inter;
+
   overflow-x: auto;
   overflow-x: hidden;
 }
@@ -96,7 +96,7 @@ const services = [
   color: #fff;
   background-color: #000000;;
   letter-spacing: 0.96px;
-
+  border-radius: 0px !important;
 }
 .service:hover {
   opacity: 1;

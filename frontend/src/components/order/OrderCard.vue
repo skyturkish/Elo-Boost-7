@@ -161,7 +161,7 @@ const heroes = computed(() => {
 .order {
   height: 18.75rem;
   width: 18.75rem;
-  font-family: Inter;
+
   padding: 15px 12px 35px 20px;
   border-radius: 4px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);

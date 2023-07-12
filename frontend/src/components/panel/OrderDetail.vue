@@ -75,7 +75,7 @@ async function takeOrderAndRoute(orderId) {
   justify-content: space-between;
 }
 .edit-order{
-  font-family: Inter;
+
   display:flex;
   flex-direction: column;
   align-items: center;

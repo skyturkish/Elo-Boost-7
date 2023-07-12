@@ -70,7 +70,7 @@ v-menu(max-width='100px')
   width: 3rem;
 }
 .game-name {
-  font-family: Inter;
+
   font-size: 20px;
   font-weight: 800;
 }

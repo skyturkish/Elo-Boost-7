@@ -195,7 +195,7 @@ const orders = [
   font-weight: 700;
 }
 .live-orders {
-  font-family: Inter;
+
 }
 .rank-text,
 .rank-lp,

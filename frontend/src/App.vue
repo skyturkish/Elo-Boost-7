@@ -7,7 +7,6 @@ onMounted(async () => {
     useAccountStore.changeUserOnlineState('offline')
   });
 })
-
 </script>
 
 <template lang="pug">
@@ -16,7 +15,9 @@ Footer
 </template>
 
 <style>
-
+body {
+  font-family: 'Inter', sans-serif;
+}
 
 .v-btn--active > .v-btn__overlay, .v-btn[aria-haspopup=menu][aria-expanded=true] > .v-btn__overlay {
    opacity: 0.01 !important;
@@ -24,7 +25,7 @@ Footer
 .custom-switch-two-options {
   display:flex;
   align-items: center;
-  font-family: Inter;
+
   gap: 0.5rem;
   padding: 1rem 2rem 0 2rem;
   justify-content: end;
