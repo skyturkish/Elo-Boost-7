@@ -29,9 +29,9 @@ function changeFilteredGame(game) {
   .first-row
     v-menu
       template(v-slot:activator='{ props }')
-        img.game-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${useOrdersStore.filteredGame}.webp`' v-bind='props')
+        img.game-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${useOrdersStore.filteredGame}.webp`' v-bind='props' alt="game-image")
       v-list
-        img.game-icon(v-for='game in otherGames' :key='game.name' :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${game}.webp`' @click="changeFilteredGame(game)")
+        img.game-icon(v-for='game in otherGames' :key='game.name' :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${game}.webp`' @click="changeFilteredGame(game)" alt="game-image")
     h1.offer-title {{ title }}
   v-icon.settings-icon(icon='mdi-cog' size="33px")
 </template>
@@ -54,7 +54,6 @@ function changeFilteredGame(game) {
   width: 4.6875rem;
 }
 .offer-title {
-  font-size: 32px;
   font-weight: 600;
   color: #222;
 }

@@ -43,36 +43,36 @@ function setBoosterAndCloseDialog(coach) {
 
 <template lang="pug">
 CheckoutSelectionColumn(toolTipText="You can choose your favorite coach" title="COACH")
-  img.logo(v-if="currentLeagueOfLegendsOrder.coach == null" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp')
-  img.logo.booster-photo(v-else :src='currentLeagueOfLegendsOrder.coach.photo')
+  img.logo(v-if="currentLeagueOfLegendsOrder.coach == null" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp' alt="plus")
+  img.logo.booster-photo(v-else :src='currentLeagueOfLegendsOrder.coach.photo' alt="booster-photo")
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
         .title SELECT COACH
         v-tooltip(location="right" text='You can choose booster you like, under page bla bla bla bla bla' )
           template(v-slot:activator='{ props }')
-            img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/question-mark.webp" v-bind='props')
+            img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/question-mark.webp" v-bind='props' alt="question-mark")
       .filters
         v-text-field.search(label="Search for booster" v-model="searchName")
       .boosters(v-if="filteredBoosters.length > 0")
         BoosterCard(v-for="booster in filteredBoosters" :key="booster")
           .rate
-            img.star(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/star.webp')
+            img.star(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/star.webp' alt="star")
             .rate-text {{booster.rate}}
           .profile-and-rank
             .dd
               Online(v-if="booster.onlineState == 'online' ")
               Offline(v-if="booster.onlineState == 'offline' ")
               DontDistrub(v-if="booster.onlineState == 'dont-distrub' ")
-              img.profile-photo(cover :src="booster.photo")
+              img.profile-photo(cover :src="booster.photo" alt="profile-photo")
 
-            img.rank-image(cover :src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.webp`')
+            img.rank-image(cover :src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.webp`' alt="rank-image")
           .booster-name {{booster.name}}
           .buttons
             SelectBoosterButton(v-if="booster.onlineState != 'dont-distrub' " @click="setBoosterAndCloseDialog(booster)")
             NotAllowed(v-else)
             v-btn.booster-detail-button
-              img.icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp')
+              img.icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp' alt="icon")
 </template>
 
 <style scoped>

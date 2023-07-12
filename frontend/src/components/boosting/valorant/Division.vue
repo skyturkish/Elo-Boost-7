@@ -95,15 +95,15 @@ CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
   SelectCurrentRR
   SelectGainRR
 .desired-rank(v-if="checkedColors")
-  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp')
+  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp' alt='player-card')
   div
     .content
       .title DESIRED RANK
-      img.act-rank(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/act-rank-level3.webp')
+      img.act-rank(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/act-rank-level3.webp' alt='act-rank')
       div
-        img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${desiredOrder.name}.webp`')
+        img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${desiredOrder.name}.webp`' :alt="desiredOrder.name")
         div.ddd
-          img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.webp`')
+          img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.webp`' :alt="desiredOrder.name")
       .division-name {{ desiredOrder.name }} {{ desiredMilestone }}
       SelectServer.selectServer
       .colors
@@ -120,7 +120,7 @@ CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
           :style="{backgroundColor: isSelectedMilestone(milestone) ? desiredOrder.color : '#fff'}"
           @click="changeMileStone(milestone)"
           ) {{ milestone }}
-  img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.webp`')
+  img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.webp`' :alt="desiredOrder.name")
 Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
   template(v-slot:switchs)
     .custom-switch-two-options

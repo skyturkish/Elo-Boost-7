@@ -73,24 +73,24 @@ function sendMessage() {
 .chat(v-if="loading")
   .chat-informations(v-if="useAccountStore.isBooster" )
     .row
-      img.profile-photo(:src="user.photo")
+      img.profile-photo(:src="user.photo" alt="profile-photo")
       .name {{ user.name }}
-    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp")
+    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp" alt="chat-icon")
   .chat-informations(v-else-if="order.booster" )
     .row
-      img.profile-photo(:src="booster.photo")
+      img.profile-photo(:src="booster.photo" alt="profile-photo")
       .name {{ booster.name }}
-    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp")
+    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp" alt="chat-icon")
   .chat-informations(v-else)
     .row
-      img.profile-photo(src="https://repository-images.githubusercontent.com/423180394/51fb7f2b-0bb0-4c3e-a06c-840fa3a910eb")
+      img.profile-photo(src="https://repository-images.githubusercontent.com/423180394/51fb7f2b-0bb0-4c3e-a06c-840fa3a910eb" alt="profile-photo")
       .name ARCHMAGE (BOT)
-    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp")
+    img.chat-icon(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/chat.webp" alt="chat-icon")
   .little-divider
   .live-chat
     .messages
       .message(v-for="message in messages" :key="message._id" :class=" (message.sender._id === useAccountStore.user._id) ? 'my-message' : 'not-my-message'")
-        img.profile-photo(:src="message.sender.photo")
+        img.profile-photo(:src="message.sender.photo" alt="profile-photo")
         .message-content {{ message.message }}
   v-text-field(v-model="newMessage" label="Message" @keyup.enter="sendMessage")
 </template>

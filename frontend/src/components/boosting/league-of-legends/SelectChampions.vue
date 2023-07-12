@@ -40,12 +40,12 @@ function isSelectedHero(hero) {
 
 <template lang="pug">
 CheckoutSelectionColumn(toolTipText="aaaaaaaaaa" title="CHAMPIONS")
-  img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyHeroSelected()" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp')
+  img.logo(v-if="!currentLeagueOfLegendsOrder.isAnyHeroSelected()" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp' alt="plus")
   div(v-else)
     div.row-
-      img.logo(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp')
+      img.logo(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp' alt="plus")
       .selected-champions(v-if="selectedHeroes.length > 0")
-        img.selected-champion(v-for="hero in selectedHeroes" :key="hero" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`')
+        img.selected-champion(v-for="hero in selectedHeroes" :key="hero" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' :alt="hero")
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
@@ -53,23 +53,23 @@ CheckoutSelectionColumn(toolTipText="aaaaaaaaaa" title="CHAMPIONS")
           .title(@click="selamla") SELECT CHAMPIONS
           v-tooltip(max-width="500px" location="top" text='TO REQUEST AN OTP BOOSTER YOU CAN CHOOSE ONE OR TWO CHAMPIONS FOR EACH ROLE YOU HAVE SELECTED. \n (+%10) \n YOU MUST CHOOSE AT LEAST 3 CHAMPIONS FROM EVERY ROLE DESIRED TO HAVE A FREE CHAMP WISHLIST. \n (FREE)' )
             template(v-slot:activator='{ props }')
-              img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/big-question-mark.webp" v-bind='props')
+              img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/big-question-mark.webp" v-bind='props' alt="question-mark")
         v-icon(icon='mdi-close' @click="dialog = false")
       .filters
         v-text-field.search(variant="underlined" prepend-icon="mdi-magnify" label="Search for champions" v-model="searchName")
         .lanes(v-if="currentLeagueOfLegendsOrder.lanes.length > 0")
           div.lane-background(v-for="lane in currentLeagueOfLegendsOrder.lanes")
-            img.lane(:key="lane" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`' @click="changeSelectedLane(lane)" )
-            img.selected-lane-background(v-show="isLaneSelected(lane)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/selected-lane.webp')
+            img.lane(:key="lane" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`' @click="changeSelectedLane(lane)"  :alt="lane")
+            img.selected-lane-background(v-show="isLaneSelected(lane)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/selected-lane.webp' alt="selected-lane")
         .please-select-lane(v-else) Please select desired lanes to see champion lists.
       .champions-background
         .champions
-          img.champion(v-for="hero in filteredHeroes" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)" :class="isSelectedHero(hero) ? 'selected-hero' : '' ")
+          img.champion(v-for="hero in filteredHeroes" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)" :class="isSelectedHero(hero) ? 'selected-hero' : '' " :alt="hero")
       v-divider
       .last-row
-        img.selected-lane(v-if="selectedLane != '' && currentLeagueOfLegendsOrder.lanes.length !== 0" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${selectedLane}.webp`')
-        img.champion(v-for="hero in currentLeagueOfLegendsOrder.heroes[selectedLane]" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)")
-        img.champion(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.heroes[selectedLane]?.length || 0" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/champion.webp`')
+        img.selected-lane(v-if="selectedLane != '' && currentLeagueOfLegendsOrder.lanes.length !== 0" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${selectedLane}.webp`' :alt="selectedLane")
+        img.champion(v-for="hero in currentLeagueOfLegendsOrder.heroes[selectedLane]" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' @click="currentLeagueOfLegendsOrder.addHero(selectedLane, hero)" :alt="hero")
+        img.champion(v-if="currentLeagueOfLegendsOrder.heroes[selectedLane]?.length < 3 " v-for="index in 3 - currentLeagueOfLegendsOrder.heroes[selectedLane]?.length || 0" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/champion.webp`' alt="champion")
         v-btn(v-if="currentLeagueOfLegendsOrder.lanes.length !== 0").price-calculation
           .calculation-text(v-if="currentLeagueOfLegendsOrder.heroesPriced") +%10
           .calculation-text(v-else) FREE

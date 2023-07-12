@@ -19,7 +19,7 @@ const props = defineProps({
   div.row
     v-tooltip(location="left" :text='toolTipText' )
       template(v-slot:activator='{ props }')
-        img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/question-mark.webp" v-bind='props')
+        img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/question-mark.webp" v-bind='props' alt="question-mark")
     .title {{ title }}
   .slot
     slot()

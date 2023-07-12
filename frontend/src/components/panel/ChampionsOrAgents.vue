@@ -31,11 +31,11 @@ function isLaneSelected(lane) {
   .champions-text CHAMPIONS
   .lanes(v-if="order.lanes.length > 0")
     div.lane-background(v-for="lane in order.lanes" )
-      img.selected-lane-background(v-show="isLaneSelected(lane)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/selected-lane.webp')
-      img.lane(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`" @click="changeSelectedLane(lane)")
+      img.selected-lane-background(v-show="isLaneSelected(lane)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/selected-lane.webp' alt="selected-lane-background")
+      img.lane(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`" @click="changeSelectedLane(lane)" alt="lane")
   div.any-lane-text(v-else) Any Lane
 .champions(v-if="heroes.length > 0")
-  img.champion(v-for="hero in heroes" :src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`")
+  img.champion(v-for="hero in heroes" :src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`" alt="champion")
 div.any-champion-text(v-else) Any Champion
 </template>
 

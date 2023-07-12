@@ -183,9 +183,9 @@ onMounted(async () => {
   .row.first-row
     .row
       .arrow.center-child(@click="router.go(-1)")
-        img.arrow-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arrow-left.webp")
+        img.arrow-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arrow-left.webp" alt="arrow-left")
       .need-help.row.center-child(v-if="!useAccountStore.isBooster")
-        img.need-help-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/need-help.webp')
+        img.need-help-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/need-help.webp' alt="need-help")
         h3.black-text NEED HELP
     .buttons-or-state
       .state.center-child(v-if="!useAccountStore.isBooster" :style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
@@ -195,7 +195,7 @@ onMounted(async () => {
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .row
-        img.game-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${order.game}.webp`')
+        img.game-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${order.game}.webp`' alt="game")
         .order-name {{ order.orderType.toUpperCase() }} BOOST ORDER
       PreviewOrder(:order='order')
       Chat(:order='order')
@@ -218,7 +218,7 @@ onMounted(async () => {
           v-btn.publish-button(v-else-if="isReadyToPublish" :loading="loading" @click="publish" ) PUBLIsH
         .last-row
           v-btn.edit-order-button(v-if="!useAccountStore.isBooster")
-            img.little-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/edit-order.webp')
+            img.little-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/edit-order.webp' alt="edit-order")
             .edit-order-text EDIT ORDER
             v-dialog.dialog(v-model='dialog' activator='parent' width="1024" color="primary" overlay-color="black" eager persistent)
               v-form(ref="form")
@@ -245,7 +245,7 @@ onMounted(async () => {
           v-tooltip(v-else location="left" :text='order.note' )
             template(v-slot:activator='{ props }')
               v-btn.edit-order-button(v-if="order.note" v-bind='props')
-                img.medium-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/read-note.webp')
+                img.medium-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/read-note.webp' alt="read-note")
                 .edit-order-text READ NOTE
       ChampionsOrAgents(:order='order')
       .little-divider

@@ -44,7 +44,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
     .games-information(v-if="useAccountStore.isBooster")
       .black-title GAMES
       .game-and-information
-        img.game-logo.row(:src='selectedGamePhoto')
+        img.game-logo.row(:src='selectedGamePhoto' alt="game-logo")
         .game-informations
           .game-name {{ selectedGame.split('-').join(' ') }}
           .other-informations
@@ -62,7 +62,7 @@ v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAc
         .champions-title CHAMPIONS
         .champions
           div(v-for="hero in useAccountStore.userNotifications[useAccountStore.userJobs[0]].games[selectedGame].heroes" )
-            img.champion(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/champions/league-of-legends/${hero}.webp`')
+            img.champion(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/champions/league-of-legends/${hero}.webp`' alt="champion")
             div.champion-name {{ hero }}
           v-btn.action-grey-button.center-child EDIT
       .roles-and-serves.row

@@ -23,23 +23,23 @@ const services = [
 
 <template lang="pug">
 .games
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp" alt="overwatch")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp" alt="team-fight-tactics")
+  .image-container(v-for="game in games")
+    v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game' alt="league-of-legends")
+      .services
+        v-btn.service(v-for="service in services") {{ service.name }}
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp" alt="wild-rift")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp" alt="diablo")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/apex-legends.webp" alt="apex-legends")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp" alt="overwatch")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp" alt="team-fight-tactics")
   .image-container(v-for="game in games")
     v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
       .services
         v-btn.service(v-for="service in services") {{ service.name }}
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/apex-legends.webp")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/team-fight-tactics.webp")
-  .image-container(v-for="game in games")
-    v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
-      .services
-        v-btn.service(v-for="service in services") {{ service.name }}
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp")
-  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp" alt="wild-rift")
+  v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp" alt="diablo")
 
 </template>
 

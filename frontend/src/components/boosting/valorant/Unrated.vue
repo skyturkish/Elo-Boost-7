@@ -26,17 +26,17 @@ async function createOrder() {
 
 <template lang="pug">
 .unrated-match-card
-  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp')
+  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp' alt='player-card')
   div
     .content
       .title GAME TYPE
-      img.selected-game-type(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-game-Types/${currentValorantOrder.selectedGameType}.webp`')
+      img.selected-game-type(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-game-Types/${currentValorantOrder.selectedGameType}.webp`' alt='selected-game-type')
       .selected-game-name {{ currentValorantOrder.selectedGameType}}
       .selections
         SelectServer
         SelectAmountUnratedMatchGames
       .game-types
-        img.game-type(v-for="gameType in gameTypes" v-bind:class="currentValorantOrder.selectedGameType == gameType ? 'selected-game' : 'unselected-game' " @click="currentValorantOrder.selectedGameType = gameType" :src='`../../../src/assets/valorant-game-Types/${gameType}.webp`')
+        img.game-type(v-for="gameType in gameTypes" v-bind:class="currentValorantOrder.selectedGameType == gameType ? 'selected-game' : 'unselected-game' " @click="currentValorantOrder.selectedGameType = gameType" :src='`../../../src/assets/valorant-game-Types/${gameType}.webp`' alt='game-type')
 Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
   template(v-slot:switchs)
     .custom-switch-two-options

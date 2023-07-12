@@ -9,7 +9,7 @@ const router = useRouter()
 
 <template lang="pug">
 .appbar
-  img.logo(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/logo.webp"  @click="router.push('/')")
+  img.logo(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/logo.webp"  @click="router.push('/')" alt="Divine Boost Logo")
   .navigation-and-buttons
     .navigations
       div.row

@@ -17,7 +17,7 @@ onMounted(() => {
 .loading(v-if="users == null") Loading
 .users(v-else)
   .user(v-for="user in users")
-    img.avatar(:src='user.photo')
+    img.avatar(:src='user.photo' :alt="user.name")
     .user__name name: {{ user.name }}
     .user__id id: {{ user._id }}
     .user__role role: {{ user.role }}

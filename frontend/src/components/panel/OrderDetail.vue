@@ -35,13 +35,13 @@ async function takeOrderAndRoute(orderId) {
   .first-row
     .row
       .arrow.center-child(@click="router.go(-1)")
-        img.arrow-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arrow-left.webp")
+        img.arrow-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arrow-left.webp" alt="arrow")
     .state.center-child(:style="{backgroundColor: findStateColor(order.state)}") {{ order.state }}
   .background-template
     .order-and-chat(:style="`border-top: solid 1px ${useAccountStore.user.themePreference.color}; border-left: solid 1px ${useAccountStore.user.themePreference.color};`")
       .title-row
         div.row
-          img.game-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${order.game}.webp`')
+          img.game-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${order.game}.webp`' alt="game-image")
           .order-name {{ order.orderType }} BOOST ORDER
         div
           .order-id # {{ order._id.substring(0,10) }}
@@ -56,10 +56,10 @@ async function takeOrderAndRoute(orderId) {
             v-tooltip(location="left" :text='order.note' )
               template(v-slot:activator='{ props }')
                 v-btn.edit-order-button(v-if="order.note" v-bind='props')
-                  img.medium-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/read-note.webp')
+                  img.medium-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/read-note.webp' alt="read-note")
                   .edit-order-text READ NOTE
             v-btn.accep-order-button(v-if="order.state == 'active'" @click="useOrdersStore.takeOrder(order._id)")
-              img.little-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp')
+              img.little-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp' alt="checkmark")
         .last-row(v-if="useAccountStore.user.role == 'customer'")
       ChampionsOrAgents(:order="order")
 </template>

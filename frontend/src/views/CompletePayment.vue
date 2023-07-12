@@ -104,23 +104,23 @@ v-divider.border-opacity-100(thickness="1rem")
           .checkbox
             svg.checkmark(v-if="paymentMethod == 'stripe'" xmlns='http://www.w3.org/2000/svg' width='33' height='32' viewbox='0 0 33 32' fill='none')
               path(d='M31.9688 4.62864L11.4616 27L2.0625 16.7465L4.47209 14.1178L11.4616 21.7241L29.5592 2L31.9688 4.62864Z' fill='#6262ED')
-          img.stripe(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/stripe.webp")
+          img.stripe(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/stripe.webp" alt="stripe")
         .payment-select(@click="selectPaymentMethod('coinbase')" :class="paymentMethod == 'coinbase' ? 'selected-payment-select' :  '' ")
           .checkbox
             svg.checkmark(v-if="paymentMethod == 'coinbase'" xmlns='http://www.w3.org/2000/svg' width='33' height='32' viewbox='0 0 33 32' fill='none')
               path(d='M31.9688 4.62864L11.4616 27L2.0625 16.7465L4.47209 14.1178L11.4616 21.7241L29.5592 2L31.9688 4.62864Z' fill='#6262ED')
-          img.coinbase(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/coinbase.webp")
+          img.coinbase(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/coinbase.webp" alt="coinbase")
         .payment-select(@click="selectPaymentMethod('skrill')" :class="paymentMethod == 'skrill' ? 'selected-payment-select' :  '' ")
           .checkbox
             svg.checkmark(v-if="paymentMethod == 'skrill'" xmlns='http://www.w3.org/2000/svg' width='33' height='32' viewbox='0 0 33 32' fill='none')
               path(d='M31.9688 4.62864L11.4616 27L2.0625 16.7465L4.47209 14.1178L11.4616 21.7241L29.5592 2L31.9688 4.62864Z' fill='#6262ED')
-          img.skrill(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/skrill.webp")
+          img.skrill(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/skrill.webp" alt="skrill")
         .payment-select(@click="selectPaymentMethod('website-balance')" :class="paymentMethod == 'website-balance' ? 'selected-payment-select' :  '' ")
           .checkbox
             svg.checkmark(v-if="paymentMethod == 'website-balance'" xmlns='http://www.w3.org/2000/svg' width='33' height='32' viewbox='0 0 33 32' fill='none')
               path(d='M31.9688 4.62864L11.4616 27L2.0625 16.7465L4.47209 14.1178L11.4616 21.7241L29.5592 2L31.9688 4.62864Z' fill='#6262ED')
           .website-balance WEBSITE BALANCE
-    img.figures(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/complete-payment-figures.webp")
+    img.figures(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/complete-payment-figures.webp" alt="figures")
   .order-summary
     div
       .black-text.summary-title ORDER SUMMARY

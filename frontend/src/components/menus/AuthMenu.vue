@@ -40,7 +40,7 @@ async function logout() {
 <template lang="pug">
 v-menu(v-if="useAccountStore.user" v-model="menu" :close-on-content-click="false")
   template(v-slot:activator='{ props }')
-    img.profile(v-bind="props" :src="useAccountStore.user.photo")
+    img.profile(v-bind="props" :src="useAccountStore.user.photo" alt="profile")
   .menu
     .link(v-for="link in links" :key="link.name" @click="router.push(link.path)") {{ link.name }}
     .logout(@click="logout") LOG OUT

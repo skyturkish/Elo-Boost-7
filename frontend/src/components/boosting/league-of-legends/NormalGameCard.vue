@@ -13,11 +13,11 @@ const maps = currentLeagueOfLegendsOrder.maps
 <template lang="pug">
 .selamlar
   .crown-background
-    img.crown(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '.webp'" v-bind:style="{width: currentLeagueOfLegendsOrder.selectedMap.width}")
+    img.crown(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '.webp'" v-bind:style="{width: currentLeagueOfLegendsOrder.selectedMap.width}" alt="crown")
   .normal-game-card(:style="`border: solid 2px ${currentLeagueOfLegendsOrder.selectedMap.borderColor}`")
     .change-logo-and-logo
       v-icon.left-(icon="mdi-menu-left" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
-      img.logo(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '-logo.webp'")
+      img.logo(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/' + currentLeagueOfLegendsOrder.selectedMap.name + '-logo.webp'" alt="crown-logo")
       v-icon.right-(icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.changeMapWithIcon" :color="currentLeagueOfLegendsOrder.selectedMap.dominantColor")
     .game-name(:style="{color: currentLeagueOfLegendsOrder.selectedMap.dominantColor, backgroundColor: currentLeagueOfLegendsOrder.selectedMap.shadowColor}") {{ currentLeagueOfLegendsOrder.selectedMap.name }}
     .colors

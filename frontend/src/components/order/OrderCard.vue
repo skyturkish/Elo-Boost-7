@@ -91,21 +91,21 @@ const heroes = computed(() => {
   .place
     .division-order(v-if='order.orderType == "division"' :style="{paddingTop: order.game == 'valorant' ?  '1rem' : ''}")
       .flex-column
-        img.division-image(:src="currentDivisionUrl")
+        img.division-image(:src="currentDivisionUrl" alt="divisionimage")
         .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division + ' ' + order.currentRank.milestone }}
-      img.to-where(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/to-where.webp')
+      img.to-where(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/to-where.webp' alt="to-where")
       .flex-column
-        img.division-image(:src="desiredDivisionUrl ")
+        img.division-image(:src="desiredDivisionUrl" alt="divisionimage")
         .division-name(:style="{color: findColor(order.desiredRank.division) }") {{ order.desiredRank.division + ' ' + order.desiredRank.milestone }}
     .normal-order(v-else-if='order.orderType == "normal-game"')
-      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`')
+      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`' alt="divisionimage")
     .clash-order(v-else-if='order.orderType == "clash"')
-      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`')
+      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`' alt="divisionimage")
     .challenge-order(v-else-if='order.orderType == "challenge"')
-      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`')
+      img(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/leagueOfLegends/divisions/${order.division}.webp`' alt="divisionimage")
     .else(v-else)
       .flex-column
-        img.division-image(:src="currentDivisionUrl")
+        img.division-image(:src="currentDivisionUrl" alt="divisionimage")
         .division-name(:style="{color: findColor(order.currentRank.division) }") {{ order.currentRank.division + ' ' + order.currentRank.milestone }}
         .amount-game(v-if="order.orderType == 'lesson'") {{ order.hours.split(' ')[0] }}
         .amount-game(v-else) {{ order.amountGame.split(' ')[0] }}
@@ -116,20 +116,20 @@ const heroes = computed(() => {
     .lane JUNGLE
     .price 170.30€
     .champions(v-if="heroes.length > 0")
-      img.champion(v-for="hero in heroes" :key="hero" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`')
+      img.champion(v-for="hero in heroes" :key="hero" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${hero}.webp`' alt="champion")
     .any-champion(v-else)
       .any-hero Any Hero
     .buttons.row
       .edit-and-release(v-if="order.state == 'paid'" @click='router.push(`/panel/own-order-detail/${order._id}`)') EDIT AND RELEASE
-      img.more(v-else @click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp')
-      img.take-order(v-if='order.state == "active" && useAccountStore.isBooster' @click="useOrdersStore.takeOrder(order._id)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp')
+      img.more(v-else @click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp' alt="more")
+      img.take-order(v-if='order.state == "active" && useAccountStore.isBooster' @click="useOrdersStore.takeOrder(order._id)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp' alt="take-order")
   .order-informations(v-else)
     .lane JUNGLE
     .server(v-if="order.category == 'boosting'") {{ order.server }}
     .server(v-else) {{ order.languages[0] }}
     .price 170.30€
     .buttons.row
-      img.more(@click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp')
+      img.more(@click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp' alt="more")
 </template>
 
 <style scoped>

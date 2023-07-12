@@ -212,8 +212,8 @@ const orders = [
         .vertical-divider(:style="{backgroundColor: order.win ? '#4285FF' : '#FF0000' }")
         img.champion-photo(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/league-of-legends/${order.hero}.webp`" :alt="order.hero")
         .spells
-          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.firstSpell}.webp`")
-          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.secondSpell}.webp`")
+          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.firstSpell}.webp`" alt="first spell")
+          img.spell(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/summoner-spells/${order.secondSpell}.webp`"  alt="second spell")
         .score {{ order.score }}
         .rank-information
           .rank  {{ order.rank }}

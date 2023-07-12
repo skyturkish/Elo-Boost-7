@@ -18,15 +18,15 @@ const currentValorantOrder = useValorantOrder()
 
 <template lang="pug">
 .valorant-card
-  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-coaching-card.webp')
+  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-coaching-card.webp' alt='player-card')
   div
     .content
       .title YOUR RANK
-      img.act-rank(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/act-rank-level2.webp')
+      img.act-rank(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/act-rank-level2.webp' alt='act-rank')
       div
-        img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${currentValorantOrder.currentRank.division}.webp`')
+        img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${currentValorantOrder.currentRank.division}.webp`' alt='rank-background')
         div.ddd
-          img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`')
+          img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`' alt='rank-icon')
       .division-name {{ currentValorantOrder.currentRank.division }}
       .dynamic-view
         slot
@@ -38,7 +38,7 @@ const currentValorantOrder = useValorantOrder()
             :size="currentValorantOrder.isSelectedDivision(division) ? '2rem' : '1.5rem'"
             :color="division.color"
             @click="currentValorantOrder.changeCurrentDivision(division)")
-      img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`')
+      img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`' alt='last-rank-icon')
 </template>
 
 <style scoped>

@@ -14,7 +14,7 @@ const informations = {
 </script>
 
 <template lang="pug">
-Banner(splashArtPath = 'main' title = 'WE ARE THE ONES MAKING IT REAL' subtitle = 'We provide you everything that you need all in one place')
+Banner(splashArtPath = 'main' title = 'ELOBOOST, COACHING, MARKETPLACE' subtitle = 'ALL THE ONLINE GAMING SERVICES IN ONE PLACE')
   .buttons
     v-btn.purchase-eloboosting()
       span PURCHASE
@@ -30,10 +30,10 @@ v-divider.border-opacity-100(thickness="1rem")
   .our-features
     .our-features-informations-and-irelia
       .our-features-pretitle Our Features
-      .our-features-title IT HAS NEVER BEEN EASIER WITH YOUR FAVORITE GAMES!
-      .sub-title Fast, safe, entertaining, professional.
+      h1.our-features-title IT HAS NEVER BEEN EASIER WITH YOUR FAVORITE GAMES!
+      h2.sub-title Fast, safe, entertaining, professional.
       div.list-informations
-        .ad-bulamadim(v-for="information in informations['our-features']")  {{ information }}
+        h3.ad-bulamadim(v-for="information in informations['our-features']")  {{ information }}
       img.irelia(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/irelia.webp" alt="irelia")
     .features
       v-btn.select-service
@@ -67,10 +67,10 @@ v-divider.border-opacity-100(thickness="1rem")
   .little-divider
   .boosting
     .informations
-      .title.boosting-title BOOSTING
-      .sub-title Looking carries on your favorite games?
+      h1.title.boosting-title BOOSTING
+      h2.sub-title Looking carries on your favorite games?
       div.list-informations
-        .ad-bulamadim(v-for="information in informations.boosting")  {{ information }}
+        h3.ad-bulamadim(v-for="information in informations.boosting")  {{ information }}
       .buttons
         v-btn.select-game
           img(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/league-of-legends.webp" alt="Select Game")
@@ -87,10 +87,10 @@ v-divider.border-opacity-100(thickness="1rem")
     CoachingOrdersFlow
     img.briston(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/bristo-profile.webp" alt="briston")
     .coaching-informations
-      .title.coaching-title COACHING
-      .sub-title Need a pro that can coach you in-voice?
+      h1.title.coaching-title COACHING
+      h2.sub-title Need a pro that can coach you in-voice?
       div.list-informations
-        .ad-bulamadim(v-for="information in informations.coaching")  {{ information }}
+        h3.ad-bulamadim(v-for="information in informations.coaching")  {{ information }}
       .a
         .empty
         .buttons
@@ -104,10 +104,10 @@ v-divider.border-opacity-100(thickness="1rem")
   .shop
     .ceyiz-and-informations
       .shop-informations
-        .title.shop-title SHOP
-        .sub-title Looking for accounts?
+        h1.title.shop-title SHOP
+        h2.sub-title Looking for accounts?
         div.list-informations
-          .ad-bulamadim(v-for="information in informations.shop")  {{ information }}
+          h3.ad-bulamadim(v-for="information in informations.shop")  {{ information }}
         .buttons
           v-btn.select-game
             img.valorant(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/valorant.webp" alt="Select Game")
@@ -127,11 +127,10 @@ v-divider.border-opacity-100(thickness="1rem")
       img.lessons(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/lessons.webp" alt="lessons")
       img.hub-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/hub.webp" alt="hub")
     .hub-informations
-      .title.hub-title HUB
-      .sub-title Haven't you seen our player hub yet?
+      h1.title.hub-title HUB
+      h2.sub-title Haven't you seen our player hub yet?
       div.list-informations
-        .ad-bulamadim(v-for="information in informations.hub")  {{ information }}
-
+        h3.ad-bulamadim(v-for="information in informations.hub")  {{ information }}
 </template>
 
 <style scoped>
@@ -410,7 +409,6 @@ v-divider.border-opacity-100(thickness="1rem")
   color: #FF7A00
 }
 .title {
-  font-size: 64px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -468,14 +466,12 @@ v-divider.border-opacity-100(thickness="1rem")
  z-index: -1;
  background-color:#FFF;
 }
-
 .purchase-eloboosting:hover:before {
   width: 105%;
 }
 .purchase-eloboosting:hover {
   color: #000000;
 }
-
 .learn-more:hover,
 .purchase-eloboosting:hover {
   transition: transform 0.8s;
@@ -493,10 +489,6 @@ v-divider.border-opacity-100(thickness="1rem")
   display: flex;
   gap: 1rem;;
   padding-top: 1rem;
-}
-
-.background {
-
 }
 .v-divider {
   border-color: #0083FF !important;

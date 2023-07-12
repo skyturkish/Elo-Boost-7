@@ -22,15 +22,15 @@ const currentValorantOrder = useValorantOrder()
 
 <template lang="pug">
 .valorant-card
-  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp')
+  img.player-card(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/valorant-player-card.webp' alt='player-card')
   div
     .content
       .title {{ title}}
-      img.act-rank(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/act-rank-level1.webp')
+      img.act-rank(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/act-rank-level1.webp' alt='act-rank')
       div
-        img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${currentValorantOrder.currentRank.division}}.webp`')
+        img.rank-background(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-background/${currentValorantOrder.currentRank.division}}.webp`' :alt='currentValorantOrder.currentRank.division')
         div.ddd
-          img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`')
+          img.rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`' alt='rank-icon')
       .division-name {{ currentValorantOrder.currentRank.division }} {{ currentValorantOrder.milestone }}
       .dynamic-view
         slot
@@ -43,7 +43,7 @@ const currentValorantOrder = useValorantOrder()
             :color="division.color"
             @click="currentValorantOrder.changeCurrentDivision(division)")
       CurrentMilestones
-      img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`')
+      img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${currentValorantOrder.currentRank.division}-${currentValorantOrder.milestone}.webp`' alt='last-rank-icon')
 </template>
 
 <style scoped>

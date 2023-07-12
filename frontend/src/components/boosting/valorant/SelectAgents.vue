@@ -17,23 +17,23 @@ const filteredHeroes = computed(() => {
 
 <template lang="pug">
 CheckoutSelectionColumn(toolTipText="You can set your agents which ones you wanted to play by boosters" title="AGENTS")
-  img.logo(v-if="!currentValorantOrder.isAnyHeroSelected()" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp')
-  img.logo(v-else src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/valorant/sage.webp')
+  img.logo(v-if="!currentValorantOrder.isAnyHeroSelected()" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/plus.webp' alt="plus")
+  img.logo(v-else src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/valorant/sage.webp' alt="plus")
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
         .title(@click="selamla") SELECT AGENTS
         v-tooltip(location="right" text='You can your agents bla bla bla ' )
           template(v-slot:activator='{ props }')
-            img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/question-mark.webp" v-bind='props')
+            img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/question-mark.webp" v-bind='props' alt="question-mark")
       .filters
         v-text-field.search(label="Search for agents" v-model="searchName")
       .champions-background
         .champions
-          img.champion(v-for="hero in filteredHeroes" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/valorant/${hero}.webp`' @click="currentValorantOrder.addHero(hero)")
+          img.champion(v-for="hero in filteredHeroes" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/valorant/${hero}.webp`' @click="currentValorantOrder.addHero(hero)" :alt="hero")
       v-divider
       .last-row
-        img.champion(v-for="hero in currentValorantOrder.heroes" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/valorant/${hero}.webp`')
+        img.champion(v-for="hero in currentValorantOrder.heroes" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/squares/valorant/${hero}.webp`' :alt="hero")
 </template>
 
 <style scoped>

@@ -15,9 +15,9 @@ async function createOrder() {
 
 <template lang="pug">
 .a
-  img.crown(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/clash.webp")
+  img.crown(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/clash.webp" alt="crown")
   .normal-game-card
-    img.logo(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/clash-logo.webp")
+    img.logo(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/crowns/clash-logo.webp" alt="crown-logo")
     .game-name CLASH
     .selections
       SelectServer
