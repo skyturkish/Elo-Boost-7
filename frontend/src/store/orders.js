@@ -8,9 +8,6 @@ const socket = io(process.env.baseURL || 'http://localhost:3000', {
     withCredentials: true
 })
 
-const userId = useAccount().user?._id || 'test'
-const role = useAccount().user?.role || 'test'
-
 export const useOrders = defineStore('useOrders', {
     state: () => ({
         myOrders: [],
@@ -22,24 +19,29 @@ export const useOrders = defineStore('useOrders', {
         async fetchMyOrdersIfNotFetched() {
             if (this.myOrders.length == 0) {
                 const orders = await axios.get(
-                    `/order/by-role/${role}/${userId}`
+                    `/order/by-role/${useAccount().role}/${useAccount().userId}`
                 )
+                console.log('getirdik kendi orderlarımızı ')
+                console.log(orders.data)
                 this.myOrders = orders.data || null
             }
         },
-        updateMyOrders() {
-            axios.get(`/order/by-role/${role}/${userId}`).then((res) => {
-                this.myOrders = res.data || null
-            })
+        async updateMyOrders() {
+            const orders = await axios.get(
+                `/order/by-role/${useAccount().role}/${useAccount().userId}`
+            )
+
+            this.myOrders = orders.data || null
         },
         async takeOrder(orderId) {
             const order = await axios.patch('/order', {
                 orderId,
                 object: {
                     state: 'assigned',
-                    booster: userId
+                    booster: useAccount().userId
                 }
             })
+            await this.updateMyOrders()
             return order
         },
         startListeningOrders() {
@@ -74,13 +76,17 @@ export const useOrders = defineStore('useOrders', {
         leaveChat(orderId) {
             console.log('odadan çıkıldı ' + orderId)
             socket.emit('leave-chat-room', orderId)
+        },
+        async createOrder(order) {
+            await axios.post('/order', order)
+            await this.updateMyOrders()
         }
     },
     getters: {
         availableFilteredGameOrders(state) {
             return state.availableOrders.filter(
                 (order) =>
-                    order.state == 'active' && order.game == state.filteredGame
+                    order.game == state.filteredGame && order.state == 'active'
             )
         },
         availableBoostingOrders() {

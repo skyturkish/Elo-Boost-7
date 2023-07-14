@@ -5,9 +5,12 @@ import { useRouter } from 'vue-router';
 import OrderInformations from '@/components/panel/OrderInformations.vue'
 import PreviewOrder from '@/components/panel/PreviewOrder.vue'
 import axios from 'axios'
-
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 import { useValorantOrder } from '@/store/valorant-order'
+import { calculatePrice } from '@/functions/calculation-league-of-legends-price'
+import { useOrders } from '@/store/orders'
+
+const useOrdersStore = useOrders()
 
 const router = useRouter();
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
@@ -76,8 +79,15 @@ function filterOptions(options) {
 async function createOrder() {
   order.value.options = filterOptions(order.value.options)
 
-  await axios.post('/order', order.value)
+  await useOrdersStore.createOrder({
+    ...order.value,
+    price: price.value.total.toFixed(2)
+  })
 }
+
+const price = computed(() => {
+  return calculatePrice(order.value)
+})
 
 </script>
 
@@ -136,8 +146,8 @@ v-divider.border-opacity-100(thickness="1rem")
         .total
           .total-price-text TOTAL PRICE
           .price
-            | 730
-            span.smalltext ,35
+            | {{ price.total.toString().split('.')[0] }}
+            span.smalltext ,{{ price.total.toFixed(2).toString().split('.')[1] }}
         v-btn(@click="createOrder").proceed-button PROCEED
 </template>
 

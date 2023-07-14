@@ -10,9 +10,8 @@ const customerId = useAccount().user?._id || 'test'
 export const useValorantOrder = defineStore('ValorantOrder', {
     state: () => ({
         milestone: 'I',
-        currentRR: '0-20 RR',
-        currentGainRR: '25-20 RR',
-        gainRR: '+25 GAIN',
+        currentRR: '0-20RR',
+        gainRR: '30-26RR',
         server: 'Europe',
         booster: null,
         heroes: [],

@@ -20,7 +20,7 @@ const updateSelectedValue = (value) => {
 </script>
 
 <template lang="pug">
-v-select(:items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" v-model="currentValue" @update:modelValue="updateSelectedValue")
+v-select(:items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" v-model="currentValue" @update:modelValue="updateSelectedValue" variant="outlined")
 </template>
 
 <style scoped>

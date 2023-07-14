@@ -127,7 +127,7 @@ const heroes = computed(() => {
     .lane JUNGLE
     .server(v-if="order.category == 'boosting'") {{ order.server }}
     .server(v-else) {{ order.languages[0] }}
-    .price 170.30€
+    .price {{ order.price }}
     .buttons.row
       img.more(@click='goToOrderDetailPage(order)' src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp' alt="more")
 </template>

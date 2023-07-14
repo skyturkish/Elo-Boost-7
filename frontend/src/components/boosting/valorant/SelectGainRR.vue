@@ -5,7 +5,7 @@ const currentValorantOrder = useValorantOrder()
 </script>
 
 <template lang="pug">
-v-select(v-model="currentValorantOrder.gainRR" outline height="20" :items="['5-10 GAIN', '10-15 GAIN', '15-20 GAIN','20-25 GAIN','+25 GAIN']" variant="solo")
+v-select(v-model="currentValorantOrder.gainRR" outline height="20" :items="['41+','40-36RR','35-30RR','30-26RR','25-21RR','20-14RR']" variant="solo")
 </template>
 
 <style scoped>

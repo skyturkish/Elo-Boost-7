@@ -86,6 +86,8 @@ export const useAccount = defineStore('useAccount', {
         isBooster: (state) => {
             console.log('isBooster function triggered')
             return state.user.role === 'employee'
-        }
+        },
+        userId: (state) => state.user._id,
+        role: (state) => state.user.role
     }
 })

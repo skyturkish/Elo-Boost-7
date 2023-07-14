@@ -16,6 +16,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         currentLP: '0-20LP',
         server: 'EUW',
         gainLP: '25-21LP',
+        currentMasterLP: 50,
         booster: null,
         coach: null,
         lanes: [],
@@ -254,10 +255,21 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
         colors: (state) =>
             LeagueOfLegendsDivisions[state.selectedDivisionIndex],
         currentRank: (state) => {
-            return {
-                division: state.colors.name,
-                milestone: state.milestone,
-                currentLP: state.currentLP
+            if (
+                state.colors.name == 'master' ||
+                state.colors.name == 'grandmaster' ||
+                state.colors.name == 'challenger'
+            ) {
+                return {
+                    division: state.colors.name,
+                    currentLP: state.currentMasterLP
+                }
+            } else {
+                return {
+                    division: state.colors.name,
+                    milestone: state.milestone,
+                    currentLP: state.currentLP
+                }
             }
         },
         desiredColors: (state) =>
@@ -299,6 +311,21 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 }
             }
             return false
-        }
+        },
+        displayCurrentRank: (state) => {
+            if (
+                state.currentRank.division != 'master' &&
+                state.currentRank.division != 'grandmaster' &&
+                state.currentRank.division != 'challenger'
+            ) {
+                return `${state.currentRank.division} ${state.currentRank.milestone}`
+            } else {
+                return `${state.currentRank.division}`
+            }
+        },
+        isMaster: (state) =>
+            state.colors.name === 'master' ||
+            state.colors.name === 'grandmaster' ||
+            state.colors.name === 'challenger'
     }
 })

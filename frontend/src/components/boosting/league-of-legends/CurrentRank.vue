@@ -28,7 +28,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
       .division-name
         .rank-icon-box
           img.rank-icon(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.webp'" alt="rank-icon")
-        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentLeagueOfLegendsOrder.colors.name }} {{ currentLeagueOfLegendsOrder.milestone }}
+        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentLeagueOfLegendsOrder.displayCurrentRank }}
       v-icon(size='large' icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
     .colors-exception(v-if="props.divisionLimit == 6")
@@ -58,7 +58,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
             :color="division.buttonColor"
             @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
     .dynamic-view
-      slot   bronze-trim.
+      slot
   img.trim(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/trims/' + currentLeagueOfLegendsOrder.colors.name + '-trim.webp'"  alt="trim")
 </template>
 
@@ -148,12 +148,12 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
   justify-content: center;
 }
 .dynamic-view {
-  padding-top: 1rem;
   display:flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  padding: 1rem 3rem 0.5rem 3rem;;
 }
 .mile-stones {
   display: flex;

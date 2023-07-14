@@ -121,7 +121,7 @@ CurrentRank(title="CURRENT RANK" divisionLimit="7" v-if="checkedColors")
           @click="changeMileStone(milestone)"
           ) {{ milestone }}
   img.last-rank-icon(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/valorant/${desiredOrder.name}-${desiredMilestone}.webp`' :alt="desiredOrder.name")
-Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
+Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant' :order='currentValorantOrder.divisionOrder')
   template(v-slot:switchs)
     .custom-switch-two-options
       .choice SOLO

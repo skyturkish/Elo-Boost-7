@@ -48,7 +48,6 @@ v-menu(v-if="useAccountStore.user" v-model="menu" :close-on-content-click="false
 
 <style scoped>
 .menu {
-  height: 200px;
   width: 150px;
   background-color: #F9F9F9;
   color: #171120;
@@ -56,8 +55,6 @@ v-menu(v-if="useAccountStore.user" v-model="menu" :close-on-content-click="false
   flex-direction: column;
   border-radius: 8px;
   font-weight: bold;
-  gap: 20px;
-  padding: 1.5rem 1.7rem;
   font-size: 12px;
   line-height: normal;
 }
@@ -65,6 +62,16 @@ v-menu(v-if="useAccountStore.user" v-model="menu" :close-on-content-click="false
 .logout,
 .link {
   cursor: pointer;
+  padding: 0.75rem 0.85rem;
+  border-radius: 8px;
+
+
+}
+.logout:hover,
+.link:hover {
+  cursor: pointer;
+  background-color: #E7CFCF;
+
 }
 .profile {
   width: 50px;

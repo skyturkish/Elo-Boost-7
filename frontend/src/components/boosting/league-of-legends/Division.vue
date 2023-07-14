@@ -30,7 +30,6 @@ const checkedColors = ref(false)
 
 
 onMounted(() => {
-  console.log('ilk kez kuruluyor')
   if(currentLeagueOfLegendsOrder.selectedDivisionIndex > 5) {
     currentLeagueOfLegendsOrder.selectedDivisionIndex = 5
   }
@@ -121,11 +120,19 @@ function isSelectedMilestone(milestone) {
 }
 
 async function createOrder() {
-  console.log(currentLeagueOfLegendsOrder.divisionOrder)
   router.push({
     path: `/complete-payment/league-of-legends/division`,
   })
 }
+
+const desiredOrderDisplay = computed(() => {
+  if(desiredOrder.value.name != 'master') {
+    return desiredOrder.value.name + ' ' + desiredMilestone.value
+  }else {
+    return desiredOrder.value.name
+  }
+})
+
 </script>
 
 <template lang="pug">
@@ -141,7 +148,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
       v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
       .division-name
         img.rank(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/' + desiredOrder.name + '.webp'" alt="rank")
-        .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrder.name }} {{ desiredMilestone }}
+        .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrderDisplay }}
       v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
     v-divider.divider()
     .colors
@@ -152,7 +159,7 @@ CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
           :size="division.name == desiredOrder.name ? '2rem' : '1.5rem'"
           :color="division.buttonColor"
           @click="changeDesiredDivision(division)")
-    .desired-mile-stones
+    .desired-mile-stones(:style="{visibility: desiredOrder.name == 'master' ? 'hidden' : 'visible' }")
       div.mile-stone(
       v-for="milestone in extralimitedMilestones"
       :style="{color: isSelectedMilestone(milestone) ? desiredOrder.dominantColor : '#bbb',border: 'solid 1px ' + (isSelectedMilestone(milestone) ? desiredOrder.borderColor : '#bbb')}"

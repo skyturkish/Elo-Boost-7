@@ -31,7 +31,9 @@ async function createOrder() {
 
 <template lang="pug">
 CurrentRank(divisionLimit = 9 title = "YOUR RANK")
-  CurrentMilestones
+  CurrentMilestones(v-show="!currentLeagueOfLegendsOrder.isMaster")
+  div
+    v-text-field(v-show="currentLeagueOfLegendsOrder.isMaster" v-model="currentLeagueOfLegendsOrder.currentMasterLP" outlined)
   .selections-layout
     SelectServer
     SelectQueue

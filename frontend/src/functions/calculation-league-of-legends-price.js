@@ -138,8 +138,6 @@ function placementsGame(order, discount) {
         }
     ]
 
-    console.log(order)
-
     total = total + rawPrice
 
     if (order.options.bonusWin) {
@@ -200,7 +198,7 @@ const winRanks = [
     { 'diamond-III': 14 },
     { 'diamond-II': 16 },
     { 'diamond-I': 18 },
-    { 'master-IV': 21 }
+    { 'master-100': 21 }
     // 857 / 100 = 8.57 bunu tam sayiya yuvarla aşağa doğru, 8*4 = 32 + 21 = 53 diye hesapla
 ]
 const gainLpPercentage = {
@@ -211,6 +209,24 @@ const gainLpPercentage = {
     '40-36LP': 40,
     '41+': 80
 }
+
+const masterPercentage = [
+    { 'master-0': 21 },
+    { 'master-100': 25 },
+    { 'master-200': 29 },
+    { 'master-300': 33 },
+    { 'master-400': 37 },
+    { 'master-500': 41 },
+    { 'master-600': 45 },
+    { 'master-700': 49 },
+    { 'master-800': 53 },
+    { 'master-900': 57 },
+    { 'master-1000': 61 },
+    { 'master-1100': 65 },
+    { 'master-1200': 69 },
+    { 'master-1300': 73 },
+    { 'master-1400': 77 }
+]
 
 function pureLP(LP) {
     if (LP !== '41+') {
@@ -226,39 +242,195 @@ function pureLP(LP) {
 }
 
 function winGame(order, discount) {
+    if (
+        order.currentRank.division == 'master' ||
+        order.currentRank.division == 'grandmaster' ||
+        order.currentRank.division == 'challenger'
+    ) {
+        let total = 0
+        let currentLP = +order.currentRank.currentLP
+        const pureGainLP = pureLP(order.gainLP)
+
+        const amountGame = order.amountGame.split(' ')[0]
+
+        let keys = masterPercentage.map(function (obj) {
+            return Object.keys(obj)[0]
+        })
+
+        let amountMultipleIndex = keys.indexOf(
+            'master' + '-' + Math.floor(currentLP / 100) * 100
+        )
+        console.log('master' + '-' + Math.floor(currentLP / 100) * 100)
+
+        // console.log(amountMultipleIndex)
+
+        let rawPrice = 0
+
+        for (let i = 0; i < amountGame; i++) {
+            console.log(rawPrice)
+            rawPrice =
+                rawPrice + +Object.values(masterPercentage[amountMultipleIndex])
+
+            currentLP = currentLP + pureGainLP
+
+            amountMultipleIndex = keys.indexOf(
+                'master' + '-' + Math.floor(currentLP / 100) * 100
+            )
+        }
+
+        rawPrice = rawPrice * ((gainLpPercentage[order.gainLP] + 100) / 100)
+
+        const texts = [
+            {
+                text: 'Eloboosting Service',
+                amount: rawPrice
+            }
+        ]
+
+        total = total + rawPrice
+
+        for (let option in order.options) {
+            const currentOption = optionValues[option]
+            if (currentOption) {
+                currentOption.amount = rawPrice * (currentOption.value / 100)
+                total += currentOption.amount
+                texts.push(currentOption)
+            }
+        }
+
+        total = total * (servers[order.server] / 100)
+
+        const allTexts = texts.concat(common)
+
+        return {
+            total: total,
+            texts: allTexts
+        }
+    } else {
+        let total = 0
+
+        let pureCurrentLP = pureLP(order.currentRank.currentLP)
+
+        const pureGainLP = pureLP(order.gainLP)
+
+        const amountGame = order.amountGame.split(' ')[0]
+
+        let keys = winRanks.map(function (obj) {
+            return Object.keys(obj)[0]
+        })
+
+        let amountMultipleIndex = keys.indexOf(
+            order.currentRank.division + '-' + order.currentRank.milestone
+        )
+        let rawPrice = 0
+
+        let hicalattınmi = false
+
+        for (let i = 0; i < amountGame; i++) {
+            rawPrice =
+                rawPrice + Object.values(winRanks[amountMultipleIndex])[0]
+
+            pureCurrentLP = pureCurrentLP + pureGainLP
+
+            if (pureCurrentLP >= 100) {
+                if ((pureGainLP === 41 || pureGainLP === 38) & !hicalattınmi) {
+                    if (
+                        order.currentRank.milestone === 'III' ||
+                        order.currentRank.milestone === 'IV'
+                    ) {
+                        hicalattınmi = true
+
+                        amountMultipleIndex = amountMultipleIndex + 2
+                    } else {
+                        amountMultipleIndex = amountMultipleIndex + 1
+                    }
+                } else {
+                    amountMultipleIndex = amountMultipleIndex + 1
+                }
+
+                pureCurrentLP = pureCurrentLP % 100
+            }
+        }
+
+        rawPrice = rawPrice * ((gainLpPercentage[order.gainLP] + 100) / 100)
+
+        const texts = [
+            {
+                text: 'Eloboosting Service',
+                amount: rawPrice
+            }
+        ]
+
+        total = total + rawPrice
+
+        for (let option in order.options) {
+            const currentOption = optionValues[option]
+            if (currentOption) {
+                currentOption.amount = rawPrice * (currentOption.value / 100)
+                total += currentOption.amount
+                texts.push(currentOption)
+            }
+        }
+
+        total = total * (servers[order.server] / 100)
+
+        const allTexts = texts.concat(common)
+
+        return {
+            total: total,
+            texts: allTexts
+        }
+    }
+}
+
+function divisionOrder(order, discount) {
     let total = 0
 
     let pureCurrentLP = pureLP(order.currentRank.currentLP)
 
     const pureGainLP = pureLP(order.gainLP)
 
-    const amountGame = order.amountGame.split(' ')[0]
-
     let keys = winRanks.map(function (obj) {
         return Object.keys(obj)[0]
     })
 
+    let rawPrice = 0
+
     let amountMultipleIndex = keys.indexOf(
         order.currentRank.division + '-' + order.currentRank.milestone
     )
-    let rawPrice = 0
 
-    let hicalattınmi = false
+    let nextMultipleIndex = keys.indexOf(
+        order.desiredRank.division + '-' + order.desiredRank.milestone
+    )
 
-    for (let i = 0; i < amountGame; i++) {
+    let amountGame = 0
+
+    while (amountMultipleIndex != nextMultipleIndex) {
+        if (
+            Object.keys(winRanks[amountMultipleIndex])[0].split('-')[0] ==
+            'master'
+        ) {
+            break
+        }
+
         rawPrice = rawPrice + Object.values(winRanks[amountMultipleIndex])[0]
 
         pureCurrentLP = pureCurrentLP + pureGainLP
 
         if (pureCurrentLP >= 100) {
-            if ((pureGainLP === 41 || pureGainLP === 38) & !hicalattınmi) {
+            if (pureGainLP === 41 || pureGainLP === 38) {
                 if (
-                    order.currentRank.milestone === 'III' ||
-                    order.currentRank.milestone === 'IV'
+                    Object.keys(winRanks[amountMultipleIndex])[0].split(
+                        '-'
+                    )[1] === 'III' ||
+                    Object.keys(winRanks[amountMultipleIndex])[0].split(
+                        '-'
+                    )[1] === 'IV'
                 ) {
-                    hicalattınmi = true
-
                     amountMultipleIndex = amountMultipleIndex + 2
+
+                    pureCurrentLP = 0
                 } else {
                     amountMultipleIndex = amountMultipleIndex + 1
                 }
@@ -268,9 +440,14 @@ function winGame(order, discount) {
 
             pureCurrentLP = pureCurrentLP % 100
         }
+        amountGame++
     }
 
     rawPrice = rawPrice * ((gainLpPercentage[order.gainLP] + 100) / 100)
+
+    if (amountGame > 2) {
+        rawPrice = rawPrice * (85 / 100)
+    }
 
     const texts = [
         {
@@ -287,6 +464,25 @@ function winGame(order, discount) {
             currentOption.amount = rawPrice * (currentOption.value / 100)
             total += currentOption.amount
             texts.push(currentOption)
+        }
+    }
+
+    if (order.options.bonusWin) {
+        if (
+            Object.keys(winRanks[amountMultipleIndex])[0].split('-')[0] ==
+            'master'
+        ) {
+            texts.push({
+                text: 'Bonus Win',
+                amount: 21
+            })
+            total = total + 21
+        } else {
+            texts.push({
+                text: 'Bonus Win',
+                amount: Object.values(winRanks[nextMultipleIndex])[0]
+            })
+            total = total + Object.values(winRanks[nextMultipleIndex])[0]
         }
     }
 
@@ -438,6 +634,59 @@ function playTogetherOrder(order) {
     }
 }
 
+function pureRR(LP) {
+    if (LP !== '41+') {
+        const values2 = LP.replace('RR', '').split('-')
+
+        let firstVal2 = parseInt(values2[0])
+        let secondVal2 = parseInt(values2[1])
+
+        return (firstVal2 + secondVal2) / 2
+    } else {
+        return 41
+    }
+}
+
+const winRanksValorant = [
+    { 'iron-I': 4 },
+    { 'iron-II': 4 },
+    { 'iron-III': 4 },
+    { 'bronze-I': 5 },
+    { 'bronze-II': 5 },
+    { 'bronze-III': 5 },
+    { 'silver-I': 6 },
+    { 'silver-II': 6 },
+    { 'silver-III': 6 },
+    { 'gold-I': 7 },
+    { 'gold-II': 7 },
+    { 'gold-III': 7 },
+    { 'platinum-I': 9 },
+    { 'platinum-II': 10 },
+    { 'platinum-III': 11 },
+    { 'diamond-I': 13 },
+    { 'diamond-II': 15 },
+    { 'diamond-III': 17 },
+    { 'ascendant-I': 19 },
+    { 'ascendant-II': 21 },
+    { 'ascendant-III': 23 },
+    { 'immortal-I': 25 },
+    { 'immortal-II': 30 },
+    { 'immortal-III': 35 },
+    { 'radiant-I': 50 },
+    { 'radiant-II': 50 },
+    { 'radiant-III': 50 }
+
+    // 857 / 100 = 8.57 bunu tam sayiya yuvarla aşağa doğru, 8*4 = 32 + 21 = 53 diye hesapla
+]
+
+function valorantDivisionOrder(order) {
+    let total = 0
+
+    let pureCurrentLP = pureRR(order.currentRank.currentRR)
+
+    const pureGainLP = pureRR(order.gainRR)
+
+    let keys = winRanksValorant.map(function (obj) {
         return Object.keys(obj)[0]
     })
 
@@ -454,19 +703,17 @@ function playTogetherOrder(order) {
     let amountGame = 0
 
     while (amountMultipleIndex != nextMultipleIndex) {
-        rawPrice = rawPrice + Object.values(winRanks[amountMultipleIndex])[0]
+        rawPrice =
+            rawPrice + Object.values(winRanksValorant[amountMultipleIndex])[0]
 
         pureCurrentLP = pureCurrentLP + pureGainLP
 
         if (pureCurrentLP >= 100) {
             if (pureGainLP === 41 || pureGainLP === 38) {
                 if (
-                    Object.keys(winRanks[amountMultipleIndex])[0].split(
+                    Object.keys(winRanksValorant[amountMultipleIndex])[0].split(
                         '-'
-                    )[1] === 'III' ||
-                    Object.keys(winRanks[amountMultipleIndex])[0].split(
-                        '-'
-                    )[1] === 'IV'
+                    )[1] === 'III'
                 ) {
                     amountMultipleIndex = amountMultipleIndex + 2
 
@@ -550,19 +797,19 @@ export const calculatePrice = (order) => {
     } else if (order.game == 'valorant') {
         switch (order.orderType) {
             case 'division':
-                return currentValorantOrder.divisionOrder
+                return valorantDivisionOrder(order)
             case 'win':
-                return currentValorantOrder.winOrder
+                return valorantWinOrder(order)
             case 'placements':
-                return currentValorantOrder.placementsOrder
+                return valorantPlacementsOrder(order)
             case 'unrated':
-                return currentValorantOrder.unratedOrder
+                return valorantUnratedOrder(order)
             case 'lesson':
-                return currentValorantOrder.lessonOrder
+                return valorantLessonOrder(order)
             case 'live-game':
-                return currentValorantOrder.liveGameOrder
+                return valorantLiveGameOrder(order)
             case 'play-together':
-                return currentValorantOrder.playTogetherOrder
+                return valorantPlayTogetherOrder(order)
         }
     }
 }
