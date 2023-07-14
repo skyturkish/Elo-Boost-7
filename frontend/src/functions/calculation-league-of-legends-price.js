@@ -300,14 +300,144 @@ function winGame(order, discount) {
     }
 }
 
-function divisionOrder(order, discount) {
+const lessonRank = {
+    unranked: 15,
+    iron: 15,
+    bronze: 15,
+    silver: 15,
+    gold: 20,
+    platinum: 20,
+    emerald: 25,
+    diamond: 25
+}
+
+function lessonOrder(order) {
     let total = 0
+    const amountMultiple = lessonRank[order.currentRank.division]
 
-    let pureCurrentLP = pureLP(order.currentRank.currentLP)
+    let amountGame = order.hours.split(' ')[0]
 
-    const pureGainLP = pureLP(order.gainLP)
+    let rawPrice = amountGame * amountMultiple
 
-    let keys = winRanks.map(function (obj) {
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+    const allTexts = texts.concat(common)
+    return {
+        total: total,
+        texts: allTexts
+    }
+}
+
+function gameReplayOrder(order) {
+    let total = 0
+    const amountMultiple = lessonRank[order.currentRank.division]
+
+    let amountGame = order.amountGame.split(' ')[0]
+
+    let rawPrice = amountGame * amountMultiple
+
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+    const allTexts = texts.concat(common)
+    return {
+        total: total,
+        texts: allTexts
+    }
+}
+function liveGameOrder(order) {
+    let total = 0
+    const amountMultiple = lessonRank[order.currentRank.division]
+
+    let amountGame = order.amountGame.split(' ')[0]
+
+    let rawPrice = amountGame * amountMultiple
+
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+    const allTexts = texts.concat(common)
+    return {
+        total: total,
+        texts: allTexts
+    }
+}
+
+function playTogetherOrder(order) {
+    let total = 0
+    const amountMultiple = lessonRank[order.currentRank.division]
+
+    let amountGame = order.amountGame.split(' ')[0]
+
+    let rawPrice = amountGame * amountMultiple
+
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+    const allTexts = texts.concat(common)
+    return {
+        total: total,
+        texts: allTexts
+    }
+}
+
         return Object.keys(obj)[0]
     })
 
@@ -409,13 +539,13 @@ export const calculatePrice = (order) => {
             case 'normal-game':
                 return calculateNormalOrder(order)
             case 'lesson':
-                return currentLeagueOfLegendsOrder.lessonOrder
+                return lessonOrder(order)
             case 'game-replay':
-                return currentLeagueOfLegendsOrder.gameReplayOrder
+                return gameReplayOrder(order)
             case 'live-game':
-                return currentLeagueOfLegendsOrder.liveGameOrder
+                return liveGameOrder(order)
             case 'play-together':
-                return currentLeagueOfLegendsOrder.playTogetherOrder
+                return playTogetherOrder(order)
         }
     } else if (order.game == 'valorant') {
         switch (order.orderType) {

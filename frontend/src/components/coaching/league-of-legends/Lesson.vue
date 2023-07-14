@@ -24,7 +24,7 @@ async function createOrder() {
 CurrentRank(divisionLimit = 6 title = "YOUR RANK")
   SelectHours
   SelectLanguages
-Checkout(checkoutTextColor="#2B2D3D" v-on:create-order="createOrder")
+Checkout(checkoutTextColor="#2B2D3D" v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.lessonOrder')
   template(v-slot:options)
     SelectCoach
     SelectChampions
