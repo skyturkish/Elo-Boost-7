@@ -154,7 +154,7 @@ function continueAsGuest() {
 <template lang="pug">
 v-form(ref="form")
   .account-login(v-show="authType === 'login'")
-    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp")
+    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp" alt="auth-dialog-image")
     .background
       .title ACCOUNT LOGIN
       .subtitle-text-fields
@@ -170,7 +170,7 @@ v-form(ref="form")
       .logos
       v-btn.grey-button(@click="authType = 'register'") CREATE ACCOUNT
   .create-account(v-show="authType === 'register'")
-    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp")
+    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp" alt="auth-dialog-image")
     .background
       .title CREATE ACCOUNT
       .subtitle-text-fields
@@ -186,7 +186,7 @@ v-form(ref="form")
         .connect-text CONNECT
       v-btn.grey-button(@click="authType = 'login'") LOGIN
   .continue-as-guest(v-show="authType === 'guest'")
-    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp")
+    img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp" alt="auth-dialog-image")
     .background(v-bind:style="{height: '43.875rem'}")
       .title CONTINUE AS GUEST
       .subtitle-text-fields
@@ -199,9 +199,6 @@ v-form(ref="form")
 </template>
 
 <style scoped>
-.v-form {
-
-}
 .account-login,
 .create-account,
 .continue-as-guest,
