@@ -12,6 +12,7 @@ import PreviewOrder from '@/components/panel/PreviewOrder.vue'
 import ChampionsOrAgents from '@/components/panel/ChampionsOrAgents.vue'
 import OrderInformations from '@/components/panel/OrderInformations.vue'
 import Chat from '@/components/panel/Chat.vue'
+import NeedHelp from '@/components/panel/NeedHelp.vue'
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const router = useRouter()
@@ -176,6 +177,20 @@ onMounted(async () => {
   accountInformation.value = accountInfo.data
 })
 
+const text = ref('')
+
+async function callHelp() {
+  await axios.post('/report', {
+    order: order.value._id,
+    note: text.value,
+    type: 'need-help'
+  })
+
+  const orderInfo = await axios.get(`order/${orderId}`)
+  order.value = orderInfo.data
+}
+
+
 </script>
 
 <template lang="pug">
@@ -184,9 +199,7 @@ onMounted(async () => {
     .row
       .arrow.center-child(@click="router.go(-1)")
         img.arrow-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arrow-left.webp" alt="arrow-left")
-      .need-help.row.center-child(v-if="!useAccountStore.isBooster")
-        img.need-help-icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/need-help.webp' alt="need-help")
-        h3.black-text NEED HELP
+      NeedHelp(v-model="text" v-on:call-help="callHelp")
     .buttons-or-state
       .state.center-child(v-if="!useAccountStore.isBooster" :style="{backgroundColor: findStateColor(order.state)}") {{ order.state.toUpperCase() }}
       .first-row-buttons(v-else)
@@ -309,8 +322,7 @@ onMounted(async () => {
   cursor: pointer;
 }
 .abandon-button:hover,
-.complete-button:hover,
-.need-help:hover {
+.complete-button:hover {
   transform: rotateY(10deg) rotateX(10deg) scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
@@ -417,21 +429,6 @@ onMounted(async () => {
 .arrow:hover {
   transform: rotateY(10deg) rotateX(10deg) scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-.need-help {
-  width: 200px;
-  height: 50px;
-  border-radius: 5px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  border: solid 1px #eee;
-  background-color: #fff;
-  justify-content: space-around;
-  margin-left:25px;
-  cursor: pointer;
-}
-.need-help-icon {
-  height: 30px;
-  width: 30px;
 }
 .normal-black-text {
   font-size: 32px;

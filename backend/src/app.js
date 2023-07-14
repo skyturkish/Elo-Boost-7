@@ -20,6 +20,7 @@ const accountRouter = require('./routes/account')
 const orderRouter = require('./routes/order')
 const messageRouter = require('./routes/message')
 const accountInformationRouter = require('./routes/account-information')
+const reportRouter = require('./routes/report')
 
 require('./routes/mongo-connection')
 
@@ -74,6 +75,7 @@ app.use('/order', orderRouter)
 app.use('/message', messageRouter)
 app.use('/account', accountRouter)
 app.use('/account-information', accountInformationRouter)
+app.use('/report', reportRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
