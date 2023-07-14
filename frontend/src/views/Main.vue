@@ -3,6 +3,7 @@ import BoostingOrdersFlow from '@/components/main/BoostingOrdersFlow'
 import CoachingOrdersFlow from '@/components/main/CoachingOrdersFlow'
 import ShopOrdersFlow from '@/components/main/ShopOrdersFlow'
 import Games from '@/components/main/Games'
+import AppBar from '@/components/Appbar'
 
 const informations = {
   'our-features': ['24/7 Customer Support', 'Appear Offline & VPN Encryption', 'Track your Order', 'Chat with your booster'],
@@ -14,17 +15,23 @@ const informations = {
 </script>
 
 <template lang="pug">
-Banner(splashArtPath = 'main' title = 'ELOBOOST, COACHING, MARKETPLACE' subtitle = 'ALL THE ONLINE GAMING SERVICES IN ONE PLACE')
-  .buttons
-    v-btn.purchase-eloboosting()
-      span PURCHASE
-        br
-        | ELOBOOSTING
-    v-btn.learn-more()
-      span LEARN
-        br
-        | MORE
-Games
+.background(:style="{ backgroundImage: `url(https://storage.googleapis.com/divine-boost-bucket/assets/assets/banners/main.webp)` }")
+  .content
+    AppBar
+    .TRUST-PILOT-5-STAR-REVIEW ‏‏‏‏‏‏‏‏
+    .title ELOBOOST, COACHING, MARKETPLACE
+    .subtitle ALL THE ONLINE GAMING SERVICES IN ONE PLACE
+    .dynamic
+      .buttons
+        v-btn.purchase-eloboosting()
+          span PURCHASE
+            br
+            | ELOBOOSTING
+        v-btn.learn-more()
+          span LEARN
+            br
+            | MORE
+  Games
 v-divider.border-opacity-100(thickness="1rem")
 .background
   .our-features
@@ -134,6 +141,42 @@ v-divider.border-opacity-100(thickness="1rem")
 </template>
 
 <style scoped>
+.background {
+  background-size: cover;
+  background-position: 50%;
+}
+.content {
+  display:flex;
+  flex-direction: column;
+  max-width: 1840px;
+  min-width: 960px;
+  margin: 0 auto;
+  padding: 42px 40px 30px 45px;
+}
+.TRUST-PILOT-5-STAR-REVIEW {
+  padding-top: 3rem;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+.title {
+  padding-top: 0.5rem;
+  font-size: 48px;
+  font-weight: bold;
+  color: #fff;
+}
+.subtitle {
+  padding-top: 0.5rem;
+
+  font-size: 32px;
+  font-weight: 500;
+  color: #fff;
+}
+.dynamic {
+  padding-top: 2rem;
+}
+
+.background
 .features {
   padding-top: 8.5rem;
 }
