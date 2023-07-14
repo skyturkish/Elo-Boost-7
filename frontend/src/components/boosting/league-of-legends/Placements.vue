@@ -53,6 +53,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 }
 .selections-layout > * {
   width: 50%;

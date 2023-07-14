@@ -49,7 +49,7 @@ const services = [
   inset: 0;
 }
 .loop-slider {
-  width: 1800px;
+  width: 2600px;
   margin: 0 auto;
   overflow: hidden;
 }
