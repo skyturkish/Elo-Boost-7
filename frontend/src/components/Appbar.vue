@@ -20,7 +20,8 @@ const router = useRouter()
       .navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
       .navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
     .buttons
-      LoginButton
+      div
+        LoginButton
       .settings
         v-icon(icon="mdi-cog" color="#444")
 </template>
