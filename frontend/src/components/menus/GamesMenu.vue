@@ -24,21 +24,6 @@ const games = [
     name: 'VALORANT',
     imagePath: 'valorant',
   },
-  {
-    url: '/boosting/apex-legends',
-    name: 'APEX LEGENDS',
-    imagePath: 'apex-legends',
-  },
-  {
-    url: '/boosting/overwatch',
-    name: 'OVERWATCH',
-    imagePath: 'overwatch',
-  },
-  {
-    url: '/boosting/wild-rift',
-    name: 'WILD RIFT',
-    imagePath: 'wild-rift',
-  },
 ]
 
 function replacePage(game){
@@ -51,7 +36,6 @@ v-menu(max-width='100px')
   template(v-slot:activator='{ props }')
     div.select-games(@click='' v-bind='props')
       img.game-image(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${gameImagePath}.webp`' alt="game-image")
-      .a ●
       .game-name {{ gameName }}
       v-icon(icon="mdi-menu-down")
   v-list
