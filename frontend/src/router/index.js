@@ -69,7 +69,7 @@ const routes = [
     },
     {
         path: '/marketplace',
-        component: () => import('@/views/Marketplace.vue')
+        component: () => import('@/views/MarketPlace.vue')
     },
     {
         path: '/coaching',
