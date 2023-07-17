@@ -23,11 +23,11 @@ const informations = {
     .subtitle ALL THE ONLINE GAMING SERVICES IN ONE PLACE
     .dynamic
       .buttons
-        v-btn.purchase-eloboosting()
+        v-btn.purchase-eloboosting
           span PURCHASE
             br
             | ELOBOOSTING
-        v-btn.learn-more()
+        v-btn.learn-more
           span LEARN
             br
             | MORE
@@ -141,6 +141,7 @@ v-divider.border-opacity-100(thickness="1rem")
 </template>
 
 <style scoped>
+
 .background {
   background-size: cover;
   background-position: 50%;
@@ -496,6 +497,19 @@ v-divider.border-opacity-100(thickness="1rem")
   transition: .3s;
   z-index: 1;
 }
+
+.checkout-marketplace,
+.second-purchase-eloboosting,
+.third-purchase-eloboosting {
+  position: relative;
+  overflow: hidden;
+  transition: .3s;
+  z-index: 1;
+}
+
+.checkout-marketplace::before,
+.second-purchase-eloboosting::before,
+.third-purchase-eloboosting::before,
 .purchase-eloboosting::before {
  content: '';
  width: 0;
@@ -509,12 +523,23 @@ v-divider.border-opacity-100(thickness="1rem")
  z-index: -1;
  background-color:#FFF;
 }
+.checkout-marketplace:hover:before,
+.second-purchase-eloboosting:hover:before,
+.third-purchase-eloboosting:hover:before,
 .purchase-eloboosting:hover:before {
   width: 105%;
 }
+
+.checkout-marketplace:hover,
+.second-purchase-eloboosting:hover,
+.third-purchase-eloboosting:hover,
 .purchase-eloboosting:hover {
   color: #000000;
 }
+
+.checkout-marketplace:hober,
+.second-purchase-eloboosting:hober,
+.third-purchase-eloboosting:hober,
 .learn-more:hover,
 .purchase-eloboosting:hover {
   transition: transform 0.8s;
