@@ -157,10 +157,10 @@ const routes = [
                             )
                     },
                     {
-                        path: 'mastery',
+                        path: 'arena',
                         component: () =>
                             import(
-                                '@/components/boosting/league-of-legends/Mastery.vue'
+                                '@/components/boosting/league-of-legends/Arena.vue'
                             )
                     },
                     {

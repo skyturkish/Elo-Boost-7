@@ -14,18 +14,18 @@ const boostTypes = [
     name: 'PLACEMENTS',
     route: 'placement',
   },
-  {
-    name: 'NORMAL GAME',
-    route: 'normal-game',
-  },
-  {
-    name: 'CLASH',
-    route: 'clash',
-  },
-  {
-    name: 'MASTERY',
-    route: 'mastery',
-  },
+  // {
+  //   name: 'NORMAL GAME',
+  //   route: 'normal-game',
+  // },
+  // {
+  //   name: 'ARENA',
+  //   route: 'arena',
+  // },
+  // {
+  //   name: 'CLASH',
+  //   route: 'clash',
+  // },
 ]
 </script>
 
@@ -36,6 +36,9 @@ v-divider.border-opacity-100(thickness="1rem")
 .boostType
   .buttons
     v-btn.boost-type-button(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`') {{ boostType.name }}
+    img.close-button(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/normal-game-button.webp")
+    img.close-button(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/arena-button.webp")
+    img.close-button(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/clash-button.webp")
   .dynamic-view
     router-view()
 </template>
@@ -57,11 +60,18 @@ v-divider.border-opacity-100(thickness="1rem")
   flex-wrap: wrap;
 }
 .boost-type-button {
-
   font-size: 20px;
   font-weight: 600;
   letter-spacing: normal;
   color: #BBBBBB;
+}
+.close-button {
+  width: 191px;
+  height: 70px;
+  cursor: pointer;
+}
+.close-button:hover {
+  margin-top: -0.5rem;
 }
 .v-btn--active {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
