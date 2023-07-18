@@ -28,9 +28,9 @@ export const LeagueOfLegendsDivisions = [
         name: 'gold'
     },
     {
-        dominantColor: '#033F1F',
-        shadowColor: '#F8FBF8',
-        borderColor: '#068D45',
+        dominantColor: '#03383F',
+        shadowColor: '#F8FBFB',
+        borderColor: '#065D8D',
         buttonColor: '#45ACBF',
         name: 'platinum'
     },
