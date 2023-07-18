@@ -8,8 +8,6 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 v-select.rounded-select(id="mySelect" v-model="currentLeagueOfLegendsOrder.currentLP" :items="[' 0-20LP','20-40LP','40-60LP','60-80LP','80-100LP']" variant="outlined" )
   template(v-slot:selection='{ item, index }')
     h5(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ item.title }}
-  //- template(v-slot:label='{ label, props }')
-  //-   h4(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ label }}
 </template>
 
 <style >

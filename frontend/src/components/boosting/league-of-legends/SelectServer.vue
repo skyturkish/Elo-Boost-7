@@ -5,11 +5,9 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 </script>
 
 <template lang="pug">
-v-select(:items="['EUW','EUNE','NA','RU','TR']" v-model="currentLeagueOfLegendsOrder.server" variant="outlined" rounded="true")
-  //- template(v-slot:item='{ props, item, index }')
-  //-   h6 {{ index }}
-  //- template(v-slot:selection='{ item, index }')
-  //-   h6.ddd {{ item.title }}
+v-select(:items="['EUW','EUNE','NA','RU','TR']" v-model="currentLeagueOfLegendsOrder.server" variant="outlined")
+  template(v-slot:selection='{ item, index }')
+    h5(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ item.title }}
 </template>
 
 <style scoped>

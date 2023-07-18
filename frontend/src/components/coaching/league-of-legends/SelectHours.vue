@@ -1,10 +1,13 @@
 <script setup>
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
+const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 </script>
 
 <template lang="pug">
-v-select(v-model="useLeagueOfLegendsOrder().coachingHours" :items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" )
+v-select(v-model="currentLeagueOfLegendsOrder.coachingHours" :items="['1 HOURS', '2 HOURS', '3 HOURS', '4 HOURS', '5 HOURS']" variant="outlined")
+  template(v-slot:selection='{ item, index }')
+    h5(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ item.title }}
 </template>
 
 <style scoped>

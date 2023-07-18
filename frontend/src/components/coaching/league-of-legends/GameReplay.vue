@@ -20,7 +20,7 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-CurrentRank(divisionLimit = 6 title = "YOUR RANK")
+CurrentRank(divisionLimit = 7 title = "YOUR RANK")
   SelectCoachAmountGame
   SelectLanguages
 Checkout(checkoutTextColor="#2B2D3D"  v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.gameReplayOrder')
