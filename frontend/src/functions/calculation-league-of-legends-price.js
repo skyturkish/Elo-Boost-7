@@ -778,7 +778,7 @@ const sureRanks = [
     'silver',
     'gold',
     'platinum',
-    'emeral',
+    'emerald',
     'diamond',
     'master',
     'grandmaster',
@@ -798,7 +798,6 @@ const sureRanks2 = [
 ]
 
 function isExistError(order) {
-    if (order.desiredRank == null) return false
     if (order.game == 'league-of-legends') {
         if (
             sureRanks.indexOf(order.currentRank.division) >
@@ -817,7 +816,7 @@ function isExistError(order) {
 }
 
 export const calculatePrice = (order) => {
-    if (isExistError(order)) {
+    if (order.orderType == 'division' && isExistError(order)) {
         return {
             total: 50,
             texts: [
