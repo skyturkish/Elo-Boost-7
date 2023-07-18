@@ -37,7 +37,6 @@ v-menu(max-width='100px')
   template(v-slot:activator='{ props }')
     div.select-games(@click='' v-bind='props')
       img.game-image(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/${gameImagePath}.webp`' alt="game-image")
-      .circle ●
       .game-name {{ gameName }}
       v-icon(icon="mdi-menu-down")
   v-list
