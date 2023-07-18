@@ -66,13 +66,10 @@ v-divider.border-opacity-100(thickness="1rem")
   color: #BBBBBB;
 }
 .close-button {
-  width: 191px;
-  height: 70px;
-  cursor: pointer;
+  width: 200px;
+  height: 79px;
 }
-.close-button:hover {
-  margin-top: -0.5rem;
-}
+
 .v-btn--active {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #3C54FF;
