@@ -497,14 +497,13 @@ function divisionOrder(order, discount) {
 }
 
 const lessonRank = {
-    unranked: 15,
-    iron: 15,
-    bronze: 15,
-    silver: 15,
-    gold: 20,
+    iron: 12,
+    bronze: 12,
+    silver: 12,
+    gold: 12,
     platinum: 20,
-    emerald: 25,
-    diamond: 25
+    emerald: 22,
+    diamond: 24
 }
 
 function lessonOrder(order) {
