@@ -31,7 +31,7 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
 
         isNotGame: true,
 
-        bonusWin: true,
+        bonusWin: false,
         premium: false,
         highMMR: false,
         untrackable: false,
