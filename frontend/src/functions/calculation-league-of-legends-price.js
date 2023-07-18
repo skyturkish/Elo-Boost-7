@@ -241,6 +241,18 @@ function pureLP(LP) {
     }
 }
 
+function minPureLP(LP) {
+    if (LP !== '41+') {
+        const values2 = LP.replace('LP', '').split('-')
+
+        let secondVal2 = parseInt(values2[1])
+
+        return secondVal2
+    } else {
+        return 41
+    }
+}
+
 function winGame(order, discount) {
     if (
         order.currentRank.division == 'master' ||
@@ -249,7 +261,10 @@ function winGame(order, discount) {
     ) {
         let total = 0
         let currentLP = +order.currentRank.currentLP
-        const pureGainLP = pureLP(order.gainLP)
+
+        const pureGainLP = minPureLP(order.gainLP)
+
+        console.log(pureGainLP)
 
         const amountGame = order.amountGame.split(' ')[0]
 
@@ -311,7 +326,7 @@ function winGame(order, discount) {
 
         let pureCurrentLP = pureLP(order.currentRank.currentLP)
 
-        const pureGainLP = pureLP(order.gainLP)
+        const pureGainLP = minPureLP(order.gainLP)
 
         const amountGame = order.amountGame.split(' ')[0]
 
@@ -388,7 +403,7 @@ function divisionOrder(order, discount) {
 
     let pureCurrentLP = pureLP(order.currentRank.currentLP)
 
-    const pureGainLP = pureLP(order.gainLP)
+    const pureGainLP = minPureLP(order.gainLP)
 
     let keys = winRanks.map(function (obj) {
         return Object.keys(obj)[0]
