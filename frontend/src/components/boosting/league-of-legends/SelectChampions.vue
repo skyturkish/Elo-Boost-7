@@ -30,7 +30,7 @@ function isLaneSelected(lane) {
 }
 
 const selectedHeroes = computed(() => {
-  return Object.values(currentLeagueOfLegendsOrder.getHeroes).flat().slice(0, 3)
+  return [...new Set(Object.values(currentLeagueOfLegendsOrder.getHeroes).flat())].slice(0, 3);
 })
 
 function isSelectedHero(hero) {
