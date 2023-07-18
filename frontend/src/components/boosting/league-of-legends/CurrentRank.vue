@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { LeagueOfLegendsDivisions } from '@/constants/league-of-legends-constants'
 import { useLeagueOfLegendsOrder } from '@/store/league-of-legends-order'
 
@@ -10,10 +10,17 @@ const props = defineProps({
   title: {
     type: String,
     required: true
+  },
+  type: {
+    type: String,
   }
 })
 
 const divisions = LeagueOfLegendsDivisions.slice(0, props.divisionLimit)
+
+const limitedDivisions = computed(() => {
+    return divisions
+})
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
@@ -31,9 +38,9 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
         .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentLeagueOfLegendsOrder.displayCurrentRank }}
       v-icon(size='large' icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
-    .colors-exception(v-if="props.divisionLimit == 6")
+    .colors-exception(v-if="props.divisionLimit == 7")
       .exception-colors
-        .color-background(v-for="division in divisions")
+        .color-background(v-for="division in limitedDivisions")
           v-btn.color(
             :flat="division.name == currentLeagueOfLegendsOrder.colors.name ? false : true"
             icon
@@ -42,7 +49,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
             @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
     .colors(v-else)
       .first-colors
-        .color-background(v-for="division in divisions.slice(0,4)")
+        .color-background(v-for="division in limitedDivisions.slice(0,5)")
           v-btn.color(
             :flat="division.name == currentLeagueOfLegendsOrder.colors.name ? false : true"
             icon
@@ -50,7 +57,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
             :color="division.buttonColor"
             @click="currentLeagueOfLegendsOrder.changeCurrentDivision(division)")
       .second-colors
-        .color-background(v-for="division in divisions.slice(4,props.divisionLimit)")
+        .color-background(v-for="division in limitedDivisions.slice(5,props.divisionLimit)")
           v-btn.color(
             :flat="division.name == currentLeagueOfLegendsOrder.colors.name ? false : true"
             icon
@@ -136,6 +143,10 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
   align-items: center;
   gap: 0.90rem;
   flex-wrap: wrap;
+  margin-right: -1.5rem;
+}
+.first-colors {
+  margin-left: -3rem;
 }
 .second-colors {
   margin-top: 0.75rem;

@@ -772,7 +772,63 @@ function valorantDivisionOrder(order) {
     }
 }
 
+const sureRanks = [
+    'iron',
+    'bronze',
+    'silver',
+    'gold',
+    'platinum',
+    'emeral',
+    'diamond',
+    'master',
+    'grandmaster',
+    'challenger'
+]
+
+const sureRanks2 = [
+    'iron',
+    'bronze',
+    'silver',
+    'gold',
+    'platinum',
+    'diamond',
+    'ascendant',
+    'immortal',
+    'radiant'
+]
+
+function isExistError(order) {
+    if (order.desiredRank == null) return false
+    if (order.game == 'league-of-legends') {
+        if (
+            sureRanks.indexOf(order.currentRank.division) >
+            sureRanks.indexOf(order.desiredRank.division)
+        ) {
+            return true
+        }
+    } else if (order.game == 'valorant') {
+        if (
+            sureRanks2.indexOf(order.currentRank.division) >
+            sureRanks2.indexOf(order.desiredRank.division)
+        ) {
+            return true
+        }
+    }
+}
+
 export const calculatePrice = (order) => {
+    if (isExistError(order)) {
+        return {
+            total: 50,
+            texts: [
+                {
+                    text: 'Bonus Win',
+                    amount: 30
+                }
+            ]
+        }
+    }
+
     order.options = filterOptions(order.options)
 
     if (order.game == 'league-of-legends') {

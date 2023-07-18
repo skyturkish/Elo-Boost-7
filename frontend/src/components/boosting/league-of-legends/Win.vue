@@ -30,7 +30,7 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-CurrentRank(divisionLimit = 9 title = "YOUR RANK")
+CurrentRank(divisionLimit = 10 title = "YOUR RANK")
   CurrentMilestones(v-show="!currentLeagueOfLegendsOrder.isMaster")
   div
     v-text-field(v-show="currentLeagueOfLegendsOrder.isMaster" v-model="currentLeagueOfLegendsOrder.currentMasterLP" outlined)

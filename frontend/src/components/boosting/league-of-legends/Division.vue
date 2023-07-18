@@ -23,7 +23,7 @@ const router = useRouter()
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
-const divisions = LeagueOfLegendsDivisions.slice(0,7)
+const divisions = LeagueOfLegendsDivisions.slice(0,8)
 const milestones = LeagueOfLegendsMilestones
 
 const checkedColors = ref(false)
@@ -51,8 +51,6 @@ const desiredMilestone = computed(() => {
 
   return milestones[currentLeagueOfLegendsOrder.desiredMilestone]
 })
-
-
 const limitedMilestones = computed(() => {
   if (currentLeagueOfLegendsOrder.selectedDivisionIndex === currentLeagueOfLegendsOrder.selectedDesiredDivisionIndex) {
     return milestones.slice(milestones.indexOf(currentLeagueOfLegendsOrder.milestone) + 1)
@@ -112,7 +110,6 @@ function changeDesiredDivision(division) {
 
 function changeMileStone(milestone) {
   currentLeagueOfLegendsOrder.desiredMilestone = milestones.indexOf(milestone)
-
 }
 
 function isSelectedMilestone(milestone) {
@@ -136,7 +133,7 @@ const desiredOrderDisplay = computed(() => {
 </script>
 
 <template lang="pug">
-CurrentRank(divisionLimit = 6 title = "CURRENT RANK" v-if="checkedColors")
+CurrentRank(divisionLimit = 7 title = "CURRENT RANK" v-if="checkedColors")
   CurrentMilestones
   .selections
     SelectCurrentLP

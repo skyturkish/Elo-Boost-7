@@ -1,12 +1,4 @@
 export const LeagueOfLegendsDivisions = [
-    // {
-    //     rank: 0,
-    //     textColor: '#3C3C3C',
-    //     shadowColor: 'FBFAF8',
-    //     borderColor: '818181',
-    //     color: '#000001',
-    //     name: 'iron'
-    // },
     {
         dominantColor: '#423428',
         shadowColor: '#FBF8F8',
@@ -39,8 +31,15 @@ export const LeagueOfLegendsDivisions = [
         dominantColor: '#033F1F',
         shadowColor: '#F8FBF8',
         borderColor: '#068D45',
-        buttonColor: '#11A49B',
+        buttonColor: '#45ACBF',
         name: 'platinum'
+    },
+    {
+        dominantColor: '#033F1F',
+        shadowColor: '#F8FBF8',
+        borderColor: '#068D44',
+        buttonColor: '#45DA87',
+        name: 'emerald'
     },
     {
         dominantColor: '#0A2972',

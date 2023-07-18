@@ -28,7 +28,7 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-CurrentRank(divisionLimit = 9 title = "LAST SEASON")
+CurrentRank(divisionLimit = 10 title = "LAST SEASON")
   .selections-layout
     SelectServer
     SelectQueue
