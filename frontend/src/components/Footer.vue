@@ -93,7 +93,7 @@ const links = {
       .title(v-for="(sublinks,title) in links") {{ title }}
         .sub-title(v-for="sublink in sublinks" @click="router.push(sublink.path)") {{sublink.name}}
     .reserved 2023 Divine Gaming Services - All rights reserved.
-    .privacy This website nor the brand isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+    .privacy This website nor the brand isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc. Overwatch, Diablo are trademarks and/or registered trademarks of Blizzard Entertainment Inc.
 </template>
 
 <style scoped>
