@@ -10,8 +10,8 @@ export const useBoosters = defineStore('useBoosters', {
     actions: {
         async fetchBoostersIfNotFetched() {
             if (!this.boosters) {
-                const adana = await axios.get('/user/role/booster')
-                this.boosters = adana.data || null
+                const allBooster = await axios.get('/user/role/employee')
+                this.boosters = allBooster.data || null
             }
         }
     }

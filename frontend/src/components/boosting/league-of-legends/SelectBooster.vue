@@ -19,15 +19,27 @@ const filteredLanes = ref([])
 
 const searchName = ref('')
 
+const statusPriority = {
+    'online': 1,
+    'offline': 2,
+    'dont-disturb': 3
+};
+
 const filteredBoosters = computed(() => {
-  return useBoosters().boosters.filter((booster) => {
-    return booster.mainGame == 'league-of-legends'
+  const updatedList = useBoosters().boosters.filter((booster) => {
+    return Object.keys(booster.permissions.booster.games).includes('league-of-legends')
   }).filter((booster) => {
     return booster.name.toLowerCase().includes(searchName.value.toLowerCase())
   }).filter((booster) => {
       if (filteredLanes.value.length === 0) return true
-      return booster.mainLanes.some((lane) => filteredLanes.value.includes(lane))
+      return booster.notifications.booster.games['league-of-legends'].roles.some((lane) => filteredLanes.value.includes(lane))
   })
+
+  const sortedList = updatedList.sort((a, b) => {
+    return statusPriority[a.onlineState] - statusPriority[b.onlineState]
+  })
+
+  return sortedList
 })
 
 onMounted(() =>   {
@@ -51,6 +63,15 @@ function setBoosterAndCloseDialog(booster) {
     dialog.value = false
 }
 
+function setBoosterNullAndCloseDialog() {
+    currentLeagueOfLegendsOrder.booster = null
+    dialog.value = false
+}
+
+
+function makeRankPath(rank) {
+  return rank.split('-')[0]
+}
 </script>
 
 <template lang="pug">
@@ -60,37 +81,77 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" titl
   v-dialog(v-model='dialog' activator='parent' width='auto')
     v-card
       .row
-        .title SELECT BOOSTER
-        v-tooltip(location="right" text='You can choose booster you like, under page bla bla bla bla bla' )
-          template(v-slot:activator='{ props }')
-            img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/question-mark.webp" v-bind='props' alt="question-mark")
+        div.row--
+          .title(@click="selamla") SELECT BOOSTER
+          v-tooltip(max-width="500px" location="top" text='TO REQUEST AN OTP BOOSTER YOU CAN CHOOSE ONE OR TWO CHAMPIONS FOR EACH ROLE YOU HAVE SELECTED. \n (+%10) \n YOU MUST CHOOSE AT LEAST 3 CHAMPIONS FROM EVERY ROLE DESIRED TO HAVE A FREE CHAMP WISHLIST. \n (FREE)' )
+            template(v-slot:activator='{ props }')
+              img.question-mark(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/big-question-mark.webp" v-bind='props' alt="question-mark")
+        v-btn.remove-booster(v-if="currentLeagueOfLegendsOrder.booster != null" @click="setBoosterNullAndCloseDialog") REMOVE BOOSTER
+        v-icon(icon='mdi-close' @click="dialog = false")
       .filters
-        v-text-field.search(label="Search for booster" v-model="searchName")
+        v-text-field.search(variant="underlined" prepend-icon="mdi-magnify" label="Search for boosters" v-model="searchName")
         .lanes
-          img.lane(v-for="lane in lanes" :key="lane" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`' @click="addOrRemoveLane(lane)"  v-bind:class="isLaneSelected(lane) ? 'selected-background' : ' '" alt="lane")
+          div.lane-background(v-for="lane in lanes")
+            img.lane(:key="lane" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`' @click="addOrRemoveLane(lane)"  :alt="lane")
+            img.selected-lane-background(v-show="isLaneSelected(lane)" src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/selected-lane.webp' alt="selected-lane" @click="addOrRemoveLane(lane)")
       .boosters(v-if="filteredBoosters.length > 0")
         BoosterCard(v-for="booster in filteredBoosters" :key="booster")
-          .rate
-            img.star(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/star.webp' alt="star")
-            .rate-text {{booster.rate}}
-          .profile-and-rank
-            .dd
-              Online(v-if="booster.onlineState == 'online' ")
-              Offline(v-if="booster.onlineState == 'offline' ")
-              DontDistrub(v-if="booster.onlineState == 'dont-distrub' ")
-              img.profile-photo(:src="booster.photo" :alt="booster.name")
-            img.rank-image(:src='`../../src/assets/ranks/${booster.mainGame}/${booster.maxRank}.webp`' alt="rank")
-          .booster-name {{booster.name}}
-          .booster-lanes
-            img.booster-lane(v-for="lane in booster.mainLanes" :key="lane" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`' :alt="lane")
-          .buttons
-            SelectBoosterButton(v-if="booster.onlineState != 'dont-distrub' " @click="setBoosterAndCloseDialog(booster)")
-            NotAllowed(v-else)
-            v-btn.booster-detail-button
-              img.icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/menu.webp' alt="menu")
+          .content
+            .rate
+              img.star(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/star.webp' alt="star")
+              .rate-text {{booster.rate}}
+            .profile-and-rank
+              .dd
+                Online(v-if="booster.onlineState == 'online' ")
+                Offline(v-if="booster.onlineState == 'offline' ")
+                DontDistrub(v-if="booster.onlineState == 'dont-distrub' ")
+                img.profile-photo(:src="booster.photo" :alt="booster.name")
+              img.rank-image(:src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/${makeRankPath(booster.permissions.booster.games[`league-of-legends`].maxRank)}.webp`' alt="rank")
+            .booster-name {{booster.name}}
+            .booster-lanes
+              img.booster-lane(v-for="lane in booster.notifications.booster.games['league-of-legends'].roles" :key="lane" :src='`https://storage.googleapis.com/divine-boost-bucket/assets/assets/lanes/${lane}.webp`' :alt="lane")
+          v-btn.select-booster-button(v-if="booster.onlineState != 'dont-distrub' " @click="setBoosterAndCloseDialog(booster)")
+            img.icon(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/checkmark.webp' alt="checkmark")
+          //- SelectBoosterButton(v-if="booster.onlineState != 'dont-distrub' " @click="setBoosterAndCloseDialog(booster)")
+          v-btn.dont-allow-select-booster-button(v-else disabled=true)
+            img.cancel(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/cancel.webp' alt="checkmark")
 </template>
 
 <style scoped>
+.content {
+  padding: 0rem 1.5rem 1rem 1.5rem;
+  box-shadow:  0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.cancel {
+  height: 25px;
+  width: 25px;
+}
+.icon {
+  height: 21px;
+  width: 28px;
+}
+.row-- {
+  display:flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.selected-lane-background {
+  width: 73px;
+  height: 73px;
+  position: absolute;
+  transition: .5s ease;
+  font-size: 20px;
+  margin: -11px 0px 0px -60px;
+  cursor: pointer;
+}
+
+.lanes {
+  display: flex;
+  gap: 2.3rem;
+}
+.lane {
+  cursor: pointer;
+}
 .lane {
   width: 3rem;
 }
@@ -106,12 +167,11 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" titl
   border-radius: 25px;
 }
 .v-card {
-  width: 1000px;
-  min-height: 1100px;
+  width: 900px;
+  min-height: 900px;
   max-height: 1700px;
   border-radius: 5px;
   background-color: #fff;
-
 }
 .row {
   display: flex;
@@ -120,17 +180,15 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" titl
   padding: 2rem 3rem 1rem 3rem;
 }
 .title {
-  font-size: 64px;
+  font-size: 40px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: #222;
 }
 .question-mark {
-  height: 4rem;
-  width: 4rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 45px;
+  box-shadow: 0px 1px 3px 0px #989898;
 }
 .filters {
   height: 120px;
@@ -140,11 +198,10 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" titl
   justify-content: space-between;
 }
 .search {
-  width: 360px;
+  width: 260px;
   height: 60px;
   flex-grow: 0;
   border-radius: 5px;
-  background-color: #fff;
 }
 .lanes {
   display: flex;
@@ -160,7 +217,7 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" titl
   display:flex;
   gap: 2rem;
   flex-wrap: wrap;
-  padding: 2rem 0 0 4rem;
+  padding: 1.3rem;
   height: 850px;
 }
 .profile-and-rank {
@@ -205,11 +262,9 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" titl
 .rate {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-top: -1.7rem;
-  margin-bottom: 0.2rem;
-  align-self: flex-end;
-  margin-left: -11rem;
+  justify-content: end;
+
 }
 .rate-text {
   font-size: 24px;
@@ -243,17 +298,31 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" titl
   padding-top: 1.4rem;
 }
 .booster-lanes {
-  display: flex;
-  padding-top: 0.8rem;
-  width: 2rem;
+  padding-top: 0.5rem;
   height: 50px;
+  display:flex;
+  justify-content: center;
 }
 .booster-lane {
   height: 50px;
 }
-.icon {
-  height: 2.2rem;
-  width: 2.2rem;
-  padding-top: 0.25rem
+.select-booster-button {
+  height: 50px;
+  border-radius: 0px 0px 17px 17px;
+  background: #54BF00;
+  box-shadow: 0px 0px 4px 1px rgba(5, 255, 0, 0.25);
+  margin-bottom: -1.7rem;
+}
+.dont-allow-select-booster-button {
+  height: 50px;
+  border-radius: 0px 0px 17px 17px;
+  background: #3E3E3E;
+  box-shadow: 0px 0px 4px 1px rgba(66, 70, 66, 0.25);
+  margin-bottom: -1.7rem;
+}
+.remove-booster {
+  box-shadow: 0px 0px 4px 1px rgba(168, 73, 91, 0.25);
+  border-radius: 17px;
+  background-color: rgb(240, 74, 74);
 }
 </style>
