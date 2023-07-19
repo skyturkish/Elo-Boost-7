@@ -13,6 +13,14 @@ const links = {
       name: 'Valorant',
       path: '/boosting/valorant/division'
     },
+    {
+      name: 'TFT',
+      path: '/boosting/team-fight-tactics/win'
+    },
+    {
+      name: 'Overwatch',
+      path: '/boosting/overwatch/division'
+    },
   ],
   COACHING: [
     {
@@ -23,47 +31,55 @@ const links = {
       name: 'Valorant',
       path: '/coaching/valorant/lesson'
     },
+    {
+      name: 'TFT',
+      path: '/coaching/team-fight-tactics/lesson'
+    },
+    {
+      name: 'Overwatch',
+      path: '/coaching/overwatch/lesson'
+    },
   ],
   MARKETPLACE: [
     {
       name: 'Account Shop',
-      path: '/marketplace/account'
+      path: '/marketplace/account-shop'
     },
     {
       name: 'Fresh Accounts',
-      path: '/marketplace/fresh-account'
+      path: '/marketplace/fresh-accounts'
     },
   ],
   CONTENT: [
     {
       name: 'Coaching Videos',
-      path: '/lessons/learn-to-play'
+      path: '/content/coaching-videos'
     },
     {
       name: 'OTP Guides',
-      path: '/lessons/otp-guides'
+      path: '/content/otp-guides'
     },
     {
       name: 'Blog',
-      path: '/lessons/otp-guides'
+      path: '/content/blog'
     },
   ],
   EXTRA: [
     {
       name: 'Leaderboard',
-      path: '/leaderboard'
+      path: '/extra/leaderboard'
     },
     {
       name: 'Legal',
-      path: '/legal'
+      path: '/extra/legal'
     },
     {
       name: 'Contact',
-      path: '/contact'
+      path: '/extra/contact'
     },
     {
       name: 'FAQ',
-      path: '/faq'
+      path: '/extra/faq'
     },
   ]
 }
@@ -73,10 +89,6 @@ const links = {
 <template lang="pug">
 .footer-background
   .content
-    .socials
-      img.facebook-social(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/facebook.webp" alt="facebook")
-      img.discord-social(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/discord.webp" alt="discord")
-      img.instagram-social(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/instagram.webp" alt="instagram")
     .titles
       .title(v-for="(sublinks,title) in links") {{ title }}
         .sub-title(v-for="sublink in sublinks" @click="router.push(sublink.path)") {{sublink.name}}
@@ -85,24 +97,8 @@ const links = {
 </template>
 
 <style scoped>
-.socials {
-  display: flex;
-  gap: 8px;
-  align-self: self-end;
-}
-.facebook-social,
-.instagram-social {
-  width: 29px;
-  height: 29px;
-  cursor: pointer;
-}
-.discord-social {
-  width: 29px;
-  height: 33px;
-  cursor: pointer;
-}
 .footer-background {
-
+  margin-top: 3rem;
   background-color: #111111;
   padding-bottom: 100px;
 }

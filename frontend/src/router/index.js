@@ -69,7 +69,41 @@ const routes = [
     },
     {
         path: '/marketplace',
-        component: () => import('@/views/MarketPlace.vue')
+        children: [
+            {
+                path: 'account-shop',
+                component: () => import('@/views/UnderConstruct.vue')
+            },
+            {
+                path: 'fresh-accounts',
+                component: () => import('@/views/UnderConstruct.vue')
+            }
+        ]
+    },
+    {
+        path: '/hub',
+        children: [
+            {
+                path: 'league-of-legends',
+                component: () => import('@/views/UnderConstruct.vue'),
+                children: [
+                    {
+                        path: 'hub',
+                        component: () => import('@/views/UnderConstruct.vue')
+                    }
+                ]
+            },
+            {
+                path: 'valorant',
+                component: () => import('@/views/UnderConstruct.vue'),
+                children: [
+                    {
+                        path: 'hub',
+                        component: () => import('@/views/UnderConstruct.vue')
+                    }
+                ]
+            }
+        ]
     },
     {
         path: '/coaching',
@@ -130,6 +164,26 @@ const routes = [
                             import(
                                 '@/components/coaching/valorant/PlayTogether.vue'
                             )
+                    }
+                ]
+            },
+            {
+                path: 'team-fight-tactics',
+                component: () => import('@/views/UnderConstruct.vue'),
+                children: [
+                    {
+                        path: 'lesson',
+                        component: () => import('@/views/UnderConstruct.vue')
+                    }
+                ]
+            },
+            {
+                path: 'overwatch',
+                component: () => import('@/views/UnderConstruct.vue'),
+                children: [
+                    {
+                        path: 'lesson',
+                        component: () => import('@/views/UnderConstruct.vue')
                     }
                 ]
             }
@@ -227,6 +281,26 @@ const routes = [
                             )
                     }
                 ]
+            },
+            {
+                path: 'team-fight-tactics',
+                component: () => import('@/views/UnderConstruct.vue'),
+                children: [
+                    {
+                        path: 'win',
+                        component: () => import('@/views/UnderConstruct.vue')
+                    }
+                ]
+            },
+            {
+                path: 'overwatch',
+                component: () => import('@/views/UnderConstruct.vue'),
+                children: [
+                    {
+                        path: 'division',
+                        component: () => import('@/views/UnderConstruct.vue')
+                    }
+                ]
             }
         ]
     },
@@ -245,6 +319,46 @@ const routes = [
             {
                 path: 'reports',
                 component: () => import('@/components/admin/Reports.vue')
+            }
+        ]
+    },
+    {
+        path: '/content',
+        component: () => import('@/views/UnderConstruct.vue'),
+        children: [
+            {
+                path: 'coaching-videos',
+                component: () => import('@/views/UnderConstruct.vue')
+            },
+            {
+                path: 'otp-guides',
+                component: () => import('@/views/UnderConstruct.vue')
+            },
+            {
+                path: 'blog',
+                component: () => import('@/views/UnderConstruct.vue')
+            }
+        ]
+    },
+    {
+        path: '/extra',
+        component: () => import('@/views/UnderConstruct.vue'),
+        children: [
+            {
+                path: 'leaderboard',
+                component: () => import('@/views/UnderConstruct.vue')
+            },
+            {
+                path: 'legal',
+                component: () => import('@/views/UnderConstruct.vue')
+            },
+            {
+                path: 'contact',
+                component: () => import('@/views/UnderConstruct.vue')
+            },
+            {
+                path: 'faq',
+                component: () => import('@/views/UnderConstruct.vue')
             }
         ]
     },

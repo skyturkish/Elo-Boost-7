@@ -1,24 +1,39 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const games = ['league-of-legends','valorant']
 
 const services = [
   {
     name: 'ELOBOOST',
-    path: '/boosting'
+    path: 'boosting',
+    defaultValue: 'division'
   },
   {
     name: 'COACHING',
-    path: '/coaching'
+    path: 'coaching',
+    defaultValue: 'lesson'
   },
   {
     name: 'SHOP',
-    path: '/marketplace'
+    path: 'marketplace',
+    defaultValue: 'account-shop'
   },
   {
     name: 'HUB',
-    path: '/hub'
+    path: 'hub',
+    defaultValue: 'hub'
   },
 ]
+
+async function routeRelatedPage(game, service) {
+  if(service.path === 'marketplace') {
+    await router.push(`/marketplace/account-shop`)
+    return
+  }
+  await router.push(`/${service.path}/${game}/${service.defaultValue}`)
+}
 </script>
 
 <template lang="pug">
@@ -30,7 +45,7 @@ const services = [
       .image-container(v-for="game in games")
         v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
           .services
-            v-btn.service(v-for="service in services") {{ service.name }}
+            v-btn.service(v-for="service in services"  @click="routeRelatedPage(game, service)") {{ service.name }}
       v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp" alt="wild-rift")
       v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp" alt="diablo")
       v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/overwatch.webp" alt="overwatch")
@@ -38,7 +53,7 @@ const services = [
       .image-container(v-for="game in games")
         v-img.game.aa(:src="`https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/${game}.webp`" :alt='game')
           .services
-            v-btn.service(v-for="service in services") {{ service.name }}
+            v-btn.service(v-for="service in services"  @click="router.push(`/${service.path}/${game}/${service.defaultValue}`)") {{ service.name }}
       v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/wild-rift.webp" alt="wild-rift")
       v-img.process-game.aa(cover src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/games/diablo.webp" alt="diablo")
 </template>
