@@ -193,6 +193,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
   border-radius: 15px;
   background-color: #fff;
   height: 690px;
+  margin-bottom: 7rem;
 }
 .desired-rank-card {
   border-radius: 15px;

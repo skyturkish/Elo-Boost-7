@@ -80,6 +80,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
   border-radius: 15px;
   background-color: #fff;
   height: 42rem;
+  margin-bottom: 7rem;
 }
 .current-rank-card {
   border-radius: 15px;
