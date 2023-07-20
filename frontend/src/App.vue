@@ -10,11 +10,18 @@ onMounted(async () => {
 </script>
 
 <template lang="pug">
-router-view
-Footer
+.column
+  router-view
+  Footer
 </template>
 
 <style>
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
 body {
   font-family: 'Inter', sans-serif;
 }
