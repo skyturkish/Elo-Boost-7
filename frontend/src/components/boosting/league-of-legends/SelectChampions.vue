@@ -114,7 +114,6 @@ CheckoutSelectionColumn(toolTipText="aaaaaaaaaa" title="CHAMPIONS")
   max-height: 1700px;
   border-radius: 5px;
   background-color: #fff;
-
 }
 .title {
   font-size: 40px;

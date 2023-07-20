@@ -111,7 +111,6 @@ export const useLeagueOfLegendsOrder = defineStore('LeagueOfLegendsOrder', {
                 }
             } else {
                 if (heroes.length > 5) {
-                    console.log('girdi')
                     return
                 } else {
                     heroes.push(hero)

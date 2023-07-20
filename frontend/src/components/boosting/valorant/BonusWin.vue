@@ -9,7 +9,6 @@ const currentValorantOrder = useValorantOrder()
 
 <template lang="pug">
 CheckoutSelection(toolTipText="Bonus wini seçersen var ya ..... neler neler oluyor, aramızda kalsın ama ... KAZANIYORUZZZ" title="BONUS WIN")
-  img.logo(src='https://storage.googleapis.com/divine-boost-bucket/assets/assets/bonus-win.webp' alt="bonus-win")
   CustomSwitch(v-model="currentValorantOrder.bonusWin")
 </template>
 

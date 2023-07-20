@@ -89,6 +89,9 @@ const price = computed(() => {
   return calculatePrice(order.value)
 })
 
+function makeRankPath(rank) {
+  return rank.split('-')[0]
+}
 </script>
 
 <template lang="pug">

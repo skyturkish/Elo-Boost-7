@@ -142,11 +142,11 @@ CurrentRank(divisionLimit = 7 title = "CURRENT RANK" v-if="checkedColors")
   .desired-rank-card(:style="{ border: 'solid 2px ' + desiredOrder.borderColor }")
     .desired-rank-title(:style="{color: desiredOrder.dominantColor, backgroundColor: desiredOrder.shadowColor}") DESIRED RANK
     .select-division
-      v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="currentLeagueOfLegendsOrder.dominantColor")
+      v-icon(size='large' icon="mdi-menu-left" @click="decrement()" :color="desiredOrder.dominantColor")
       .division-name
         img.rank(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/' + desiredOrder.name + '.webp'" alt="rank")
         .name(:style="{color: desiredOrder.dominantColor}") {{ desiredOrderDisplay }}
-      v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="currentLeagueOfLegendsOrder.dominantColor")
+      v-icon(size='large' icon="mdi-menu-right" @click="increment()" :color="desiredOrder.dominantColor")
     v-divider.divider()
     .colors
       .color-background(v-for="division in limitedDivisions")
@@ -199,7 +199,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
   border-radius: 15px;
   margin: 0 2px;
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
-  height: 42rem;
+  height: 48rem;
 }
 .desired-rank-title {
   font-weight: bold;
@@ -212,6 +212,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 1.3rem 0 1.3rem;
 }
 .division-name {
   margin-top: -2rem;
@@ -228,7 +229,7 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
 }
 .colors {
   display: flex;
-  margin-top: 3rem;
+  margin-top: 2.65rem;
   justify-content: center;
   align-items: center;
   gap: 0.90rem;
@@ -265,7 +266,8 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
 }
 .desired-selections {
   display: flex;
-  padding-top: 1.43rem;
+  padding: 1rem 3rem 0.5rem 3rem;;
+
 }
 
 </style>

@@ -9,9 +9,9 @@ const currentValorantOrder = useValorantOrder()
 
 <template lang="pug">
 CheckoutSelection(v-if="currentValorantOrder.isDuo" toolTipText="High MMR go brrrr" title="HIGH MMR")
-  CustomSwitch(v-model="useValorantOrder.highMMR")
+  CustomSwitch(v-model="currentValorantOrder.highMMR")
 CheckoutSelection(v-else toolTipText="sadece solo oyna lütfen" title="SOLO ONLY")
-  CustomSwitch(v-model="useValorantOrder.soloOnly")
+  CustomSwitch(v-model="currentValorantOrder.soloOnly")
 </template>
 
 <style scoped>

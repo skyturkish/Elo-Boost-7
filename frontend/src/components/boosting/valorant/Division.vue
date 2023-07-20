@@ -238,8 +238,8 @@ Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valor
   cursor: pointer;
 }
 .last-rank-icon {
-  margin: 0 auto;
-  margin-top: 5.7rem;
+  margin-top: 5.9rem;
   width: 4.2rem;
+  margin-left: 9.4rem;
 }
 </style>

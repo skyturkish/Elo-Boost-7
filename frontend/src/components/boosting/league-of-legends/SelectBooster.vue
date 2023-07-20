@@ -35,11 +35,7 @@ const filteredBoosters = computed(() => {
       return booster.notifications.booster.games['league-of-legends'].roles.some((lane) => filteredLanes.value.includes(lane))
   })
 
-  const sortedList = updatedList.sort((a, b) => {
-    return statusPriority[a.onlineState] - statusPriority[b.onlineState]
-  })
-
-  return sortedList
+  return updatedList
 })
 
 onMounted(() =>   {
@@ -67,8 +63,6 @@ function setBoosterNullAndCloseDialog() {
     currentLeagueOfLegendsOrder.booster = null
     dialog.value = false
 }
-
-
 function makeRankPath(rank) {
   return rank.split('-')[0]
 }
@@ -169,7 +163,6 @@ CheckoutSelectionColumn(toolTipText="You can choose your favorite booster)" titl
 .v-card {
   width: 900px;
   min-height: 900px;
-  max-height: 1700px;
   border-radius: 5px;
   background-color: #fff;
 }

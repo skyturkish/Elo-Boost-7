@@ -31,15 +31,15 @@ async function createOrder() {
 
 <template lang="pug">
 CurrentRank(divisionLimit = 10 title = "YOUR RANK")
-  CurrentMilestones(v-show="!currentLeagueOfLegendsOrder.isMaster")
-  div
-    v-text-field(v-show="currentLeagueOfLegendsOrder.isMaster" v-model="currentLeagueOfLegendsOrder.currentMasterLP" outlined)
+  div.s
+    CurrentMilestones(v-show="!currentLeagueOfLegendsOrder.isMaster")
+    v-text-field(label="Current LP" v-show="currentLeagueOfLegendsOrder.isMaster" v-model="currentLeagueOfLegendsOrder.currentMasterLP" variant="outlined")
   .selections-layout
     SelectServer
     SelectQueue
-    SelectAmountWinGames
-    SelectCurrentLP
+    SelectCurrentLP(v-show="!currentLeagueOfLegendsOrder.isMaster")
     SelectGainLP
+    SelectAmountWinGames
 Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.winOrder')
   template(v-slot:options)
     SelectBooster
@@ -56,15 +56,16 @@ Checkout(checkoutTextColor="#000747" v-on:create-order="createOrder" :order='cur
       .choice SOLO
       CustomSwitch(v-model="currentLeagueOfLegendsOrder.isDuo")
       .choice DUO
-
 </template>
 
 <style scoped>
+.s {
+  height: 47px;
+  width: 100%;
+}
 .selections-layout {
   display: flex;
   flex-wrap: wrap;
 }
-.selections-layout > * {
-  width: 33%;
-}
+
 </style>

@@ -13,18 +13,18 @@ const boostTypes = [
     name: 'PLACEMENTS',
     route: 'placements',
   },
-  {
-    name: 'UNRATED MATCH',
-    route: 'unrated-match',
-  },
-  {
-    name: 'PREMIER',
-    route: 'premier',
-  },
-  {
-    name: 'CONTRACTS',
-    route: 'contracts',
-  },
+  // {
+  //   name: 'UNRATED MATCH',
+  //   route: 'unrated-match',
+  // },
+  // {
+  //   name: 'PREMIER',
+  //   route: 'premier',
+  // },
+  // {
+  //   name: 'CONTRACTS',
+  //   route: 'contracts',
+  // },
 ]
 </script>
 
@@ -35,17 +35,24 @@ v-divider.border-opacity-100(thickness="1rem")
 .boostType
   .buttons
     v-btn.boost-type-button(v-for="boostType in boostTypes" size="x-large" :to='`${boostType.route}`' ) {{ boostType.name }}
+    img.close-button(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/unrated-match.webp")
+    img.close-button(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/premier-button.webp")
+    img.close-button(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/contracts-button.webp")
   .dynamic-view
     router-view
 </template>
 
 <style scoped>
+.close-button {
+  width: 200px;
+  height: 70px;
+}
 .v-divider {
   border-color: #f83e4b ;
 }
 .boostType {
   background-color: #341017;
-
+  padding-bottom: 3rem;
 }
 .buttons {
   display: flex;

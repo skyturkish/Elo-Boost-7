@@ -11,6 +11,7 @@ v-select.rounded-select(id="mySelect" v-model="currentLeagueOfLegendsOrder.curre
 </template>
 
 <style >
+
 h5 {
   display:flex;
   justify-content: center;

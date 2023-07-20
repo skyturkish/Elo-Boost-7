@@ -179,6 +179,7 @@ const priceTexts = computed(() => {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
+  padding-top: 1rem;
 }
 
 .total-price-background {

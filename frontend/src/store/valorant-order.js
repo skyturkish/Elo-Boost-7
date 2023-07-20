@@ -18,25 +18,26 @@ export const useValorantOrder = defineStore('ValorantOrder', {
 
         isDuo: false,
         bonusWin: false,
-        premium: true,
+        premium: false,
         highMMR: false,
         untrackable: false,
         soloOnly: false,
         stream: false,
+        bonusWin: false,
 
         coach: null,
         languages: ['ENGLISH'],
         amountWinGame: '2 GAMES',
-        amountPlacementsGame: '10 GAMES',
+        amountPlacementsGame: '1 GAMES',
         amountUnratedMatchGame: '5 GAMES',
-        amountLessonGame: '3 HOURS',
-        amountCoachingGame: '3 GAMES',
-        coachingHours: '2 HOURS',
+        amountLessonGame: '1 HOURS',
+        amountCoachingGame: '1 GAMES',
+        coachingHours: '1 HOURS',
         amountUnratedMatchGame: '5 GAMES',
         selectedDivisionIndex: 3,
         selectedGameType: 'unrated',
         selectedDesiredDivisionIndex: 4,
-        desiredMilestone: 3
+        desiredMilestone: 2
     }),
     actions: {
         incrementDivision(limit) {
@@ -71,7 +72,11 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                     this.heroes.splice(index, 1)
                 }
             } else {
-                this.heroes.push(hero)
+                if (this.heroes.length > 5) {
+                    return
+                } else {
+                    this.heroes.push(hero)
+                }
             }
         },
         isAnyHeroSelected() {
@@ -102,6 +107,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
             }
         },
         divisionOrder() {
+            console.log(this.bonusWin)
             return {
                 ...this.boostingBaseOrder,
                 orderType: 'division',
@@ -114,7 +120,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
                     ...this.getDynamicOptions,
                     premium: this.premium,
                     isDuo: this.isDuo,
-                    bonusWin: this.bonuwWin
+                    bonusWin: this.bonusWin
                 },
                 gainRR: this.gainRR
             }

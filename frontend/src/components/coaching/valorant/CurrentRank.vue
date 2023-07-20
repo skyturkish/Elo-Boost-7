@@ -10,7 +10,7 @@ const props = defineProps({
   }
 })
 
-const divisions = valorantDivisions.slice(0, props.divisionLimit)
+const divisions = valorantDivisions.slice(0, 8)
 
 const currentValorantOrder = useValorantOrder()
 

@@ -24,6 +24,13 @@ const limitedDivisions = computed(() => {
 
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 
+const displayCurrentRank = computed(() => {
+  if(props.type == 'placements') {
+    return currentLeagueOfLegendsOrder.displayCurrentRank.split(' ')[0]
+  }
+  return currentLeagueOfLegendsOrder.displayCurrentRank
+})
+
 </script>
 
 <template lang="pug">
@@ -35,7 +42,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
       .division-name
         .rank-icon-box
           img.rank-icon(:src="'https://storage.googleapis.com/divine-boost-bucket/assets/assets/ranks/league-of-legends/' + currentLeagueOfLegendsOrder.colors.name + '.webp'" alt="rank-icon")
-        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ currentLeagueOfLegendsOrder.displayCurrentRank }}
+        .name(:style="{color: currentLeagueOfLegendsOrder.colors.dominantColor}") {{ displayCurrentRank }}
       v-icon(size='large' icon="mdi-menu-right" @click="currentLeagueOfLegendsOrder.incrementDivision(divisionLimit)" :color="currentLeagueOfLegendsOrder.colors.dominantColor")
     v-divider.divider()
     .colors-exception(v-if="props.divisionLimit == 7")
@@ -79,14 +86,14 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
   width: 22.5rem;
   border-radius: 15px;
   background-color: #fff;
-  height: 42rem;
   margin-bottom: 7rem;
+  height: 48rem;
 }
 .current-rank-card {
   border-radius: 15px;
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
   background-color: #fff;
-  height: 42rem;
+  height: 48rem;
 }
 .current-rank-title {
   font-weight: bold;
@@ -99,6 +106,7 @@ const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 1.3rem 0 1.3rem;
 }
 .division-name {
   margin-top: -2rem;

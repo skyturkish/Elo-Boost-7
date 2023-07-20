@@ -22,8 +22,9 @@ async function createOrder() {
 
 <template lang="pug">
 CurrentRank(divisionLimit = 7 title = "YOUR RANK")
-  SelectHours
-  SelectLanguages
+  div.selections-layout
+    SelectHours
+    SelectLanguages
 Checkout(checkoutTextColor="#2B2D3D" v-on:create-order="createOrder" :order='currentLeagueOfLegendsOrder.lessonOrder')
   template(v-slot:options)
     SelectCoach
@@ -32,4 +33,7 @@ Checkout(checkoutTextColor="#2B2D3D" v-on:create-order="createOrder" :order='cur
 </template>
 
 <style scoped>
+.selections-layout {
+  display: flex;
+}
 </style>

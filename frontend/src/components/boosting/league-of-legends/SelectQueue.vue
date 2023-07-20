@@ -11,5 +11,4 @@ v-select(:items="['solo','flex']" v-model="currentLeagueOfLegendsOrder.queue" va
 </template>
 
 <style scoped>
-
 </style>

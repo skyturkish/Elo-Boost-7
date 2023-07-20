@@ -49,6 +49,7 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 .boostType {
   background-color: #FBFBFB;
+  padding-bottom: 3rem;
 }
 .buttons {
   display: flex;

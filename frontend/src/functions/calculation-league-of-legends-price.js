@@ -264,8 +264,6 @@ function winGame(order, discount) {
 
         const pureGainLP = minPureLP(order.gainLP)
 
-        console.log(pureGainLP)
-
         const amountGame = order.amountGame.split(' ')[0]
 
         let keys = masterPercentage.map(function (obj) {
@@ -275,14 +273,10 @@ function winGame(order, discount) {
         let amountMultipleIndex = keys.indexOf(
             'master' + '-' + Math.floor(currentLP / 100) * 100
         )
-        console.log('master' + '-' + Math.floor(currentLP / 100) * 100)
-
-        // console.log(amountMultipleIndex)
 
         let rawPrice = 0
 
         for (let i = 0; i < amountGame; i++) {
-            console.log(rawPrice)
             rawPrice =
                 rawPrice + +Object.values(masterPercentage[amountMultipleIndex])
 
@@ -665,40 +659,47 @@ const winRanksValorant = [
     { 'iron-I': 4 },
     { 'iron-II': 4 },
     { 'iron-III': 4 },
-    { 'bronze-I': 5 },
-    { 'bronze-II': 5 },
-    { 'bronze-III': 5 },
-    { 'silver-I': 6 },
-    { 'silver-II': 6 },
-    { 'silver-III': 6 },
-    { 'gold-I': 7 },
-    { 'gold-II': 7 },
-    { 'gold-III': 7 },
-    { 'platinum-I': 9 },
-    { 'platinum-II': 10 },
-    { 'platinum-III': 11 },
-    { 'diamond-I': 13 },
-    { 'diamond-II': 15 },
-    { 'diamond-III': 17 },
-    { 'ascendant-I': 19 },
-    { 'ascendant-II': 21 },
-    { 'ascendant-III': 23 },
-    { 'immortal-I': 25 },
-    { 'immortal-II': 30 },
-    { 'immortal-III': 35 },
-    { 'radiant-I': 50 },
-    { 'radiant-II': 50 },
-    { 'radiant-III': 50 }
-
+    { 'bronze-I': 6 },
+    { 'bronze-II': 6 },
+    { 'bronze-III': 6 },
+    { 'silver-I': 8 },
+    { 'silver-II': 8 },
+    { 'silver-III': 8 },
+    { 'gold-I': 9 },
+    { 'gold-II': 10 },
+    { 'gold-III': 10 },
+    { 'platinum-I': 12 },
+    { 'platinum-II': 13 },
+    { 'platinum-III': 15 },
+    { 'diamond-I': 19 },
+    { 'diamond-II': 21 },
+    { 'diamond-III': 26 },
+    { 'ascendant-I': 31 },
+    { 'ascendant-II': 37 },
+    { 'ascendant-III': 42 },
+    { 'immortal-I': 45 },
+    { 'immortal-II': 50 },
+    { 'immortal-III': 55 }
     // 857 / 100 = 8.57 bunu tam sayiya yuvarla aşağa doğru, 8*4 = 32 + 21 = 53 diye hesapla
 ]
+function minPureRR(LP) {
+    if (LP !== '41+') {
+        const values2 = LP.replace('RR', '').split('-')
+
+        let secondVal2 = parseInt(values2[1])
+
+        return secondVal2
+    } else {
+        return 41
+    }
+}
 
 function valorantDivisionOrder(order) {
     let total = 0
 
     let pureCurrentLP = pureRR(order.currentRank.currentRR)
 
-    const pureGainLP = pureRR(order.gainRR)
+    const pureGainLP = minPureRR(order.gainRR)
 
     let keys = winRanksValorant.map(function (obj) {
         return Object.keys(obj)[0]
@@ -709,7 +710,6 @@ function valorantDivisionOrder(order) {
     let amountMultipleIndex = keys.indexOf(
         order.currentRank.division + '-' + order.currentRank.milestone
     )
-
     let nextMultipleIndex = keys.indexOf(
         order.desiredRank.division + '-' + order.desiredRank.milestone
     )
@@ -744,7 +744,7 @@ function valorantDivisionOrder(order) {
         amountGame++
     }
 
-    rawPrice = rawPrice * ((gainLpPercentage[order.gainLP] + 100) / 100)
+    rawPrice = rawPrice * ((gainRRPercentage[order.gainRR] + 100) / 100)
 
     if (amountGame > 2) {
         rawPrice = rawPrice * (85 / 100)
@@ -771,12 +771,10 @@ function valorantDivisionOrder(order) {
     if (order.options.bonusWin) {
         texts.push({
             text: 'Bonus Win',
-            amount: Object.values(winRanks[nextMultipleIndex])[0]
+            amount: Object.values(winRanksValorant[nextMultipleIndex])[0]
         })
-        total = total + Object.values(winRanks[nextMultipleIndex])[0]
+        total = total + Object.values(winRanksValorant[nextMultipleIndex])[0]
     }
-
-    total = total * (servers[order.server] / 100)
 
     const allTexts = texts.concat(common)
 
@@ -826,6 +824,241 @@ function isExistError(order) {
         ) {
             return true
         }
+    }
+}
+const gainRRPercentage = {
+    '20-14RR': 0,
+    '25-21RR': 0,
+    '30-26RR': 20,
+    '35-30RR': 30,
+    '40-36RR': 40,
+    '41+': 80
+}
+
+function valorantWinOrder(order, discount) {
+    let total = 0
+    let pureCurrentLP = pureRR(order.currentRank.currentRR)
+    const pureGainLP = minPureRR(order.gainRR)
+    const amountGame = order.amountGame.split(' ')[0]
+
+    let keys = winRanksValorant.map(function (obj) {
+        return Object.keys(obj)[0]
+    })
+
+    let amountMultipleIndex = keys.indexOf(
+        order.currentRank.division + '-' + order.currentRank.milestone
+    )
+
+    let rawPrice = 0
+
+    let hicalattınmi = false
+
+    for (let i = 0; i < amountGame; i++) {
+        rawPrice =
+            rawPrice + Object.values(winRanksValorant[amountMultipleIndex])[0]
+        pureCurrentLP = pureCurrentLP + pureGainLP
+
+        if (pureCurrentLP >= 100) {
+            if ((pureGainLP === 41 || pureGainLP === 38) & !hicalattınmi) {
+                if (order.currentRank.milestone === 'III') {
+                    hicalattınmi = true
+
+                    amountMultipleIndex = amountMultipleIndex + 2
+                } else {
+                    amountMultipleIndex = amountMultipleIndex + 1
+                }
+            } else {
+                amountMultipleIndex = amountMultipleIndex + 1
+            }
+
+            pureCurrentLP = pureCurrentLP % 100
+        }
+    }
+    rawPrice = rawPrice * ((gainRRPercentage[order.gainRR] + 100) / 100)
+
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+    const allTexts = texts.concat(common)
+
+    return {
+        total: total,
+        texts: allTexts
+    }
+}
+
+const placementsValorantRank = {
+    unranked: 2.75,
+    iron: 1.5,
+    bronze: 1.5,
+    silver: 2.25,
+    gold: 3,
+    platinum: 4,
+    diamond: 8,
+    ascendant: 10,
+    immortal: 12,
+    radiant: 14
+}
+
+function valorantPlacementsOrder(order, discount) {
+    let total = 0
+    const amountMultiple = placementsValorantRank[order.currentRank.division]
+
+    let amountGame = order.amountGame.split(' ')[0]
+
+    let rawPrice = amountGame * amountMultiple
+
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    if (order.options.bonusWin) {
+        texts.push({
+            text: 'Bonus Win',
+            amount: amountMultiple
+        })
+        total = total + amountMultiple
+    }
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+
+    const allTexts = texts.concat(common)
+
+    return {
+        total: total,
+        texts: allTexts
+    }
+}
+
+const valorantLessonRank = {
+    iron: 12,
+    bronze: 12,
+    silver: 12,
+    gold: 12,
+    platinum: 20,
+    diamond: 25,
+    ascendant: 30,
+    immortal: 40
+}
+
+function valorantLessonOrder(order) {
+    let total = 0
+    const amountMultiple = valorantLessonRank[order.currentRank.division]
+
+    let amountGame = order.hours.split(' ')[0]
+
+    let rawPrice = amountGame * amountMultiple
+
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+    const allTexts = texts.concat(common)
+    return {
+        total: total,
+        texts: allTexts
+    }
+}
+function valorantLiveGameOrder(order) {
+    let total = 0
+    const amountMultiple = valorantLessonRank[order.currentRank.division]
+
+    let amountGame = order.amountGame.split(' ')[0]
+
+    let rawPrice = amountGame * amountMultiple
+
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+    const allTexts = texts.concat(common)
+    return {
+        total: total,
+        texts: allTexts
+    }
+}
+
+function valorantPlayTogetherOrder(order) {
+    let total = 0
+    const amountMultiple = valorantLessonRank[order.currentRank.division]
+
+    let amountGame = order.amountGame.split(' ')[0]
+
+    let rawPrice = amountGame * amountMultiple
+
+    const texts = [
+        {
+            text: 'Eloboosting Service',
+            amount: rawPrice
+        }
+    ]
+
+    total = total + rawPrice
+
+    for (let option in order.options) {
+        const currentOption = optionValues[option]
+        if (currentOption) {
+            currentOption.amount = rawPrice * (currentOption.value / 100)
+            total += currentOption.amount
+            texts.push(currentOption)
+        }
+    }
+    const allTexts = texts.concat(common)
+    return {
+        total: total,
+        texts: allTexts
     }
 }
 

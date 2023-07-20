@@ -23,10 +23,10 @@ async function createOrder() {
 </script>
 
 <template lang="pug">
-CurrentRank(title="YOUR RANK" divisionLimit="9")
+CurrentRank(title="YOUR RANK" divisionLimit="8")
   SelectServer
   SelectAmountWinGames
-Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant')
+Checkout(v-on:create-order="createOrder" checkoutTextColor='#280000' game='valorant' :order='currentValorantOrder.winOrder')
   template(v-slot:switchs)
     .custom-switch-two-options
       .choice SOLO

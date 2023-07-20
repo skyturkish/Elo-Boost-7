@@ -29,6 +29,7 @@ const games = [
 function replacePage(game){
   router.push({path: game.url})
 }
+
 </script>
 
 <template lang="pug">
@@ -68,11 +69,13 @@ v-menu(max-width='100px')
   width: 3rem;
 }
 .game-name {
-
   font-size: 20px;
   font-weight: 800;
 }
 .row {
   display: flex;
+}
+.v-list-item-title {
+  font-weight: 600;
 }
 </style>

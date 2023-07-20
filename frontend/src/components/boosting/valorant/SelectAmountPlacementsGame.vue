@@ -5,7 +5,7 @@ const currentValorantOrder = useValorantOrder()
 </script>
 
 <template lang="pug">
-v-select(:items="['2 GAMES','4 GAMES','6 GAMES','8 GAMES','10 GAMES']" v-model="currentValorantOrder.amountPlacementsGame" outline variant="solo")
+v-select(:items="['1 GAMES','2 GAMES','3 GAMES','4 GAMES','5 GAMES']" v-model="currentValorantOrder.amountPlacementsGame" variant="outlined" bg-color="#F4F1F0")
 </template>
 
 <style scoped>
