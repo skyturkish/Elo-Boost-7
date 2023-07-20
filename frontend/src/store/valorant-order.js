@@ -14,6 +14,7 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         gainRR: '30-26RR',
         server: 'Europe',
         booster: null,
+        coach: null,
         heroes: [],
 
         isDuo: false,
@@ -25,7 +26,6 @@ export const useValorantOrder = defineStore('ValorantOrder', {
         stream: false,
         bonusWin: false,
 
-        coach: null,
         languages: ['ENGLISH'],
         amountWinGame: '2 GAMES',
         amountPlacementsGame: '1 GAMES',

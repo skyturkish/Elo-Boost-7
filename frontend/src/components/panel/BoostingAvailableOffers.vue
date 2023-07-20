@@ -45,7 +45,6 @@ onMounted(() => {
     display: flex;
     gap: 2.5rem;
     flex-wrap: wrap;
-    justify-content: center;
     min-height: 40.625rem;
 }
 </style>

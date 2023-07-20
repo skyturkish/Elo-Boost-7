@@ -45,11 +45,10 @@ const filteredOrders = computed(() => {
     border: solid 1px #eee;
     background-color: #fff;
     padding: 3rem;
-  max-width: 1880px;
+    max-width: 1880px;
     display: flex;
     gap: 2.5rem;
     flex-wrap: wrap;
-    justify-content: center;
     min-height: 40.625rem;
 }
 </style>

@@ -50,7 +50,6 @@ const filteredOrders = computed(() => {
     gap: 2.5rem;
     max-width: 1840px;
     flex-wrap: wrap;
-    justify-content: center;
     min-height: 40.625rem;
 }
 </style>

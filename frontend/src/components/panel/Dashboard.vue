@@ -102,7 +102,6 @@ div.dashboard
   font-weight: 600;
   margin-left: 0.5rem;
 }
-
 .deposit-button {
   width: 220px;
   height: 50px;
@@ -120,7 +119,6 @@ div.dashboard
     display: flex;
     gap: 2.5rem;
     flex-wrap: wrap;
-    justify-content: center;
     min-height: 40.625rem;
 }
 </style>
