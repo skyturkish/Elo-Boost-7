@@ -15,10 +15,10 @@ const router = useRouter()
       div.row
         .online
           Online
-        .navigation-text ONLINE
+        .navigation-text(@click="router.push('/extra/leaderboard')") ONLINE
       .navigation-text(variant="text" @click="router.push('/boosting/league-of-legends/division')") BOOSTING
       .navigation-text(variant="text" @click="router.push('/coaching/league-of-legends/lesson')") COACHING
-      .navigation-text(variant="text" @click="router.push('/marketplace')") MARKETPLACE
+      .navigation-text(variant="text" @click="router.push('/marketplace/account-shop')") MARKETPLACE
     .buttons
       div
         LoginButton
