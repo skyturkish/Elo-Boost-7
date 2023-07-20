@@ -4,6 +4,7 @@ import CoachingOrdersFlow from '@/components/main/CoachingOrdersFlow'
 import ShopOrdersFlow from '@/components/main/ShopOrdersFlow'
 import Games from '@/components/main/Games'
 import AppBar from '@/components/Appbar'
+import SelectAmountWinGames from '@/components/boosting/league-of-legends/SelectAmountWinGames'
 
 const informations = {
   'our-features': ['24/7 Customer Support', 'Appear Offline & VPN Encryption', 'Track your Order', 'Chat with your booster'],
@@ -36,8 +37,10 @@ v-divider.border-opacity-100(thickness="1rem")
 .background
   .our-features
     .our-features-informations-and-irelia
-      .our-features-pretitle Our Features
-      h1.our-features-title IT HAS NEVER BEEN EASIER WITH YOUR FAVORITE GAMES!
+      h1.our-features-title
+        span IT HAS NEVER BEEN EASIER
+          br
+          | WITH YOUR FAVORITE GAMES!
       h2.sub-title Fast, safe, entertaining, professional.
       div.list-informations
         h3.ad-bulamadim(v-for="information in informations['our-features']")  {{ information }}
@@ -74,28 +77,29 @@ v-divider.border-opacity-100(thickness="1rem")
   .little-divider
   .boosting
     .informations
-      h1.title.boosting-title BOOSTING
-      h2.sub-title Looking carries on your favorite games?
+      h1.title.boosting-title ELOBOOST
+      h2.sub-title Looking for carries on your favorite games?
+      h3.sub-sub-title Our professional team will take of your boost request.
       div.list-informations
         h3.ad-bulamadim(v-for="information in informations.boosting")  {{ information }}
       .buttons
-        v-btn.select-game
-          img(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/league-of-legends.webp" alt="Select Game")
         v-btn.second-purchase-eloboosting
           span PURCHASE
             br
             | ELOBOOSTING
     .logos
       img.sage(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/sage.webp" alt="sage")
-      img.challenger(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/challenger.webp" alt="challenger")
     BoostingOrdersFlow
   .little-divider
   .coaching
     CoachingOrdersFlow
-    img.briston(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/bristo-profile.webp" alt="briston")
+    .column
+      img.briston(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/briston.webp")
+      img.rank-card(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/rank-card.webp")
     .coaching-informations
       h1.title.coaching-title COACHING
       h2.sub-title Need a pro that can coach you in-voice?
+      h3.sub-sub-title Search for the best coaches in leaderboard.
       div.list-informations
         h3.ad-bulamadim(v-for="information in informations.coaching")  {{ information }}
       .a
@@ -105,19 +109,15 @@ v-divider.border-opacity-100(thickness="1rem")
             span PURCHASE
               br
               | COACHING
-          v-btn.select-game
-            img.valorant(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/overwatch.webp" alt="Select Game")
   .little-divider
   .shop
     .ceyiz-and-informations
       .shop-informations
-        h1.title.shop-title SHOP
+        h1.title.shop-title MARKETPLACE
         h2.sub-title Looking for accounts?
         div.list-informations
           h3.ad-bulamadim(v-for="information in informations.shop")  {{ information }}
         .buttons
-          v-btn.select-game
-            img.valorant(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/icons/valorant.webp" alt="Select Game")
           v-btn.checkout-marketplace
             span CHECK OUT
               br
@@ -138,9 +138,18 @@ v-divider.border-opacity-100(thickness="1rem")
       h2.sub-title Haven't you seen our player hub yet?
       div.list-informations
         h3.ad-bulamadim(v-for="information in informations.hub")  {{ information }}
+  .our-community
+    h1.big-title OUR COMMUNITY
+
+
 </template>
 
 <style scoped>
+.big-title {
+  color: #666;
+  font-size: 64px;
+  font-weight: 700;
+}
 
 .background {
   background-size: cover;
@@ -160,12 +169,6 @@ v-divider.border-opacity-100(thickness="1rem")
   font-weight: bold;
   color: #fff;
 }
-.title {
-  padding-top: 0.5rem;
-  font-size: 48px;
-  font-weight: bold;
-  color: #fff;
-}
 .subtitle {
   padding-top: 0.5rem;
 
@@ -176,10 +179,9 @@ v-divider.border-opacity-100(thickness="1rem")
 .dynamic {
   padding-top: 2rem;
 }
-
-.background
 .features {
-  padding-top: 8.5rem;
+  width: 660px;
+  margin-top: 15rem;
 }
 .button-image {
   height: 50px;
@@ -201,7 +203,7 @@ v-divider.border-opacity-100(thickness="1rem")
 .select-service {
   background-color: #F5EEFF;
   color: #CAA6FF;
-  margin: 3.5rem 0 0 -3.5rem;
+  margin: 3.5rem 0 0 0;
   box-shadow:  0 0 12px 1px #DCC7FB;
 }
 .complete-payment {
@@ -213,13 +215,13 @@ v-divider.border-opacity-100(thickness="1rem")
 .fast-secure {
   background-color: #FFF8E4;
   color: #FFD976;
-  margin: 3.5rem 0 0 -3.5rem;
+  margin: 3.5rem 0 0 2rem;
   box-shadow:  0 0 12px 1px #F8E5B3;
 }
 .boost-rank {
   background-color: #FFE3E3;
   color: #F98484;
-  margin: 0 0 0 3.5rem;
+  margin: -11rem 0 0 22rem;
   box-shadow:  0 0 12px 1px #F6B9B9;
 }
 .row {
@@ -232,14 +234,11 @@ v-divider.border-opacity-100(thickness="1rem")
   display:flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 5rem;
-  padding-bottom: 0rem;
 }
 .irelia {
   height: 420px;
   width: 424px;
-  align-self: flex-end;
-  margin-top: -7rem;
+  align-self: center;
 }
 .our-features-pretitle {
   color: #0047FF;
@@ -254,17 +253,16 @@ v-divider.border-opacity-100(thickness="1rem")
 .boosting,
 .coaching,
 .shop,
-.hub {
+.hub,
+.our-features {
   border-top: 1px #EEEEEE solid;
   border-bottom: 1px #EEEEEE solid;
-  padding-top: 10rem;
+  padding: 10rem 4rem 0 4rem;
 
 }
 .shop {
   padding-top: 10rem;
-
 }
-
 .shop-title {
   color: #FFB800;
 }
@@ -312,13 +310,13 @@ v-divider.border-opacity-100(thickness="1rem")
 .dva {
   width: 147px;
   height: 170px;
+  margin: 20rem 0 0 4rem;
   /* transform: rotate(-19.073deg); */
-  margin: 8rem 0 0 -7rem;
 }
 .tracer {
   width: 361.746px;
   height: 306.606px;
-  margin: 7rem 0 0 -8rem;;
+  margin: 0 0 -14rem -37rem;
 }
 .shop {
   display:flex;
@@ -330,6 +328,7 @@ v-divider.border-opacity-100(thickness="1rem")
 .overwatch-images {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 .shop-informations {
   display:flex;
@@ -357,13 +356,25 @@ v-divider.border-opacity-100(thickness="1rem")
   flex-direction: column;
   gap: 1.5rem;
   text-align: right;
-  padding: 7.5rem;
+  margin-top: 2rem;
+  margin-left: -18rem;
+}
+.column {
+  display:flex;
+  flex-direction: column;
+  height: 800px;
+  margin-top: -11rem;
+  margin-right: -7rem;
+  justify-content: space-between;
 }
 .briston {
-  height: 490px;
-  width: 360px;
-  margin-right: -13rem;
-  margin-top: 5rem;
+  height: 156px;
+  width: 156px;
+}
+.rank-card {
+  width: 280px;
+  height: 328px;
+  margin-left: -5rem;
 }
 .select-game {
   width: 80.012px;
@@ -415,11 +426,12 @@ v-divider.border-opacity-100(thickness="1rem")
   display:flex;
   flex-direction: column;
   gap: 1.5rem;
+  margin-right: -7rem;
 }
 .sage {
   height: 170px;
   width: 170px;
-  margin-top: -1rem;
+  margin-top: 28rem;
   margin-left: -5.5rem;
 }
 .challenger {
@@ -453,16 +465,20 @@ v-divider.border-opacity-100(thickness="1rem")
   color: #FF7A00
 }
 .title {
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  padding-top: 0.5rem;
+  font-size: 48px;
+  font-weight: bold;
+  color: #fff;
 }
 .sub-title {
-  color: rgba(0, 0, 0, 0.75);
-  font-size: 22px;
-  font-style: normal;
+  color: #333;
+  font-size: 32px;
   font-weight: 600;
-  line-height: normal;
+}
+.sub-sub-title {
+  color: #555;
+  font-size: 24px;
+  font-weight: 600;
 }
 .ad-bulamadim {
   color: rgba(0, 0, 0, 0.50);
@@ -471,9 +487,7 @@ v-divider.border-opacity-100(thickness="1rem")
   font-weight: 500;
   line-height: normal;
 }
-.ad-bulamadim:before {
-  content: "• ";
-}
+
 .v-btn {
   letter-spacing: 0em !important;
 }
@@ -560,9 +574,6 @@ v-divider.border-opacity-100(thickness="1rem")
 }
 .v-divider {
   border-color: #0083FF !important;
-}
-.title {
-  font-size: 64px;
-  font-weight: bold;
+  box-shadow: 0 0px 12px 0 rgba(0, 0, 0, 0.25);
 }
 </style>
