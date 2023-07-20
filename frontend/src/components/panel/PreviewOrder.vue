@@ -49,12 +49,7 @@ const props = defineProps({
 
 <style scoped>
 .order-process {
-  /* border-radius: 10px;
-  border: solid 1px #eee;
-  margin: 0 auto;
-  padding: 0.5rem 0 2rem 0 ;
-  margin-bottom: 3rem;
-  margin-top: 1.7rem; */
+ max-height: 160px;
 }
 .process-row {
   display: flex;
