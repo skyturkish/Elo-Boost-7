@@ -161,12 +161,9 @@ v-form(ref="form")
         .subtitle Sign into your EB7 account
         .erroralert(v-if="backendError") {{ backendError }}
         .successalert(v-if="backendSuccess") {{ backendSuccess }}
-        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
-        v-text-field.password-text-field(v-model="password" :rules="validationRules.password" bg-color="#333" label="Password" variant="solo" required)
+        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#EEE" label="E-Mail" variant="solo" required)
+        v-text-field.password-text-field(type="password" v-model="password" :rules="validationRules.password" bg-color="#EEE" label="Password" variant="solo" required)
       v-btn.colorfulbutton(@click="login" :loading="loading") LOGIN
-      v-divider(thickness="0.5px")
-      .connect-text-background
-        .connect-text CONNECT
       .logos
       v-btn.grey-button(@click="authType = 'register'") CREATE ACCOUNT
   .create-account(v-show="authType === 'register'")
@@ -176,14 +173,11 @@ v-form(ref="form")
       .subtitle-text-fields
         .subtitle Create a new EB7 account
         .erroralert(v-if="backendError") {{ backendError }}
-        v-text-field.username-text-field(v-if="authType === 'register'" v-model="name" :rules="validationRules.name" bg-color="#333" label="Username" variant="solo" required)
-        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
-        v-text-field.password-text-field(v-model="password" :rules="validationRules.password" bg-color="#333" label="Password" variant="solo" required)
-        v-text-field.repeat-password-text-field(v-if="authType === 'register'" v-model="repeatPassword" :rules="validationRules.repeatPassword" bg-color="#333" label="Repeat Password" variant="solo" required)
+        v-text-field.username-text-field(v-if="authType === 'register'" v-model="name" :rules="validationRules.name" bg-color="#EEE" label="Username" variant="solo" required)
+        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#EEE" label="E-Mail" variant="solo" required)
+        v-text-field.password-text-field(type="password" v-model="password" :rules="validationRules.password" bg-color="#EEE" label="Password" variant="solo" required)
+        v-text-field.repeat-password-text-field(type="password" v-if="authType === 'register'" v-model="repeatPassword" :rules="validationRules.repeatPassword" bg-color="#EEE" label="Repeat Password" variant="solo" required)
       v-btn.colorfulbutton(@click="register" :loading="loading") REGISTER
-      v-divider(thickness="0.5px")
-      .connect-text-background
-        .connect-text CONNECT
       v-btn.grey-button(@click="authType = 'login'") LOGIN
   .continue-as-guest(v-show="authType === 'guest'")
     img.left-image(src="https://storage.googleapis.com/divine-boost-bucket/assets/assets/auth-dialog-image.webp" alt="auth-dialog-image")
@@ -192,7 +186,7 @@ v-form(ref="form")
       .subtitle-text-fields
         .subtitle Continue as Guest for one time purchase
         .erroralert(v-if="backendError") {{ backendError }}
-        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#333" label="E-Mail" variant="solo" required)
+        v-text-field.email-text-field(v-model="email" :rules="validationRules.email" bg-color="#EEE" label="E-Mail" variant="solo" required)
       v-btn.colorfulbutton(@click="continueAsGuest" :loading="loading") CONTINUE AS GUEST
       v-btn.grey-button.little-padding-top(@click="authType = 'register'") CREATE AN ACCOUNT INSTEAD
 
@@ -203,52 +197,45 @@ v-form(ref="form")
 .create-account,
 .continue-as-guest,
 .one-more-step {
-  width: 68.75rem;
-  display: flex;
+  width: 900px;
+  height: 700px;
+  border-radius: 5px;
+  background-color: #fff;
+  display:flex;
 }
 .account-login,
 .create-account,
 .one-more-step {
-  height: 64.5rem;
+  height: 700px;
 }
 .continue-as-guest {
-  height: 43.875rem;
+  height: 700px;
 }
 .left-image {
   width: 27.27%;
 }
 .background {
   width: 800px;
-  height: 64.5rem;
-  background-color: #161616;
+  height: 700px;
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 100px 60px 100px
+  padding: 2rem
 }
 .title {
-  font-size: 50px;
-  font-weight: bold;
-  color: #ddd;
+  color: #222;
+  font-size: 36px;
+  font-weight: 700;
 }
 .subtitle-text-fields {
   width: 37.5rem;
 }
 .subtitle {
+  color: #444;
   font-size: 24px;
   font-weight: 600;
-  color: #fff;
-  padding-top: 3.625rem;
-  padding-bottom: 2rem;
-}
-.colorfulbutton {
-  background-image: linear-gradient(to right, #1c00c9, #260056);
-  width: 37.5rem;
-  height: 4.375rem;
-  font-size: 36px;
-  font-weight: bold;
-  letter-spacing: normal;
-  color: #fff;
+  padding: 2rem 0;
 }
 .v-divider {
   border-color: #ffffff !important;
@@ -268,28 +255,33 @@ v-form(ref="form")
   font-weight: 600;
   color: #ddd;
 }
+
+.colorfulbutton,
 .grey-button {
-  width: 600px;
-  height: 70px;
-  border-radius: 8px;
-  background-color: #d9d9d9;
+  width: 96%;
+  height: 50px;
   font-size: 24px;
   font-weight: bold;
   letter-spacing: normal;
+  border-radius: 8px;
+}
+.colorfulbutton {
+  background-image: linear-gradient(to right, #1c00c9, #260056);
+  color: #FFF;
+}
+.grey-button {
+  background-color: #d9d9d9;
   color: #000;
+  margin-top: 1rem;
 }
 .little-padding-top {
   margin-top: 1.5rem;
-}
-.erroralert,
-.successalert {
-  width: 37.5rem;
 }
 .erroralert {
   color: #632929;
 }
 .successalert {
-  color: #195819;
+  color: #0F630F;
 }
 
 </style>
