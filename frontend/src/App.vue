@@ -1,6 +1,9 @@
 <script setup>
 import { onMounted } from 'vue'
 import Footer from '@/components/Footer'
+import { useAccount } from '@/store/account'
+
+const useAccountStore = useAccount()
 
 onMounted(async () => {
   window.addEventListener('beforeunload', () => {
@@ -12,7 +15,7 @@ onMounted(async () => {
 <template lang="pug">
 .column
   router-view
-  Footer
+  Footer(v-if="!useAccountStore.fetchSessionLoading")
 </template>
 
 <style>
