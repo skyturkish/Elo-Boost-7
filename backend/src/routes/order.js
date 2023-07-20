@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
 router.get('/init', async (req, res) => {
     const orders = await orderService.query({
-        state: 'active'
+        state: { $ne: 'done' }
     })
 
     res.send(orders)

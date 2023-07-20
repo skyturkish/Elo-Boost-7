@@ -11,7 +11,6 @@ import { calculatePrice } from '@/functions/calculation-league-of-legends-price'
 import { useOrders } from '@/store/orders'
 
 const useOrdersStore = useOrders()
-
 const router = useRouter();
 const currentLeagueOfLegendsOrder = useLeagueOfLegendsOrder()
 const currentValorantOrder = useValorantOrder()
@@ -65,7 +64,6 @@ function selectPaymentMethod(newPaymentMethod) {
   paymentMethod.value = newPaymentMethod
 }
 
-
 function filterOptions(options) {
     let result = {};
     for (let key in options) {
@@ -79,10 +77,21 @@ function filterOptions(options) {
 async function createOrder() {
   order.value.options = filterOptions(order.value.options)
 
-  await useOrdersStore.createOrder({
+  const createdOrder = await useOrdersStore.createOrder({
     ...order.value,
     price: price.value.total.toFixed(2)
   })
+
+  if(createdOrder.data.booster) {
+    const updatedOrder = await axios.patch('/order', {
+      orderId: createdOrder.data._id,
+      object:{
+        state: 'pending',
+      }
+    })
+  }
+
+  router.push(`/panel/own-order-detail/${createdOrder.data._id}`)
 }
 
 const price = computed(() => {
@@ -183,9 +192,6 @@ v-divider.border-opacity-100(thickness="1rem")
   flex-wrap: wrap;
 
   gap: 65px;
-}
-.account-recipient  {
-
 }
 .black-text {
   color: #333;

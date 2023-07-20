@@ -13,45 +13,46 @@ const dynamicColor = computed(() => {
 </script>
 
 <template lang="pug">
-PanelBanner
-v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAccountStore.user.themePreference.color }")
-.panel
-  .routers-select
-    v-list(:active-color="dynamicColor")
-      v-list-item(to='/panel/dashboard')
-        template(v-slot:prepend='')
-          v-icon(icon='mdi-monitor-dashboard')
-        v-list-item-title(v-text='`Dashboard`')
-      v-list-group(v-if="useAccountStore.isBooster" value="booster")
-        template(v-slot:activator="{ props }")
-          v-list-item(v-bind="props" prepend-icon="mdi-gamepad-variant-outline" title="Boosting" )
-        .selections(v-bind:style="{ borderTop: `solid 1px ${dynamicColor}` , borderBottom: `solid 1px ${dynamicColor}` }")
-          .selection(@click="router.push('/panel/boosting-available-offers')") AVAILABLE OFFERS
-          .selection(@click="router.push('/panel/boosting-current-offers')") CURRENT ORDERS
-      v-list-item(v-else to='/panel/your-eloboost-orders')
-        template(v-slot:prepend='')
-          v-icon(icon='mdi-gamepad-variant-outline')
-        v-list-item-title(v-text='`Boosting`')
-      v-list-group(v-if="useAccountStore.isBooster" value="coaching")
-        template(v-slot:activator="{ props }")
-          v-list-item(v-bind="props" prepend-icon="mdi-human-male-board-poll" title="Coaching" )
-        .selections(v-bind:style="{ borderTop: `solid 1px ${dynamicColor}` , borderBottom: `solid 1px ${dynamicColor}` }")
-          .selection(@click="router.push('/panel/coaching-available-offers')") AVAILABLE OFFERS
-          .selection(@click="router.push('/panel/coaching-current-offers')") CURRENT ORDERS
-      v-list-item(v-else to='/panel/your-coaching-orders')
-        template(v-slot:prepend='')
-          v-icon(icon='mdi-human-male-board-poll')
-        v-list-item-title(v-text='`Coaching`')
-      v-list-item(to='/panel/account-market')
-        template(v-slot:prepend='')
-          v-icon(icon='mdi-shopping-outline')
-        v-list-item-title(v-text='`Account-Market`')
-      v-list-item(to='/panel/hub')
-        template(v-slot:prepend='')
-          v-icon(icon="mdi-account-box-outline")
-        v-list-item-title(v-text='`Hub`')
-  router-view()
-  .empty
+div
+  PanelBanner
+  v-divider.border-opacity-100(thickness="1rem" v-bind:style="{ borderColor: useAccountStore.user.themePreference.color }")
+  .panel
+    .routers-select
+      v-list(:active-color="dynamicColor")
+        v-list-item(to='/panel/dashboard')
+          template(v-slot:prepend='')
+            v-icon(icon='mdi-monitor-dashboard')
+          v-list-item-title(v-text='`Dashboard`')
+        v-list-group(v-if="useAccountStore.isBooster" value="booster")
+          template(v-slot:activator="{ props }")
+            v-list-item(v-bind="props" prepend-icon="mdi-gamepad-variant-outline" title="Boosting" )
+          .selections(v-bind:style="{ borderTop: `solid 1px ${dynamicColor}` , borderBottom: `solid 1px ${dynamicColor}` }")
+            .selection(@click="router.push('/panel/boosting-available-offers')") AVAILABLE OFFERS
+            .selection(@click="router.push('/panel/boosting-current-offers')") CURRENT ORDERS
+        v-list-item(v-else to='/panel/your-eloboost-orders')
+          template(v-slot:prepend='')
+            v-icon(icon='mdi-gamepad-variant-outline')
+          v-list-item-title(v-text='`Boosting`')
+        v-list-group(v-if="useAccountStore.isBooster" value="coaching")
+          template(v-slot:activator="{ props }")
+            v-list-item(v-bind="props" prepend-icon="mdi-human-male-board-poll" title="Coaching" )
+          .selections(v-bind:style="{ borderTop: `solid 1px ${dynamicColor}` , borderBottom: `solid 1px ${dynamicColor}` }")
+            .selection(@click="router.push('/panel/coaching-available-offers')") AVAILABLE OFFERS
+            .selection(@click="router.push('/panel/coaching-current-offers')") CURRENT ORDERS
+        v-list-item(v-else to='/panel/your-coaching-orders')
+          template(v-slot:prepend='')
+            v-icon(icon='mdi-human-male-board-poll')
+          v-list-item-title(v-text='`Coaching`')
+        v-list-item(to='/panel/account-market')
+          template(v-slot:prepend='')
+            v-icon(icon='mdi-shopping-outline')
+          v-list-item-title(v-text='`Account-Market`')
+        v-list-item(to='/panel/hub')
+          template(v-slot:prepend='')
+            v-icon(icon="mdi-account-box-outline")
+          v-list-item-title(v-text='`Hub`')
+    router-view()
+    .empty
 </template>
 
 <style scoped>
