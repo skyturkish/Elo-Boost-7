@@ -13,9 +13,11 @@ onMounted(async () => {
 </script>
 
 <template lang="pug">
-.column
+.column(v-if="useAccountStore.fetchSessionLoading")
   router-view
-  Footer(v-if="!useAccountStore.fetchSessionLoading")
+  Footer
+div(v-else)
+  h1 Loading...
 </template>
 
 <style>
