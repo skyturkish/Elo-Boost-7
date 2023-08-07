@@ -14,7 +14,8 @@ onMounted(async () => {
 
 <template lang="pug">
 .column(v-if="useAccountStore.fetchSessionLoading")
-  router-view
+  div
+    router-view
   Footer
 div(v-else)
   h1 Loading...

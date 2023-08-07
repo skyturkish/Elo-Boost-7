@@ -8,8 +8,9 @@ const useAccountStore = useAccount()
 </script>
 
 <template lang="pug">
-Banner(splashArtPath = 'heimerdinger' title = 'ADMIN' subtitle = "Don't ban yasuo players")
-v-divider.border-opacity-100(thickness="1rem")
+div
+  Banner(splashArtPath = 'heimerdinger' title = 'ADMIN' subtitle = "Don't ban yasuo players")
+  v-divider.border-opacity-100(thickness="1rem")
 .panel
   .routers-select
     v-list
@@ -38,7 +39,6 @@ v-divider.border-opacity-100(thickness="1rem")
 </template>
 
 <style scoped>
-
 .panel {
   display: flex;
   justify-content: space-between;
